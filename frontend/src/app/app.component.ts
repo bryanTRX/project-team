@@ -21,11 +21,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.api.getHello().subscribe({
-      next: (res) => this.message = res,
+      next: (res) => (this.message = res),
       error: (err) => {
         console.error('Erreur API:', err);
         this.message = 'Erreur de connexion au backend';
-      }
+      },
     });
   }
 }
