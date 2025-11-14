@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService, UserProfile } from '../../services/auth.service';
+import { TierBadgesComponent, TierBadge } from '../tier-badges/tier-badges.component';
 
 interface ImpactNewsItem {
   title: string;
@@ -25,11 +26,13 @@ interface ForumDiscussion {
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TierBadgesComponent],
   templateUrl: './user-dashboard.component.html',
   styleUrl: './user-dashboard.component.scss'
 })
-export class UserDashboardComponent implements OnInit {
+export class UserDashboardComponent implements OnInit, AfterViewInit {
+  @ViewChild(TierBadgesComponent) tierBadgesComponent!: TierBadgesComponent;
+  
   user: UserProfile | null = null;
 
   news: ImpactNewsItem[] = [
@@ -70,11 +73,24 @@ export class UserDashboardComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit(): void {
+    // TierBadgesComponent is now initialized and has calculated tiers
+  }
+
+  get currentTier(): TierBadge | null {
+    return this.tierBadgesComponent?.currentTier || null;
+  }
+
+  get nextTier(): TierBadge | null {
+    return this.tierBadgesComponent?.nextTier || null;
+  }
+
   get progressPercentage(): number {
-    if (!this.user) {
-      return 0;
-    }
-    return Math.min(100, Math.round((this.user.totalDonated / this.user.goal) * 100));
+    return Math.min(100, Math.round(this.tierBadgesComponent?.progressToNextTier || 0));
+  }
+
+  getAmountToNextTier(): number {
+    return this.tierBadgesComponent?.getAmountToNextTier() || 0;
   }
 
   logout(): void {

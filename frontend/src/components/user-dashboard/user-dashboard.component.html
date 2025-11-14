@@ -1,3 +1,6 @@
+<!-- Hidden tier badges component for calculations -->
+<app-tier-badges [totalDonated]="user?.totalDonated || 0" style="display: none;"></app-tier-badges>
+
 <section class="dashboard-page" *ngIf="user">
   <div class="dashboard-container">
     <div class="impact-dashboard">
@@ -26,21 +29,49 @@
           <p>Families Helped</p>
           <span class="stat-value">{{ user.familiesHelped }}</span>
         </div>
-        <div class="stat-card">
+        <div class="stat-card tier-card" *ngIf="currentTier">
           <p>Donor Tier</p>
-          <span class="stat-value">{{ user.donorTier }}</span>
+          <div class="tier-display">
+            <img [src]="currentTier.imagePath" [alt]="currentTier.name + ' tier badge'" class="tier-badge-img" />
+            <div class="tier-info">
+              <span class="tier-name">{{ currentTier.name }}</span>
+              <span class="tier-subtitle">{{ currentTier.subtitle }}</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="progress-card">
+      <div class="progress-card" *ngIf="nextTier">
         <div class="progress-head">
-          <p>Path to Guardian Status</p>
+          <div class="progress-tier-info">
+            <img [src]="nextTier.imagePath" [alt]="nextTier.name + ' tier badge'" class="progress-tier-badge" />
+            <div>
+              <p>Path to {{ nextTier.name }} Status</p>
+              <span class="progress-tier-subtitle">{{ nextTier.subtitle }}</span>
+            </div>
+          </div>
           <span>{{ progressPercentage }}% Complete</span>
         </div>
         <div class="progress-bar">
           <div class="fill" [style.width.%]="progressPercentage"></div>
         </div>
-        <p>Reach Guardian status at {{ user.donationsRequiredForTier | currency:'USD':'symbol':'1.0-0' }} donated</p>
+        <p>Reach {{ nextTier.name }} status at {{ nextTier.minAmount | currency:'USD':'symbol':'1.0-0' }} donated ({{ getAmountToNextTier() | currency:'USD':'symbol':'1.0-0' }} to go)</p>
+      </div>
+      <div class="progress-card max-tier" *ngIf="!nextTier && currentTier">
+        <div class="progress-head">
+          <div class="progress-tier-info">
+            <img [src]="currentTier.imagePath" [alt]="currentTier.name + ' tier badge'" class="progress-tier-badge" />
+            <div>
+              <p>{{ currentTier.name }} Status - Maximum Tier!</p>
+              <span class="progress-tier-subtitle">{{ currentTier.subtitle }}</span>
+            </div>
+          </div>
+          <span>100% Complete</span>
+        </div>
+        <div class="progress-bar">
+          <div class="fill" style="width: 100%"></div>
+        </div>
+        <p>Congratulations! You've reached the highest tier of support.</p>
       </div>
 
       <div class="info-grid">
@@ -52,14 +83,16 @@
             </div>
           </div>
           <div class="news-items">
-            <article class="news-item" *ngFor="let item of news">
-              <div>
-                <span class="news-badge">{{ item.label }}</span>
-                <h3>{{ item.title }}</h3>
-                <p>{{ item.description }}</p>
-              </div>
-              <span class="news-date">{{ item.date }}</span>
-            </article>
+            @for (item of news; track item.title) {
+              <article class="news-item">
+                <div>
+                  <span class="news-badge">{{ item.label }}</span>
+                  <h3>{{ item.title }}</h3>
+                  <p>{{ item.description }}</p>
+                </div>
+                <span class="news-date">{{ item.date }}</span>
+              </article>
+            }
           </div>
           <a class="panel-link">Read All News</a>
         </div>
@@ -71,13 +104,15 @@
               <a class="panel-link small">View Full History</a>
             </div>
             <div class="history-items">
-              <div class="history-row" *ngFor="let donation of donationHistory">
-                <div>
-                  <p class="history-date">{{ donation.date }}</p>
-                  <span class="history-frequency">{{ donation.frequency }}</span>
+              @for (donation of donationHistory; track donation.date) {
+                <div class="history-row">
+                  <div>
+                    <p class="history-date">{{ donation.date }}</p>
+                    <span class="history-frequency">{{ donation.frequency }}</span>
+                  </div>
+                  <span class="history-amount">{{ donation.amount | currency:'USD':'symbol':'1.0-0' }}</span>
                 </div>
-                <span class="history-amount">{{ donation.amount | currency:'USD':'symbol':'1.0-0' }}</span>
-              </div>
+              }
             </div>
           </div>
 
@@ -99,10 +134,12 @@
               </div>
             </div>
             <div class="forum-discussions">
-              <div class="discussion-row" *ngFor="let discussion of discussions">
-                <p>{{ discussion.title }}</p>
-                <span>{{ discussion.replies }} replies</span>
-              </div>
+              @for (discussion of discussions; track discussion.title) {
+                <div class="discussion-row">
+                  <p>{{ discussion.title }}</p>
+                  <span>{{ discussion.replies }} replies</span>
+                </div>
+              }
             </div>
             <button class="primary-btn ghost">Visit Forum</button>
           </div>

@@ -1,0 +1,16 @@
+<div class="tier-badges-container">
+  <div class="badge-row" role="list">
+    <div
+      class="tier-badge"
+      role="listitem"
+      *ngFor="let t of tiers"
+      [class.tier-badge--unlocked]="t.isUnlocked"
+      [attr.aria-label]="t.name"
+    >
+      <div class="tier-badge__image-wrapper">
+        <img [src]="t.imagePath" [alt]="t.name + ' tier badge'" class="tier-badge__image" />
+      </div>
+      <div class="tier-badge__label">{{ t.name }}</div>
+    </div>
+  </div>
+</div>
