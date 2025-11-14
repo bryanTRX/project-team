@@ -1,0 +1,127 @@
+<section class="dashboard-page" *ngIf="user">
+  <div class="dashboard-container">
+    <header class="brand-header">
+      <div class="brand-left">
+        <div class="logo-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <div>
+          <p class="brand-name">Shield of Athena</p>
+          <p class="brand-subtitle">Supporting women and children in crisis</p>
+        </div>
+      </div>
+      <div class="brand-actions">
+        <button class="outline-btn" routerLink="/">Back to Site</button>
+        <button class="ghost-btn" (click)="logout()">Log out</button>
+      </div>
+    </header>
+
+    <div class="impact-dashboard">
+      <div class="dashboard-header">
+        <div>
+          <p class="eyebrow">Your Impact Dashboard</p>
+          <h1>See how your generosity is making a difference</h1>
+        </div>
+        <div class="header-actions">
+          <button class="primary-btn">
+            <i class="fas fa-plus"></i>
+            Make a New Donation
+          </button>
+          <button class="outline-btn">Manage Your Donation Plan</button>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p>Total Donated</p>
+          <span class="stat-value">{{ user.totalDonated | currency:'USD':'symbol':'1.0-0' }}</span>
+        </div>
+        <div class="stat-card">
+          <p>Families Helped</p>
+          <span class="stat-value">{{ user.familiesHelped }}</span>
+        </div>
+        <div class="stat-card">
+          <p>Donor Tier</p>
+          <span class="stat-value">{{ user.donorTier }}</span>
+        </div>
+      </div>
+
+      <div class="progress-card">
+        <div class="progress-head">
+          <p>Path to Guardian Status</p>
+          <span>{{ progressPercentage }}% Complete</span>
+        </div>
+        <div class="progress-bar">
+          <div class="fill" [style.width.%]="progressPercentage"></div>
+        </div>
+        <p>Reach Guardian status at {{ user.donationsRequiredForTier | currency:'USD':'symbol':'1.0-0' }} donated</p>
+      </div>
+
+      <div class="info-grid">
+        <div class="impact-news card-panel">
+          <div class="panel-head">
+            <div>
+              <h2>Impact News</h2>
+              <p>See how your donations are making a difference</p>
+            </div>
+          </div>
+          <div class="news-items">
+            <article class="news-item" *ngFor="let item of news">
+              <div>
+                <span class="news-badge">{{ item.label }}</span>
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.description }}</p>
+              </div>
+              <span class="news-date">{{ item.date }}</span>
+            </article>
+          </div>
+          <a class="panel-link">Read All News</a>
+        </div>
+
+        <div class="history-forum">
+          <div class="history card-panel">
+            <div class="panel-head">
+              <h2>Donation History</h2>
+              <a class="panel-link small">View Full History</a>
+            </div>
+            <div class="history-items">
+              <div class="history-row" *ngFor="let donation of donationHistory">
+                <div>
+                  <p class="history-date">{{ donation.date }}</p>
+                  <span class="history-frequency">{{ donation.frequency }}</span>
+                </div>
+                <span class="history-amount">{{ donation.amount | currency:'USD':'symbol':'1.0-0' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="forum card-panel">
+            <div class="panel-head">
+              <div>
+                <h2>Community Forum</h2>
+                <p>Connect with fellow supporters and share impact stories</p>
+              </div>
+              <div class="forum-stats">
+                <div>
+                  <p>847</p>
+                  <span>Members</span>
+                </div>
+                <div>
+                  <p>156</p>
+                  <span>Discussions</span>
+                </div>
+              </div>
+            </div>
+            <div class="forum-discussions">
+              <div class="discussion-row" *ngFor="let discussion of discussions">
+                <p>{{ discussion.title }}</p>
+                <span>{{ discussion.replies }} replies</span>
+              </div>
+            </div>
+            <button class="primary-btn ghost">Visit Forum</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

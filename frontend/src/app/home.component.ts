@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../components/navbar/navbar.component';
 import { HeroComponent } from '../components/hero/hero.component';
 import { QuickDonationComponent } from '../components/quick-donation/quick-donation.component';
 import { ImpactDashboardComponent } from '../components/impact-dashboard/impact-dashboard.component';
@@ -11,7 +10,6 @@ import { Footer } from '../components/footer/footer';
   selector: 'app-home',
   standalone: true,
   imports: [
-    NavbarComponent,
     HeroComponent,
     QuickDonationComponent,
     ImpactDashboardComponent,
@@ -20,7 +18,6 @@ import { Footer } from '../components/footer/footer';
     Footer
   ],
   template: `
-    <app-navbar></app-navbar>
     <main id="home">
       <app-hero></app-hero>
       <app-quick-donation></app-quick-donation>
@@ -43,4 +40,3 @@ import { Footer } from '../components/footer/footer';
 })
 export class HomeComponent {
 }
-

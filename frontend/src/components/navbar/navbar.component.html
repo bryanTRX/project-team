@@ -16,7 +16,14 @@
         </div>
         <div class="nav-actions">
           <app-language-selector></app-language-selector>
-          <app-login></app-login>
+          <button
+            type="button"
+            class="login-link"
+            [routerLink]="isAuthenticated() ? '/dashboard' : '/login'"
+            (click)="closeMenu()">
+            <i class="fas fa-user" [class.logged-in]="isAuthenticated()"></i>
+            <span>{{ isAuthenticated() ? 'My Dashboard' : 'Login' }}</span>
+          </button>
           <button class="donate-btn" (click)="scrollToDonation()">
             Donate Now
           </button>

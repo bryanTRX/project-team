@@ -127,6 +127,34 @@
     @media (max-width: 1024px) {
       gap: 0.625rem;
     }
+
+    & > * {
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+
+  .login-link {
+    border: 1.5px solid #e2e8f0;
+    background: rgba(123, 104, 238, 0.08);
+    color: #7b68ee;
+    padding: 0 1rem;
+    height: 36px;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    gap: 0.35rem;
+    transition: all 0.3s ease;
+    font-size: 0.85rem;
+
+    &:hover {
+      background-color: #7b68ee;
+      color: white;
+    }
+
+    i {
+      font-size: 0.85rem;
+    }
   }
 
   .donate-btn {
@@ -179,21 +207,19 @@
   }
 }
 
-// Alignement global pour les composants dans nav-actions
+// Ensure embedded standalone components align nicely
 ::ng-deep .nav-actions {
-  app-language-selector,
-  app-login {
+  app-language-selector {
     display: inline-flex;
     align-items: center;
     height: 100%;
-    
-    .language-selector,
-    .login-btn {
+
+    .language-selector {
       height: 36px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      
+
       @media (max-width: 768px) {
         height: 34px;
       }

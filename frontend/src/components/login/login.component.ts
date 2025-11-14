@@ -1,54 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
-  showLoginModal = false;
-  isLoginMode = true;
-  email = '';
+export class LoginComponent implements OnInit {
+  username = '';
   password = '';
-  name = '';
+  errorMessage = '';
 
-  toggleModal(): void {
-    this.showLoginModal = !this.showLoginModal;
-    if (this.showLoginModal) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/dashboard']);
     }
-  }
-
-  switchMode(): void {
-    this.isLoginMode = !this.isLoginMode;
-    this.email = '';
-    this.password = '';
-    this.name = '';
   }
 
   onSubmit(): void {
-    if (this.isLoginMode) {
-      // Login logic
-      console.log('Login:', { email: this.email, password: this.password });
-      alert(`Welcome back! Logging in as ${this.email}`);
-      this.toggleModal();
-    } else {
-      // Sign up logic
-      console.log('Sign up:', { name: this.name, email: this.email, password: this.password });
-      alert(`Welcome ${this.name}! Account created successfully.`);
-      this.toggleModal();
+    const authenticated = this.authService.login(this.username, this.password);
+    if (authenticated) {
+      this.errorMessage = '';
+      this.router.navigate(['/dashboard']);
+      return;
     }
-  }
 
-  closeModal(): void {
-    this.showLoginModal = false;
-    document.body.style.overflow = '';
+    this.errorMessage = 'Invalid username or password. Please try again.';
   }
 }
-

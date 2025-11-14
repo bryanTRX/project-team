@@ -1,30 +1,162 @@
 <app-navbar></app-navbar>
 <section class="payment-section">
   <div class="container">
-    <div class="payment-content">
-      <div class="payment-header">
-        <button class="back-btn" (click)="goBack()" aria-label="Go back">
-          <i class="fas fa-arrow-left"></i>
-          <span>Back</span>
-        </button>
-        <h1 class="payment-title">Complete Your Donation</h1>
-        <div class="donation-summary">
-          <div class="summary-item">
-            <span class="summary-label">Amount:</span>
-            <span class="summary-value">${{ donationAmount }}</span>
+    <ng-container *ngIf="!showSuccess; else successState">
+      <div class="payment-card">
+        <div class="form-intro">
+          <div class="org-brand">
+            <div class="brand-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <div>
+              <p class="brand-name">Haven of Hope</p>
+              <p class="brand-support">
+                Supporting women and children on their journey to safety, healing, and new beginnings
+              </p>
+            </div>
           </div>
-          <div class="summary-item">
-            <span class="summary-label">Frequency:</span>
-            <span class="summary-value">{{ getRecurringLabel() }}</span>
-          </div>
+          <button class="accessibility-btn" type="button">
+            <i class="fas fa-universal-access"></i>
+            <span>Accessibility Settings</span>
+          </button>
         </div>
-      </div>
 
-      <div *ngIf="!showSuccess" class="payment-form-container">
-        <form (ngSubmit)="onSubmit()" class="payment-form">
-          <div class="form-section">
-            <h2 class="section-title">Payment Information</h2>
-            
+        <div class="form-headline">
+          <h1>Make a Difference Today</h1>
+          <p>Your generosity provides safety, support, and hope for those who need it most.</p>
+        </div>
+
+        <form (ngSubmit)="onSubmit()" class="donation-form">
+          <div class="form-section email-section">
+            <label for="email">Email Address</label>
+            <div class="input-with-icon">
+              <i class="fas fa-envelope"></i>
+              <input
+                type="email"
+                id="email"
+                [(ngModel)]="email"
+                name="email"
+                placeholder="your.email@example.com"
+                required>
+            </div>
+            <p class="field-hint">
+              We'll use this to send you a donation receipt and optional updates.
+            </p>
+            <p class="field-example">
+              Try: user@existing.com (has account) or user@new.com (new donor)
+            </p>
+          </div>
+
+          <div class="form-section amount-section">
+            <label>Choose Your Donation Amount</label>
+            <div class="amount-options">
+              <button
+                type="button"
+                *ngFor="let option of donationOptions"
+                (click)="selectDonationAmount(option)"
+                [class.active]="donationAmount === option && !customAmount">
+                {{ option | currency:'USD':'symbol':'1.0-0' }}
+              </button>
+            </div>
+            <div class="custom-amount">
+              <label for="customAmount">Or enter a custom amount</label>
+              <div class="custom-input">
+                <span class="currency-symbol">$</span>
+                <input
+                  type="number"
+                  id="customAmount"
+                  name="customAmount"
+                  min="1"
+                  step="1"
+                  placeholder="0.00"
+                  [(ngModel)]="customAmount"
+                  (input)="onCustomAmountChange()">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section frequency-section">
+            <label>Donation Frequency</label>
+            <div class="frequency-options">
+              <button
+                type="button"
+                class="frequency-card"
+                *ngFor="let option of frequencyOptions"
+                (click)="selectFrequency(option.value)"
+                [class.active]="recurringOption === option.value">
+                <div class="freq-header">
+                  <span class="freq-label">{{ option.label }}</span>
+                  <span class="freq-badge" *ngIf="option.highlight">{{ option.highlight }}</span>
+                </div>
+                <span class="freq-description">{{ option.description }}</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="info-card impact-card">
+            <div class="info-icon">
+              <i class="fas fa-hands-helping"></i>
+            </div>
+            <div>
+              <p class="info-title">Monthly Giving Creates Lasting Impact</p>
+              <p class="info-description">
+                Recurring donations help us plan long-term programs, provide consistent support, and build
+                sustainable resources for women and children rebuilding their lives.
+              </p>
+            </div>
+          </div>
+
+          <div class="info-card updates-card">
+            <div class="info-icon">
+              <i class="fas fa-newspaper"></i>
+            </div>
+            <div class="updates-content">
+              <div>
+                <p class="info-title">Stay Connected with Your Impact</p>
+                <p class="info-description">
+                  Receive heartwarming stories, see how your donation makes a difference, and get updates on
+                  the lives you're helping to change.
+                </p>
+              </div>
+              <label class="checkbox-field">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="updatesOptIn"
+                  name="updatesOptIn">
+                <span>Yes, I'd like to receive impact updates and newsletters</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="privacy-card">
+            <i class="fas fa-lock"></i>
+            <div>
+              <p class="privacy-title">Your privacy matters.</p>
+              <p>We never share your information. You can unsubscribe anytime with one click.</p>
+            </div>
+          </div>
+
+          <div class="form-section payment-method-section">
+            <label>Payment Method</label>
+            <div class="payment-methods">
+              <button
+                type="button"
+                *ngFor="let method of paymentMethods"
+                (click)="selectPaymentMethod(method.value)"
+                [class.active]="selectedPaymentMethod === method.value">
+                <div class="method-header">
+                  <i [class]="method.icon"></i>
+                  <span>{{ method.label }}</span>
+                </div>
+                <div class="method-badges">
+                  <span *ngFor="let badge of method.badges">{{ badge }}</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-section card-details" *ngIf="selectedPaymentMethod === 'card'">
+            <label>Payment Information</label>
             <div class="form-group">
               <label for="cardNumber">Card Number</label>
               <input
@@ -78,24 +210,12 @@
             </div>
           </div>
 
-          <div class="form-section">
-            <h2 class="section-title">Contact Information</h2>
-            
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                [(ngModel)]="email"
-                name="email"
-                placeholder="your.email@example.com"
-                required>
-            </div>
-          </div>
-
           <div class="security-info">
-            <i class="fas fa-lock"></i>
-            <span>Your payment is secure and encrypted</span>
+            <i class="fas fa-shield-alt"></i>
+            <div>
+              <p>Your donation is secure and tax-deductible. EIN: XX-XXXXXXX</p>
+              <span>All information is kept confidential and secure.</span>
+            </div>
           </div>
 
           <button type="submit" class="submit-payment-btn">
@@ -104,8 +224,10 @@
           </button>
         </form>
       </div>
+    </ng-container>
 
-      <div *ngIf="showSuccess" class="success-message">
+    <ng-template #successState>
+      <div class="success-message">
         <div class="success-icon">
           <i class="fas fa-check-circle"></i>
         </div>
@@ -115,7 +237,8 @@
         <div class="success-animation">
           <i class="fas fa-heart"></i>
         </div>
+        <button class="back-btn" (click)="goBack()">Return Home</button>
       </div>
-    </div>
+    </ng-template>
   </div>
 </section>

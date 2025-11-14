@@ -12,8 +12,23 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrl: './payment.component.scss'
 })
 export class PaymentComponent implements OnInit {
-  donationAmount: number = 0;
+  donationOptions: number[] = [10, 25, 50, 100, 250];
+  donationAmount: number = this.donationOptions[2];
+  customAmount: string = '';
   recurringOption: string = 'one-time';
+  frequencyOptions = [
+    { value: 'one-time', label: 'One-Time', description: 'Single donation' },
+    { value: 'monthly', label: 'Monthly', description: 'Recurring monthly', highlight: 'Most Popular' },
+    { value: 'quarterly', label: 'Quarterly', description: 'Every 3 months' },
+    { value: 'yearly', label: 'Yearly', description: 'Every year' }
+  ];
+  paymentMethods = [
+    { value: 'card', label: 'Credit/Debit Card', icon: 'far fa-credit-card', badges: ['Visa', 'Mastercard', 'Amex', 'Discover'] },
+    { value: 'paypal', label: 'PayPal', icon: 'fab fa-paypal', badges: ['PayPal'] },
+    { value: 'venmo', label: 'Venmo', icon: 'fab fa-vimeo-v', badges: ['Venmo'] }
+  ];
+  selectedPaymentMethod = 'card';
+  updatesOptIn = false;
   cardNumber: string = '';
   cardHolder: string = '';
   expiryDate: string = '';
@@ -30,14 +45,12 @@ export class PaymentComponent implements OnInit {
     
     if (savedAmount) {
       this.donationAmount = parseFloat(savedAmount);
+      if (!this.donationOptions.includes(this.donationAmount)) {
+        this.customAmount = savedAmount;
+      }
     }
     if (savedRecurring) {
       this.recurringOption = savedRecurring;
-    }
-
-    // Redirect if no donation amount
-    if (!savedAmount || this.donationAmount === 0) {
-      this.router.navigate(['/']);
     }
   }
 
@@ -85,6 +98,10 @@ export class PaymentComponent implements OnInit {
   }
 
   validateForm(): boolean {
+    if (!this.donationAmount || this.donationAmount <= 0) {
+      alert('Please select a donation amount');
+      return false;
+    }
     if (!this.cardNumber || this.cardNumber.replace(/\s/g, '').length !== 16) {
       alert('Please enter a valid card number');
       return false;
@@ -116,6 +133,29 @@ export class PaymentComponent implements OnInit {
       'yearly': 'Yearly'
     };
     return labels[this.recurringOption] || this.recurringOption;
+  }
+
+  selectDonationAmount(amount: number): void {
+    this.donationAmount = amount;
+    this.customAmount = '';
+  }
+
+  onCustomAmountChange(): void {
+    const parsedAmount = parseFloat(this.customAmount);
+    if (!isNaN(parsedAmount) && parsedAmount > 0) {
+      this.donationAmount = parsedAmount;
+    } else {
+      this.donationAmount = 0;
+    }
+  }
+
+  selectFrequency(value: string): void {
+    this.recurringOption = value;
+    localStorage.setItem('recurringOption', value);
+  }
+
+  selectPaymentMethod(method: string): void {
+    this.selectedPaymentMethod = method;
   }
 
   redirectToThankYou(): void {
