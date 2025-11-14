@@ -1,0 +1,58 @@
+<section id="quick-donation" class="quick-donation-section">
+  <div class="container">
+    <h2 class="section-title">Quick & Simple Giving</h2>
+    <div class="donation-card">
+      <div class="amount-buttons">
+        <button
+          *ngFor="let amount of donationAmounts"
+          class="amount-btn"
+          [class.active]="selectedAmount === amount && !customAmount"
+          (click)="selectAmount(amount)">
+          ${{ amount }}
+        </button>
+        <button
+          class="amount-btn"
+          [class.active]="customAmount !== null && customAmount !== 0"
+          (click)="selectCustomAmount()">
+          Other
+        </button>
+      </div>
+
+      <div *ngIf="customAmount !== null" class="custom-amount-input">
+        <label for="customAmount">Enter Amount</label>
+        <input
+          type="number"
+          id="customAmount"
+          min="1"
+          step="1"
+          placeholder="$0"
+          [value]="customAmount > 0 ? customAmount : ''"
+          (input)="onCustomAmountChange($any($event.target).value)"
+          class="custom-input"
+          autofocus>
+      </div>
+
+      <div class="recurring-section">
+        <label for="recurring">Recurring Donation</label>
+        <select
+          id="recurring"
+          [(ngModel)]="recurringOption"
+          class="recurring-select">
+          <option *ngFor="let option of recurringOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+
+      <button
+        class="continue-btn donation-btn"
+        (click)="proceedToPayment()"
+        [disabled]="getDonationAmount() === 0">
+        Continue to Payment
+      </button>
+
+      <p class="payment-info">No account needed • Secure payment • Multiple languages</p>
+    </div>
+  </div>
+</section>
+

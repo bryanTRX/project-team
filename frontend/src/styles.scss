@@ -1,1 +1,200 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --mauve: #C9B5E8;
+  --deep-purple: #6B4FA3;
+  --ivory: #F8F5FF;
+  --charcoal: #2E2E38;
+  --coral: #F28C88;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--ivory);
+  color: var(--charcoal);
+  line-height: 1.6;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--deep-purple);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.btn {
+  display: inline-block;
+  border-radius: 14px;
+  border: 2px solid var(--coral);
+  background: transparent;
+  color: var(--coral);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  padding: 0.75rem 1.5rem;
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, var(--deep-purple), var(--mauve));
+  color: var(--ivory);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-margin-top: 4rem;
+  flex-direction: column;
+  padding: 2rem 0;
+}
+
+.card {
+  background-color: var(--mauve);
+  color: var(--charcoal);
+  border-radius: 18px;
+  padding: 2.5rem;
+  box-shadow: 0 12px 28px rgba(107, 79, 163, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 400px;
+  margin: 1rem;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 36px rgba(107, 79, 163, 0.4);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--mauve), var(--deep-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+p {
+  color: var(--charcoal);
+  margin-bottom: 1rem;
+}
+
+ul {
+  padding-left: 1.2rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 12px;
+}
+
+input,
+textarea,
+select {
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--deep-purple);
+  background-color: var(--ivory);
+  color: var(--charcoal);
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--coral);
+  box-shadow: 0 0 8px rgba(242, 140, 136, 0.3);
+}
+
+button {
+  font-family: 'Inter', sans-serif;
+}
+
+main {
+  min-height: calc(100vh - 200px);
+}
+
+.donation-btn {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.donation-btn:hover {
+  transform: scale(1.05);
+}
+
+.impact-card {
+  transition: transform 0.3s ease;
+}
+
+.impact-card:hover {
+  transform: translateY(-5px);
+}
+
+// Smooth scrolling
+html {
+  scroll-behavior: smooth;
+}
+
+// Accessibility improvements
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--deep-purple);
+  outline-offset: 2px;
+}
+
+// Responsive typography
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+}

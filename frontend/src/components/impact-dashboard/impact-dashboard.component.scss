@@ -1,0 +1,74 @@
+.impact-dashboard-section {
+  padding: 4rem 2rem;
+  background-color: #F8F5FF;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #2E2E38;
+  }
+
+  .impact-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .impact-card {
+    background-color: white;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(107, 79, 163, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 30px rgba(107, 79, 163, 0.2);
+    }
+  }
+
+  .card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #2E2E38;
+  }
+
+  .card-description {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .card-impact {
+    background-color: rgba(201, 181, 232, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
+  }
+
+  .impact-text {
+    font-weight: 600;
+    color: #6B4FA3;
+    margin: 0;
+    font-size: 1.1rem;
+  }
+}
+

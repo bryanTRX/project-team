@@ -1,0 +1,10 @@
+<select 
+  class="language-selector" 
+  [value]="currentLanguage" 
+  (change)="onLanguageChange($any($event.target).value)"
+  aria-label="Select language">
+  <option *ngFor="let lang of languages" [value]="lang.code">
+    {{ lang.nativeName }}
+  </option>
+</select>
+

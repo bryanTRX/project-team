@@ -1,31 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../services/api.service';
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { NavbarComponent } from '../components/navbar/navbar.component';
+import { HeroComponent } from '../components/hero/hero.component';
+import { QuickDonationComponent } from '../components/quick-donation/quick-donation.component';
+import { ImpactDashboardComponent } from '../components/impact-dashboard/impact-dashboard.component';
+import { StoriesComponent } from '../components/stories/stories.component';
+import { CommunityComponent } from '../components/community/community.component';
+import { Footer } from '../components/footer/footer';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
-  template: `
-    <div style="text-align: center; margin-top: 40px;">
-      <h1>Frontend Angular connecté 🚀</h1>
-      <h2>{{ message }}</h2>
-    </div>
-  `,
+  imports: [
+    NavbarComponent,
+    HeroComponent,
+    QuickDonationComponent,
+    ImpactDashboardComponent,
+    StoriesComponent,
+    CommunityComponent,
+    Footer
+  ],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  message = 'Chargement...';
-
-  constructor(private api: ApiService) {}
-
-  ngOnInit() {
-    this.api.getHello().subscribe({
-      next: (res) => (this.message = res),
-      error: (err) => {
-        console.error('Erreur API:', err);
-        this.message = 'Erreur de connexion au backend';
-      },
-    });
-  }
+export class AppComponent {
+  title = 'shield-of-athena';
 }

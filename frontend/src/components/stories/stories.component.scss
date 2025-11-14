@@ -1,0 +1,105 @@
+.stories-section {
+  padding: 4rem 2rem;
+  background-color: white;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #2E2E38;
+  }
+
+  .stories-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .story-card {
+    background-color: #F8F5FF;
+    border-radius: 24px;
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(107, 79, 163, 0.15);
+    }
+  }
+
+  .story-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .story-avatar {
+    width: 48px;
+    height: 48px;
+    background-color: #C9B5E8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6B4FA3;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+  }
+
+  .story-info {
+    flex: 1;
+  }
+
+  .story-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 0 0 0.25rem 0;
+    color: #2E2E38;
+  }
+
+  .story-timeline {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+  }
+
+  .story-quote {
+    font-style: italic;
+    color: #2E2E38;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .message-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    color: #F28C88;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #E7736C;
+    }
+
+    i {
+      font-size: 1rem;
+    }
+  }
+}
+

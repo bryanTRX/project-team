@@ -1,0 +1,17 @@
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title">{{ languageService.getTranslation('hero_title') }}</h1>
+      <p class="hero-subtitle">{{ languageService.getTranslation('hero_subtitle') }}</p>
+      <div class="hero-buttons">
+        <button class="btn btn-primary donation-btn" (click)="scrollToDonation()">
+          {{ languageService.getTranslation('one_time_donation') }}
+        </button>
+        <button class="btn btn-secondary donation-btn" (click)="scrollToDonation()">
+          {{ languageService.getTranslation('monthly_giving') }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+

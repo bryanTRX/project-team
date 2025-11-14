@@ -1,0 +1,18 @@
+<section class="community-section">
+  <div class="container">
+    <div class="community-content">
+      <h2 class="section-title">Join Our Community of Hope</h2>
+      <p class="section-subtitle">Share your support, connect with other donors, and see the collective impact we're making together</p>
+      <div class="features-grid">
+        <div *ngFor="let feature of features" class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-{{ feature.icon }}"></i>
+          </div>
+          <h3 class="feature-title">{{ feature.title }}</h3>
+          <p class="feature-description">{{ feature.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
