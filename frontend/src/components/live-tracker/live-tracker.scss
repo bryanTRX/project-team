@@ -1,0 +1,74 @@
+.live-tracker-container {
+    background-color: #C9B5E8;      /* main light mauve */
+    color: #2E2E38;                 /* charcoal text */
+    padding: 40px 20px;
+    text-align: center;
+
+    width: 80%;
+    max-width: 900px;
+    margin: 50px auto;              /* center on page */
+    border-radius: 24px;
+
+    box-shadow: 0 10px 25px rgba(107, 79, 163, 0.15); /* soft deep-purple shadow */
+}
+
+/* Header */
+.live-tracker-container .header {
+    font-size: 30px;
+    font-weight: 700;
+    color: #6B4FA3;                 /* deep purple for contrast */
+    margin-bottom: 35px;
+}
+
+/* Flex row of categories */
+.live-tracker-container .information {
+    background-color: #F8F5FF;      /* soft ivory background panel */
+    padding: 25px 20px;
+    border-radius: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* category blocks */
+.live-tracker-container .category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    gap: 8px;
+}
+
+/* counter numbers */
+.live-tracker-container .counter {
+    font-size: 40px;
+    font-weight: 800;
+    color: #6B4FA3;                 /* deep purple */
+}
+
+/* labels */
+.live-tracker-container .category-name {
+    font-size: 16px;
+    color: #2E2E38;
+    opacity: 0.95;
+}
+
+/* Accent hover (warm coral) */
+.live-tracker-container .category:hover .counter {
+    color: #F28C88;                 /* warm coral accent */
+    transition: 0.25s ease;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .live-tracker-container {
+        width: 92%;
+        padding: 30px 15px;
+    }
+
+    .live-tracker-container .information {
+        flex-direction: column;
+        gap: 25px;
+    }
+}
