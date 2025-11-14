@@ -4,23 +4,53 @@
   </div>
   <div class="container">
     <div class="hero-content">
-      <h1 class="hero-title">Empowering Women & Children</h1>
-      <p class="hero-subtitle">Supporting survivors of domestic violence with shelter, safety, and hope for a brighter future.</p>
-      <div class="hero-buttons">
-        <button class="btn btn-primary donation-btn" (click)="scrollToDonation()">
+      <div class="hero-image-wrapper">
+        <div class="hero-image-circle">
+          <img 
+            src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=600&fit=crop&crop=faces" 
+            alt="Empowering Women & Children - People helping each other"
+            class="hero-image"
+            loading="eager">
+          <div class="image-overlay"></div>
+        </div>
+        <div class="floating-badge">
           <i class="fas fa-heart"></i>
-          <span>Make a Difference Today</span>
-        </button>
-        <button class="btn btn-secondary donation-btn" (click)="scrollToStories()">
-          <i class="fas fa-book-open"></i>
-          <span>Read Their Stories</span>
-        </button>
+          <span>2,450+ Lives Changed</span>
+        </div>
+      </div>
+      <div class="hero-text">
+        <h1 class="hero-title">Every Donation is a Lifeline</h1>
+        <p class="hero-subtitle">Behind every number, there's a face. Behind every statistic, there's a story. Your support doesn't just provide shelter—it restores hope, rebuilds lives, and gives children the chance to dream again. Join thousands who are making a real difference, one donation at a time.</p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">2,450+</span>
+            <span class="stat-label">People Helped</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">95%</span>
+            <span class="stat-label">Success Rate</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Support Available</span>
+          </div>
+        </div>
+        <div class="hero-buttons">
+          <button class="btn btn-primary donation-btn" (click)="scrollToDonation()">
+            <i class="fas fa-heart"></i>
+            <span>Make a Difference Today</span>
+          </button>
+          <button class="btn btn-secondary donation-btn" (click)="scrollToStories()">
+            <i class="fas fa-book-open"></i>
+            <span>Read Their Stories</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
   <div class="hero-wave">
-    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-      <path d="M0,60 C300,100 600,20 900,60 C1050,80 1150,40 1200,60 L1200,120 L0,120 Z" fill="#F8F5FF"></path>
+    <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
+      <path d="M0,40 C300,70 600,20 900,40 C1050,55 1150,30 1200,40 L1200,80 L0,80 Z" fill="#FAF9F6"></path>
     </svg>
   </div>
 </section>

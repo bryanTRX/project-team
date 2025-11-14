@@ -1,7 +1,11 @@
 .footer {
-  background-color: #2E2E38;
+  background-color: #2D3748;
   color: white;
-  padding: 3rem 2rem 1.5rem;
+  padding: 2.5rem 1.25rem 1.25rem;
+
+  @media (min-width: 768px) {
+    padding: 3rem 2rem 1.5rem;
+  }
 
   .container {
     max-width: 1200px;
@@ -12,55 +16,57 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
 
     @media (min-width: 768px) {
       grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
     }
   }
 
   .footer-section {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.875rem;
   }
 
   .footer-logo {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.625rem;
     margin-bottom: 0.5rem;
   }
 
   .logo-icon {
     width: 32px;
     height: 32px;
-    background-color: #C9B5E8;
+    background: linear-gradient(135deg, #7B68EE, #9B8BFF);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #6B4FA3;
-    font-size: 1rem;
+    color: white;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 8px rgba(123, 104, 238, 0.3);
   }
 
   .logo-text {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: white;
   }
 
   .footer-description {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.875rem;
     line-height: 1.6;
     margin: 0;
   }
 
   .footer-title {
     font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 0.625rem;
     color: white;
   }
 
@@ -77,13 +83,13 @@
     }
 
     a {
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.75);
       text-decoration: none;
       transition: color 0.3s ease;
-      font-size: 0.9rem;
+      font-size: 0.875rem;
 
       &:hover {
-        color: white;
+        color: #9B8BFF;
       }
     }
   }
@@ -94,9 +100,9 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9rem;
+    gap: 0.625rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.875rem;
 
     li {
       display: flex;
@@ -105,64 +111,68 @@
       margin: 0;
 
       i {
-        color: #C9B5E8;
-        width: 20px;
+        color: #9B8BFF;
+        width: 18px;
+        font-size: 0.9rem;
       }
     }
   }
 
   .social-links {
     display: flex;
-    gap: 1rem;
+    gap: 0.875rem;
     margin-bottom: 1rem;
   }
 
   .social-icon {
-    width: 40px;
-    height: 40px;
-    background-color: #C9B5E8;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(123, 104, 238, 0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #6B4FA3;
+    color: #9B8BFF;
     text-decoration: none;
     transition: all 0.3s ease;
+    border: 1px solid rgba(123, 104, 238, 0.3);
 
     &:hover {
-      background-color: #6B4FA3;
+      background-color: #7B68EE;
       color: white;
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(123, 104, 238, 0.4);
     }
 
     i {
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
   }
 
   .subscribe-btn {
     width: 100%;
-    padding: 0.75rem;
-    background-color: #F28C88;
+    padding: 0.7rem;
+    background: linear-gradient(135deg, #FF7A85, #E85A6A);
     color: white;
     border: none;
     border-radius: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 8px rgba(255, 122, 133, 0.25);
 
     &:hover {
-      background-color: #E7736C;
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 122, 133, 0.35);
     }
   }
 
   .footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 1.25rem;
     text-align: center;
     color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 }
-
