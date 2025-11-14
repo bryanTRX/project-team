@@ -1,6 +1,7 @@
 <section id="quick-donation" class="quick-donation-section">
   <div class="container">
-    <h2 class="section-title">Quick & Simple Giving</h2>
+    <h2 class="section-title">Your Gift in Action</h2>
+    <p class="section-subtitle">Choose an amount and see the direct impact of your donation</p>
     <div class="donation-card">
       <div class="amount-buttons">
         <button
@@ -8,13 +9,18 @@
           class="amount-btn"
           [class.active]="selectedAmount === amount && !customAmount"
           (click)="selectAmount(amount)">
-          ${{ amount }}
+          <span class="amount-value">${{ amount }}</span>
+          <span class="amount-description" *ngIf="amount === 25">Weekly meals for 5 children</span>
+          <span class="amount-description" *ngIf="amount === 50">1 night of safe shelter</span>
+          <span class="amount-description" *ngIf="amount === 100">5 hours of translation services</span>
+          <span class="amount-description" *ngIf="amount === 200">1 week of counseling support</span>
         </button>
         <button
-          class="amount-btn"
+          class="amount-btn other-btn"
           [class.active]="customAmount !== null && customAmount !== 0"
           (click)="selectCustomAmount()">
-          Other
+          <span class="amount-value">Other</span>
+          <span class="amount-description">Enter custom amount</span>
         </button>
       </div>
 
@@ -48,11 +54,14 @@
         class="continue-btn donation-btn"
         (click)="proceedToPayment()"
         [disabled]="getDonationAmount() === 0">
-        Continue to Payment
+        <i class="fas fa-arrow-right"></i>
+        <span>Continue to Payment</span>
       </button>
 
-      <p class="payment-info">No account needed • Secure payment • Multiple languages</p>
+      <p class="payment-info">
+        <i class="fas fa-shield-alt"></i>
+        <span>No account needed • Secure payment • 10-language support</span>
+      </p>
     </div>
   </div>
 </section>
-

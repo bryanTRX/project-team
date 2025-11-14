@@ -18,5 +18,12 @@ export class HeroComponent {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   }
+
+  scrollToStories(): void {
+    const element = document.getElementById('stories');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 }
 

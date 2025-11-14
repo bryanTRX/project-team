@@ -1,16 +1,21 @@
-<section class="stories-section">
+<section id="stories" class="stories-section">
   <div class="container">
     <h2 class="section-title">Stories of Hope</h2>
+    <p class="section-subtitle">Real stories from real people whose lives have been transformed</p>
     <div class="stories-grid">
       <div *ngFor="let story of stories" class="story-card">
         <div class="story-header">
-          <div class="story-avatar">
-            <i class="fas fa-{{ story.icon }}"></i>
+          <div class="story-avatar" [style.background-color]="story.color">
+            <img [src]="story.image" [alt]="story.name" class="avatar-image">
+            <div class="avatar-overlay"></div>
           </div>
           <div class="story-info">
             <h4 class="story-name">{{ story.name }}</h4>
             <p class="story-timeline">{{ story.timeline }}</p>
           </div>
+        </div>
+        <div class="quote-icon">
+          <i class="fas fa-quote-left"></i>
         </div>
         <p class="story-quote">{{ story.quote }}</p>
         <button class="message-btn" (click)="sendMessage(story)">
@@ -21,4 +26,3 @@
     </div>
   </div>
 </section>
-

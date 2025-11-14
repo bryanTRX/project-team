@@ -1,25 +1,31 @@
 .language-selector {
-  background-color: #6B4FA3;
-  color: white;
-  border: none;
+  background-color: transparent;
+  color: #6B4FA3;
+  border: 2px solid #C9B5E8;
   padding: 0.5rem 1rem;
-  border-radius: 8px;
+  border-radius: 50px;
   font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  min-width: 100px;
 
   &:hover {
-    background-color: #5a4090;
+    background-color: #6B4FA3;
+    color: white;
+    border-color: #6B4FA3;
+    transform: translateY(-2px);
   }
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(201, 181, 232, 0.5);
+    box-shadow: 0 0 0 3px rgba(107, 79, 163, 0.2);
   }
 
   option {
     background-color: white;
     color: #2E2E38;
+    padding: 0.5rem;
   }
 }
 

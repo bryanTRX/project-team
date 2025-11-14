@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 
 interface ImpactCard {
   icon: string;
+  number: string;
   title: string;
   description: string;
-  impact: string;
   color: string;
 }
 
@@ -19,26 +19,32 @@ interface ImpactCard {
 export class ImpactDashboardComponent {
   impactCards: ImpactCard[] = [
     {
-      icon: 'home',
-      title: 'Safe Shelter',
-      description: 'Your donation provides safe housing for families in crisis',
-      impact: '$50 = 1 night of shelter',
+      icon: 'users',
+      number: '2,450',
+      title: 'Women & Children Supported',
+      description: 'Lives changed through our comprehensive support programs',
       color: '#F28C88'
+    },
+    {
+      icon: 'language',
+      number: '10',
+      title: 'Languages Spoken',
+      description: 'Multilingual support ensuring everyone can access help',
+      color: '#6B4FA3'
+    },
+    {
+      icon: 'clock',
+      number: '24/7',
+      title: 'Crisis Support Available',
+      description: 'Round-the-clock assistance for those in need',
+      color: '#C9B5E8'
     },
     {
       icon: 'heart',
-      title: 'Counseling',
-      description: 'Support mental health services for survivors',
-      impact: '$75 = 1 counseling session',
-      color: '#F28C88'
-    },
-    {
-      icon: 'comments',
-      title: 'Multilingual Support',
-      description: 'Help us provide services in 10+ languages',
-      impact: '$100 = 5 hours of translation',
+      number: '95%',
+      title: 'Successfully Rebuilt Lives',
+      description: 'Survivors who have found hope and independence',
       color: '#F28C88'
     }
   ];
 }
-
