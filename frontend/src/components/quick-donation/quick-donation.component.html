@@ -1,8 +1,19 @@
 <section id="quick-donation" class="quick-donation-section">
   <div class="container">
     <h2 class="section-title">Your Gift in Action</h2>
-    <p class="section-subtitle">Choose an amount and see the direct impact of your donation</p>
+    <p class="section-subtitle">Every donation directly impacts a life. See how your generosity becomes someone's lifeline.</p>
     <div class="donation-card">
+      <div class="human-impact-banner">
+        <div class="impact-faces">
+          <img src="https://i.pravatar.cc/40?img=47" alt="Person helped" class="impact-face">
+          <img src="https://i.pravatar.cc/40?img=12" alt="Person helped" class="impact-face">
+          <img src="https://i.pravatar.cc/40?img=33" alt="Person helped" class="impact-face">
+          <img src="https://i.pravatar.cc/40?img=5" alt="Person helped" class="impact-face">
+          <span class="impact-count">+2,446 more lives changed</span>
+        </div>
+        <p class="impact-message">Real people. Real impact. Your support matters.</p>
+      </div>
+      
       <div class="amount-buttons">
         <button
           *ngFor="let amount of donationAmounts"

@@ -1,7 +1,7 @@
 <section id="impact" class="impact-dashboard-section">
   <div class="container">
     <h2 class="section-title">Our Impact in 2024</h2>
-    <p class="section-subtitle">Together, we're making a real difference in the lives of survivors</p>
+    <p class="section-subtitle">Every number represents a life touched, a family helped, a future restored. This is the power of your compassion.</p>
     <div class="impact-cards">
       <div *ngFor="let card of impactCards" class="impact-card">
         <div class="card-icon" [style.color]="card.color">
@@ -10,6 +10,12 @@
         <div class="card-number">{{ card.number }}</div>
         <h3 class="card-title">{{ card.title }}</h3>
         <p class="card-description">{{ card.description }}</p>
+      </div>
+    </div>
+    <div class="impact-message">
+      <div class="message-content">
+        <i class="fas fa-heart"></i>
+        <p><strong>Your support creates ripples of change.</strong> Every donation, no matter the size, helps write a new chapter in someone's story of survival and hope.</p>
       </div>
     </div>
   </div>

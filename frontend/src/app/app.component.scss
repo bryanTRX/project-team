@@ -9,5 +9,23 @@ main {
 
 #impact,
 #stories {
+  scroll-margin-top: 70px;
+}
+
+// Amélioration de l'alignement global
+section {
   scroll-margin-top: 80px;
+}
+
+// Assurer que tous les éléments sont bien alignés
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+
+  @media (min-width: 768px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
