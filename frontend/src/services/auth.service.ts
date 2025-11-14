@@ -20,8 +20,8 @@ export class AuthService {
   private readonly mockUser: UserProfile & { password: string } = {
     username: 'admin',
     password: 'admin',
-    name: 'Guardian Donor',
-    donorTier: 'Guardian',
+    name: 'Zeus Donor',
+    donorTier: 'Zeus',
     totalDonated: 3750,
     familiesHelped: 12,
     goal: 5000,
