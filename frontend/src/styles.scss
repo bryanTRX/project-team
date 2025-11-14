@@ -4,6 +4,9 @@
   --ivory: #F8F5FF;
   --charcoal: #2E2E38;
   --coral: #F28C88;
+  --coral-dark: #E7736C;
+  --purple-light: #A893D4;
+  --purple-dark: #5A4090;
 }
 
 * {
@@ -12,14 +15,20 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background-color: var(--ivory);
   color: var(--charcoal);
   line-height: 1.6;
   font-size: 16px;
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -41,12 +50,32 @@ h6 {
   line-height: 1.2;
   font-weight: 700;
   color: var(--charcoal);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
+
+  @media (min-width: 768px) {
+    padding: 0 2rem;
+  }
 }
 
 .btn {
@@ -104,6 +133,7 @@ h6 {
 p {
   color: var(--charcoal);
   margin-bottom: 1rem;
+  line-height: 1.7;
 }
 
 ul {
@@ -117,6 +147,7 @@ li {
 img {
   max-width: 100%;
   border-radius: 12px;
+  height: auto;
 }
 
 input,
@@ -130,6 +161,7 @@ select {
   margin-bottom: 1rem;
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
 input:focus,
@@ -142,10 +174,12 @@ select:focus {
 
 button {
   font-family: 'Inter', sans-serif;
+  font-size: 1rem;
 }
 
 main {
   min-height: calc(100vh - 200px);
+  width: 100%;
 }
 
 .donation-btn {
@@ -178,6 +212,7 @@ select:focus-visible,
 textarea:focus-visible {
   outline: 2px solid var(--deep-purple);
   outline-offset: 2px;
+  border-radius: 4px;
 }
 
 // Responsive typography
@@ -197,4 +232,46 @@ textarea:focus-visible {
   h3 {
     font-size: 1.5rem;
   }
+}
+
+// Loading animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Utility classes
+.text-center {
+  text-align: center;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
 }

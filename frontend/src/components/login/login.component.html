@@ -1,0 +1,58 @@
+<button class="login-btn" (click)="toggleModal()">
+  <i class="fas fa-user"></i>
+  <span>Login</span>
+</button>
+
+<div class="login-modal" *ngIf="showLoginModal" (click)="closeModal()">
+  <div class="login-modal-content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="closeModal()" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="login-header">
+      <h2>{{ isLoginMode ? 'Welcome Back' : 'Create Account' }}</h2>
+      <p>{{ isLoginMode ? 'Login to your account' : 'Join our community' }}</p>
+    </div>
+    <form (ngSubmit)="onSubmit()" class="login-form">
+      <div *ngIf="!isLoginMode" class="form-group">
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          [(ngModel)]="name"
+          name="name"
+          placeholder="Enter your name"
+          required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="Enter your email"
+          required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Enter your password"
+          required>
+      </div>
+      <button type="submit" class="submit-btn">
+        {{ isLoginMode ? 'Login' : 'Sign Up' }}
+      </button>
+      <div class="switch-mode">
+        <p>
+          {{ isLoginMode ? "Don't have an account?" : 'Already have an account?' }}
+          <a (click)="switchMode()">{{ isLoginMode ? 'Sign Up' : 'Login' }}</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
+

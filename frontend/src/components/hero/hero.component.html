@@ -1,17 +1,26 @@
 <section class="hero-section">
+  <div class="hero-background">
+    <div class="hero-overlay"></div>
+  </div>
   <div class="container">
     <div class="hero-content">
-      <h1 class="hero-title">{{ languageService.getTranslation('hero_title') }}</h1>
-      <p class="hero-subtitle">{{ languageService.getTranslation('hero_subtitle') }}</p>
+      <h1 class="hero-title">Empowering Women & Children</h1>
+      <p class="hero-subtitle">Supporting survivors of domestic violence with shelter, safety, and hope for a brighter future.</p>
       <div class="hero-buttons">
         <button class="btn btn-primary donation-btn" (click)="scrollToDonation()">
-          {{ languageService.getTranslation('one_time_donation') }}
+          <i class="fas fa-heart"></i>
+          <span>Make a Difference Today</span>
         </button>
-        <button class="btn btn-secondary donation-btn" (click)="scrollToDonation()">
-          {{ languageService.getTranslation('monthly_giving') }}
+        <button class="btn btn-secondary donation-btn" (click)="scrollToStories()">
+          <i class="fas fa-book-open"></i>
+          <span>Read Their Stories</span>
         </button>
       </div>
     </div>
   </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M0,60 C300,100 600,20 900,60 C1050,80 1150,40 1200,60 L1200,120 L0,120 Z" fill="#F8F5FF"></path>
+    </svg>
+  </div>
 </section>
-

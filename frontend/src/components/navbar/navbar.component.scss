@@ -3,33 +3,22 @@
   top: 0;
   z-index: 1000;
   background-color: white;
-  box-shadow: 0 2px 10px rgba(107, 79, 163, 0.1);
-}
-
-.language-bar {
-  background-color: #6B4FA3;
-  padding: 0.5rem 0;
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .language-container {
-    display: flex;
-    justify-content: flex-end;
-  }
+  box-shadow: 0 2px 15px rgba(107, 79, 163, 0.1);
+  backdrop-filter: blur(10px);
 }
 
 .navbar {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.98);
   padding: 1rem 0;
 
   .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
+
+    @media (max-width: 768px) {
+      padding: 0 1rem;
+    }
   }
 
   .nav-content {
@@ -37,6 +26,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
+    flex-wrap: wrap;
   }
 
   .logo {
@@ -45,6 +35,7 @@
     gap: 0.75rem;
     cursor: pointer;
     transition: transform 0.3s ease;
+    flex-shrink: 0;
 
     &:hover {
       transform: scale(1.05);
@@ -52,21 +43,29 @@
   }
 
   .logo-icon {
-    width: 40px;
-    height: 40px;
-    background-color: #C9B5E8;
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #C9B5E8, #6B4FA3);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #6B4FA3;
-    font-size: 1.2rem;
+    color: white;
+    font-size: 1.3rem;
+    box-shadow: 0 4px 12px rgba(107, 79, 163, 0.3);
   }
 
   .logo-text {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #6B4FA3;
+    background: linear-gradient(135deg, #6B4FA3, #C9B5E8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+    }
   }
 
   .nav-links {
@@ -76,21 +75,27 @@
     flex: 1;
     justify-content: center;
 
+    @media (max-width: 1024px) {
+      gap: 1.5rem;
+    }
+
     a {
       color: #2E2E38;
       text-decoration: none;
       font-weight: 500;
+      font-size: 1rem;
       position: relative;
       transition: color 0.3s ease;
+      padding: 0.5rem 0;
 
       &::after {
         content: "";
         position: absolute;
         width: 0;
-        height: 2px;
-        bottom: -4px;
+        height: 3px;
+        bottom: 0;
         left: 0;
-        background: linear-gradient(135deg, #C9B5E8, #6B4FA3);
+        background: linear-gradient(135deg, #F28C88, #E7736C);
         transition: width 0.3s ease;
         border-radius: 2px;
       }
@@ -105,8 +110,19 @@
     }
   }
 
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+
+    @media (max-width: 1024px) {
+      gap: 0.75rem;
+    }
+  }
+
   .donate-btn {
-    background-color: #F28C88;
+    background: linear-gradient(135deg, #F28C88, #E7736C);
     color: white;
     padding: 0.75rem 1.5rem;
     border-radius: 50px;
@@ -115,10 +131,12 @@
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(242, 140, 136, 0.3);
+    font-size: 0.95rem;
 
     &:hover {
-      background-color: #E7736C;
-      transform: scale(1.05);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(242, 140, 136, 0.4);
     }
   }
 
@@ -135,23 +153,15 @@
       display: block;
       width: 28px;
       height: 3px;
-      background: #C9B5E8;
+      background: linear-gradient(135deg, #C9B5E8, #6B4FA3);
       border-radius: 2px;
       transition: all 0.3s ease;
     }
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .navbar {
-    .nav-content {
-      flex-wrap: wrap;
-    }
-
-    .menu-toggle {
-      display: flex;
-    }
-
     .nav-links {
       position: absolute;
       top: 100%;
@@ -164,11 +174,13 @@
       overflow: hidden;
       padding: 0;
       transition: max-height 0.4s ease, padding 0.4s ease;
-      box-shadow: 0 4px 10px rgba(107, 79, 163, 0.1);
+      box-shadow: 0 4px 15px rgba(107, 79, 163, 0.1);
+      backdrop-filter: blur(10px);
 
       &.open {
         max-height: 500px;
-        padding: 1rem 0;
+        padding: 2rem 0;
+        gap: 1.5rem;
       }
 
       a {
@@ -177,14 +189,29 @@
       }
     }
 
-    .donate-btn {
-      display: none;
+    .nav-actions {
+      order: -1;
+    }
 
-      &.mobile-visible {
-        display: block;
-        width: 100%;
-        margin-top: 1rem;
-      }
+    .menu-toggle {
+      display: flex;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    .logo-text {
+      display: none;
+    }
+
+    .nav-actions {
+      gap: 0.5rem;
+    }
+
+    .donate-btn {
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
     }
   }
 }

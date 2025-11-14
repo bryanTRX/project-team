@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class QuickDonationComponent {
   customAmount: number | null = null;
   recurringOption: string = 'one-time';
 
-  donationAmounts = [25, 50, 100];
+  donationAmounts = [25, 50, 100, 200];
   recurringOptions = [
     { value: 'one-time', label: 'One-Time' },
     { value: 'monthly', label: 'Monthly' },
@@ -23,7 +24,7 @@ export class QuickDonationComponent {
     { value: 'yearly', label: 'Yearly' }
   ];
 
-  constructor(public languageService: LanguageService) {}
+  constructor(public languageService: LanguageService, private router: Router) {}
 
   selectAmount(amount: number): void {
     this.selectedAmount = amount;
@@ -55,8 +56,12 @@ export class QuickDonationComponent {
   proceedToPayment(): void {
     const amount = this.getDonationAmount();
     if (amount > 0) {
-      // In a real application, this would redirect to a payment gateway
-      alert(`Redirecting to payment for $${amount} (${this.recurringOption})`);
+      // Save donation details to localStorage
+      localStorage.setItem('donationAmount', amount.toString());
+      localStorage.setItem('recurringOption', this.recurringOption);
+      
+      // Redirect to payment page using router
+      this.router.navigate(['/payment']);
     } else {
       alert('Please select or enter a donation amount');
     }

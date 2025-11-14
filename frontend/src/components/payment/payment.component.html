@@ -1,0 +1,121 @@
+<app-navbar></app-navbar>
+<section class="payment-section">
+  <div class="container">
+    <div class="payment-content">
+      <div class="payment-header">
+        <button class="back-btn" (click)="goBack()" aria-label="Go back">
+          <i class="fas fa-arrow-left"></i>
+          <span>Back</span>
+        </button>
+        <h1 class="payment-title">Complete Your Donation</h1>
+        <div class="donation-summary">
+          <div class="summary-item">
+            <span class="summary-label">Amount:</span>
+            <span class="summary-value">${{ donationAmount }}</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Frequency:</span>
+            <span class="summary-value">{{ getRecurringLabel() }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!showSuccess" class="payment-form-container">
+        <form (ngSubmit)="onSubmit()" class="payment-form">
+          <div class="form-section">
+            <h2 class="section-title">Payment Information</h2>
+            
+            <div class="form-group">
+              <label for="cardNumber">Card Number</label>
+              <input
+                type="text"
+                id="cardNumber"
+                [(ngModel)]="cardNumber"
+                name="cardNumber"
+                placeholder="1234 5678 9012 3456"
+                (input)="formatCardNumber()"
+                maxlength="19"
+                required>
+            </div>
+
+            <div class="form-group">
+              <label for="cardHolder">Card Holder Name</label>
+              <input
+                type="text"
+                id="cardHolder"
+                [(ngModel)]="cardHolder"
+                name="cardHolder"
+                placeholder="John Doe"
+                required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="expiryDate">Expiry Date</label>
+                <input
+                  type="text"
+                  id="expiryDate"
+                  [(ngModel)]="expiryDate"
+                  name="expiryDate"
+                  placeholder="MM/YY"
+                  (input)="formatExpiryDate()"
+                  maxlength="5"
+                  required>
+              </div>
+
+              <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input
+                  type="text"
+                  id="cvv"
+                  [(ngModel)]="cvv"
+                  name="cvv"
+                  placeholder="123"
+                  (input)="formatCvv()"
+                  maxlength="4"
+                  required>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2 class="section-title">Contact Information</h2>
+            
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                [(ngModel)]="email"
+                name="email"
+                placeholder="your.email@example.com"
+                required>
+            </div>
+          </div>
+
+          <div class="security-info">
+            <i class="fas fa-lock"></i>
+            <span>Your payment is secure and encrypted</span>
+          </div>
+
+          <button type="submit" class="submit-payment-btn">
+            <i class="fas fa-heart"></i>
+            <span>Complete Donation</span>
+          </button>
+        </form>
+      </div>
+
+      <div *ngIf="showSuccess" class="success-message">
+        <div class="success-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h2>Thank You!</h2>
+        <p>Your donation of ${{ donationAmount }} has been processed successfully.</p>
+        <p>You will receive a confirmation email shortly.</p>
+        <div class="success-animation">
+          <i class="fas fa-heart"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

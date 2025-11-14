@@ -1,11 +1,4 @@
 <nav class="navbar-wrapper">
-  <div class="language-bar">
-    <div class="container">
-      <div class="language-container">
-        <app-language-selector></app-language-selector>
-      </div>
-    </div>
-  </div>
   <div class="navbar">
     <div class="container">
       <div class="nav-content">
@@ -17,14 +10,17 @@
         </div>
         <div class="nav-links" [class.open]="menuOpen">
           <a href="#home" (click)="scrollToSection('home')">Home</a>
-          <a href="#impact" (click)="scrollToSection('impact')">Our Impact</a>
+          <a href="#impact" (click)="scrollToSection('impact')">Impact</a>
+          <a href="#donate" (click)="scrollToSection('donate')">Donate</a>
           <a href="#stories" (click)="scrollToSection('stories')">Stories</a>
-          <a href="#about" (click)="scrollToSection('about')">About</a>
-          <a href="#contact" (click)="scrollToSection('contact')">Contact</a>
         </div>
-        <button class="donate-btn" (click)="scrollToDonation()">
-          Donate Now
-        </button>
+        <div class="nav-actions">
+          <app-language-selector></app-language-selector>
+          <app-login></app-login>
+          <button class="donate-btn" (click)="scrollToDonation()">
+            Donate Now
+          </button>
+        </div>
         <button class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle Menu">
           <span></span><span></span><span></span>
         </button>
