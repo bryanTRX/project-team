@@ -37,6 +37,18 @@
     margin-bottom: 0.5rem;
   }
 
+  .footer-logo-image {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    filter: brightness(0) invert(1);
+
+    @media (max-width: 768px) {
+      height: 45px;
+    }
+  }
+
   .logo-icon {
     width: 32px;
     height: 32px;

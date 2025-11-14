@@ -3,10 +3,10 @@
     <div class="container">
       <div class="nav-content">
         <div class="logo" (click)="scrollToSection('home')">
-          <div class="logo-icon">
+          <img src="assets/images/shield-of-athena-logo2.jpg" alt="Shield of Athena" class="logo-image" (error)="onLogoError($event)">
+          <div class="logo-icon" style="display: none;">
             <i class="fas fa-shield-alt"></i>
           </div>
-          <span class="logo-text">Shield of Athena</span>
         </div>
         <div class="nav-links" [class.open]="menuOpen">
           <a href="#home" (click)="scrollToSection('home')">Home</a>

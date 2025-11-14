@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 
 @Component({
@@ -10,13 +11,10 @@ import { LanguageService } from '../../services/language.service';
   styleUrl: './hero.component.scss'
 })
 export class HeroComponent {
-  constructor(public languageService: LanguageService) {}
+  constructor(public languageService: LanguageService, private router: Router) {}
 
   scrollToDonation(): void {
-    const element = document.getElementById('quick-donation');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    this.router.navigate(['/donate']);
   }
 
   scrollToStories(): void {

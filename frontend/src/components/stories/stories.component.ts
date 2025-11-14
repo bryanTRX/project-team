@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 interface Story {
   name: string;
@@ -18,6 +19,8 @@ interface Story {
   styleUrl: './stories.component.scss'
 })
 export class StoriesComponent {
+  constructor(private router: Router) {}
+
   stories: Story[] = [
     {
       name: "Sarah's Journey",
@@ -50,9 +53,6 @@ export class StoriesComponent {
   }
 
   scrollToDonation(): void {
-    const element = document.getElementById('quick-donation');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    this.router.navigate(['/donate']);
   }
 }

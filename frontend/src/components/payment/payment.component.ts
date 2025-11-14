@@ -20,6 +20,10 @@ export class PaymentComponent implements OnInit {
   cvv: string = '';
   email: string = '';
   showSuccess = false;
+  
+  // Accessibility
+  simpleMode = false;
+  largeText = false;
 
   constructor(private router: Router) {}
 
@@ -39,6 +43,35 @@ export class PaymentComponent implements OnInit {
     if (!savedAmount || this.donationAmount === 0) {
       this.router.navigate(['/']);
     }
+  }
+
+  toggleSimpleMode(): void {
+    this.simpleMode = !this.simpleMode;
+  }
+
+  toggleLargeText(): void {
+    this.largeText = !this.largeText;
+    document.body.classList.toggle('large-text-mode', this.largeText);
+  }
+
+  getDonationAmountText(): string {
+    return `$${this.donationAmount.toFixed(2)}`;
+  }
+
+  getImpactTitle(): string {
+    if (this.donationAmount >= 250) return 'Legal aid consultation';
+    if (this.donationAmount >= 100) return '1 therapy session';
+    if (this.donationAmount >= 50) return '1 night of safe shelter';
+    if (this.donationAmount >= 25) return 'Meals for a family for a day';
+    return 'Emergency food supplies';
+  }
+
+  getImpactDescription(): string {
+    if (this.donationAmount >= 250) return 'Professional consultation for legal protection';
+    if (this.donationAmount >= 100) return 'One-on-one counseling for trauma recovery';
+    if (this.donationAmount >= 50) return 'One night of secure housing for a family';
+    if (this.donationAmount >= 25) return 'Feeds a family of 4 for one full day';
+    return 'Provides essential nutrition for families in crisis';
   }
 
   formatCardNumber(): void {

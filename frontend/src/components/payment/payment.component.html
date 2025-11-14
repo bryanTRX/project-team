@@ -1,29 +1,37 @@
 <app-navbar></app-navbar>
-<section class="payment-section">
+<section class="payment-section" [class.simple-mode]="simpleMode" [class.large-text]="largeText">
   <div class="container">
-    <div class="payment-content">
-      <div class="payment-header">
-        <button class="back-btn" (click)="goBack()" aria-label="Go back">
-          <i class="fas fa-arrow-left"></i>
-          <span>Back</span>
-        </button>
-        <h1 class="payment-title">Complete Your Donation</h1>
-        <div class="donation-summary">
-          <div class="summary-item">
-            <span class="summary-label">Amount:</span>
-            <span class="summary-value">${{ donationAmount }}</span>
-          </div>
-          <div class="summary-item">
-            <span class="summary-label">Frequency:</span>
-            <span class="summary-value">{{ getRecurringLabel() }}</span>
-          </div>
-        </div>
+    <div class="payment-page-header">
+      <button class="back-link" (click)="goBack()">
+        <i class="fas fa-arrow-left"></i>
+        <span>← Back to Dashboard</span>
+      </button>
+      <div class="header-content">
+        <h1 class="page-title">Make a New Donation</h1>
+        <p class="page-subtitle">Every contribution helps us support women and children in crisis</p>
       </div>
+      <div class="accessibility-controls">
+        <button class="control-btn" [class.active]="simpleMode" (click)="toggleSimpleMode()" aria-label="Toggle Simple Mode">
+          <i class="fas fa-magic"></i>
+          <span>Simple Mode</span>
+        </button>
+        <button class="control-btn" [class.active]="largeText" (click)="toggleLargeText()" aria-label="Toggle Large Text">
+          <i class="fas fa-text-height"></i>
+          <span>Large Text</span>
+        </button>
+      </div>
+    </div>
 
-      <div *ngIf="!showSuccess" class="payment-form-container">
-        <form (ngSubmit)="onSubmit()" class="payment-form">
-          <div class="form-section">
-            <h2 class="section-title">Payment Information</h2>
+    <div class="payment-layout">
+      <!-- Left Column: Payment Form -->
+      <div class="payment-form-column">
+        <div *ngIf="!showSuccess" class="payment-form">
+          <!-- Payment Information Card -->
+          <div class="form-section-card">
+            <h3 class="section-title">
+              <i class="fas fa-credit-card"></i>
+              Payment Information
+            </h3>
             
             <div class="form-group">
               <label for="cardNumber">Card Number</label>
@@ -35,6 +43,7 @@
                 placeholder="1234 5678 9012 3456"
                 (input)="formatCardNumber()"
                 maxlength="19"
+                class="form-input"
                 required>
             </div>
 
@@ -46,6 +55,7 @@
                 [(ngModel)]="cardHolder"
                 name="cardHolder"
                 placeholder="John Doe"
+                class="form-input"
                 required>
             </div>
 
@@ -60,6 +70,7 @@
                   placeholder="MM/YY"
                   (input)="formatExpiryDate()"
                   maxlength="5"
+                  class="form-input"
                   required>
               </div>
 
@@ -73,13 +84,18 @@
                   placeholder="123"
                   (input)="formatCvv()"
                   maxlength="4"
+                  class="form-input"
                   required>
               </div>
             </div>
           </div>
 
-          <div class="form-section">
-            <h2 class="section-title">Contact Information</h2>
+          <!-- Contact Information Card -->
+          <div class="form-section-card">
+            <h3 class="section-title">
+              <i class="fas fa-envelope"></i>
+              Contact Information
+            </h3>
             
             <div class="form-group">
               <label for="email">Email Address</label>
@@ -89,31 +105,80 @@
                 [(ngModel)]="email"
                 name="email"
                 placeholder="your.email@example.com"
+                class="form-input"
                 required>
             </div>
           </div>
 
-          <div class="security-info">
-            <i class="fas fa-lock"></i>
-            <span>Your payment is secure and encrypted</span>
-          </div>
-
-          <button type="submit" class="submit-payment-btn">
+          <!-- Donate Button -->
+          <button type="submit" class="donate-button" (click)="onSubmit()">
             <i class="fas fa-heart"></i>
-            <span>Complete Donation</span>
+            <span>Donate {{ getDonationAmountText() }} {{ getRecurringLabel().toLowerCase() }}</span>
           </button>
-        </form>
+        </div>
+
+        <!-- Success Message -->
+        <div *ngIf="showSuccess" class="success-message">
+          <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <h2>Thank You!</h2>
+          <p>Your donation of {{ getDonationAmountText() }} has been processed successfully.</p>
+          <p>You will receive a confirmation email shortly.</p>
+          <div class="success-animation">
+            <i class="fas fa-heart"></i>
+          </div>
+        </div>
       </div>
 
-      <div *ngIf="showSuccess" class="success-message">
-        <div class="success-icon">
-          <i class="fas fa-check-circle"></i>
+      <!-- Right Column: Impact & Story -->
+      <div class="impact-sidebar">
+        <!-- Your Impact Card -->
+        <div class="impact-card">
+          <h4 class="impact-card-title">Your Impact</h4>
+          <div class="impact-amount">{{ getDonationAmountText() }}</div>
+          <div class="impact-detail">
+            <div class="impact-icon-wrapper">
+              <i class="fas fa-balance-scale"></i>
+              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&h=300&fit=crop&crop=face" 
+                   alt="Impact recipient" 
+                   class="impact-image">
+            </div>
+            <div class="impact-info">
+              <h5>{{ getImpactTitle() }}</h5>
+              <p>{{ getImpactDescription() }}</p>
+            </div>
+          </div>
+          <div class="impact-frequency">
+            <i class="fas fa-info-circle"></i>
+            <span>{{ getRecurringLabel().toLowerCase() }} recurring donation</span>
+          </div>
         </div>
-        <h2>Thank You!</h2>
-        <p>Your donation of ${{ donationAmount }} has been processed successfully.</p>
-        <p>You will receive a confirmation email shortly.</p>
-        <div class="success-animation">
-          <i class="fas fa-heart"></i>
+
+        <!-- Story of Hope Card -->
+        <div class="story-card">
+          <div class="story-avatar-wrapper">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face" 
+                 alt="Story of hope" 
+                 class="story-avatar">
+            <div class="story-avatar-overlay"></div>
+          </div>
+          <div class="story-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <blockquote class="story-quote">
+            "Thanks to donors like you, I found safety and hope when I had nowhere else to turn."
+          </blockquote>
+          <cite class="story-attribution">— A member of our community</cite>
+        </div>
+
+        <!-- Secure Payment Card -->
+        <div class="security-card">
+          <div class="security-icon">
+            <i class="fas fa-lock"></i>
+          </div>
+          <h5 class="security-title">Secure Payment</h5>
+          <p class="security-description">Your donation is encrypted and secure</p>
         </div>
       </div>
     </div>

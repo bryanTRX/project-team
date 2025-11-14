@@ -1,0 +1,21 @@
+<svg width="180" height="50" viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#7B68EE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6B5BCE;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Shield Shape -->
+  <path d="M10 8 L10 28 Q10 38 18 42 L50 45 Q62 45 70 42 L98 38 Q108 33 108 23 L108 8 Q108 3 103 3 L15 3 Q10 3 10 8 Z" 
+        fill="url(#shieldGradient)" stroke="#5A4090" stroke-width="1.5"/>
+  
+  <!-- Inner Shield Design -->
+  <path d="M59 15 L50 20 L50 30 Q50 33 53 33 L65 33 Q68 33 68 30 L68 20 Z" 
+        fill="white" opacity="0.9"/>
+  
+  <!-- Text -->
+  <text x="120" y="28" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#2D3748">
+    Shield of Athena
+  </text>
+</svg>

@@ -1,7 +1,7 @@
 <section id="quick-donation" class="quick-donation-section">
   <div class="container">
-    <h2 class="section-title">Your Gift in Action</h2>
-    <p class="section-subtitle">Every donation directly impacts a life. See how your generosity becomes someone's lifeline.</p>
+    <h2 class="section-title">{{ languageService.getTranslation('quick_donation_title') }}</h2>
+    <p class="section-subtitle">{{ languageService.getTranslation('quick_donation_subtitle') }}</p>
     <div class="donation-card">
       <div class="human-impact-banner">
         <div class="impact-faces">
@@ -9,9 +9,9 @@
           <img src="https://i.pravatar.cc/40?img=12" alt="Person helped" class="impact-face">
           <img src="https://i.pravatar.cc/40?img=33" alt="Person helped" class="impact-face">
           <img src="https://i.pravatar.cc/40?img=5" alt="Person helped" class="impact-face">
-          <span class="impact-count">+2,446 more lives changed</span>
+          <span class="impact-count">{{ languageService.getTranslation('impact_count_more') }}</span>
         </div>
-        <p class="impact-message">Real people. Real impact. Your support matters.</p>
+        <p class="impact-message">{{ languageService.getTranslation('impact_message') }}</p>
       </div>
       
       <div class="amount-buttons">
@@ -21,22 +21,19 @@
           [class.active]="selectedAmount === amount && !customAmount"
           (click)="selectAmount(amount)">
           <span class="amount-value">${{ amount }}</span>
-          <span class="amount-description" *ngIf="amount === 25">Weekly meals for 5 children</span>
-          <span class="amount-description" *ngIf="amount === 50">1 night of safe shelter</span>
-          <span class="amount-description" *ngIf="amount === 100">5 hours of translation services</span>
-          <span class="amount-description" *ngIf="amount === 200">1 week of counseling support</span>
+          <span class="amount-description">{{ getAmountDescription(amount) }}</span>
         </button>
         <button
           class="amount-btn other-btn"
           [class.active]="customAmount !== null && customAmount !== 0"
           (click)="selectCustomAmount()">
-          <span class="amount-value">Other</span>
-          <span class="amount-description">Enter custom amount</span>
+          <span class="amount-value">{{ languageService.getTranslation('other_amount') }}</span>
+          <span class="amount-description">{{ languageService.getTranslation('enter_custom_amount') }}</span>
         </button>
       </div>
 
       <div *ngIf="customAmount !== null" class="custom-amount-input">
-        <label for="customAmount">Enter Amount</label>
+        <label for="customAmount">{{ languageService.getTranslation('enter_amount') }}</label>
         <input
           type="number"
           id="customAmount"
@@ -50,7 +47,7 @@
       </div>
 
       <div class="recurring-section">
-        <label for="recurring">Recurring Donation</label>
+        <label for="recurring">{{ languageService.getTranslation('recurring_donation') }}</label>
         <select
           id="recurring"
           [(ngModel)]="recurringOption"
@@ -66,12 +63,12 @@
         (click)="proceedToPayment()"
         [disabled]="getDonationAmount() === 0">
         <i class="fas fa-arrow-right"></i>
-        <span>Continue to Payment</span>
+        <span>{{ languageService.getTranslation('continue_to_payment') }}</span>
       </button>
 
       <p class="payment-info">
         <i class="fas fa-shield-alt"></i>
-        <span>No account needed • Secure payment • 10-language support</span>
+        <span>{{ languageService.getTranslation('payment_info') }}</span>
       </p>
     </div>
   </div>
