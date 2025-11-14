@@ -1,7 +1,7 @@
 <section class="payment-section">
   <div class="container">
     <ng-container *ngIf="!showSuccess; else successState">
-      <div class="payment-card">
+      <div class="payment-card" [ngClass]="{'text-large': textSize === 'large', 'text-xlarge': textSize === 'xlarge'}">
         <div class="form-intro">
           <div class="org-brand">
             <div class="brand-icon">
@@ -14,10 +14,37 @@
               </p>
             </div>
           </div>
-          <button class="accessibility-btn" type="button">
+          <button class="accessibility-btn" type="button" (click)="toggleAccessibilityPanel()">
             <i class="fas fa-universal-access"></i>
             <span>Accessibility Settings</span>
           </button>
+        </div>
+        <div class="accessibility-panel" *ngIf="showAccessibilityPanel">
+          <div class="panel-row">
+            <div>
+              <p class="panel-title">Simple Mode</p>
+              <span class="panel-subtitle">Show only essential information</span>
+            </div>
+            <label class="toggle-switch">
+              <input
+                type="checkbox"
+                name="simpleMode"
+                [(ngModel)]="simpleMode"
+                (change)="trackSimpleModeChange()">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="panel-row">
+            <div class="panel-label">
+              <i class="fas fa-text-height"></i>
+              <span>Text Size</span>
+            </div>
+            <select [(ngModel)]="textSize" name="textSize">
+              <option *ngFor="let option of textSizeOptions" [value]="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
         </div>
 
         <div class="form-headline">
@@ -41,7 +68,7 @@
             <p class="field-hint">
               We'll use this to send you a donation receipt and optional updates.
             </p>
-            <p class="field-example">
+            <p class="field-example" *ngIf="!simpleMode">
               Try: user@existing.com (has account) or user@new.com (new donor)
             </p>
           </div>
@@ -92,7 +119,7 @@
             </div>
           </div>
 
-          <div class="info-card impact-card">
+          <div class="info-card impact-card" *ngIf="!simpleMode">
             <div class="info-icon">
               <i class="fas fa-hands-helping"></i>
             </div>
@@ -105,7 +132,7 @@
             </div>
           </div>
 
-          <div class="info-card updates-card">
+          <div class="info-card updates-card" *ngIf="!simpleMode">
             <div class="info-icon">
               <i class="fas fa-newspaper"></i>
             </div>
@@ -127,7 +154,7 @@
             </div>
           </div>
 
-          <div class="privacy-card">
+          <div class="privacy-card" *ngIf="!simpleMode">
             <i class="fas fa-lock"></i>
             <div>
               <p class="privacy-title">Your privacy matters.</p>

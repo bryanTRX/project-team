@@ -34,6 +34,14 @@ export class PaymentComponent implements OnInit {
   cvv: string = '';
   email: string = '';
   showSuccess = false;
+  showAccessibilityPanel = false;
+  simpleMode = false;
+  textSize: 'normal' | 'large' | 'xlarge' = 'normal';
+  readonly textSizeOptions = [
+    { value: 'normal', label: 'Normal' },
+    { value: 'large', label: 'Large' },
+    { value: 'xlarge', label: 'Extra Large' }
+  ];
 
   constructor(private router: Router) {}
 
@@ -169,5 +177,16 @@ export class PaymentComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/']);
+  }
+
+  toggleAccessibilityPanel(): void {
+    this.showAccessibilityPanel = !this.showAccessibilityPanel;
+  }
+
+  trackSimpleModeChange(): void {
+    // Clear optional fields when entering simple mode for clarity
+    if (this.simpleMode) {
+      this.updatesOptIn = false;
+    }
   }
 }
