@@ -1,0 +1,24 @@
+<section class="stories-section">
+  <div class="container">
+    <h2 class="section-title">Stories of Hope</h2>
+    <div class="stories-grid">
+      <div *ngFor="let story of stories" class="story-card">
+        <div class="story-header">
+          <div class="story-avatar">
+            <i class="fas fa-{{ story.icon }}"></i>
+          </div>
+          <div class="story-info">
+            <h4 class="story-name">{{ story.name }}</h4>
+            <p class="story-timeline">{{ story.timeline }}</p>
+          </div>
+        </div>
+        <p class="story-quote">{{ story.quote }}</p>
+        <button class="message-btn" (click)="sendMessage(story)">
+          <i class="fas fa-heart"></i>
+          <span>Send a message of support</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+

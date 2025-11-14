@@ -1,0 +1,18 @@
+<section class="impact-dashboard-section">
+  <div class="container">
+    <h2 class="section-title">See Your Impact</h2>
+    <div class="impact-cards">
+      <div *ngFor="let card of impactCards" class="impact-card">
+        <div class="card-icon" [style.color]="card.color">
+          <i class="fas fa-{{ card.icon }}"></i>
+        </div>
+        <h3 class="card-title">{{ card.title }}</h3>
+        <p class="card-description">{{ card.description }}</p>
+        <div class="card-impact">
+          <p class="impact-text">{{ card.impact }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

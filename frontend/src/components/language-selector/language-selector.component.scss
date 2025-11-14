@@ -1,0 +1,25 @@
+.language-selector {
+  background-color: #6B4FA3;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #5a4090;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(201, 181, 232, 0.5);
+  }
+
+  option {
+    background-color: white;
+    color: #2E2E38;
+  }
+}
+

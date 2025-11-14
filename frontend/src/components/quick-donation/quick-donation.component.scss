@@ -1,0 +1,149 @@
+.quick-donation-section {
+  padding: 3rem 2rem;
+  background-color: white;
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2E2E38;
+  }
+
+  .donation-card {
+    background-color: #F8F5FF;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(107, 79, 163, 0.1);
+
+    @media (min-width: 768px) {
+      padding: 3rem;
+    }
+  }
+
+  .amount-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .amount-btn {
+    padding: 1rem;
+    border: 2px solid #C9B5E8;
+    border-radius: 12px;
+    background-color: white;
+    color: #6B4FA3;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #C9B5E8;
+      border-color: #6B4FA3;
+      transform: translateY(-2px);
+    }
+
+    &.active {
+      background-color: #C9B5E8;
+      border-color: #6B4FA3;
+      color: #6B4FA3;
+    }
+  }
+
+  .custom-amount-input {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #2E2E38;
+    }
+
+    .custom-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #C9B5E8;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      background-color: white;
+      color: #2E2E38;
+
+      &:focus {
+        outline: none;
+        border-color: #6B4FA3;
+        box-shadow: 0 0 0 3px rgba(201, 181, 232, 0.3);
+      }
+    }
+  }
+
+  .recurring-section {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #2E2E38;
+    }
+
+    .recurring-select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #C9B5E8;
+      border-radius: 12px;
+      font-size: 1rem;
+      background-color: white;
+      color: #2E2E38;
+      cursor: pointer;
+
+      &:focus {
+        outline: none;
+        border-color: #6B4FA3;
+        box-shadow: 0 0 0 3px rgba(201, 181, 232, 0.3);
+      }
+    }
+  }
+
+  .continue-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: #F28C88;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+      background-color: #E7736C;
+      transform: scale(1.02);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .payment-info {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 1rem;
+  }
+}
+
