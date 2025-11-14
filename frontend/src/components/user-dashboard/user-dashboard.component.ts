@@ -81,4 +81,8 @@ export class UserDashboardComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/']);
   }
+
+  startNewDonation(): void {
+    this.router.navigate(['/payment']);
+  }
 }

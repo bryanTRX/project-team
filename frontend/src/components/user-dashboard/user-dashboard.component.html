@@ -10,10 +10,6 @@
           <p class="brand-subtitle">Supporting women and children in crisis</p>
         </div>
       </div>
-      <div class="brand-actions">
-        <button class="outline-btn" routerLink="/">Back to Site</button>
-        <button class="ghost-btn" (click)="logout()">Log out</button>
-      </div>
     </header>
 
     <div class="impact-dashboard">
@@ -23,11 +19,13 @@
           <h1>See how your generosity is making a difference</h1>
         </div>
         <div class="header-actions">
-          <button class="primary-btn">
+          <button class="primary-btn" (click)="startNewDonation()">
             <i class="fas fa-plus"></i>
             Make a New Donation
           </button>
           <button class="outline-btn">Manage Your Donation Plan</button>
+          <button class="ghost-btn subtle" routerLink="/">Back to Site</button>
+          <button class="ghost-btn logout" (click)="logout()">Log out</button>
         </div>
       </div>
 
