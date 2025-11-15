@@ -88,16 +88,39 @@
   transform: translateY(-10px);
 
   &.open {
-    max-height: 400px;
+    max-height: 300px;
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    // Custom scrollbar styling
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: #F1F5F9;
+      border-radius: 10px;
+      margin: 8px 0;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #CBD5E0;
+      border-radius: 10px;
+      
+      &:hover {
+        background: #A0AEC0;
+      }
+    }
   }
 
   @media (max-width: 768px) {
     right: auto;
     left: 0;
     min-width: 180px;
+    max-height: 250px;
   }
 }
 

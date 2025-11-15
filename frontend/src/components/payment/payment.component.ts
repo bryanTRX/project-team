@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LanguageService } from '../../services/language.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-payment',
@@ -10,22 +12,39 @@ import { Router } from '@angular/router';
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss'
 })
-export class PaymentComponent implements OnInit {
+export class PaymentComponent implements OnInit, OnDestroy {
   donationOptions: number[] = [10, 25, 50, 100, 250];
   donationAmount: number = this.donationOptions[2];
   customAmount: string = '';
   recurringOption: string = 'one-time';
-  frequencyOptions = [
-    { value: 'one-time', label: 'One-Time', description: 'Single donation' },
-    { value: 'monthly', label: 'Monthly', description: 'Recurring monthly', highlight: 'Most Popular' },
-    { value: 'quarterly', label: 'Quarterly', description: 'Every 3 months' },
-    { value: 'yearly', label: 'Yearly', description: 'Every year' }
-  ];
-  paymentMethods = [
-    { value: 'card', label: 'Credit/Debit Card', icon: 'far fa-credit-card', badges: ['Visa', 'Mastercard', 'Amex', 'Discover'] },
-    { value: 'paypal', label: 'PayPal', icon: 'fab fa-paypal', badges: ['PayPal'] },
-    { value: 'venmo', label: 'Venmo', icon: 'fab fa-vimeo-v', badges: ['Venmo'] }
-  ];
+  currentLanguage: string = 'en';
+  private languageSubscription?: Subscription;
+
+  get frequencyOptions() {
+    return [
+      { value: 'one-time', label: this.languageService.getTranslation('one_time'), description: this.languageService.getTranslation('single_donation') },
+      { value: 'monthly', label: this.languageService.getTranslation('monthly'), description: this.languageService.getTranslation('recurring_monthly'), highlight: this.languageService.getTranslation('most_popular') },
+      { value: 'quarterly', label: this.languageService.getTranslation('quarterly'), description: this.languageService.getTranslation('every_3_months') },
+      { value: 'yearly', label: this.languageService.getTranslation('yearly'), description: this.languageService.getTranslation('every_year') }
+    ];
+  }
+
+  get paymentMethods() {
+    return [
+      { value: 'card', label: this.languageService.getTranslation('credit_debit_card'), icon: 'far fa-credit-card', badges: ['Visa', 'Mastercard', 'Amex', 'Discover'] },
+      { value: 'paypal', label: 'PayPal', icon: 'fab fa-paypal', badges: ['PayPal'] },
+      { value: 'venmo', label: 'Venmo', icon: 'fab fa-vimeo-v', badges: ['Venmo'] }
+    ];
+  }
+
+  get textSizeOptions() {
+    return [
+      { value: 'normal', label: this.languageService.getTranslation('normal') },
+      { value: 'large', label: this.languageService.getTranslation('large') },
+      { value: 'xlarge', label: this.languageService.getTranslation('extra_large') }
+    ];
+  }
+
   selectedPaymentMethod = 'card';
   updatesOptIn = false;
   cardNumber: string = '';
@@ -37,15 +56,18 @@ export class PaymentComponent implements OnInit {
   showAccessibilityPanel = false;
   simpleMode = false;
   textSize: 'normal' | 'large' | 'xlarge' = 'normal';
-  readonly textSizeOptions = [
-    { value: 'normal', label: 'Normal' },
-    { value: 'large', label: 'Large' },
-    { value: 'xlarge', label: 'Extra Large' }
-  ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    public languageService: LanguageService
+  ) {}
 
   ngOnInit(): void {
+    this.currentLanguage = this.languageService.getCurrentLanguage();
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+      this.currentLanguage = lang;
+    });
+
     // Get donation amount from localStorage or route params
     const savedAmount = localStorage.getItem('donationAmount');
     const savedRecurring = localStorage.getItem('recurringOption');
@@ -58,6 +80,12 @@ export class PaymentComponent implements OnInit {
     }
     if (savedRecurring) {
       this.recurringOption = savedRecurring;
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
     }
   }
 
@@ -106,40 +134,34 @@ export class PaymentComponent implements OnInit {
 
   validateForm(): boolean {
     if (!this.donationAmount || this.donationAmount <= 0) {
-      alert('Please select a donation amount');
+      alert(this.languageService.getTranslation('alert_select_amount'));
       return false;
     }
     if (!this.cardNumber || this.cardNumber.replace(/\s/g, '').length !== 16) {
-      alert('Please enter a valid card number');
+      alert(this.languageService.getTranslation('card_number') + ' - ' + this.languageService.getTranslation('invalid_credentials').replace('username or password', ''));
       return false;
     }
     if (!this.cardHolder) {
-      alert('Please enter card holder name');
+      alert(this.languageService.getTranslation('card_holder_name') + ' - ' + this.languageService.getTranslation('invalid_credentials').replace('username or password', ''));
       return false;
     }
     if (!this.expiryDate || !/^\d{2}\/\d{2}$/.test(this.expiryDate)) {
-      alert('Please enter a valid expiry date (MM/YY)');
+      alert(this.languageService.getTranslation('expiry_date') + ' - ' + this.languageService.getTranslation('invalid_credentials').replace('username or password', ''));
       return false;
     }
     if (!this.cvv || this.cvv.length < 3) {
-      alert('Please enter a valid CVV');
+      alert(this.languageService.getTranslation('cvv') + ' - ' + this.languageService.getTranslation('invalid_credentials').replace('username or password', ''));
       return false;
     }
     if (!this.email || !this.email.includes('@')) {
-      alert('Please enter a valid email address');
+      alert(this.languageService.getTranslation('email_address') + ' - ' + this.languageService.getTranslation('invalid_credentials').replace('username or password', ''));
       return false;
     }
     return true;
   }
 
   getRecurringLabel(): string {
-    const labels: { [key: string]: string } = {
-      'one-time': 'One-Time',
-      'monthly': 'Monthly',
-      'quarterly': 'Quarterly',
-      'yearly': 'Yearly'
-    };
-    return labels[this.recurringOption] || this.recurringOption;
+    return this.languageService.getTranslation(this.recurringOption.replace('-', '_') as any) || this.recurringOption;
   }
 
   selectDonationAmount(amount: number): void {
@@ -171,12 +193,20 @@ export class PaymentComponent implements OnInit {
     // In a real app, this would navigate to a thank you page
     this.router.navigate(['/']);
     setTimeout(() => {
-      alert('Thank you for your donation! Your support makes a difference.');
+      alert(this.languageService.getTranslation('thank_you') + ' ' + this.languageService.getTranslation('every_donation_matters'));
     }, 100);
   }
 
   goBack(): void {
     this.router.navigate(['/']);
+  }
+
+  getDonationProcessedText(amount: number): string {
+    const translation = this.languageService.getTranslation('donation_processed_successfully');
+    const formattedAmount = amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 });
+    return translation
+      .replace('${{amount}}', formattedAmount)
+      .replace('{{amount}}', formattedAmount);
   }
 
   toggleAccessibilityPanel(): void {

@@ -16,7 +16,7 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
   isOpen: boolean = false;
   private languageSubscription?: Subscription;
 
-  constructor(private languageService: LanguageService) {}
+  constructor(public languageService: LanguageService) {}
 
   ngOnInit(): void {
     this.languages = this.languageService.languages;

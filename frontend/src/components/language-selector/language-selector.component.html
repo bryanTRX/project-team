@@ -1,9 +1,9 @@
 <div class="language-selector-wrapper">
-  <button 
-    class="language-selector-btn" 
-    (click)="toggleDropdown()"
-    [attr.aria-label]="'Select language - ' + getCurrentLanguageName()"
-    [attr.aria-expanded]="isOpen">
+      <button 
+        class="language-selector-btn" 
+        (click)="toggleDropdown()"
+        [attr.aria-label]="languageService.getTranslation('select_language') + ' - ' + getCurrentLanguageName()"
+        [attr.aria-expanded]="isOpen">
     <span class="flag">{{ getCurrentFlag() }}</span>
     <i class="fas fa-chevron-down" [class.rotated]="isOpen"></i>
   </button>

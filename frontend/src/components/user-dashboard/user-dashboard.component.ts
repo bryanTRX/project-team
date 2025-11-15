@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService, UserProfile } from '../../services/auth.service';
 import { TierBadgesComponent, TierBadge } from '../tier-badges/tier-badges.component';
+import { LanguageService } from '../../services/language.service';
+import { Subscription } from 'rxjs';
 
 interface ImpactNewsItem {
   title: string;
@@ -30,10 +32,12 @@ interface ForumDiscussion {
   templateUrl: './user-dashboard.component.html',
   styleUrl: './user-dashboard.component.scss'
 })
-export class UserDashboardComponent implements OnInit, AfterViewInit {
+export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(TierBadgesComponent) tierBadgesComponent!: TierBadgesComponent;
   
   user: UserProfile | null = null;
+  currentLanguage: string = 'en';
+  private languageSubscription?: Subscription;
 
   news: ImpactNewsItem[] = [
     {
@@ -64,17 +68,59 @@ export class UserDashboardComponent implements OnInit, AfterViewInit {
     { title: 'New Program Launch', replies: 12 }
   ];
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    public languageService: LanguageService
+  ) {}
 
   ngOnInit(): void {
+    this.currentLanguage = this.languageService.getCurrentLanguage();
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+      this.currentLanguage = lang;
+    });
+
     this.user = this.authService.getCurrentUser();
     if (!this.user) {
       this.router.navigate(['/']);
     }
   }
 
+  ngOnDestroy(): void {
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
+    }
+  }
+
   ngAfterViewInit(): void {
     // TierBadgesComponent is now initialized and has calculated tiers
+  }
+
+  getFrequencyTranslation(frequency: string): string {
+    const freqMap: { [key: string]: string } = {
+      'One-time': 'one_time',
+      'Monthly': 'monthly',
+      'Quarterly': 'quarterly',
+      'Yearly': 'yearly'
+    };
+    const key = freqMap[frequency] || frequency.toLowerCase().replace('-', '_');
+    return this.languageService.getTranslation(key);
+  }
+
+  getPathToStatusText(tierName: string): string {
+    return this.languageService.getTranslation('path_to_status').replace('{{tier}}', tierName);
+  }
+
+  getReachTierStatusText(tierName: string, amount: number, remaining: number): string {
+    const translation = this.languageService.getTranslation('reach_tier_status');
+    const formattedAmount = amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 });
+    const formattedRemaining = remaining.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 });
+    return translation
+      .replace('{{tier}}', tierName)
+      .replace('${{amount}}', formattedAmount)
+      .replace('{{amount}}', formattedAmount)
+      .replace('${{remaining}}', formattedRemaining)
+      .replace('{{remaining}}', formattedRemaining);
   }
 
   get currentTier(): TierBadge | null {

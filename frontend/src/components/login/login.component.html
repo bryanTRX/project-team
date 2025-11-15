@@ -3,42 +3,42 @@
   <div class="login-pattern pattern-two" aria-hidden="true"></div>
   <div class="login-card">
     <div class="login-header">
-      <h1>Welcome back</h1>
-      <p>Sign in to manage your donations and dashboard</p>
+      <h1>{{ languageService.getTranslation('welcome_back') }}</h1>
+      <p>{{ languageService.getTranslation('sign_in_manage_donations') }}</p>
     </div>
 
     <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="login-form">
       <div class="form-group">
-        <label for="username">Username</label>
+        <label for="username">{{ languageService.getTranslation('username') }}</label>
         <input
           type="text"
           id="username"
           name="username"
           [(ngModel)]="username"
-          placeholder="Enter your username"
+          [placeholder]="languageService.getTranslation('enter_username')"
           required>
       </div>
 
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password">{{ languageService.getTranslation('password') }}</label>
         <input
           type="password"
           id="password"
           name="password"
           [(ngModel)]="password"
-          placeholder="Enter your password"
+          [placeholder]="languageService.getTranslation('enter_password')"
           required>
       </div>
 
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
       <button type="submit" class="submit-btn" [disabled]="loginForm.invalid">
-        Log in
+        {{ languageService.getTranslation('login') }}
       </button>
     </form>
 
     <div class="login-footer">
-      <a routerLink="/">← Back to home</a>
+      <a routerLink="/">{{ languageService.getTranslation('back_to_home') }}</a>
     </div>
   </div>
 </section>
