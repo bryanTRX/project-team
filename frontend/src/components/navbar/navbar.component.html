@@ -9,26 +9,23 @@
           <span class="logo-text">Shield of Athena</span>
         </div>
         <div class="nav-links" [class.open]="menuOpen">
-          <a href="#home" (click)="scrollToSection('home')">Home</a>
-          <a href="#impact" (click)="scrollToSection('impact')">Impact</a>
-          <a href="#donate" (click)="scrollToSection('donate')">Donate</a>
-          <a href="#stories" (click)="scrollToSection('stories')">Stories</a>
+          <a href="#home" (click)="scrollToSection('home')">{{ languageService.getTranslation('home') }}</a>
+          <a href="#impact" (click)="scrollToSection('impact')">{{ languageService.getTranslation('impact') }}</a>
+          <a href="#donate" (click)="scrollToSection('donate')">{{ languageService.getTranslation('donate') }}</a>
+          <a href="#stories" (click)="scrollToSection('stories')">{{ languageService.getTranslation('stories') }}</a>
         </div>
         <div class="nav-actions">
           <app-language-selector></app-language-selector>
           <button
             type="button"
-            class="login-link"
+            class="login-btn"
             [routerLink]="isAuthenticated() ? '/dashboard' : '/login'"
             (click)="closeMenu()">
             <i class="fas fa-user" [class.logged-in]="isAuthenticated()"></i>
-            <span>{{ isAuthenticated() ? 'My Dashboard' : 'Login' }}</span>
-          </button>
-          <button class="donate-btn" (click)="scrollToDonation()">
-            Donate Now
+            <span>{{ isAuthenticated() ? languageService.getTranslation('my_dashboard') : languageService.getTranslation('login') }}</span>
           </button>
         </div>
-        <button class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle Menu">
+        <button class="menu-toggle" (click)="toggleMenu()" [attr.aria-label]="languageService.getTranslation('toggle_menu')">
           <span></span><span></span><span></span>
         </button>
       </div>

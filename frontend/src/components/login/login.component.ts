@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { LanguageService } from '../../services/language.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -11,16 +13,33 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   username = '';
   password = '';
   errorMessage = '';
+  currentLanguage: string = 'en';
+  private languageSubscription?: Subscription;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    public languageService: LanguageService
+  ) {}
 
   ngOnInit(): void {
+    this.currentLanguage = this.languageService.getCurrentLanguage();
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+      this.currentLanguage = lang;
+    });
+
     if (this.authService.isAuthenticated()) {
       this.router.navigate(['/dashboard']);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
     }
   }
 
@@ -32,6 +51,6 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.errorMessage = 'Invalid username or password. Please try again.';
+    this.errorMessage = this.languageService.getTranslation('invalid_credentials');
   }
 }

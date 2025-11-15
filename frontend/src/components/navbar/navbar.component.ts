@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { AuthService } from '../../services/auth.service';
+import { LanguageService } from '../../services/language.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -11,10 +13,28 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit, OnDestroy {
   menuOpen = false;
+  currentLanguage: string = 'en';
+  private languageSubscription?: Subscription;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    public languageService: LanguageService
+  ) {}
+
+  ngOnInit(): void {
+    this.currentLanguage = this.languageService.getCurrentLanguage();
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+      this.currentLanguage = lang;
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
+    }
+  }
 
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
@@ -23,14 +43,6 @@ export class NavbarComponent {
   scrollToSection(sectionId: string): void {
     const element = document.getElementById(sectionId);
     if (element) element.scrollIntoView({ behavior: 'smooth' });
-    this.menuOpen = false;
-  }
-
-  scrollToDonation(): void {
-    const element = document.getElementById('quick-donation');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
     this.menuOpen = false;
   }
 

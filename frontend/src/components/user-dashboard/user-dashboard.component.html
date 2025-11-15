@@ -6,31 +6,31 @@
     <div class="impact-dashboard">
       <div class="dashboard-header">
         <div>
-          <p class="eyebrow">Your Impact Dashboard</p>
-          <h1>See how your generosity is making a difference</h1>
+          <p class="eyebrow">{{ languageService.getTranslation('your_impact_dashboard') }}</p>
+          <h1>{{ languageService.getTranslation('see_generosity_making_difference') }}</h1>
         </div>
         <div class="header-actions">
           <button class="primary-btn" (click)="startNewDonation()">
             <i class="fas fa-plus"></i>
-            Make a New Donation
+            {{ languageService.getTranslation('make_new_donation') }}
           </button>
-          <button class="outline-btn">Manage Your Donation Plan</button>
-          <button class="ghost-btn subtle" routerLink="/">Back to Site</button>
-          <button class="ghost-btn logout" (click)="logout()">Log out</button>
+          <button class="outline-btn">{{ languageService.getTranslation('manage_donation_plan') }}</button>
+          <button class="ghost-btn subtle" routerLink="/">{{ languageService.getTranslation('back_to_site') }}</button>
+          <button class="ghost-btn logout" (click)="logout()">{{ languageService.getTranslation('log_out') }}</button>
         </div>
       </div>
 
       <div class="stats-grid">
         <div class="stat-card">
-          <p>Total Donated</p>
+          <p>{{ languageService.getTranslation('total_donated') }}</p>
           <span class="stat-value">{{ user.totalDonated | currency:'USD':'symbol':'1.0-0' }}</span>
         </div>
         <div class="stat-card">
-          <p>Families Helped</p>
+          <p>{{ languageService.getTranslation('families_helped') }}</p>
           <span class="stat-value">{{ user.familiesHelped }}</span>
         </div>
         <div class="stat-card tier-card" *ngIf="currentTier">
-          <p>Donor Tier</p>
+          <p>{{ languageService.getTranslation('donor_tier') }}</p>
           <div class="tier-display">
             <img [src]="currentTier.imagePath" [alt]="currentTier.name + ' tier badge'" class="tier-badge-img" />
             <div class="tier-info">
@@ -46,47 +46,47 @@
           <div class="progress-tier-info">
             <img [src]="nextTier.imagePath" [alt]="nextTier.name + ' tier badge'" class="progress-tier-badge" />
             <div>
-              <p>Path to {{ nextTier.name }} Status</p>
+              <p>{{ getPathToStatusText(nextTier.name) }}</p>
               <span class="progress-tier-subtitle">{{ nextTier.subtitle }}</span>
             </div>
           </div>
-          <span>{{ progressPercentage }}% Complete</span>
+          <span>{{ progressPercentage }}% {{ languageService.getTranslation('complete') }}</span>
         </div>
         <div class="progress-bar">
           <div class="fill" [style.width.%]="progressPercentage"></div>
         </div>
-        <p>Reach {{ nextTier.name }} status at {{ nextTier.minAmount | currency:'USD':'symbol':'1.0-0' }} donated ({{ getAmountToNextTier() | currency:'USD':'symbol':'1.0-0' }} to go)</p>
+              <p>{{ getReachTierStatusText(nextTier.name, nextTier.minAmount, getAmountToNextTier()) }}</p>
       </div>
       <div class="progress-card max-tier" *ngIf="!nextTier && currentTier">
         <div class="progress-head">
           <div class="progress-tier-info">
             <img [src]="currentTier.imagePath" [alt]="currentTier.name + ' tier badge'" class="progress-tier-badge" />
             <div>
-              <p>{{ currentTier.name }} Status - Maximum Tier!</p>
+              <p>{{ currentTier.name }} {{ languageService.getTranslation('maximum_tier') }}</p>
               <span class="progress-tier-subtitle">{{ currentTier.subtitle }}</span>
             </div>
           </div>
-          <span>100% Complete</span>
+          <span>100% {{ languageService.getTranslation('complete') }}</span>
         </div>
         <div class="progress-bar">
           <div class="fill" style="width: 100%"></div>
         </div>
-        <p>Congratulations! You've reached the highest tier of support.</p>
+        <p>{{ languageService.getTranslation('congratulations_highest_tier') }}</p>
       </div>
 
       <div class="info-grid">
         <div class="impact-news card-panel">
           <div class="panel-head">
             <div>
-              <h2>Impact News</h2>
-              <p>See how your donations are making a difference</p>
+              <h2>{{ languageService.getTranslation('impact_news') }}</h2>
+              <p>{{ languageService.getTranslation('see_donations_making_difference') }}</p>
             </div>
           </div>
           <div class="news-items">
             @for (item of news; track item.title) {
               <article class="news-item">
                 <div>
-                  <span class="news-badge">{{ item.label }}</span>
+                  <span class="news-badge">{{ item.label === 'Program Update' ? languageService.getTranslation('program_update') : (item.label === 'Milestone' ? languageService.getTranslation('milestone') : item.label) }}</span>
                   <h3>{{ item.title }}</h3>
                   <p>{{ item.description }}</p>
                 </div>
@@ -94,21 +94,21 @@
               </article>
             }
           </div>
-          <a class="panel-link">Read All News</a>
+          <a class="panel-link">{{ languageService.getTranslation('read_all_news') }}</a>
         </div>
 
         <div class="history-forum">
           <div class="history card-panel">
             <div class="panel-head">
-              <h2>Donation History</h2>
-              <a class="panel-link small">View Full History</a>
+              <h2>{{ languageService.getTranslation('donation_history') }}</h2>
+              <a class="panel-link small">{{ languageService.getTranslation('view_full_history') }}</a>
             </div>
             <div class="history-items">
               @for (donation of donationHistory; track donation.date) {
                 <div class="history-row">
                   <div>
                     <p class="history-date">{{ donation.date }}</p>
-                    <span class="history-frequency">{{ donation.frequency }}</span>
+                    <span class="history-frequency">{{ getFrequencyTranslation(donation.frequency) }}</span>
                   </div>
                   <span class="history-amount">{{ donation.amount | currency:'USD':'symbol':'1.0-0' }}</span>
                 </div>
@@ -119,17 +119,17 @@
           <div class="forum card-panel">
             <div class="panel-head">
               <div>
-                <h2>Community Forum</h2>
-                <p>Connect with fellow supporters and share impact stories</p>
+                <h2>{{ languageService.getTranslation('community_forum') }}</h2>
+                <p>{{ languageService.getTranslation('connect_with_supporters') }}</p>
               </div>
               <div class="forum-stats">
                 <div>
                   <p>847</p>
-                  <span>Members</span>
+                  <span>{{ languageService.getTranslation('members') }}</span>
                 </div>
                 <div>
                   <p>156</p>
-                  <span>Discussions</span>
+                  <span>{{ languageService.getTranslation('discussions') }}</span>
                 </div>
               </div>
             </div>
@@ -137,11 +137,11 @@
               @for (discussion of discussions; track discussion.title) {
                 <div class="discussion-row">
                   <p>{{ discussion.title }}</p>
-                  <span>{{ discussion.replies }} replies</span>
+                  <span>{{ discussion.replies }} {{ languageService.getTranslation('replies') }}</span>
                 </div>
               }
             </div>
-            <button class="primary-btn ghost">Visit Forum</button>
+            <button class="primary-btn ghost">{{ languageService.getTranslation('visit_forum') }}</button>
           </div>
         </div>
       </div>

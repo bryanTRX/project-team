@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-quick-donation',
@@ -11,20 +12,53 @@ import { LanguageService } from '../../services/language.service';
   templateUrl: './quick-donation.component.html',
   styleUrl: './quick-donation.component.scss'
 })
-export class QuickDonationComponent {
+export class QuickDonationComponent implements OnInit, OnDestroy {
   selectedAmount: number | null = null;
   customAmount: number | null = null;
   recurringOption: string = 'one-time';
+  currentLanguage: string = 'en';
+  private languageSubscription?: Subscription;
 
   donationAmounts = [25, 50, 100, 200];
-  recurringOptions = [
-    { value: 'one-time', label: 'One-Time' },
-    { value: 'monthly', label: 'Monthly' },
-    { value: 'quarterly', label: 'Quarterly' },
-    { value: 'yearly', label: 'Yearly' }
-  ];
+  
+  get recurringOptions() {
+    return [
+      { value: 'one-time', label: this.languageService.getTranslation('one_time') },
+      { value: 'monthly', label: this.languageService.getTranslation('monthly') },
+      { value: 'quarterly', label: this.languageService.getTranslation('quarterly') },
+      { value: 'yearly', label: this.languageService.getTranslation('yearly') }
+    ];
+  }
 
   constructor(public languageService: LanguageService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.currentLanguage = this.languageService.getCurrentLanguage();
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+      this.currentLanguage = lang;
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
+    }
+  }
+
+  getAmountDescription(amount: number): string {
+    switch(amount) {
+      case 25:
+        return this.languageService.getTranslation('weekly_meals_5_children');
+      case 50:
+        return this.languageService.getTranslation('night_safe_shelter');
+      case 100:
+        return this.languageService.getTranslation('hours_translation_services');
+      case 200:
+        return this.languageService.getTranslation('week_counseling_support');
+      default:
+        return '';
+    }
+  }
 
   selectAmount(amount: number): void {
     this.selectedAmount = amount;
@@ -63,7 +97,7 @@ export class QuickDonationComponent {
       // Redirect to payment page using router
       this.router.navigate(['/payment']);
     } else {
-      alert('Please select or enter a donation amount');
+      alert(this.languageService.getTranslation('alert_select_amount'));
     }
   }
 }

@@ -1,9 +1,22 @@
-<select 
-  class="language-selector" 
-  [value]="currentLanguage" 
-  (change)="onLanguageChange($any($event.target).value)"
-  aria-label="Select language">
-  <option *ngFor="let lang of languages" [value]="lang.code">
-    {{ lang.nativeName }}
-  </option>
-</select>
+<div class="language-selector-wrapper">
+      <button 
+        class="language-selector-btn" 
+        (click)="toggleDropdown()"
+        [attr.aria-label]="languageService.getTranslation('select_language') + ' - ' + getCurrentLanguageName()"
+        [attr.aria-expanded]="isOpen">
+    <span class="flag">{{ getCurrentFlag() }}</span>
+    <i class="fas fa-chevron-down" [class.rotated]="isOpen"></i>
+  </button>
+  
+  <div class="language-dropdown" [class.open]="isOpen">
+    <button
+      *ngFor="let lang of languages"
+      class="language-option"
+      [class.active]="currentLanguage === lang.code"
+      (click)="selectLanguage(lang.code)">
+      <span class="flag">{{ lang.flag }}</span>
+      <span class="language-name">{{ lang.nativeName }}</span>
+      <i *ngIf="currentLanguage === lang.code" class="fas fa-check"></i>
+    </button>
+  </div>
+</div>

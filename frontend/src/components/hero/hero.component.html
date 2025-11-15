@@ -15,34 +15,34 @@
         </div>
         <div class="floating-badge">
           <i class="fas fa-heart"></i>
-          <span>2,450+ Lives Changed</span>
+          <span>{{ languageService.getTranslation('lives_changed') }}</span>
         </div>
       </div>
       <div class="hero-text">
-        <h1 class="hero-title">Every Donation is a Lifeline</h1>
-        <p class="hero-subtitle">Behind every number, there's a face. Behind every statistic, there's a story. Your support doesn't just provide shelter—it restores hope, rebuilds lives, and gives children the chance to dream again. Join thousands who are making a real difference, one donation at a time.</p>
+        <h1 class="hero-title">{{ languageService.getTranslation('every_donation_lifeline') }}</h1>
+        <p class="hero-subtitle">{{ languageService.getTranslation('hero_subtitle_long') }}</p>
         <div class="hero-stats">
           <div class="stat-item">
             <span class="stat-number">2,450+</span>
-            <span class="stat-label">People Helped</span>
+            <span class="stat-label">{{ languageService.getTranslation('people_helped') }}</span>
           </div>
           <div class="stat-item">
             <span class="stat-number">95%</span>
-            <span class="stat-label">Success Rate</span>
+            <span class="stat-label">{{ languageService.getTranslation('success_rate') }}</span>
           </div>
           <div class="stat-item">
             <span class="stat-number">24/7</span>
-            <span class="stat-label">Support Available</span>
+            <span class="stat-label">{{ languageService.getTranslation('support_available') }}</span>
           </div>
         </div>
         <div class="hero-buttons">
           <button class="btn btn-primary donation-btn" (click)="scrollToDonation()">
             <i class="fas fa-heart"></i>
-            <span>Make a Difference Today</span>
+            <span>{{ languageService.getTranslation('make_difference_today') }}</span>
           </button>
           <button class="btn btn-secondary donation-btn" (click)="scrollToStories()">
             <i class="fas fa-book-open"></i>
-            <span>Read Their Stories</span>
+            <span>{{ languageService.getTranslation('read_their_stories') }}</span>
           </button>
         </div>
       </div>
