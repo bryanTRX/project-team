@@ -5,6 +5,7 @@ export interface Language {
   code: string;
   name: string;
   nativeName: string;
+  flag: string;
 }
 
 @Injectable({
@@ -15,16 +16,16 @@ export class LanguageService {
   public currentLanguage$ = this.currentLanguageSubject.asObservable();
 
   languages: Language[] = [
-    { code: 'en', name: 'English', nativeName: 'English' },
-    { code: 'fr', name: 'French', nativeName: 'Français' },
-    { code: 'es', name: 'Spanish', nativeName: 'Español' },
-    { code: 'ar', name: 'Arabic', nativeName: 'العربية' },
-    { code: 'zh', name: 'Chinese', nativeName: '中文' },
-    { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी' },
-    { code: 'ru', name: 'Russian', nativeName: 'Русский' },
-    { code: 'pt', name: 'Portuguese', nativeName: 'Português' },
-    { code: 'it', name: 'Italian', nativeName: 'Italiano' },
-    { code: 'de', name: 'German', nativeName: 'Deutsch' }
+    { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸' },
+    { code: 'fr', name: 'French', nativeName: 'Français', flag: '🇫🇷' },
+    { code: 'es', name: 'Spanish', nativeName: 'Español', flag: '🇪🇸' },
+    { code: 'ar', name: 'Arabic', nativeName: 'العربية', flag: '🇸🇦' },
+    { code: 'zh', name: 'Chinese', nativeName: '中文', flag: '🇨🇳' },
+    { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी', flag: '🇮🇳' },
+    { code: 'ru', name: 'Russian', nativeName: 'Русский', flag: '🇷🇺' },
+    { code: 'pt', name: 'Portuguese', nativeName: 'Português', flag: '🇵🇹' },
+    { code: 'it', name: 'Italian', nativeName: 'Italiano', flag: '🇮🇹' },
+    { code: 'de', name: 'German', nativeName: 'Deutsch', flag: '🇩🇪' }
   ];
 
   translations: { [key: string]: { [lang: string]: string } } = {

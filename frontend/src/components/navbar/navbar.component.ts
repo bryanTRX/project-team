@@ -26,14 +26,6 @@ export class NavbarComponent {
     this.menuOpen = false;
   }
 
-  scrollToDonation(): void {
-    const element = document.getElementById('quick-donation');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    this.menuOpen = false;
-  }
-
   closeMenu(): void {
     this.menuOpen = false;
   }

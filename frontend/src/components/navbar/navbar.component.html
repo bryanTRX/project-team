@@ -18,14 +18,11 @@
           <app-language-selector></app-language-selector>
           <button
             type="button"
-            class="login-link"
+            class="login-btn"
             [routerLink]="isAuthenticated() ? '/dashboard' : '/login'"
             (click)="closeMenu()">
             <i class="fas fa-user" [class.logged-in]="isAuthenticated()"></i>
             <span>{{ isAuthenticated() ? 'My Dashboard' : 'Login' }}</span>
-          </button>
-          <button class="donate-btn" (click)="scrollToDonation()">
-            Donate Now
           </button>
         </div>
         <button class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle Menu">
