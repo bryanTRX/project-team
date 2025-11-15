@@ -151,9 +151,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
       });
 
       this.showSuccess = true;
-      setTimeout(() => {
-        this.redirectToThankYou();
-      }, 3000);
     } catch (error) {
       console.error('Unable to complete donation', error);
       alert('Unable to complete your donation right now. Please try again in a moment.');
@@ -256,14 +253,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.selectedPaymentMethod = method;
   }
 
-  redirectToThankYou(): void {
+  redirectToDashboard(): void {
     localStorage.removeItem('donationAmount');
     localStorage.removeItem('recurringOption');
-    // In a real app, this would navigate to a thank you page
-    this.router.navigate(['/']);
-    setTimeout(() => {
-      alert(this.languageService.getTranslation('thank_you') + ' ' + this.languageService.getTranslation('every_donation_matters'));
-    }, 100);
+    this.router.navigate(['/dashboard']);
   }
 
   goBack(): void {

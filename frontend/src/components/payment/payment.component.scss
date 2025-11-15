@@ -801,7 +801,8 @@ input[type='number']::-webkit-inner-spin-button {
     animation: pulse 2s infinite;
   }
 
-  .back-btn {
+  .back-btn,
+  .ok-btn {
     margin-top: 1.2rem;
     border: none;
     background: #7b68ee;
@@ -810,6 +811,18 @@ input[type='number']::-webkit-inner-spin-button {
     padding: 0.55rem 1.25rem;
     font-weight: 600;
     cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+
+    &:hover {
+      background: #6b5bce;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(123, 104, 238, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
   }
 }
 

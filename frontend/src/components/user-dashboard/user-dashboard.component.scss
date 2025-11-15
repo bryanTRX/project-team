@@ -140,6 +140,13 @@
   &.badge {
     background: rgba(120, 228, 255, 0.2);
     color: #4e82ff;
+    
+    .tier-badge-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
   }
 }
 

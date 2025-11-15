@@ -41,7 +41,14 @@
                   languageService.getTranslation('dedicated_supporter')
               }}</span>
             </div>
-            <span class="stat-icon badge"><i class="fas fa-ribbon"></i></span>
+            <div class="stat-icon badge" *ngIf="currentTier">
+              <img
+                [src]="currentTier.imagePath"
+                [alt]="currentTier.name + ' tier badge'"
+                class="tier-badge-image"
+              />
+            </div>
+            <span class="stat-icon badge" *ngIf="!currentTier"><i class="fas fa-ribbon"></i></span>
           </div>
 
           <div class="action-cards">

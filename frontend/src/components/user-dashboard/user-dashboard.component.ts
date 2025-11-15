@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { AuthService, UserProfile } from '../../services/auth.service';
 import { TierBadgesComponent, TierBadge } from '../tier-badges/tier-badges.component';
 import { LanguageService } from '../../services/language.service';
-import { Subscription } from 'rxjs';
+import { Subscription, filter } from 'rxjs';
 
 interface ImpactNewsItem {
   title: string;
@@ -38,6 +38,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
   user: UserProfile | null = null;
   currentLanguage: string = 'en';
   private languageSubscription?: Subscription;
+  private routerSubscription?: Subscription;
 
   news: ImpactNewsItem[] = [
     {
@@ -80,6 +81,17 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
       this.currentLanguage = lang;
     });
 
+    // Reload user data when navigating to dashboard
+    this.routerSubscription = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.loadUserData();
+      });
+
+    this.loadUserData();
+  }
+
+  loadUserData(): void {
     this.user = this.authService.getCurrentUser();
     if (!this.user) {
       this.router.navigate(['/']);
@@ -89,6 +101,9 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
   ngOnDestroy(): void {
     if (this.languageSubscription) {
       this.languageSubscription.unsubscribe();
+    }
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
     }
   }
 

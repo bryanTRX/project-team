@@ -95,6 +95,11 @@ export class AuthService {
       const body = { amount };
       const updated = await firstValueFrom(this.http.post<UserProfile>(url, body));
       if (updated) {
+        console.log('Donation recorded - Updated user:', {
+          totalDonated: updated.totalDonated,
+          familiesHelped: updated.familiesHelped,
+          previousFamiliesHelped: user.familiesHelped
+        });
         this.persistUser(updated);
         return updated;
       }
