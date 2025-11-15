@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { AuthService } from '../../services/auth.service';
 import { LanguageService } from '../../services/language.service';
@@ -20,7 +20,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    public languageService: LanguageService
+    public languageService: LanguageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +41,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.menuOpen = !this.menuOpen;
   }
 
+  goHome(): void {
+    // Si on est déjà sur la page d'accueil, scroll vers la section home
+    if (this.router.url === '/' || this.router.url === '') {
+      this.scrollToSection('home');
+    } else {
+      // Sinon, naviguer vers la page d'accueil
+      this.router.navigate(['/']).then(() => {
+        // Attendre un peu que la page se charge puis scroll vers home
+        setTimeout(() => {
+          this.scrollToSection('home');
+        }, 100);
+      });
+    }
+    this.menuOpen = false;
+  }
+
   scrollToSection(sectionId: string): void {
     const element = document.getElementById(sectionId);
     if (element) element.scrollIntoView({ behavior: 'smooth' });
@@ -52,5 +69,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
+  }
+
+  onLogoError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img) {
+      img.style.display = 'none';
+      const fallback = img.nextElementSibling as HTMLElement;
+      if (fallback) {
+        fallback.style.display = 'flex';
+      }
+    }
   }
 }
