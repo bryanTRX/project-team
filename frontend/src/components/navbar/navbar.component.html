@@ -3,20 +3,29 @@
     <div class="container">
       <div class="nav-content">
         <div class="logo" (click)="goHome()">
-          <img 
-            src="assets/images/logos/logo.png" 
+          <img
+            src="assets/images/logos/logo.png"
             alt="Shield of Athena Logo"
             class="logo-image"
-            (error)="onLogoError($event)">
-          <div class="logo-icon" style="display: none;">
+            (error)="onLogoError($event)"
+          />
+          <div class="logo-icon" style="display: none">
             <i class="fas fa-shield-alt"></i>
           </div>
         </div>
         <div class="nav-links" [class.open]="menuOpen">
-          <a href="#home" (click)="scrollToSection('home')">{{ languageService.getTranslation('home') }}</a>
-          <a href="#impact" (click)="scrollToSection('impact')">{{ languageService.getTranslation('impact') }}</a>
-          <a href="#donate" (click)="scrollToSection('donate')">{{ languageService.getTranslation('donate') }}</a>
-          <a href="#stories" (click)="scrollToSection('stories')">{{ languageService.getTranslation('stories') }}</a>
+          <a href="#home" (click)="scrollToSection('home')">{{
+            languageService.getTranslation('home')
+          }}</a>
+          <a href="#impact" (click)="scrollToSection('impact')">{{
+            languageService.getTranslation('impact')
+          }}</a>
+          <a href="#donate" (click)="scrollToSection('donate')">{{
+            languageService.getTranslation('donate')
+          }}</a>
+          <a href="#stories" (click)="scrollToSection('stories')">{{
+            languageService.getTranslation('stories')
+          }}</a>
         </div>
         <div class="nav-actions">
           <app-language-selector></app-language-selector>
@@ -24,12 +33,21 @@
             type="button"
             class="login-btn"
             [routerLink]="isAuthenticated() ? '/dashboard' : '/login'"
-            (click)="closeMenu()">
+            (click)="closeMenu()"
+          >
             <i class="fas fa-user" [class.logged-in]="isAuthenticated()"></i>
-            <span>{{ isAuthenticated() ? languageService.getTranslation('my_dashboard') : languageService.getTranslation('login') }}</span>
+            <span>{{
+              isAuthenticated()
+                ? languageService.getTranslation('my_dashboard')
+                : languageService.getTranslation('login')
+            }}</span>
           </button>
         </div>
-        <button class="menu-toggle" (click)="toggleMenu()" [attr.aria-label]="languageService.getTranslation('toggle_menu')">
+        <button
+          class="menu-toggle"
+          (click)="toggleMenu()"
+          [attr.aria-label]="languageService.getTranslation('toggle_menu')"
+        >
           <span></span><span></span><span></span>
         </button>
       </div>

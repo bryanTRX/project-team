@@ -556,7 +556,9 @@
     background: #faf9f6;
     font-size: 1.05rem;
     font-family: inherit;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
 
     &:focus {
       outline: none;
@@ -613,7 +615,9 @@
   justify-content: center;
   gap: 0.65rem;
   box-shadow: 0 15px 30px rgba(123, 104, 238, 0.28);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:hover {
     transform: translateY(-1px);

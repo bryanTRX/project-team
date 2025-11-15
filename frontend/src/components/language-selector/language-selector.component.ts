@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './language-selector.component.html',
-  styleUrl: './language-selector.component.scss'
+  styleUrl: './language-selector.component.scss',
 })
 export class LanguageSelectorComponent implements OnInit, OnDestroy {
   languages: Language[] = [];
@@ -21,7 +21,7 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.languages = this.languageService.languages;
     this.currentLanguage = this.languageService.getCurrentLanguage();
-    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       this.currentLanguage = lang;
       this.isOpen = false;
     });
@@ -47,12 +47,12 @@ export class LanguageSelectorComponent implements OnInit, OnDestroy {
   }
 
   getCurrentFlag(): string {
-    const lang = this.languages.find(l => l.code === this.currentLanguage);
+    const lang = this.languages.find((l) => l.code === this.currentLanguage);
     return lang?.flag || '🇺🇸';
   }
 
   getCurrentLanguageName(): string {
-    const lang = this.languages.find(l => l.code === this.currentLanguage);
+    const lang = this.languages.find((l) => l.code === this.currentLanguage);
     return lang?.nativeName || 'English';
   }
 

@@ -30,11 +30,11 @@ interface ForumDiscussion {
   standalone: true,
   imports: [CommonModule, RouterModule, TierBadgesComponent],
   templateUrl: './user-dashboard.component.html',
-  styleUrl: './user-dashboard.component.scss'
+  styleUrl: './user-dashboard.component.scss',
 })
 export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(TierBadgesComponent) tierBadgesComponent!: TierBadgesComponent;
-  
+
   user: UserProfile | null = null;
   currentLanguage: string = 'en';
   private languageSubscription?: Subscription;
@@ -42,22 +42,24 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
   news: ImpactNewsItem[] = [
     {
       title: 'Winter Warmth Initiative: 500 Families Helped',
-      description: 'Your donations provided winter clothing and heating assistance to families in need.',
+      description:
+        'Your donations provided winter clothing and heating assistance to families in need.',
       date: 'Nov 12, 2024',
-      label: 'Program Update'
+      label: 'Program Update',
     },
     {
       title: 'Education Fund Launches New Scholarship Program',
-      description: 'Thanks to generous donors, we\'ve awarded scholarships to 45 deserving students this semester.',
+      description:
+        "Thanks to generous donors, we've awarded scholarships to 45 deserving students this semester.",
       date: 'Nov 5, 2024',
-      label: 'Milestone'
-    }
+      label: 'Milestone',
+    },
   ];
 
   donationHistory: DonationHistoryItem[] = [
     { date: 'Nov 10, 2024', frequency: 'One-time', amount: 250, recurring: false },
     { date: 'Oct 15, 2024', frequency: 'Monthly', amount: 100, recurring: true },
-    { date: 'Oct 1, 2024', frequency: 'One-time', amount: 500, recurring: false }
+    { date: 'Oct 1, 2024', frequency: 'One-time', amount: 500, recurring: false },
   ];
 
   discussions: ForumDiscussion[] = [
@@ -69,12 +71,12 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
   constructor(
     private authService: AuthService,
     private router: Router,
-    public languageService: LanguageService
+    public languageService: LanguageService,
   ) {}
 
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getCurrentLanguage();
-    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       this.currentLanguage = lang;
     });
 
@@ -101,9 +103,9 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
   getFrequencyTranslation(frequency: string): string {
     const freqMap: { [key: string]: string } = {
       'One-time': 'one_time',
-      'Monthly': 'monthly',
-      'Quarterly': 'quarterly',
-      'Yearly': 'yearly'
+      Monthly: 'monthly',
+      Quarterly: 'quarterly',
+      Yearly: 'yearly',
     };
     const key = freqMap[frequency] || frequency.toLowerCase().replace('-', '_');
     return this.languageService.getTranslation(key);
@@ -115,8 +117,16 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
 
   getReachTierStatusText(tierName: string, amount: number, remaining: number): string {
     const translation = this.languageService.getTranslation('reach_tier_status');
-    const formattedAmount = amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 });
-    const formattedRemaining = remaining.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 });
+    const formattedAmount = amount.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+    });
+    const formattedRemaining = remaining.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+    });
     return translation
       .replace('{{tier}}', tierName)
       .replace('${{amount}}', formattedAmount)

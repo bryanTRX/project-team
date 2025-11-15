@@ -19,7 +19,7 @@ interface DonationTier {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './donation-tiers.component.html',
-  styleUrl: './donation-tiers.component.scss'
+  styleUrl: './donation-tiers.component.scss',
 })
 export class DonationTiersComponent implements OnInit, OnDestroy {
   currentLanguage: string = 'en';
@@ -34,7 +34,7 @@ export class DonationTiersComponent implements OnInit, OnDestroy {
         icon: 'fas fa-heart', // Cœur - représente l'aide et la compassion
         descriptionKey: 'tier_25_description',
         buttonText: this.languageService.getTranslation('give_25') || 'GIVE $25',
-        preferred: false
+        preferred: false,
       },
       {
         amount: 50,
@@ -43,7 +43,7 @@ export class DonationTiersComponent implements OnInit, OnDestroy {
         icon: 'fas fa-users', // Groupe de personnes - représente la communauté et le refuge
         descriptionKey: 'tier_50_description',
         buttonText: this.languageService.getTranslation('give_50') || 'GIVE $50',
-        preferred: true
+        preferred: true,
       },
       {
         amount: 100,
@@ -52,8 +52,8 @@ export class DonationTiersComponent implements OnInit, OnDestroy {
         icon: 'fas fa-shield-alt', // Bouclier - représente la protection et l'impact majeur
         descriptionKey: 'tier_100_description',
         buttonText: this.languageService.getTranslation('give_100') || 'GIVE $100',
-        preferred: false
-      }
+        preferred: false,
+      },
     ];
   }
 
@@ -62,17 +62,20 @@ export class DonationTiersComponent implements OnInit, OnDestroy {
   }
 
   getSectionTitle(): string {
-    return this.languageService.getTranslation('you_can_help_real_impact') || 'Your monthly support makes a real difference in people\'s lives.';
+    return (
+      this.languageService.getTranslation('you_can_help_real_impact') ||
+      "Your monthly support makes a real difference in people's lives."
+    );
   }
 
   constructor(
     public languageService: LanguageService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getCurrentLanguage();
-    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       this.currentLanguage = lang;
     });
   }
@@ -87,9 +90,8 @@ export class DonationTiersComponent implements OnInit, OnDestroy {
     // Save donation details to localStorage
     localStorage.setItem('donationAmount', tier.amount.toString());
     localStorage.setItem('recurringOption', 'monthly');
-    
+
     // Redirect to payment page
     this.router.navigate(['/payment']);
   }
 }
-

@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './quick-donation.component.html',
-  styleUrl: './quick-donation.component.scss'
+  styleUrl: './quick-donation.component.scss',
 })
 export class QuickDonationComponent implements OnInit, OnDestroy {
   selectedAmount: number | null = null;
@@ -20,11 +20,14 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
 
   donationAmounts = [25, 50, 100, 200];
 
-  constructor(public languageService: LanguageService, private router: Router) {}
+  constructor(
+    public languageService: LanguageService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getCurrentLanguage();
-    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       this.currentLanguage = lang;
     });
   }
@@ -36,7 +39,7 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
   }
 
   getAmountDescription(amount: number): string {
-    switch(amount) {
+    switch (amount) {
       case 25:
         return this.languageService.getTranslation('weekly_meals_5_children');
       case 50:
@@ -83,7 +86,7 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
       // Save donation details to localStorage
       localStorage.setItem('donationAmount', amount.toString());
       localStorage.setItem('recurringOption', 'one-time');
-      
+
       // Redirect to payment page using router
       this.router.navigate(['/payment']);
     } else {
@@ -91,4 +94,3 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
     }
   }
 }
-

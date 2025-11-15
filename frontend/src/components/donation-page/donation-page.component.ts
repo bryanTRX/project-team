@@ -23,7 +23,7 @@ interface ImpactDetail {
   standalone: true,
   imports: [CommonModule, FormsModule, NavbarComponent],
   templateUrl: './donation-page.component.html',
-  styleUrl: './donation-page.component.scss'
+  styleUrl: './donation-page.component.scss',
 })
 export class DonationPageComponent implements OnInit {
   // User state
@@ -31,7 +31,7 @@ export class DonationPageComponent implements OnInit {
   userName = '';
   userEmail = '';
   userProfileImage = '';
-  
+
   // Email check flow
   checkingEmail = false;
   emailForCheck = '';
@@ -39,25 +39,25 @@ export class DonationPageComponent implements OnInit {
   showSignupForm = false;
   loginPassword = '';
   forgotPassword = false;
-  
+
   // Signup
   signupName = '';
   signupPassword = '';
   signupConfirmPassword = '';
-  
+
   // Donation state
   selectedAmount: number | null = null;
   customAmount: number | null = null;
   paymentFrequency: string = 'one-time';
   paymentMethod: string = 'credit-card';
-  
+
   // Accessibility
   simpleMode = false;
   largeText = false;
-  
+
   // Final step
   agreeToUpdates = false;
-  
+
   // Recurring donation info (for logged in users)
   currentRecurringAmount = 50;
   nextBillingDate = '2024-02-15';
@@ -68,27 +68,52 @@ export class DonationPageComponent implements OnInit {
     { value: 25, label: '$25', impact: 'Meals for a family for a day', icon: 'home' },
     { value: 50, label: '$50', impact: '1 night of safe shelter', icon: 'bed' },
     { value: 100, label: '$100', impact: '1 therapy session', icon: 'heart' },
-    { value: 250, label: '$250', impact: 'Legal aid consultation', icon: 'balance-scale' }
+    { value: 250, label: '$250', impact: 'Legal aid consultation', icon: 'balance-scale' },
   ];
 
   impactDetails: { [key: number]: ImpactDetail } = {
-    10: { amount: 10, title: 'Emergency Food Supplies', description: 'Provides essential nutrition for families in crisis', icon: 'utensils' },
-    25: { amount: 25, title: 'Daily Meals', description: 'Feeds a family of 4 for one full day', icon: 'home' },
-    50: { amount: 50, title: 'Safe Shelter', description: 'One night of secure housing for a family', icon: 'bed' },
-    100: { amount: 100, title: 'Therapy Session', description: 'One-on-one counseling for trauma recovery', icon: 'heart' },
-    250: { amount: 250, title: 'Legal Aid', description: 'Professional consultation for legal protection', icon: 'balance-scale' }
+    10: {
+      amount: 10,
+      title: 'Emergency Food Supplies',
+      description: 'Provides essential nutrition for families in crisis',
+      icon: 'utensils',
+    },
+    25: {
+      amount: 25,
+      title: 'Daily Meals',
+      description: 'Feeds a family of 4 for one full day',
+      icon: 'home',
+    },
+    50: {
+      amount: 50,
+      title: 'Safe Shelter',
+      description: 'One night of secure housing for a family',
+      icon: 'bed',
+    },
+    100: {
+      amount: 100,
+      title: 'Therapy Session',
+      description: 'One-on-one counseling for trauma recovery',
+      icon: 'heart',
+    },
+    250: {
+      amount: 250,
+      title: 'Legal Aid',
+      description: 'Professional consultation for legal protection',
+      icon: 'balance-scale',
+    },
   };
 
   paymentFrequencies = [
     { value: 'one-time', label: 'One-Time', icon: 'bolt', description: 'Single donation' },
     { value: 'monthly', label: 'Monthly', icon: 'sync', description: 'Recurring monthly' },
-    { value: 'quarterly', label: 'Quarterly', icon: 'calendar-alt', description: 'Every 3 months' }
+    { value: 'quarterly', label: 'Quarterly', icon: 'calendar-alt', description: 'Every 3 months' },
   ];
 
   paymentMethods = [
     { value: 'credit-card', label: 'Credit Card', icon: 'credit-card', logo: 'cc-visa' },
     { value: 'paypal', label: 'PayPal', icon: 'paypal', logo: 'paypal' },
-    { value: 'bank-transfer', label: 'Bank Transfer', icon: 'university', logo: 'bank' }
+    { value: 'bank-transfer', label: 'Bank Transfer', icon: 'university', logo: 'bank' },
   ];
 
   constructor(private router: Router) {}
@@ -131,13 +156,13 @@ export class DonationPageComponent implements OnInit {
     }
 
     this.checkingEmail = true;
-    
+
     // Simulate API call to check if email exists
     setTimeout(() => {
       this.checkingEmail = false;
       // Simulate: check if email exists (in real app, this would be an API call)
       const existingAccounts = ['test@example.com', 'donor@example.com'];
-      
+
       if (existingAccounts.includes(this.emailForCheck.toLowerCase())) {
         this.showLoginForm = true;
         this.userEmail = this.emailForCheck;
@@ -159,9 +184,9 @@ export class DonationPageComponent implements OnInit {
       name: 'Sarah Johnson',
       email: this.userEmail,
       profileImage: 'https://i.pravatar.cc/150?img=47',
-      hasRecurringDonation: false
+      hasRecurringDonation: false,
     };
-    
+
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.isLoggedIn = true;
     this.userName = user.name;
@@ -191,9 +216,9 @@ export class DonationPageComponent implements OnInit {
       name: this.signupName,
       email: this.userEmail,
       profileImage: '',
-      hasRecurringDonation: false
+      hasRecurringDonation: false,
     };
-    
+
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.isLoggedIn = true;
     this.userName = this.signupName;
@@ -271,7 +296,7 @@ export class DonationPageComponent implements OnInit {
   }
 
   getFrequencyLabel(): string {
-    const freq = this.paymentFrequencies.find(f => f.value === this.paymentFrequency);
+    const freq = this.paymentFrequencies.find((f) => f.value === this.paymentFrequency);
     return freq ? freq.label : 'One-Time';
   }
 
@@ -284,4 +309,3 @@ export class DonationPageComponent implements OnInit {
     return `Donate $${amount.toFixed(2)} ${freq}`;
   }
 }
-

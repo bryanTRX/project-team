@@ -1,6 +1,6 @@
 .stories-section {
   padding: 3rem 1.25rem;
-  background: linear-gradient(to bottom, #FFFFFF 0%, #FAF9F6 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #faf9f6 100%);
   position: relative;
 
   @media (min-width: 768px) {
@@ -21,8 +21,8 @@
     font-weight: 800;
     text-align: center;
     margin-bottom: 0.875rem;
-    color: #2D3748;
-    background: linear-gradient(135deg, #7B68EE, #6B5BCE);
+    color: #2d3748;
+    background: linear-gradient(135deg, #7b68ee, #6b5bce);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -41,7 +41,7 @@
   .section-subtitle {
     text-align: center;
     font-size: 0.95rem;
-    color: #4A5568;
+    color: #4a5568;
     margin-bottom: 2.5rem;
     max-width: 750px;
     margin-left: auto;
@@ -82,7 +82,7 @@
     padding: 0;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1.5px solid #F1F5F9;
+    border: 1.5px solid #f1f5f9;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -96,7 +96,7 @@
       left: 0;
       right: 0;
       height: 4px;
-      background: linear-gradient(135deg, #7B68EE, #9B8BFF, #FF7A85);
+      background: linear-gradient(135deg, #7b68ee, #9b8bff, #ff7a85);
       transform: scaleX(0);
       transition: transform 0.4s ease;
       z-index: 1;
@@ -185,7 +185,7 @@
     position: absolute;
     bottom: 1rem;
     right: 1rem;
-    background: linear-gradient(135deg, #FF7A85, #E85A6A);
+    background: linear-gradient(135deg, #ff7a85, #e85a6a);
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 50px;
@@ -235,7 +235,7 @@
     font-weight: 700;
     font-size: 1.2rem;
     margin: 0 0 0.375rem 0;
-    color: #2D3748;
+    color: #2d3748;
     letter-spacing: -0.3px;
 
     @media (min-width: 768px) {
@@ -245,7 +245,7 @@
 
   .story-timeline {
     font-size: 0.9rem;
-    color: #7B68EE;
+    color: #7b68ee;
     margin: 0;
     font-weight: 600;
     display: flex;
@@ -257,7 +257,7 @@
       content: '';
       width: 6px;
       height: 6px;
-      background: #7B68EE;
+      background: #7b68ee;
       border-radius: 50%;
       display: inline-block;
     }
@@ -270,7 +270,7 @@
 
   .quote-icon {
     font-size: 1.75rem;
-    color: #7B68EE;
+    color: #7b68ee;
     margin-bottom: 0.75rem;
     opacity: 0.25;
     display: flex;
@@ -283,7 +283,7 @@
 
   .story-quote {
     font-style: normal;
-    color: #4A5568;
+    color: #4a5568;
     line-height: 1.65;
     margin: 0;
     font-size: 0.95rem;
@@ -307,7 +307,7 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    background: linear-gradient(135deg, #FF7A85, #E85A6A);
+    background: linear-gradient(135deg, #ff7a85, #e85a6a);
     color: white;
     border: none;
     border-radius: 50px;
@@ -373,7 +373,7 @@
       left: 0;
       right: 0;
       height: 4px;
-      background: linear-gradient(135deg, #7B68EE, #FF7A85);
+      background: linear-gradient(135deg, #7b68ee, #ff7a85);
     }
 
     @media (min-width: 768px) {
@@ -383,7 +383,7 @@
 
     .cta-text {
       font-size: 1.1rem;
-      color: #2D3748;
+      color: #2d3748;
       margin-bottom: 1.75rem;
       line-height: 1.75;
       max-width: 700px;
@@ -396,9 +396,9 @@
       }
 
       strong {
-        color: #7B68EE;
+        color: #7b68ee;
         font-weight: 700;
-        background: linear-gradient(135deg, #7B68EE, #6B5BCE);
+        background: linear-gradient(135deg, #7b68ee, #6b5bce);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -406,7 +406,7 @@
     }
 
     .cta-btn {
-      background: linear-gradient(135deg, #FF7A85, #E85A6A);
+      background: linear-gradient(135deg, #ff7a85, #e85a6a);
       color: white;
       border: none;
       border-radius: 50px;
@@ -457,4 +457,3 @@
     }
   }
 }
-

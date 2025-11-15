@@ -21,15 +21,15 @@ import { LiveTrackerComponent } from '../components/live-tracker/live-tracker';
     DonorFeedbackComponent,
     LiveTrackerComponent,
     CommunityComponent,
-    Footer
+    Footer,
   ],
   template: `
     <main id="home">
       <app-hero></app-hero>
-      <app-quick-donation></app-quick-donation>
       <section class="live-tracker-section">
         <app-live-tracker></app-live-tracker>
       </section>
+      <app-quick-donation></app-quick-donation>
       <section id="impact">
         <app-impact-dashboard></app-impact-dashboard>
       </section>
@@ -42,12 +42,13 @@ import { LiveTrackerComponent } from '../components/live-tracker/live-tracker';
     </main>
     <app-footer></app-footer>
   `,
-  styles: [`
-    main {
-      width: 100%;
-      min-height: calc(100vh - 200px);
-    }
-  `]
+  styles: [
+    `
+      main {
+        width: 100%;
+        min-height: calc(100vh - 200px);
+      }
+    `,
+  ],
 })
-export class HomeComponent {
-}
+export class HomeComponent {}

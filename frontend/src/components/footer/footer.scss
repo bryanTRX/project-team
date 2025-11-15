@@ -1,5 +1,5 @@
 .footer {
-  background-color: #2D3748;
+  background-color: #2d3748;
   color: white;
   padding: 2.5rem 1.25rem 1.25rem;
 
@@ -58,7 +58,7 @@
   .logo-icon {
     width: 32px;
     height: 32px;
-    background: linear-gradient(135deg, #7B68EE, #9B8BFF);
+    background: linear-gradient(135deg, #7b68ee, #9b8bff);
     border-radius: 50%;
     display: none;
     align-items: center;
@@ -108,7 +108,7 @@
       font-size: 0.875rem;
 
       &:hover {
-        color: #9B8BFF;
+        color: #9b8bff;
       }
     }
   }
@@ -130,7 +130,7 @@
       margin: 0;
 
       i {
-        color: #9B8BFF;
+        color: #9b8bff;
         width: 18px;
         font-size: 0.9rem;
       }
@@ -151,13 +151,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #9B8BFF;
+    color: #9b8bff;
     text-decoration: none;
     transition: all 0.3s ease;
     border: 1px solid rgba(123, 104, 238, 0.3);
 
     &:hover {
-      background-color: #7B68EE;
+      background-color: #7b68ee;
       color: white;
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(123, 104, 238, 0.4);
@@ -171,7 +171,7 @@
   .subscribe-btn {
     width: 100%;
     padding: 0.7rem;
-    background: linear-gradient(135deg, #FF7A85, #E85A6A);
+    background: linear-gradient(135deg, #ff7a85, #e85a6a);
     color: white;
     border: none;
     border-radius: 12px;

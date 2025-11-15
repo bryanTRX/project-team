@@ -1,6 +1,6 @@
 .donor-feedback-section {
   padding: 2.5rem 1.25rem;
-  background: linear-gradient(to bottom, #FFFFFF 0%, #FAF9F6 50%, #FFFFFF 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #faf9f6 50%, #ffffff 100%);
   position: relative;
   overflow: hidden;
 
@@ -45,7 +45,7 @@
     font-size: 1.5rem;
     font-weight: 800;
     margin-bottom: 0.5rem;
-    color: #1A202C;
+    color: #1a202c;
     letter-spacing: -0.5px;
     line-height: 1.2;
     position: relative;
@@ -59,7 +59,7 @@
       transform: translateX(-50%);
       width: 50px;
       height: 3px;
-      background: linear-gradient(135deg, #7B68EE, #6B5BCE);
+      background: linear-gradient(135deg, #7b68ee, #6b5bce);
       border-radius: 2px;
     }
 
@@ -76,7 +76,7 @@
 
   .section-subtitle {
     font-size: 0.9375rem;
-    color: #64748B;
+    color: #64748b;
     font-weight: 500;
     line-height: 1.5;
     max-width: 600px;
@@ -114,13 +114,15 @@
     background: white;
     border-radius: 16px;
     padding: 1.25rem;
-    border: 1px solid #E2E8F0;
+    border: 1px solid #e2e8f0;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
+    box-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.04),
+      0 4px 12px rgba(0, 0, 0, 0.04);
     display: flex;
     flex-direction: column;
-    --card-color: #7B68EE;
+    --card-color: #7b68ee;
     overflow: hidden;
 
     &::before {
@@ -137,7 +139,9 @@
 
     &:hover {
       transform: translateY(-4px);
-      box-shadow: 0 4px 16px rgba(123, 104, 238, 0.1), 0 8px 24px rgba(0, 0, 0, 0.06);
+      box-shadow:
+        0 4px 16px rgba(123, 104, 238, 0.1),
+        0 8px 24px rgba(0, 0, 0, 0.06);
       border-color: rgba(123, 104, 238, 0.3);
 
       &::before {
@@ -252,7 +256,7 @@
   .donor-name {
     font-size: 0.9375rem;
     font-weight: 700;
-    color: #1A202C;
+    color: #1a202c;
     margin: 0 0 0.25rem 0;
     line-height: 1.3;
     letter-spacing: -0.2px;
@@ -273,20 +277,20 @@
 
   .donation-period {
     font-size: 0.75rem;
-    color: #94A3B8;
+    color: #94a3b8;
     font-weight: 500;
   }
 
   .feedback-date {
     font-size: 0.6875rem;
-    color: #94A3B8;
+    color: #94a3b8;
     white-space: nowrap;
     font-weight: 500;
     display: flex;
     align-items: center;
     gap: 0.25rem;
     padding: 0.25rem 0.5rem;
-    background: #F8FAFC;
+    background: #f8fafc;
     border-radius: 8px;
 
     i {
@@ -318,7 +322,7 @@
 
   .feedback-divider {
     height: 1px;
-    background: linear-gradient(90deg, transparent, #E2E8F0, transparent);
+    background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
     margin: 1rem 0;
     position: relative;
     z-index: 1;
@@ -368,7 +372,7 @@
 
     .impact-text {
       font-size: 0.8125rem;
-      color: #1E293B;
+      color: #1e293b;
       font-weight: 600;
       line-height: 1.4;
     }
@@ -380,4 +384,3 @@
     }
   }
 }
-

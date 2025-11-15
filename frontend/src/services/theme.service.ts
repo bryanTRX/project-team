@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export type Theme = 'light' | 'dark';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ThemeService {
   private themeSubject = new BehaviorSubject<Theme>('light');
@@ -26,7 +26,7 @@ export class ThemeService {
     this.themeSubject.next(theme);
     localStorage.setItem('theme', theme);
     document.documentElement.setAttribute('data-theme', theme);
-    
+
     if (theme === 'dark') {
       document.body.classList.add('dark-mode');
       document.body.classList.remove('light-mode');
@@ -41,4 +41,3 @@ export class ThemeService {
     this.setTheme(newTheme);
   }
 }
-

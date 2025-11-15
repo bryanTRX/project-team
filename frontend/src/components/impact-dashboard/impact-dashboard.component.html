@@ -1,7 +1,9 @@
 <section id="impact" class="impact-dashboard-section">
   <div class="container">
     <h2 class="section-title">{{ languageService.getTranslation('our_impact_2024') }}</h2>
-    <p class="section-subtitle">{{ languageService.getTranslation('every_number_represents_life') }}</p>
+    <p class="section-subtitle">
+      {{ languageService.getTranslation('every_number_represents_life') }}
+    </p>
     <div class="impact-cards">
       <div *ngFor="let card of impactCards" class="impact-card">
         <div class="card-icon" [style.color]="card.color">
@@ -16,7 +18,9 @@
       <div class="message-content">
         <i class="fas fa-heart"></i>
         <ng-container *ngIf="supportRipplesText as text">
-          <p><strong>{{ text.first }}.</strong> {{ text.rest }}</p>
+          <p>
+            <strong>{{ text.first }}.</strong> {{ text.rest }}
+          </p>
         </ng-container>
       </div>
     </div>
