@@ -1,40 +1,188 @@
-<app-navbar></app-navbar>
-<section class="payment-section" [class.simple-mode]="simpleMode" [class.large-text]="largeText">
+<section class="payment-section">
   <div class="container">
-    <div class="payment-page-header">
-      <button class="back-link" (click)="goBack()">
-        <i class="fas fa-arrow-left"></i>
-        <span>← Back to Dashboard</span>
-      </button>
-      <div class="header-content">
-        <h1 class="page-title">Make a New Donation</h1>
-        <p class="page-subtitle">Every contribution helps us support women and children in crisis</p>
-      </div>
-      <div class="accessibility-controls">
-        <button class="control-btn" [class.active]="simpleMode" (click)="toggleSimpleMode()" aria-label="Toggle Simple Mode">
-          <i class="fas fa-magic"></i>
-          <span>Simple Mode</span>
-        </button>
-        <button class="control-btn" [class.active]="largeText" (click)="toggleLargeText()" aria-label="Toggle Large Text">
-          <i class="fas fa-text-height"></i>
-          <span>Large Text</span>
-        </button>
-      </div>
-    </div>
+    <ng-container *ngIf="!showSuccess; else successState">
+      <div class="payment-card" [ngClass]="{'text-large': textSize === 'large', 'text-xlarge': textSize === 'xlarge'}">
+        <div class="form-intro">
+          <div class="org-brand">
+            <div class="brand-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <div>
+              <p class="brand-name">Haven of Hope</p>
+              <p class="brand-support">
+                {{ languageService.getTranslation('supporting_women_children') }}
+              </p>
+            </div>
+          </div>
+          <button class="accessibility-btn" type="button" (click)="toggleAccessibilityPanel()">
+            <i class="fas fa-universal-access"></i>
+            <span>{{ languageService.getTranslation('accessibility_settings') }}</span>
+          </button>
+        </div>
+        <div class="accessibility-panel" *ngIf="showAccessibilityPanel">
+          <div class="panel-row">
+            <div>
+              <p class="panel-title">{{ languageService.getTranslation('simple_mode') }}</p>
+              <span class="panel-subtitle">{{ languageService.getTranslation('show_only_essential') }}</span>
+            </div>
+            <label class="toggle-switch">
+              <input
+                type="checkbox"
+                name="simpleMode"
+                [(ngModel)]="simpleMode"
+                (change)="trackSimpleModeChange()">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="panel-row">
+            <div class="panel-label">
+              <i class="fas fa-text-height"></i>
+              <span>{{ languageService.getTranslation('text_size') }}</span>
+            </div>
+            <select [(ngModel)]="textSize" name="textSize">
+              <option *ngFor="let option of textSizeOptions" [value]="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
+        </div>
 
-    <div class="payment-layout">
-      <!-- Left Column: Payment Form -->
-      <div class="payment-form-column">
-        <div *ngIf="!showSuccess" class="payment-form">
-          <!-- Payment Information Card -->
-          <div class="form-section-card">
-            <h3 class="section-title">
-              <i class="fas fa-credit-card"></i>
-              Payment Information
-            </h3>
-            
+        <div class="form-headline">
+          <h1>{{ languageService.getTranslation('make_difference_today_payment') }}</h1>
+          <p>{{ languageService.getTranslation('generosity_provides_safety') }}</p>
+        </div>
+
+        <form (ngSubmit)="onSubmit()" class="donation-form">
+          <div class="form-section email-section">
+            <label for="email">{{ languageService.getTranslation('email_address') }}</label>
+            <div class="input-with-icon">
+              <i class="fas fa-envelope"></i>
+              <input
+                type="email"
+                id="email"
+                [(ngModel)]="email"
+                name="email"
+                placeholder="your.email@example.com"
+                required>
+            </div>
+            <p class="field-hint">
+              {{ languageService.getTranslation('we_use_email_for_receipt') }}
+            </p>
+            <p class="field-example" *ngIf="!simpleMode">
+              {{ languageService.getTranslation('try_email_examples') }}
+            </p>
+          </div>
+
+          <div class="form-section amount-section">
+            <label>{{ languageService.getTranslation('choose_donation_amount') }}</label>
+            <div class="amount-options">
+              <button
+                type="button"
+                *ngFor="let option of donationOptions"
+                (click)="selectDonationAmount(option)"
+                [class.active]="donationAmount === option && !customAmount">
+                {{ option | currency:'USD':'symbol':'1.0-0' }}
+              </button>
+            </div>
+            <div class="custom-amount">
+              <label for="customAmount">{{ languageService.getTranslation('or_enter_custom_amount') }}</label>
+              <div class="custom-input">
+                <span class="currency-symbol">$</span>
+                <input
+                  type="number"
+                  id="customAmount"
+                  name="customAmount"
+                  min="1"
+                  step="1"
+                  placeholder="0.00"
+                  [(ngModel)]="customAmount"
+                  (input)="onCustomAmountChange()">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section frequency-section">
+            <label>{{ languageService.getTranslation('donation_frequency') }}</label>
+            <div class="frequency-options">
+              <button
+                type="button"
+                class="frequency-card"
+                *ngFor="let option of frequencyOptions"
+                (click)="selectFrequency(option.value)"
+                [class.active]="recurringOption === option.value">
+                <div class="freq-header">
+                  <span class="freq-label">{{ option.label }}</span>
+                  <span class="freq-badge" *ngIf="option.highlight">{{ option.highlight }}</span>
+                </div>
+                <span class="freq-description">{{ option.description }}</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="info-card impact-card" *ngIf="!simpleMode">
+            <div class="info-icon">
+              <i class="fas fa-hands-helping"></i>
+            </div>
+            <div>
+              <p class="info-title">{{ languageService.getTranslation('monthly_giving_creates_impact') }}</p>
+              <p class="info-description">
+                {{ languageService.getTranslation('recurring_helps_plan') }}
+              </p>
+            </div>
+          </div>
+
+          <div class="info-card updates-card" *ngIf="!simpleMode">
+            <div class="info-icon">
+              <i class="fas fa-newspaper"></i>
+            </div>
+            <div class="updates-content">
+              <div>
+                <p class="info-title">{{ languageService.getTranslation('stay_connected_impact') }}</p>
+                <p class="info-description">
+                  {{ languageService.getTranslation('receive_stories_updates') }}
+                </p>
+              </div>
+              <label class="checkbox-field">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="updatesOptIn"
+                  name="updatesOptIn">
+                <span>{{ languageService.getTranslation('yes_receive_updates') }}</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="privacy-card" *ngIf="!simpleMode">
+            <i class="fas fa-lock"></i>
+            <div>
+              <p class="privacy-title">{{ languageService.getTranslation('your_privacy_matters') }}</p>
+              <p>{{ languageService.getTranslation('never_share_info') }}</p>
+            </div>
+          </div>
+
+          <div class="form-section payment-method-section">
+            <label>{{ languageService.getTranslation('payment_method') }}</label>
+            <div class="payment-methods">
+              <button
+                type="button"
+                *ngFor="let method of paymentMethods"
+                (click)="selectPaymentMethod(method.value)"
+                [class.active]="selectedPaymentMethod === method.value">
+                <div class="method-header">
+                  <i [class]="method.icon"></i>
+                  <span>{{ method.label }}</span>
+                </div>
+                <div class="method-badges">
+                  <span *ngFor="let badge of method.badges">{{ badge }}</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-section card-details" *ngIf="selectedPaymentMethod === 'card'">
+            <label>{{ languageService.getTranslation('payment_information') }}</label>
             <div class="form-group">
-              <label for="cardNumber">Card Number</label>
+              <label for="cardNumber">{{ languageService.getTranslation('card_number') }}</label>
               <input
                 type="text"
                 id="cardNumber"
@@ -43,25 +191,23 @@
                 placeholder="1234 5678 9012 3456"
                 (input)="formatCardNumber()"
                 maxlength="19"
-                class="form-input"
                 required>
             </div>
 
             <div class="form-group">
-              <label for="cardHolder">Card Holder Name</label>
+              <label for="cardHolder">{{ languageService.getTranslation('card_holder_name') }}</label>
               <input
                 type="text"
                 id="cardHolder"
                 [(ngModel)]="cardHolder"
                 name="cardHolder"
                 placeholder="John Doe"
-                class="form-input"
                 required>
             </div>
 
             <div class="form-row">
               <div class="form-group">
-                <label for="expiryDate">Expiry Date</label>
+                <label for="expiryDate">{{ languageService.getTranslation('expiry_date') }}</label>
                 <input
                   type="text"
                   id="expiryDate"
@@ -70,12 +216,11 @@
                   placeholder="MM/YY"
                   (input)="formatExpiryDate()"
                   maxlength="5"
-                  class="form-input"
                   required>
               </div>
 
               <div class="form-group">
-                <label for="cvv">CVV</label>
+                <label for="cvv">{{ languageService.getTranslation('cvv') }}</label>
                 <input
                   type="text"
                   id="cvv"
@@ -84,103 +229,40 @@
                   placeholder="123"
                   (input)="formatCvv()"
                   maxlength="4"
-                  class="form-input"
                   required>
               </div>
             </div>
           </div>
 
-          <!-- Contact Information Card -->
-          <div class="form-section-card">
-            <h3 class="section-title">
-              <i class="fas fa-envelope"></i>
-              Contact Information
-            </h3>
-            
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                [(ngModel)]="email"
-                name="email"
-                placeholder="your.email@example.com"
-                class="form-input"
-                required>
+          <div class="security-info">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+              <p>{{ languageService.getTranslation('donation_secure_tax_deductible') }}</p>
+              <span>{{ languageService.getTranslation('all_info_confidential') }}</span>
             </div>
           </div>
 
-          <!-- Donate Button -->
-          <button type="submit" class="donate-button" (click)="onSubmit()">
+          <button type="submit" class="submit-payment-btn">
             <i class="fas fa-heart"></i>
-            <span>Donate {{ getDonationAmountText() }} {{ getRecurringLabel().toLowerCase() }}</span>
+            <span>{{ languageService.getTranslation('complete_donation') }}</span>
           </button>
-        </div>
-
-        <!-- Success Message -->
-        <div *ngIf="showSuccess" class="success-message">
-          <div class="success-icon">
-            <i class="fas fa-check-circle"></i>
-          </div>
-          <h2>Thank You!</h2>
-          <p>Your donation of {{ getDonationAmountText() }} has been processed successfully.</p>
-          <p>You will receive a confirmation email shortly.</p>
-          <div class="success-animation">
-            <i class="fas fa-heart"></i>
-          </div>
-        </div>
+        </form>
       </div>
+    </ng-container>
 
-      <!-- Right Column: Impact & Story -->
-      <div class="impact-sidebar">
-        <!-- Your Impact Card -->
-        <div class="impact-card">
-          <h4 class="impact-card-title">Your Impact</h4>
-          <div class="impact-amount">{{ getDonationAmountText() }}</div>
-          <div class="impact-detail">
-            <div class="impact-icon-wrapper">
-              <i class="fas fa-balance-scale"></i>
-              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&h=300&fit=crop&crop=face" 
-                   alt="Impact recipient" 
-                   class="impact-image">
-            </div>
-            <div class="impact-info">
-              <h5>{{ getImpactTitle() }}</h5>
-              <p>{{ getImpactDescription() }}</p>
-            </div>
-          </div>
-          <div class="impact-frequency">
-            <i class="fas fa-info-circle"></i>
-            <span>{{ getRecurringLabel().toLowerCase() }} recurring donation</span>
-          </div>
+    <ng-template #successState>
+      <div class="success-message">
+        <div class="success-icon">
+          <i class="fas fa-check-circle"></i>
         </div>
-
-        <!-- Story of Hope Card -->
-        <div class="story-card">
-          <div class="story-avatar-wrapper">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face" 
-                 alt="Story of hope" 
-                 class="story-avatar">
-            <div class="story-avatar-overlay"></div>
-          </div>
-          <div class="story-icon">
-            <i class="fas fa-heart"></i>
-          </div>
-          <blockquote class="story-quote">
-            "Thanks to donors like you, I found safety and hope when I had nowhere else to turn."
-          </blockquote>
-          <cite class="story-attribution">— A member of our community</cite>
+        <h2>{{ languageService.getTranslation('thank_you') }}</h2>
+        <p>{{ getDonationProcessedText(donationAmount) }}</p>
+        <p>{{ languageService.getTranslation('confirmation_email_shortly') }}</p>
+        <div class="success-animation">
+          <i class="fas fa-heart"></i>
         </div>
-
-        <!-- Secure Payment Card -->
-        <div class="security-card">
-          <div class="security-icon">
-            <i class="fas fa-lock"></i>
-          </div>
-          <h5 class="security-title">Secure Payment</h5>
-          <p class="security-description">Your donation is encrypted and secure</p>
-        </div>
+        <button class="back-btn" (click)="goBack()">{{ languageService.getTranslation('return_home') }}</button>
       </div>
-    </div>
+    </ng-template>
   </div>
 </section>

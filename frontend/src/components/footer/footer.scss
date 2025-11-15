@@ -35,17 +35,23 @@
     align-items: center;
     gap: 0.625rem;
     margin-bottom: 0.5rem;
+    position: relative;
   }
 
   .footer-logo-image {
-    height: 50px;
+    height: 35px;
     width: auto;
     object-fit: contain;
-    transition: all 0.3s ease;
+    display: block;
     filter: brightness(0) invert(1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
 
     @media (max-width: 768px) {
-      height: 45px;
+      height: 30px;
     }
   }
 
@@ -54,12 +60,13 @@
     height: 32px;
     background: linear-gradient(135deg, #7B68EE, #9B8BFF);
     border-radius: 50%;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     color: white;
     font-size: 0.95rem;
     box-shadow: 0 2px 8px rgba(123, 104, 238, 0.3);
+    flex-shrink: 0;
   }
 
   .logo-text {

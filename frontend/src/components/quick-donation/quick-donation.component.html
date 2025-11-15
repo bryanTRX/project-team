@@ -1,6 +1,6 @@
 <section id="quick-donation" class="quick-donation-section">
   <div class="container">
-    <h2 class="section-title">{{ languageService.getTranslation('quick_donation_title') }}</h2>
+    <h2 class="section-title">{{ languageService.getTranslation('your_gift_action') }}</h2>
     <p class="section-subtitle">{{ languageService.getTranslation('quick_donation_subtitle') }}</p>
     <div class="donation-card">
       <div class="human-impact-banner">
@@ -27,7 +27,7 @@
           class="amount-btn other-btn"
           [class.active]="customAmount !== null && customAmount !== 0"
           (click)="selectCustomAmount()">
-          <span class="amount-value">{{ languageService.getTranslation('other_amount') }}</span>
+          <span class="amount-value">{{ languageService.getTranslation('other') }}</span>
           <span class="amount-description">{{ languageService.getTranslation('enter_custom_amount') }}</span>
         </button>
       </div>
@@ -44,18 +44,6 @@
           (input)="onCustomAmountChange($any($event.target).value)"
           class="custom-input"
           autofocus>
-      </div>
-
-      <div class="recurring-section">
-        <label for="recurring">{{ languageService.getTranslation('recurring_donation') }}</label>
-        <select
-          id="recurring"
-          [(ngModel)]="recurringOption"
-          class="recurring-select">
-          <option *ngFor="let option of recurringOptions" [value]="option.value">
-            {{ option.label }}
-          </option>
-        </select>
       </div>
 
       <button

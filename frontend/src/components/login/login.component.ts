@@ -1,54 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { LanguageService } from '../../services/language.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
-  showLoginModal = false;
-  isLoginMode = true;
-  email = '';
+export class LoginComponent implements OnInit, OnDestroy {
+  username = '';
   password = '';
-  name = '';
+  errorMessage = '';
+  currentLanguage: string = 'en';
+  private languageSubscription?: Subscription;
 
-  toggleModal(): void {
-    this.showLoginModal = !this.showLoginModal;
-    if (this.showLoginModal) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    public languageService: LanguageService
+  ) {}
+
+  ngOnInit(): void {
+    this.currentLanguage = this.languageService.getCurrentLanguage();
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+      this.currentLanguage = lang;
+    });
+
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/dashboard']);
     }
   }
 
-  switchMode(): void {
-    this.isLoginMode = !this.isLoginMode;
-    this.email = '';
-    this.password = '';
-    this.name = '';
+  ngOnDestroy(): void {
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
+    }
   }
 
   onSubmit(): void {
-    if (this.isLoginMode) {
-      // Login logic
-      console.log('Login:', { email: this.email, password: this.password });
-      alert(`Welcome back! Logging in as ${this.email}`);
-      this.toggleModal();
-    } else {
-      // Sign up logic
-      console.log('Sign up:', { name: this.name, email: this.email, password: this.password });
-      alert(`Welcome ${this.name}! Account created successfully.`);
-      this.toggleModal();
+    const authenticated = this.authService.login(this.username, this.password);
+    if (authenticated) {
+      this.errorMessage = '';
+      this.router.navigate(['/dashboard']);
+      return;
     }
-  }
 
-  closeModal(): void {
-    this.showLoginModal = false;
-    document.body.style.overflow = '';
+    this.errorMessage = this.languageService.getTranslation('invalid_credentials');
   }
 }
-

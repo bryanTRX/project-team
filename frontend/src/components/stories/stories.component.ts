@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { LanguageService } from '../../services/language.service';
+import { Subscription } from 'rxjs';
 
 interface Story {
   name: string;
@@ -18,9 +19,24 @@ interface Story {
   templateUrl: './stories.component.html',
   styleUrl: './stories.component.scss'
 })
-export class StoriesComponent {
-  constructor(private router: Router) {}
+export class StoriesComponent implements OnInit, OnDestroy {
+  currentLanguage: string = 'en';
+  private languageSubscription?: Subscription;
 
+  constructor(public languageService: LanguageService) {}
+
+  ngOnInit(): void {
+    this.currentLanguage = this.languageService.getCurrentLanguage();
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+      this.currentLanguage = lang;
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
+    }
+  }
   stories: Story[] = [
     {
       name: "Sarah's Journey",
@@ -53,6 +69,9 @@ export class StoriesComponent {
   }
 
   scrollToDonation(): void {
-    this.router.navigate(['/donate']);
+    const element = document.getElementById('quick-donation');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 }

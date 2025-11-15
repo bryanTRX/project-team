@@ -1,8 +1,16 @@
 .impact-dashboard-section {
-  padding: 3.5rem 1.25rem;
+  padding: 2.5rem 1.25rem;
   background: linear-gradient(to bottom, #FFFFFF 0%, #FAF9F6 100%);
   position: relative;
   overflow: hidden;
+
+  @media (min-width: 768px) {
+    padding: 3rem 1.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 3.5rem 2rem;
+  }
 
   &::before {
     content: '';
@@ -22,10 +30,10 @@
   }
 
   .section-title {
-    font-size: 1.875rem;
+    font-size: 1.625rem;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.625rem;
     color: #2D3748;
     background: linear-gradient(135deg, #7B68EE, #6B5BCE);
     -webkit-background-clip: text;
@@ -33,15 +41,15 @@
     background-clip: text;
 
     @media (min-width: 768px) {
-      font-size: 2.25rem;
+      font-size: 1.875rem;
     }
   }
 
   .section-subtitle {
     text-align: center;
-    font-size: 0.95rem;
+    font-size: 0.875rem;
     color: #4A5568;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     max-width: 650px;
     margin-left: auto;
     margin-right: auto;
@@ -52,24 +60,24 @@
   .impact-cards {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-top: 2.5rem;
+    gap: 1.25rem;
+    margin-top: 2rem;
 
     @media (min-width: 640px) {
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
+      gap: 1.25rem;
     }
 
     @media (min-width: 1024px) {
       grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
+      gap: 1.25rem;
     }
   }
 
   .impact-card {
     background: white;
-    border-radius: 18px;
-    padding: 1.75rem 1.5rem;
+    border-radius: 16px;
+    padding: 1.5rem 1.25rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
@@ -101,8 +109,8 @@
   }
 
   .card-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 2.25rem;
+    margin-bottom: 0.875rem;
     display: inline-block;
     transition: transform 0.3s ease;
   }
@@ -112,10 +120,10 @@
   }
 
   .card-number {
-    font-size: 2.25rem;
+    font-size: 2rem;
     font-weight: 800;
     color: #7B68EE;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.625rem;
     line-height: 1;
     background: linear-gradient(135deg, #7B68EE, #9B8BFF);
     -webkit-background-clip: text;
@@ -123,7 +131,7 @@
     background-clip: text;
 
     @media (min-width: 768px) {
-      font-size: 2.5rem;
+      font-size: 2.25rem;
     }
   }
 
@@ -147,8 +155,8 @@
   }
 
   .impact-message {
-    margin-top: 3rem;
-    padding: 1.75rem;
+    margin-top: 2.5rem;
+    padding: 1.5rem;
     background: linear-gradient(135deg, rgba(123, 104, 238, 0.08), rgba(255, 122, 133, 0.08));
     border-radius: 18px;
     border: 2px solid rgba(123, 104, 238, 0.15);

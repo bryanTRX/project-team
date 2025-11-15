@@ -1,0 +1,51 @@
+<div class="chatbot-container">
+  <div class="chatbot-widget" [class.open]="isOpen">
+    <div class="chatbot-header" (click)="toggleChat()">
+      <div class="chatbot-header-content">
+        <div class="chatbot-avatar">
+          <i class="fas fa-comments"></i>
+        </div>
+        <div class="chatbot-header-text">
+          <span class="chatbot-title">{{ languageService.getTranslation('chatbot_title') || 'Need Help?' }}</span>
+          <span class="chatbot-subtitle">{{ languageService.getTranslation('chatbot_subtitle') || 'We\'re here to assist you' }}</span>
+        </div>
+      </div>
+      <button class="chatbot-toggle" [attr.aria-label]="isOpen ? 'Close chat' : 'Open chat'">
+        <i class="fas" [class.fa-chevron-up]="isOpen" [class.fa-chevron-down]="!isOpen"></i>
+      </button>
+    </div>
+
+    <div class="chatbot-body" *ngIf="isOpen">
+      <div class="chat-messages">
+        <div *ngFor="let message of messages" class="message" [class.user-message]="message.isUser" [class.bot-message]="!message.isUser">
+          <div class="message-content">
+            <p>{{ message.text }}</p>
+          </div>
+        </div>
+        <div *ngIf="isTyping" class="message bot-message typing-indicator">
+          <div class="message-content">
+            <div class="typing-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-container">
+        <input 
+          type="text" 
+          class="chat-input" 
+          [(ngModel)]="userInput"
+          (keyup.enter)="sendMessage()"
+          [placeholder]="languageService.getTranslation('chatbot_placeholder') || 'Type your message...'"
+          autocomplete="off">
+        <button class="chat-send-btn" (click)="sendMessage()" [disabled]="!userInput.trim() || isTyping">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

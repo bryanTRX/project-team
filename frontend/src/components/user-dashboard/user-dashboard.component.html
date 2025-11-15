@@ -1,0 +1,227 @@
+<app-tier-badges [totalDonated]="user?.totalDonated || 0" style="display: none;"></app-tier-badges>
+
+<section class="dashboard-page" *ngIf="user">
+  <div class="dashboard-container">
+    <div class="impact-dashboard">
+      <div class="dashboard-section card-panel">
+        <div class="dashboard-header">
+          <div>
+            <h2>{{ languageService.getTranslation('your_impact_dashboard') }}</h2>
+            <p class="dashboard-subtitle">{{ languageService.getTranslation('see_generosity_making_difference') }}</p>
+          </div>
+        </div>
+
+        <div class="stats-actions-row">
+          <div class="stat-card">
+            <div class="stat-content">
+              <p>{{ languageService.getTranslation('total_donated') }}</p>
+              <span class="stat-value">{{ user.totalDonated | currency:'USD':'symbol':'1.0-0' }}</span>
+            </div>
+            <span class="stat-icon heart"><i class="fas fa-heart"></i></span>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-content">
+              <p>{{ languageService.getTranslation('lives_touched') }}</p>
+              <span class="stat-value">{{ user.familiesHelped }}</span>
+            </div>
+            <span class="stat-icon group"><i class="fas fa-user-friends"></i></span>
+          </div>
+
+          <div class="stat-card tier-card">
+            <div class="stat-content">
+              <p>{{ languageService.getTranslation('donor_tier') }}</p>
+              <span class="stat-value">{{ currentTier?.name || user?.donorTier || languageService.getTranslation('dedicated_supporter') }}</span>
+            </div>
+            <span class="stat-icon badge"><i class="fas fa-ribbon"></i></span>
+          </div>
+
+          <div class="action-cards">
+            <button class="primary-btn large" (click)="startNewDonation()">
+              <i class="fas fa-plus"></i>
+              {{ languageService.getTranslation('make_new_donation') }}
+            </button>
+            <button class="outline-btn large">{{ languageService.getTranslation('manage_donation_plan') }}</button>
+          </div>
+        </div>
+
+        <div class="progress-row" *ngIf="user">
+          <ng-container *ngIf="nextTier; else maxTierCard">
+            <div class="progress-card">
+              <div class="progress-head">
+                <div class="progress-tier-info">
+                  <img [src]="nextTier.imagePath" [alt]="nextTier.name + ' tier badge'" class="progress-tier-badge" />
+                  <div>
+                    <p>{{ getPathToStatusText(nextTier.name) }}</p>
+                    <span class="progress-tier-subtitle member-since">
+                      {{ languageService.getTranslation('member_since') }} {{ memberSinceDate }}
+                    </span>
+                  </div>
+                </div>
+                <span>{{ progressPercentage }}% {{ languageService.getTranslation('complete') }}</span>
+              </div>
+              <div class="progress-bar">
+                <div class="fill" [style.width.%]="progressPercentage"></div>
+              </div>
+              <p class="progress-summary">{{ getReachTierStatusText(nextTier.name, nextTier.minAmount, getAmountToNextTier()) }}</p>
+            </div>
+          </ng-container>
+
+          <ng-template #maxTierCard>
+            <div class="progress-card max-tier">
+              <div class="progress-head">
+                <div class="progress-tier-info">
+                  <img *ngIf="currentTier" [src]="currentTier.imagePath" [alt]="currentTier.name + ' tier badge'" class="progress-tier-badge" />
+                  <div>
+                    <p>{{ (currentTier?.name || user?.donorTier || 'Tier') + ' ' + languageService.getTranslation('maximum_tier') }}</p>
+                    <span class="progress-tier-subtitle member-since">
+                      {{ languageService.getTranslation('member_since') }} {{ memberSinceDate }}
+                    </span>
+                  </div>
+                </div>
+                <span>100% {{ languageService.getTranslation('complete') }}</span>
+              </div>
+              <div class="progress-bar">
+                <div class="fill" style="width: 100%"></div>
+              </div>
+              <p class="progress-summary">{{ languageService.getTranslation('congratulations_highest_tier') }}</p>
+            </div>
+          </ng-template>
+
+          <div class="progress-card goal-card">
+            <div class="progress-head">
+              <div class="progress-tier-info">
+                <div>
+                  <p>{{ languageService.getTranslation('personal_giving_goal') }}</p>
+                  <span class="progress-tier-subtitle">
+                    {{ languageService.getTranslation('goal_label') }} {{ personalGoalTarget | currency:'USD':'symbol':'1.0-0' }}
+                  </span>
+                </div>
+              </div>
+              <span>{{ personalGoalProgress }}% {{ languageService.getTranslation('complete') }}</span>
+            </div>
+            <div class="progress-bar">
+              <div class="fill" [style.width.%]="personalGoalProgress"></div>
+            </div>
+            <p class="progress-summary" *ngIf="personalGoalRemaining > 0">
+              {{ personalGoalRemaining | currency:'USD':'symbol':'1.0-0' }} {{ languageService.getTranslation('goal_remaining_suffix') }}
+            </p>
+            <p class="progress-summary" *ngIf="personalGoalRemaining === 0">{{ languageService.getTranslation('goal_complete_message') }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="impact-news card-panel">
+          <div class="panel-head">
+            <div>
+              <h2>{{ languageService.getTranslation('impact_news') }}</h2>
+              <p>{{ languageService.getTranslation('see_donations_making_difference') }}</p>
+            </div>
+          </div>
+          <div class="news-items">
+            @for (item of news; track item.title) {
+              <article class="news-item">
+                <div>
+                  <span class="news-badge">
+                    {{ item.label === 'Program Update'
+                      ? languageService.getTranslation('program_update')
+                      : (item.label === 'Milestone'
+                        ? languageService.getTranslation('milestone')
+                        : item.label) }}
+                  </span>
+                  <h3>{{ item.title }}</h3>
+                  <p>{{ item.description }}</p>
+                </div>
+                <span class="news-date">{{ item.date }}</span>
+              </article>
+            }
+          </div>
+          <button class="panel-link news-button" type="button">
+            {{ languageService.getTranslation('read_all_news') }} &rarr;
+          </button>
+        </div>
+
+        <div class="history-forum">
+          <div class="forum card-panel">
+            <div class="panel-head">
+              <div class="forum-head-text">
+                <h2>{{ languageService.getTranslation('community_forum') }}</h2>
+                <p>{{ languageService.getTranslation('connect_with_supporters') }}</p>
+                <span class="forum-subtitle">
+                  <i class="fas fa-fire"></i>
+                  {{ languageService.getTranslation('trending_discussions') }}
+                </span>
+              </div>
+              <div class="forum-stats">
+                <div class="forum-stat-card">
+                  <span class="stat-icon soft">
+                    <i class="fas fa-user-friends"></i>
+                  </span>
+                  <p class="stat-number">847</p>
+                  <span class="stat-label">{{ languageService.getTranslation('members') }}</span>
+                </div>
+                <div class="forum-stat-card">
+                  <span class="stat-icon soft">
+                    <i class="fas fa-comments"></i>
+                  </span>
+                  <p class="stat-number">156</p>
+                  <span class="stat-label">{{ languageService.getTranslation('discussions') }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="forum-discussions">
+              @for (discussion of discussions; track discussion.title) {
+                <div class="discussion-row">
+                  <p>{{ discussion.title }}</p>
+                  <span>{{ discussion.replies }} {{ languageService.getTranslation('replies') }}</span>
+                </div>
+              }
+            </div>
+            <button class="panel-link forum-button" type="button">
+              {{ languageService.getTranslation('visit_forum') }} &rarr;
+            </button>
+          </div>
+
+          <div class="history card-panel">
+            <div class="panel-head">
+              <div>
+                <h2>{{ languageService.getTranslation('donation_history') }}</h2>
+                <p>{{ languageService.getTranslation('contributions_over_time') }}</p>
+              </div>
+            </div>
+            <div class="history-items">
+              @for (donation of donationHistory; track donation.date) {
+                <div class="history-row">
+                  <div>
+                    <p class="history-date">{{ donation.date }}</p>
+                    <span class="history-frequency">{{ getFrequencyTranslation(donation.frequency) }}</span>
+                  </div>
+                  <span class="history-amount">{{ donation.amount | currency:'USD':'symbol':'1.0-0' }}</span>
+                </div>
+              }
+            </div>
+            <button class="panel-link history-button" type="button">
+              {{ languageService.getTranslation('view_full_history') }} &rarr;
+            </button>
+          </div>
+        </div>
+
+        <div class="logout-footer">
+          <button class="outline-btn muted" type="button">
+            <i class="fas fa-cog"></i>
+            {{ languageService.getTranslation('Settings') }}
+          </button>
+          <button class="outline-btn muted" type="button">
+            <i class="fas fa-id-card"></i>
+            {{ languageService.getTranslation('personal_info') }}
+          </button>
+          <button class="primary-btn danger" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            {{ languageService.getTranslation('log_out') }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

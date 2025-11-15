@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LanguageService } from '../../services/language.service';
+import { Subscription } from 'rxjs';
 
 interface ImpactCard {
   icon: string;
@@ -16,35 +18,64 @@ interface ImpactCard {
   templateUrl: './impact-dashboard.component.html',
   styleUrl: './impact-dashboard.component.scss'
 })
-export class ImpactDashboardComponent {
-  impactCards: ImpactCard[] = [
-    {
-      icon: 'users',
-      number: '2,450',
-      title: 'Women & Children Supported',
-      description: 'Lives changed through our comprehensive support programs',
-      color: '#F28C88'
-    },
-    {
-      icon: 'language',
-      number: '10',
-      title: 'Languages Spoken',
-      description: 'Multilingual support ensuring everyone can access help',
-      color: '#6B4FA3'
-    },
-    {
-      icon: 'clock',
-      number: '24/7',
-      title: 'Crisis Support Available',
-      description: 'Round-the-clock assistance for those in need',
-      color: '#C9B5E8'
-    },
-    {
-      icon: 'heart',
-      number: '95%',
-      title: 'Successfully Rebuilt Lives',
-      description: 'Survivors who have found hope and independence',
-      color: '#F28C88'
+export class ImpactDashboardComponent implements OnInit, OnDestroy {
+  currentLanguage: string = 'en';
+  private languageSubscription?: Subscription;
+
+  get supportRipplesText(): { first: string; rest: string } {
+    const translation = this.languageService.getTranslation('support_creates_ripples');
+    const parts = translation.split('.');
+    return {
+      first: parts[0] || '',
+      rest: parts.slice(1).join('.')
+    };
+  }
+
+  get impactCards(): ImpactCard[] {
+    return [
+      {
+        icon: 'users',
+        number: '2,450',
+        title: this.languageService.getTranslation('women_children_supported'),
+        description: this.languageService.getTranslation('lives_changed_programs'),
+        color: '#F28C88'
+      },
+      {
+        icon: 'language',
+        number: '10',
+        title: this.languageService.getTranslation('languages_spoken'),
+        description: this.languageService.getTranslation('multilingual_support'),
+        color: '#6B4FA3'
+      },
+      {
+        icon: 'clock',
+        number: '24/7',
+        title: this.languageService.getTranslation('crisis_support_available'),
+        description: this.languageService.getTranslation('round_clock_assistance'),
+        color: '#C9B5E8'
+      },
+      {
+        icon: 'heart',
+        number: '95%',
+        title: this.languageService.getTranslation('successfully_rebuilt_lives'),
+        description: this.languageService.getTranslation('survivors_found_hope'),
+        color: '#F28C88'
+      }
+    ];
+  }
+
+  constructor(public languageService: LanguageService) {}
+
+  ngOnInit(): void {
+    this.currentLanguage = this.languageService.getCurrentLanguage();
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+      this.currentLanguage = lang;
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
     }
-  ];
+  }
 }
