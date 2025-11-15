@@ -1,5 +1,4 @@
-<!-- Hidden tier badges component for calculations -->
-<app-tier-badges [totalDonated]="user?.totalDonated || 0" style="display: none"></app-tier-badges>
+<app-tier-badges [totalDonated]="user?.totalDonated || 0" style="display: none;"></app-tier-badges>
 
 <section class="dashboard-page" *ngIf="user">
   <div class="dashboard-container">
@@ -14,24 +13,16 @@
             <i class="fas fa-plus"></i>
             {{ languageService.getTranslation('make_new_donation') }}
           </button>
-          <button class="outline-btn">
-            {{ languageService.getTranslation('manage_donation_plan') }}
-          </button>
-          <button class="ghost-btn subtle" routerLink="/">
-            {{ languageService.getTranslation('back_to_site') }}
-          </button>
-          <button class="ghost-btn logout" (click)="logout()">
-            {{ languageService.getTranslation('log_out') }}
-          </button>
+          <button class="outline-btn">{{ languageService.getTranslation('manage_donation_plan') }}</button>
+          <button class="ghost-btn subtle" routerLink="/">{{ languageService.getTranslation('back_to_site') }}</button>
+          <button class="ghost-btn logout" (click)="logout()">{{ languageService.getTranslation('log_out') }}</button>
         </div>
       </div>
 
       <div class="stats-grid">
         <div class="stat-card">
           <p>{{ languageService.getTranslation('total_donated') }}</p>
-          <span class="stat-value">{{
-            user.totalDonated | currency: 'USD' : 'symbol' : '1.0-0'
-          }}</span>
+          <span class="stat-value">{{ user.totalDonated | currency:'USD':'symbol':'1.0-0' }}</span>
         </div>
         <div class="stat-card">
           <p>{{ languageService.getTranslation('families_helped') }}</p>
@@ -40,16 +31,10 @@
         <div class="stat-card tier-card" *ngIf="currentTier">
           <p>{{ languageService.getTranslation('donor_tier') }}</p>
           <div class="tier-display">
-            <img
-              [src]="currentTier.imagePath"
-              [alt]="tierBadgesComponent.getTierName(currentTier.tier) + ' tier badge'"
-              class="tier-badge-img"
-            />
+            <img [src]="currentTier.imagePath" [alt]="currentTier.name + ' tier badge'" class="tier-badge-img" />
             <div class="tier-info">
-              <span class="tier-name">{{ tierBadgesComponent.getTierName(currentTier.tier) }}</span>
-              <span class="tier-subtitle">{{
-                tierBadgesComponent.getTierSubtitle(currentTier.subtitle)
-              }}</span>
+              <span class="tier-name">{{ currentTier.name }}</span>
+              <span class="tier-subtitle">{{ currentTier.subtitle }}</span>
             </div>
           </div>
         </div>
@@ -58,16 +43,10 @@
       <div class="progress-card" *ngIf="nextTier">
         <div class="progress-head">
           <div class="progress-tier-info">
-            <img
-              [src]="nextTier.imagePath"
-              [alt]="tierBadgesComponent.getTierName(nextTier.tier) + ' tier badge'"
-              class="progress-tier-badge"
-            />
+            <img [src]="nextTier.imagePath" [alt]="nextTier.name + ' tier badge'" class="progress-tier-badge" />
             <div>
-              <p>{{ getPathToStatusText(tierBadgesComponent.getTierName(nextTier.tier)) }}</p>
-              <span class="progress-tier-subtitle">{{
-                tierBadgesComponent.getTierSubtitle(nextTier.subtitle)
-              }}</span>
+              <p>{{ getPathToStatusText(nextTier.name) }}</p>
+              <span class="progress-tier-subtitle">{{ nextTier.subtitle }}</span>
             </div>
           </div>
           <span>{{ progressPercentage }}% {{ languageService.getTranslation('complete') }}</span>
@@ -75,32 +54,15 @@
         <div class="progress-bar">
           <div class="fill" [style.width.%]="progressPercentage"></div>
         </div>
-        <p>
-          {{
-            getReachTierStatusText(
-              tierBadgesComponent.getTierName(nextTier.tier),
-              nextTier.minAmount,
-              getAmountToNextTier()
-            )
-          }}
-        </p>
+              <p>{{ getReachTierStatusText(nextTier.name, nextTier.minAmount, getAmountToNextTier()) }}</p>
       </div>
       <div class="progress-card max-tier" *ngIf="!nextTier && currentTier">
         <div class="progress-head">
           <div class="progress-tier-info">
-            <img
-              [src]="currentTier.imagePath"
-              [alt]="tierBadgesComponent.getTierName(currentTier.tier) + ' tier badge'"
-              class="progress-tier-badge"
-            />
+            <img [src]="currentTier.imagePath" [alt]="currentTier.name + ' tier badge'" class="progress-tier-badge" />
             <div>
-              <p>
-                {{ tierBadgesComponent.getTierName(currentTier.tier) }}
-                {{ languageService.getTranslation('maximum_tier') }}
-              </p>
-              <span class="progress-tier-subtitle">{{
-                tierBadgesComponent.getTierSubtitle(currentTier.subtitle)
-              }}</span>
+              <p>{{ currentTier.name }} {{ languageService.getTranslation('maximum_tier') }}</p>
+              <span class="progress-tier-subtitle">{{ currentTier.subtitle }}</span>
             </div>
           </div>
           <span>100% {{ languageService.getTranslation('complete') }}</span>
@@ -123,13 +85,7 @@
             @for (item of news; track item.title) {
               <article class="news-item">
                 <div>
-                  <span class="news-badge">{{
-                    item.label === 'Program Update'
-                      ? languageService.getTranslation('program_update')
-                      : item.label === 'Milestone'
-                        ? languageService.getTranslation('milestone')
-                        : item.label
-                  }}</span>
+                  <span class="news-badge">{{ item.label === 'Program Update' ? languageService.getTranslation('program_update') : (item.label === 'Milestone' ? languageService.getTranslation('milestone') : item.label) }}</span>
                   <h3>{{ item.title }}</h3>
                   <p>{{ item.description }}</p>
                 </div>
@@ -144,22 +100,16 @@
           <div class="history card-panel">
             <div class="panel-head">
               <h2>{{ languageService.getTranslation('donation_history') }}</h2>
-              <a class="panel-link small">{{
-                languageService.getTranslation('view_full_history')
-              }}</a>
+              <a class="panel-link small">{{ languageService.getTranslation('view_full_history') }}</a>
             </div>
             <div class="history-items">
               @for (donation of donationHistory; track donation.date) {
                 <div class="history-row">
                   <div>
                     <p class="history-date">{{ donation.date }}</p>
-                    <span class="history-frequency">{{
-                      getFrequencyTranslation(donation.frequency)
-                    }}</span>
+                    <span class="history-frequency">{{ getFrequencyTranslation(donation.frequency) }}</span>
                   </div>
-                  <span class="history-amount">{{
-                    donation.amount | currency: 'USD' : 'symbol' : '1.0-0'
-                  }}</span>
+                  <span class="history-amount">{{ donation.amount | currency:'USD':'symbol':'1.0-0' }}</span>
                 </div>
               }
             </div>
@@ -186,15 +136,11 @@
               @for (discussion of discussions; track discussion.title) {
                 <div class="discussion-row">
                   <p>{{ discussion.title }}</p>
-                  <span
-                    >{{ discussion.replies }} {{ languageService.getTranslation('replies') }}</span
-                  >
+                  <span>{{ discussion.replies }} {{ languageService.getTranslation('replies') }}</span>
                 </div>
               }
             </div>
-            <button class="primary-btn ghost">
-              {{ languageService.getTranslation('visit_forum') }}
-            </button>
+            <button class="primary-btn ghost">{{ languageService.getTranslation('visit_forum') }}</button>
           </div>
         </div>
       </div>
