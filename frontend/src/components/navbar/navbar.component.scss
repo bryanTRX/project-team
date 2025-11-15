@@ -133,6 +133,28 @@
         }
       }
     }
+
+    .placeholder-link {
+      color: #a0aec0;
+      cursor: not-allowed;
+
+      &::after {
+        display: none;
+      }
+
+      &:hover {
+        color: #a0aec0;
+      }
+    }
+
+    .donation-link {
+      font-weight: 600;
+      color: #7b68ee;
+
+      &:hover {
+        color: #5640c0;
+      }
+    }
   }
 
   .nav-actions {
@@ -140,15 +162,21 @@
     align-items: center;
     gap: 1.25rem;
     flex-shrink: 0;
+    margin-right: 100px; // Add margin to avoid chatbot overlap
 
     @media (max-width: 1024px) {
       gap: 1rem;
+      margin-right: 0; // Remove margin on smaller screens
     }
 
     & > * {
       display: inline-flex;
       align-items: center;
     }
+  }
+
+  .user-menu-wrapper {
+    position: relative;
   }
 
   .login-btn {
@@ -180,6 +208,16 @@
       font-size: 0.85rem;
     }
 
+    .dropdown-arrow {
+      font-size: 0.7rem;
+      transition: transform 0.3s ease;
+      margin-left: 0.25rem;
+
+      &.rotated {
+        transform: rotate(180deg);
+      }
+    }
+
     &:hover {
       background-color: #7b68ee;
       color: white;
@@ -190,6 +228,82 @@
 
     &:active {
       transform: translateY(0);
+    }
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    min-width: 200px;
+    z-index: 1001;
+    overflow: hidden;
+    animation: slideDown 0.2s ease;
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.75rem;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: none;
+      border: none;
+      text-align: left;
+      color: #2d3748;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      i {
+        font-size: 0.875rem;
+        color: #7b68ee;
+        width: 16px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      span {
+        flex: 1;
+        text-align: left;
+      }
+
+      &:hover {
+        background-color: #f7fafc;
+      }
+
+      &.logout-item {
+        color: #e53e3e;
+
+        i {
+          color: #e53e3e;
+        }
+
+        &:hover {
+          background-color: #fed7d7;
+        }
+      }
+    }
+
+    .dropdown-divider {
+      height: 1px;
+      background: #e2e8f0;
+      margin: 0.5rem 0;
     }
   }
 

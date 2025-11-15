@@ -51,4 +51,9 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!this.getCurrentUser();
   }
+
+  emailHasAccount(email: string): boolean {
+    const normalized = email.trim().toLowerCase();
+    return normalized === this.mockUser.email.toLowerCase();
+  }
 }

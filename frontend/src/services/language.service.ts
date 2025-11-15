@@ -41,6 +41,30 @@ export class LanguageService {
       it: 'Home',
       de: 'Startseite',
     },
+    are_you_a_victim: {
+      en: 'Are you a victim?',
+      fr: 'Êtes-vous une victime ?',
+      es: '¿Eres víctima?',
+      ar: 'هل أنت ضحية؟',
+      zh: '你是受害者吗？',
+      hi: 'क्या आप पीड़ित हैं?',
+      ru: 'Вы являетесь жертвой?',
+      pt: 'Você é vítima?',
+      it: 'Sei una vittima?',
+      de: 'Sind Sie ein Opfer?',
+    },
+    about_project_athena: {
+      en: 'About Project Athena',
+      fr: 'À propos du Projet Athena',
+      es: 'Sobre el Proyecto Athena',
+      ar: 'حول مشروع أثينا',
+      zh: '关于雅典娜项目',
+      hi: 'प्रोजेक्ट एथेना के बारे में',
+      ru: 'О проекте Афина',
+      pt: 'Sobre o Projeto Athena',
+      it: 'Informazioni su Progetto Athena',
+      de: 'Über Projekt Athena',
+    },
     donate_now: {
       en: 'Donate Now',
       fr: 'Faire un don',
@@ -881,6 +905,35 @@ export class LanguageService {
       pt: 'Sim, gostaria de receber atualizações de impacto e boletins',
       it: "Sì, vorrei ricevere aggiornamenti sull'impatto e newsletter",
       de: 'Ja, ich möchte Updates zur Wirkung und Newsletter erhalten',
+    },
+    // Missing payment-related labels (EN/FR only)
+    email_account_notice: {
+      en: "We'll use this to send you a donation receipt and optional updates.",
+      fr: "Nous l'utiliserons pour vous envoyer un reçu de don et des mises à jour optionnelles.",
+    },
+    new_account_prompt: {
+      en: 'Create an account to save your details or continue as a guest',
+      fr: "Créez un compte pour enregistrer vos informations ou continuez en tant qu'invité",
+    },
+    existing_account_prompt: {
+      en: 'Already have an account? Sign in to continue',
+      fr: "Vous avez déjà un compte ? Connectez-vous pour continuer",
+    },
+    existing_account_password_label: {
+      en: 'Existing account password',
+      fr: 'Mot de passe du compte existant',
+    },
+    create_username_label: {
+      en: 'Choose a username',
+      fr: "Choisir un nom d'utilisateur",
+    },
+    create_password_label: {
+      en: 'Create a password',
+      fr: 'Créer un mot de passe',
+    },
+    paying_by_phone: {
+      en: 'Paying by phone',
+      fr: 'Payer par téléphone',
     },
     your_privacy_matters: {
       en: 'Your privacy matters.',
