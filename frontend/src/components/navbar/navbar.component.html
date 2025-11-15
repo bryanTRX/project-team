@@ -14,18 +14,36 @@
           </div>
         </div>
         <div class="nav-links" [class.open]="menuOpen">
-          <a href="#home" (click)="scrollToSection('home')">{{
-            languageService.getTranslation('home')
-          }}</a>
-          <a href="#impact" (click)="scrollToSection('impact')">{{
-            languageService.getTranslation('impact')
-          }}</a>
-          <a href="#donate" (click)="scrollToSection('donate')">{{
-            languageService.getTranslation('donate')
-          }}</a>
-          <a href="#stories" (click)="scrollToSection('stories')">{{
-            languageService.getTranslation('stories')
-          }}</a>
+          <a
+            href="#"
+            class="placeholder-link"
+            aria-disabled="true"
+            tabindex="-1"
+            (click)="preventNavigation($event)"
+          >
+            {{ languageService.getTranslation('home') }}
+          </a>
+          <a
+            href="#"
+            class="placeholder-link"
+            aria-disabled="true"
+            tabindex="-1"
+            (click)="preventNavigation($event)"
+          >
+            {{ languageService.getTranslation('are_you_a_victim') }}
+          </a>
+          <a
+            href="#"
+            class="placeholder-link"
+            aria-disabled="true"
+            tabindex="-1"
+            (click)="preventNavigation($event)"
+          >
+            {{ languageService.getTranslation('about_project_athena') }}
+          </a>
+          <a href="#" class="donation-link" (click)="openDonationPage($event)">
+            {{ languageService.getTranslation('donate') }}
+          </a>
         </div>
         <div class="nav-actions">
           <app-language-selector></app-language-selector>
