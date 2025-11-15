@@ -75,6 +75,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.menuOpen = false;
   }
 
+  preventNavigation(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.menuOpen = false;
+  }
+
+  openDonationPage(event: Event): void {
+    event.preventDefault();
+    this.goHome();
+  }
+
   closeMenu(): void {
     this.menuOpen = false;
   }

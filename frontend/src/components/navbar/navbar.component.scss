@@ -133,6 +133,28 @@
         }
       }
     }
+
+    .placeholder-link {
+      color: #a0aec0;
+      cursor: not-allowed;
+
+      &::after {
+        display: none;
+      }
+
+      &:hover {
+        color: #a0aec0;
+      }
+    }
+
+    .donation-link {
+      font-weight: 600;
+      color: #7b68ee;
+
+      &:hover {
+        color: #5640c0;
+      }
+    }
   }
 
   .nav-actions {
