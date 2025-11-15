@@ -1,6 +1,7 @@
+/* -------- MAIN SECTION -------- */
 .impact-dashboard-section {
   padding: 2.5rem 1.25rem;
-  background: linear-gradient(to bottom, #ffffff 0%, #faf9f6 100%);
+  background: linear-gradient(to bottom, #ffffff, #faf9f6);
   position: relative;
   overflow: hidden;
 
@@ -8,190 +9,209 @@
     padding: 3rem 1.25rem;
   }
 
-  @media (min-width: 1024px) {
-    padding: 3.5rem 2rem;
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    background: linear-gradient(to bottom, transparent, rgba(123, 104, 238, 0.05));
-  }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    position: relative;
-    z-index: 1;
+  }
+}
+
+/* -------- TITLES -------- */
+.section-title {
+  font-size: 1.75rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #7b68ee, #9b8bff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-subtitle {
+  text-align: center;
+  font-size: 1rem;
+  color: #4a5568;
+  margin-bottom: 2rem;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+/* -------- CARDS GRID -------- */
+.impact-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 2rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .section-title {
-    font-size: 1.625rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 0.625rem;
-    color: #2d3748;
-    background: linear-gradient(135deg, #7b68ee, #6b5bce);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-
-    @media (min-width: 768px) {
-      font-size: 1.875rem;
-    }
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
   }
+}
 
-  .section-subtitle {
-    text-align: center;
-    font-size: 0.875rem;
-    color: #4a5568;
-    margin-bottom: 2rem;
-    max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.7;
-    font-weight: 500;
+/* -------- INDIVIDUAL CARD -------- */
+.impact-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-color: rgba(123, 104, 238, 0.4);
   }
+}
 
-  .impact-cards {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-    margin-top: 2rem;
+.card-icon {
+  font-size: 2.3rem;
+  margin-bottom: 0.75rem;
+  transition: 0.25s;
 
-    @media (min-width: 640px) {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
-    }
-
-    @media (min-width: 1024px) {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.25rem;
-    }
+  .impact-card:hover & {
+    transform: scale(1.1);
   }
+}
 
-  .impact-card {
-    background: white;
-    border-radius: 16px;
-    padding: 1.5rem 1.25rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    text-align: center;
-    border: 1px solid #e2e8f0;
-    position: relative;
-    overflow: hidden;
+.card-number {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #7b68ee, #9b8bff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(135deg, #7b68ee, #9b8bff);
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
 
-    &:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-      border-color: rgba(123, 104, 238, 0.3);
+.card-description {
+  font-size: 0.9rem;
+  color: #4a5568;
+}
 
-      &::before {
-        transform: scaleX(1);
-      }
-    }
+/* -------- FOOTER MESSAGE -------- */
+.impact-message {
+  margin-top: 2.5rem;
+  background: linear-gradient(135deg, rgba(123, 104, 238, 0.08), rgba(255, 122, 133, 0.08));
+  border-radius: 18px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+/* -------- MODAL BACKDROP -------- */
+.impact-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  z-index: 97;
+  animation: fadeIn 0.25s ease;
+}
+
+/* -------- MODAL -------- */
+.impact-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 92%;
+  max-width: 480px;
+  background: white;
+  padding: 1.7rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
+  z-index: 98;
+  animation: popIn 0.25s ease;
+  text-align: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: none;
+  width: 32px;
+  height: 32px;
+  font-size: 1.35rem;
+  cursor: pointer;
+  border-radius: 50%;
+  background: #ececec;
+  transition: 0.2s;
+
+  &:hover {
+    background: #d9d9d9;
   }
+}
 
-  .card-icon {
-    font-size: 2.25rem;
-    margin-bottom: 0.875rem;
-    display: inline-block;
-    transition: transform 0.3s ease;
+.modal-image img {
+  width: 100%;
+  border-radius: 14px;
+  margin-bottom: 1rem;
+}
+
+.modal-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #4b3bcc;
+}
+
+.modal-number {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #6b5bce;
+}
+
+.modal-description,
+.modal-story {
+  margin-top: 0.7rem;
+  margin-bottom: 1rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+.modal-cta {
+  background: #7645f2;
+  border: none;
+  padding: 0.75rem 1.4rem;
+  border-radius: 999px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background: #5b33c7;
   }
+}
 
-  .impact-card:hover .card-icon {
-    transform: scale(1.08) rotate(3deg);
+/* -------- ANIMATIONS -------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-
-  .card-number {
-    font-size: 2rem;
-    font-weight: 800;
-    color: #7b68ee;
-    margin-bottom: 0.625rem;
-    line-height: 1;
-    background: linear-gradient(135deg, #7b68ee, #9b8bff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-
-    @media (min-width: 768px) {
-      font-size: 2.25rem;
-    }
+  to {
+    opacity: 1;
   }
+}
 
-  .card-title {
-    font-size: 1.05rem;
-    font-weight: 700;
-    margin-bottom: 0.625rem;
-    color: #2d3748;
-    line-height: 1.3;
-
-    @media (min-width: 768px) {
-      font-size: 1.15rem;
-    }
+@keyframes popIn {
+  from {
+    transform: translate(-50%, -50%) scale(0.92);
+    opacity: 0;
   }
-
-  .card-description {
-    font-size: 0.875rem;
-    color: #4a5568;
-    margin: 0;
-    line-height: 1.6;
-  }
-
-  .impact-message {
-    margin-top: 2.5rem;
-    padding: 1.5rem;
-    background: linear-gradient(135deg, rgba(123, 104, 238, 0.08), rgba(255, 122, 133, 0.08));
-    border-radius: 18px;
-    border: 2px solid rgba(123, 104, 238, 0.15);
-    text-align: center;
-
-    .message-content {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-
-      @media (max-width: 768px) {
-        flex-direction: column;
-        gap: 0.75rem;
-      }
-
-      i {
-        font-size: 2rem;
-        color: #ff7a85;
-        flex-shrink: 0;
-      }
-
-      p {
-        margin: 0;
-        font-size: 1rem;
-        color: #2d3748;
-        line-height: 1.7;
-        max-width: 700px;
-
-        strong {
-          color: #7b68ee;
-          font-weight: 700;
-        }
-      }
-    }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
   }
 }
