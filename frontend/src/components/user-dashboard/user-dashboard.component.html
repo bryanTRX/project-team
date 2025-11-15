@@ -36,8 +36,8 @@
             <div class="stat-content">
               <p>{{ languageService.getTranslation('donor_tier') }}</p>
               <span class="stat-value">{{
-                currentTier?.name ||
-                  user?.donorTier ||
+                (currentTier && currentTier.name) ||
+                  (user && user.donorTier) ||
                   languageService.getTranslation('dedicated_supporter')
               }}</span>
             </div>
@@ -100,7 +100,7 @@
                   <div>
                     <p>
                       {{
-                        (currentTier?.name || user?.donorTier || 'Tier') +
+                        ((currentTier && currentTier.name) || (user && user.donorTier) || 'Tier') +
                           ' ' +
                           languageService.getTranslation('maximum_tier')
                       }}
