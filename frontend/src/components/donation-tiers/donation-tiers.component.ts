@@ -7,9 +7,11 @@ import { Subscription } from 'rxjs';
 interface DonationTier {
   amount: number;
   color: string;
+  colorGradient: string;
   icon: string;
   descriptionKey: string;
   buttonText: string;
+  preferred?: boolean;
 }
 
 @Component({
@@ -27,24 +29,30 @@ export class DonationTiersComponent implements OnInit, OnDestroy {
     return [
       {
         amount: 25,
-        color: '#E85A6A',
-        icon: 'fas fa-heart',
+        color: '#E85A6A', // secondary-dark - rose foncé
+        colorGradient: 'linear-gradient(135deg, #FF7A85, #E85A6A)',
+        icon: 'fas fa-heart', // Cœur - représente l'aide et la compassion
         descriptionKey: 'tier_25_description',
-        buttonText: this.languageService.getTranslation('give_25') || 'GIVE $25'
+        buttonText: this.languageService.getTranslation('give_25') || 'GIVE $25',
+        preferred: false
       },
       {
         amount: 50,
-        color: '#F5A623',
-        icon: 'fas fa-balance-scale',
+        color: '#7B68EE', // primary - violet principal
+        colorGradient: 'linear-gradient(135deg, #9B8BFF, #7B68EE, #6B5BCE)',
+        icon: 'fas fa-users', // Groupe de personnes - représente la communauté et le refuge
         descriptionKey: 'tier_50_description',
-        buttonText: this.languageService.getTranslation('give_50') || 'GIVE $50'
+        buttonText: this.languageService.getTranslation('give_50') || 'GIVE $50',
+        preferred: true
       },
       {
         amount: 100,
-        color: '#4ECDC4',
-        icon: 'fas fa-shield-alt',
+        color: '#6B5BCE', // primary-dark - violet foncé
+        colorGradient: 'linear-gradient(135deg, #7B68EE, #6B5BCE)',
+        icon: 'fas fa-shield-alt', // Bouclier - représente la protection et l'impact majeur
         descriptionKey: 'tier_100_description',
-        buttonText: this.languageService.getTranslation('give_100') || 'GIVE $100'
+        buttonText: this.languageService.getTranslation('give_100') || 'GIVE $100',
+        preferred: false
       }
     ];
   }

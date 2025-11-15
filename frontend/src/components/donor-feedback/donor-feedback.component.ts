@@ -32,7 +32,7 @@ export class DonorFeedbackComponent implements OnInit, OnDestroy {
       impact: 'Helped 3 families find safe housing this month',
       date: '2 weeks ago',
       avatar: 'https://i.pravatar.cc/150?img=5',
-      color: '#7B68EE'
+      color: '#6B5BCE' // primary-dark
     },
     {
       name: 'Michael R.',
@@ -41,7 +41,7 @@ export class DonorFeedbackComponent implements OnInit, OnDestroy {
       impact: 'Supported 2 children\'s education and 1 job placement',
       date: '1 month ago',
       avatar: 'https://i.pravatar.cc/150?img=12',
-      color: '#4ECDC4'
+      color: '#7B68EE' // primary
     },
     {
       name: 'Sophie L.',
@@ -50,7 +50,7 @@ export class DonorFeedbackComponent implements OnInit, OnDestroy {
       impact: 'Provided emergency assistance to 1 family',
       date: '3 weeks ago',
       avatar: 'https://i.pravatar.cc/150?img=47',
-      color: '#F5A623'
+      color: '#E85A6A' // secondary-dark
     },
     {
       name: 'David K.',
@@ -59,7 +59,7 @@ export class DonorFeedbackComponent implements OnInit, OnDestroy {
       impact: 'Funded counseling services for 4 individuals',
       date: '1 week ago',
       avatar: 'https://i.pravatar.cc/150?img=33',
-      color: '#E85A6A'
+      color: '#6B5BCE' // primary-dark
     },
     {
       name: 'Emma T.',
@@ -68,7 +68,7 @@ export class DonorFeedbackComponent implements OnInit, OnDestroy {
       impact: 'Assisted 2 families with legal support',
       date: '2 months ago',
       avatar: 'https://i.pravatar.cc/150?img=20',
-      color: '#6B4FA3'
+      color: '#9B8BFF' // primary-light
     },
     {
       name: 'Robert P.',
@@ -77,7 +77,7 @@ export class DonorFeedbackComponent implements OnInit, OnDestroy {
       impact: 'Enabled 3 months of shelter support',
       date: '3 weeks ago',
       avatar: 'https://i.pravatar.cc/150?img=15',
-      color: '#4ECDC4'
+      color: '#7B68EE' // primary
     }
   ];
 
