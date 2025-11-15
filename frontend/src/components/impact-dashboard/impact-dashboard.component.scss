@@ -61,24 +61,12 @@
   border: 1px solid #e2e8f0;
   text-align: center;
   cursor: pointer;
-  transition: all 0.25s ease;
   position: relative;
-
-  &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    border-color: rgba(123, 104, 238, 0.4);
-  }
 }
 
 .card-icon {
   font-size: 2.3rem;
   margin-bottom: 0.75rem;
-  transition: 0.25s;
-
-  .impact-card:hover & {
-    transform: scale(1.1);
-  }
 }
 
 .card-number {
@@ -128,6 +116,8 @@
   transform: translate(-50%, -50%);
   width: 92%;
   max-width: 480px;
+  // Account for navbar height (approx 88px on desktop, 78px on mobile)
+  max-height: calc(100vh - 100px);
   background: white;
   padding: 1.7rem;
   border-radius: 20px;
@@ -135,6 +125,31 @@
   z-index: 98;
   animation: popIn 0.25s ease;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  
+  // Small screens: adjust positioning and reduce size
+  @media (max-height: 700px) {
+    top: calc(50% + 20px);
+    max-height: calc(100vh - 120px);
+    padding: 1.2rem;
+    border-radius: 16px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 95%;
+    padding: 1rem;
+    max-height: calc(100vh - 100px);
+    border-radius: 16px;
+    
+    // On very small screens, reduce further
+    @media (max-height: 700px) {
+      top: calc(50% + 15px);
+      max-height: calc(100vh - 110px);
+      padding: 0.9rem;
+    }
+  }
 }
 
 .close-btn {
@@ -149,49 +164,142 @@
   border-radius: 50%;
   background: #ececec;
   transition: 0.2s;
+  z-index: 10;
+  flex-shrink: 0;
 
   &:hover {
     background: #d9d9d9;
   }
+  
+  @media (max-width: 480px) {
+    width: 28px;
+    height: 28px;
+    font-size: 1.2rem;
+    top: 8px;
+    right: 8px;
+  }
 }
 
-.modal-image img {
-  width: 100%;
-  border-radius: 14px;
-  margin-bottom: 1rem;
+.modal-image {
+  flex-shrink: 1;
+  max-height: 130px;
+  overflow: visible;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  img {
+    width: auto;
+    max-width: 100%;
+    max-height: 130px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    
+    @media (max-width: 480px) {
+      border-radius: 10px;
+      max-height: 100px;
+    }
+    
+    @media (max-height: 700px) {
+      max-height: 100px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    max-height: 100px;
+    margin-bottom: 0.4rem;
+  }
+  
+  @media (max-height: 700px) {
+    max-height: 100px;
+    margin-bottom: 0.4rem;
+  }
 }
 
 .modal-title {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: #4b3bcc;
+  flex-shrink: 0;
+  margin-bottom: 0.25rem;
+  
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+  }
+  
+  @media (max-height: 700px) {
+    font-size: 1.1rem;
+  }
 }
 
 .modal-number {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #6b5bce;
+  flex-shrink: 0;
+  margin-bottom: 0.5rem;
+  
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
+  
+  @media (max-height: 700px) {
+    font-size: 0.9rem;
+  }
 }
 
 .modal-description,
 .modal-story {
-  margin-top: 0.7rem;
-  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
   color: #444;
-  line-height: 1.5;
+  line-height: 1.4;
+  flex-shrink: 0;
+  font-size: 0.9rem;
+  
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.6rem;
+    line-height: 1.3;
+  }
+  
+  @media (max-height: 700px) {
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.6rem;
+    line-height: 1.3;
+  }
 }
 
 .modal-cta {
   background: #7645f2;
   border: none;
-  padding: 0.75rem 1.4rem;
+  padding: 0.65rem 1.2rem;
   border-radius: 999px;
   color: white;
   cursor: pointer;
   transition: 0.2s;
-
+  flex-shrink: 0;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  
   &:hover {
     background: #5b33c7;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+  }
+  
+  @media (max-height: 700px) {
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
   }
 }
 
@@ -212,6 +320,18 @@
   }
   to {
     transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+// Alternative animation for small screens
+@keyframes popInSmall {
+  from {
+    transform: translate(-50%, 0) scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0) scale(1);
     opacity: 1;
   }
 }
