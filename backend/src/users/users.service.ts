@@ -14,4 +14,21 @@ export class UsersService {
   async findByEmail(email: string) {
     return this.userModel.findOne({ email }).lean().exec();
   }
+
+  async findById(id: string) {
+    return this.userModel.findById(id).lean().exec();
+  }
+
+  async incrementTotalDonated(id: string, amount: number) {
+    return this.userModel
+      .findByIdAndUpdate(
+        id,
+        {
+          $inc: { totalDonated: amount },
+        },
+        { new: true },
+      )
+      .lean()
+      .exec();
+  }
 }

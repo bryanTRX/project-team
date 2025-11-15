@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
 export interface UserProfile {
+  _id?: string;
+  id?: string;
   username: string;
   name: string;
   donorTier: string;
@@ -20,8 +22,25 @@ export class AuthService {
   private readonly storageKey = 'shield_of_athena_user';
   // Point API calls to the backend server during development
   private readonly apiBase = 'http://localhost:3000';
+  // Default seeded users for quick demos and social logins
+  private readonly knownSeedEmails = [
+    'admin@shieldofathena.org',
+    'facebook@shieldofathena.org',
+    'google@shieldofathena.org',
+  ];
 
   constructor(private http: HttpClient) {}
+
+  private persistUser(profile: UserProfile): void {
+    localStorage.setItem(this.storageKey, JSON.stringify(profile));
+  }
+
+  private getStoredUserId(user: UserProfile | null): string | null {
+    if (!user) {
+      return null;
+    }
+    return user._id || user.id || null;
+  }
 
   async login(username: string, password: string): Promise<boolean> {
     try {
@@ -29,7 +48,7 @@ export class AuthService {
       const body = { username, password };
       const profile = await firstValueFrom(this.http.post<UserProfile>(url, body));
       if (profile) {
-        localStorage.setItem(this.storageKey, JSON.stringify(profile));
+        this.persistUser(profile);
         return true;
       }
       return false;
@@ -61,8 +80,42 @@ export class AuthService {
     return !!this.getCurrentUser();
   }
 
+  async recordDonation(amount: number): Promise<UserProfile | null> {
+    const user = this.getCurrentUser();
+    const userId = this.getStoredUserId(user);
+    if (!user || !userId) {
+      throw new Error('User must be logged in to record a donation.');
+    }
+    if (!Number.isFinite(amount) || amount <= 0) {
+      throw new Error('Donation amount must be greater than zero.');
+    }
+
+    try {
+      const url = `${this.apiBase}/users/${userId}/donations`;
+      const body = { amount };
+      const updated = await firstValueFrom(this.http.post<UserProfile>(url, body));
+      if (updated) {
+        this.persistUser(updated);
+        return updated;
+      }
+      return null;
+    } catch (err) {
+      console.error('Failed to record donation', err);
+      throw err;
+    }
+  }
+
   emailHasAccount(email: string): boolean {
     const normalized = email.trim().toLowerCase();
-    return normalized === this.mockUser.email.toLowerCase();
+    if (!normalized) {
+      return false;
+    }
+
+    const current = this.getCurrentUser();
+    if (current?.email?.toLowerCase() === normalized) {
+      return true;
+    }
+
+    return this.knownSeedEmails.includes(normalized);
   }
 }

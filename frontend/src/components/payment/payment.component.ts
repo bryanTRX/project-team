@@ -134,22 +134,29 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.cvv = this.cvv.replace(/\D/g, '').slice(0, 4);
   }
 
-  onSubmit(): void {
-    if (this.validateForm()) {
-      // Process payment (in real app, this would call a payment API)
+  async onSubmit(): Promise<void> {
+    if (!this.validateForm()) {
+      return;
+    }
+
+    try {
+      if (this.isAuthenticated) {
+        await this.authService.recordDonation(this.donationAmount);
+      }
+
       console.log('Processing payment:', {
         amount: this.donationAmount,
         recurring: this.recurringOption,
         email: this.email
       });
-      
-      // Show success message
+
       this.showSuccess = true;
-      
-      // Redirect after 3 seconds
       setTimeout(() => {
         this.redirectToThankYou();
       }, 3000);
+    } catch (error) {
+      console.error('Unable to complete donation', error);
+      alert('Unable to complete your donation right now. Please try again in a moment.');
     }
   }
 
