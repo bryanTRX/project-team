@@ -1,0 +1,321 @@
+.donation-tiers-section {
+  padding: 5rem 1.25rem;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF9F6 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(123, 104, 238, 0.1), transparent);
+  }
+
+  @media (min-width: 768px) {
+    padding: 6rem 1.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 7rem 2rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+
+    @media (min-width: 768px) {
+      margin-bottom: 5rem;
+    }
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1A202C;
+    letter-spacing: -0.75px;
+    line-height: 1.2;
+    margin: 0;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (min-width: 768px) {
+      font-size: 2.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 3rem;
+    }
+  }
+
+  .tiers-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      gap: 2rem;
+    }
+  }
+
+  .tier-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 0;
+    border: 1px solid #E5E7EB;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    --tier-color: #7B68EE;
+    --tier-gradient: linear-gradient(135deg, #7B68EE, #6B5BCE);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--tier-gradient);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    &.preferred {
+      border-color: rgba(123, 104, 238, 0.3);
+      border-width: 1.5px;
+
+      &::before {
+        opacity: 1;
+      }
+
+      .tier-icon {
+        background: var(--tier-gradient);
+
+        i {
+          color: white;
+        }
+      }
+
+      .tier-amount {
+        background: var(--tier-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+    }
+
+    &:hover {
+      border-color: rgba(123, 104, 238, 0.4);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+
+  .preferred-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--tier-gradient);
+    color: white;
+    padding: 0.375rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    z-index: 10;
+    white-space: nowrap;
+
+    i {
+      font-size: 0.5625rem;
+    }
+  }
+
+  .tier-header {
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+    position: relative;
+
+    @media (min-width: 768px) {
+      padding: 2.25rem 2rem 1.75rem;
+    }
+  }
+
+  .tier-icon-wrapper {
+    margin-bottom: 1.25rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .tier-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(123, 104, 238, 0.08);
+    border: 1px solid rgba(123, 104, 238, 0.12);
+    transition: all 0.3s ease;
+
+    i {
+      font-size: 2rem;
+      color: var(--tier-color);
+      font-weight: 400;
+    }
+
+    @media (min-width: 768px) {
+      width: 72px;
+      height: 72px;
+
+      i {
+        font-size: 2.25rem;
+      }
+    }
+  }
+
+  .tier-pricing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tier-amount {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--tier-color);
+    line-height: 1;
+    letter-spacing: -1.5px;
+    margin: 0;
+
+    @media (min-width: 768px) {
+      font-size: 3rem;
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 3.25rem;
+    }
+  }
+
+  .tier-frequency {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin: 0;
+    margin-top: 0.25rem;
+  }
+
+  .tier-content {
+    padding: 0 1.5rem;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    min-height: 100px;
+
+    @media (min-width: 768px) {
+      padding: 0 2rem;
+      min-height: 110px;
+    }
+  }
+
+  .tier-description {
+    font-size: 0.875rem;
+    color: #64748B;
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 500;
+    text-align: center;
+
+    @media (min-width: 768px) {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+    }
+  }
+
+  .tier-footer {
+    padding: 1.5rem;
+    padding-top: 1.25rem;
+
+    @media (min-width: 768px) {
+      padding: 2rem;
+      padding-top: 1.5rem;
+    }
+  }
+
+  .tier-btn {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    background: var(--tier-gradient);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    span {
+      flex: 1;
+    }
+
+    i {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+      i {
+        transform: translateX(2px);
+      }
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    @media (min-width: 768px) {
+      padding: 1rem 1.5rem;
+      font-size: 0.9375rem;
+    }
+  }
+}
+

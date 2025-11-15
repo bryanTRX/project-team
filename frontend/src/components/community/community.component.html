@@ -1,8 +1,8 @@
 <section class="community-section">
   <div class="container">
     <div class="community-content">
-      <h2 class="section-title">Join a Community Built on Compassion</h2>
-      <p class="section-subtitle">Together, we're not just donors—we're lifelines. Join thousands of compassionate individuals who believe that every life deserves safety, dignity, and hope.</p>
+      <h2 class="section-title">{{ languageService.getTranslation('join_community_compassion') }}</h2>
+      <p class="section-subtitle">{{ languageService.getTranslation('together_we_are_lifelines') }}</p>
       <div class="features-grid">
         <div *ngFor="let feature of features" class="feature-card">
           <div class="feature-icon">
@@ -19,7 +19,7 @@
           </div>
           <div class="stat-content">
             <div class="stat-number">15,000+</div>
-            <div class="stat-label">Compassionate Donors</div>
+            <div class="stat-label">{{ languageService.getTranslation('compassionate_donors') }}</div>
           </div>
         </div>
         <div class="community-stat">
@@ -28,7 +28,7 @@
           </div>
           <div class="stat-content">
             <div class="stat-number">$2.5M+</div>
-            <div class="stat-label">Raised This Year</div>
+            <div class="stat-label">{{ languageService.getTranslation('raised_this_year') }}</div>
           </div>
         </div>
         <div class="community-stat">
@@ -37,7 +37,7 @@
           </div>
           <div class="stat-content">
             <div class="stat-number">95%</div>
-            <div class="stat-label">Success Rate</div>
+            <div class="stat-label">{{ languageService.getTranslation('success_rate') }}</div>
           </div>
         </div>
       </div>

@@ -1,20 +1,42 @@
 .hero-section {
   position: relative;
-  min-height: 500px;
+  min-height: 600px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 3rem 1.25rem 4rem;
-  background: linear-gradient(135deg, #7B68EE 0%, #9B8BFF 50%, #6B5BCE 100%);
+  padding: 4rem 1.25rem 5rem;
+  background: linear-gradient(135deg, rgba(123, 104, 238, 0.65) 0%, rgba(155, 139, 255, 0.6) 50%, rgba(107, 91, 206, 0.65) 100%),
+              url('../../assets/images/logos/background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../../assets/images/logos/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(2px);
+    z-index: -1;
+  }
 
   @media (min-width: 768px) {
-    min-height: 550px;
-    padding: 4rem 1.25rem 5rem;
+    min-height: 650px;
+    padding: 5rem 1.25rem 6rem;
   }
 
   @media (min-width: 1024px) {
-    min-height: 600px;
+    min-height: 700px;
+    padding: 6rem 2rem 7rem;
   }
 }
 
@@ -24,7 +46,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #7B68EE 0%, #9B8BFF 50%, #6B5BCE 100%);
+  background: linear-gradient(135deg, rgba(123, 104, 238, 0.7) 0%, rgba(155, 139, 255, 0.65) 50%, rgba(107, 91, 206, 0.7) 100%),
+              url('../../assets/images/logos/background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
+  filter: blur(2px);
   z-index: 0;
 
   &::before {
@@ -36,6 +64,7 @@
     bottom: 0;
     background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.08)"/></svg>');
     opacity: 0.3;
+    z-index: 1;
   }
 }
 
@@ -58,16 +87,15 @@
 }
 
 .hero-content {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   animation: fadeInUp 0.8s ease;
-
-  @media (min-width: 968px) {
-    grid-template-columns: 1fr 1.2fr;
-    gap: 3rem;
-  }
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 @keyframes fadeInUp {
@@ -94,26 +122,56 @@
 }
 
 .hero-image-circle {
-  width: 280px;
-  height: 280px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  padding: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, rgba(255, 182, 193, 0.3), rgba(255, 192, 203, 0.25));
+  backdrop-filter: blur(15px);
+  padding: 16px;
+  box-shadow: 0 12px 40px rgba(255, 182, 193, 0.3), inset 0 0 60px rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: visible;
   animation: float 6s ease-in-out infinite;
+  transition: transform 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 182, 193, 0.2), rgba(255, 192, 203, 0.15));
+    z-index: -1;
+    animation: pulse-ring 3s ease-in-out infinite;
+  }
+
+  &:hover {
+    transform: scale(1.02);
+  }
 
   @media (min-width: 640px) {
-    width: 320px;
-    height: 320px;
+    width: 360px;
+    height: 360px;
+    padding: 18px;
   }
 
   @media (min-width: 968px) {
-    width: 380px;
-    height: 380px;
-    padding: 15px;
+    width: 420px;
+    height: 420px;
+    padding: 20px;
+  }
+}
+
+@keyframes pulse-ring {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.3;
   }
 }
 
@@ -131,7 +189,29 @@
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  border: 4px solid rgba(255, 255, 255, 0.3);
+  border: 5px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  // Filtres pour améliorer l'image et potentiellement supprimer le fond
+  filter: brightness(1.1) contrast(1.05) saturate(1.15);
+  background: transparent;
+  position: relative;
+  isolation: isolate;
+  
+  // Essayer d'utiliser mix-blend-mode pour supprimer le fond clair
+  // Cela fonctionne mieux si l'image a un fond uni
+  mix-blend-mode: multiply;
+  opacity: 0.95;
+  
+  // Alternative: utiliser un filtre pour supprimer le blanc/crème
+  // Si l'image a un fond blanc ou beige clair
+  background-blend-mode: multiply;
+}
+
+// Si l'image a un fond transparent ou besoin d'un traitement spécial
+.hero-image-wrapper {
+  // Assurer que le conteneur ne bloque pas le mix-blend-mode
+  position: relative;
+  z-index: 1;
 }
 
 .image-overlay {
@@ -186,13 +266,21 @@
 }
 
 .hero-text {
-  order: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   color: white;
+  position: relative;
+  z-index: 3;
+  padding: 2rem;
+  margin: 0 auto;
+  max-width: 900px;
 
-  @media (min-width: 968px) {
-    order: 1;
-    text-align: left;
+  @media (min-width: 768px) {
+    padding: 2.5rem;
   }
 }
 
@@ -202,7 +290,12 @@
   margin-bottom: 1rem;
   line-height: 1.2;
   color: white;
-  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 
+               0 2px 10px rgba(0, 0, 0, 0.4),
+               0 0 40px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  position: relative;
+  z-index: 2;
 
   @media (min-width: 640px) {
     font-size: 2.25rem;
@@ -210,6 +303,9 @@
 
   @media (min-width: 768px) {
     font-size: 2.5rem;
+    text-shadow: 0 4px 25px rgba(0, 0, 0, 0.6), 
+                 0 2px 12px rgba(0, 0, 0, 0.5),
+                 0 0 50px rgba(0, 0, 0, 0.4);
   }
 
   @media (min-width: 968px) {
@@ -220,23 +316,32 @@
 
 .hero-subtitle {
   font-size: 1rem;
-  margin-bottom: 1.5rem;
-  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 1);
   line-height: 1.75;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
-  max-width: 550px;
+  text-shadow: 0 3px 15px rgba(0, 0, 0, 0.5),
+               0 1px 8px rgba(0, 0, 0, 0.4),
+               0 0 30px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  font-weight: 500;
 
   @media (min-width: 640px) {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    text-shadow: 0 3px 18px rgba(0, 0, 0, 0.6),
+                 0 1px 10px rgba(0, 0, 0, 0.5),
+                 0 0 35px rgba(0, 0, 0, 0.4);
   }
 
   @media (min-width: 968px) {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    margin-left: 0;
-    margin-right: 0;
+    font-size: 1.15rem;
+    margin-bottom: 3rem;
+    max-width: 700px;
   }
 }
 
@@ -285,68 +390,119 @@
 .hero-buttons {
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
+  gap: 1rem;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto 0;
 
   @media (min-width: 640px) {
     flex-direction: row;
-    gap: 1rem;
+    gap: 1.25rem;
+    align-items: center;
+    margin-top: 2.5rem;
   }
 
   @media (min-width: 968px) {
-    justify-content: flex-start;
+    justify-content: center;
+    margin: 3rem auto 0;
+    max-width: 650px;
   }
 }
 
 .btn {
-  padding: 0.75rem 1.75rem;
+  padding: 1rem 2rem;
   border-radius: 50px;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   display: inline-flex;
   align-items: center;
-  gap: 0.625rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  min-width: 160px;
   justify-content: center;
+  gap: 0.75rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  flex: 1;
+  min-width: 200px;
+  min-height: 56px;
+  position: relative;
+  overflow: hidden;
 
   @media (min-width: 640px) {
-    padding: 0.875rem 2rem;
-    font-size: 1rem;
-    min-width: 180px;
+    padding: 1.125rem 2.25rem;
+    font-size: 1.05rem;
+    min-width: 220px;
+    min-height: 60px;
+    flex: 0 1 auto;
+  }
+
+  @media (min-width: 968px) {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.1rem;
+    min-width: 240px;
+    min-height: 64px;
   }
 
   i {
-    font-size: 1rem;
+    font-size: 1.15rem;
+    transition: transform 0.3s ease;
+
+    @media (min-width: 640px) {
+      font-size: 1.2rem;
+    }
+  }
+
+  &:hover i {
+    transform: scale(1.1);
   }
 
   &.btn-primary {
     background: linear-gradient(135deg, #FF7A85, #E85A6A);
     color: white;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
 
     &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 122, 133, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 122, 133, 0.5);
       background: linear-gradient(135deg, #E85A6A, #D6495A);
+
+      &::before {
+        left: 100%;
+      }
     }
 
     &:active {
-      transform: translateY(0);
+      transform: translateY(-1px);
     }
   }
 
   &.btn-secondary {
     background-color: white;
     color: #7B68EE;
+    border: 2px solid transparent;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.95);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+      background-color: rgba(255, 255, 255, 0.98);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+      border-color: rgba(123, 104, 238, 0.2);
+    }
+
+    &:active {
+      transform: translateY(-1px);
     }
   }
 }

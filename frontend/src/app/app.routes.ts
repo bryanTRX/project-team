@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
 import { PaymentComponent } from '../components/payment/payment.component';
 import { HomeComponent } from './home.component';
-import { DonationPageComponent } from '../components/donation-page/donation-page.component';
+import { UserDashboardComponent } from '../components/user-dashboard/user-dashboard.component';
+import { LoginComponent } from '../components/login/login.component';
 
 export const routes: Routes = [
   {
@@ -9,8 +10,12 @@ export const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'donate',
-    component: DonationPageComponent
+    path: 'dashboard',
+    component: UserDashboardComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: 'payment',

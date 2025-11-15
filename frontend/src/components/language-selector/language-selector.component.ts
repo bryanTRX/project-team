@@ -1,6 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService, Language } from '../../services/language.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-language-selector',
@@ -9,19 +10,27 @@ import { LanguageService, Language } from '../../services/language.service';
   templateUrl: './language-selector.component.html',
   styleUrl: './language-selector.component.scss'
 })
-export class LanguageSelectorComponent implements OnInit {
+export class LanguageSelectorComponent implements OnInit, OnDestroy {
   languages: Language[] = [];
   currentLanguage: string = 'en';
   isOpen: boolean = false;
+  private languageSubscription?: Subscription;
 
-  constructor(private languageService: LanguageService) {}
+  constructor(public languageService: LanguageService) {}
 
   ngOnInit(): void {
     this.languages = this.languageService.languages;
-    this.languageService.currentLanguage$.subscribe(lang => {
+    this.currentLanguage = this.languageService.getCurrentLanguage();
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
       this.currentLanguage = lang;
       this.isOpen = false;
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
+    }
   }
 
   toggleDropdown(): void {
@@ -55,4 +64,3 @@ export class LanguageSelectorComponent implements OnInit {
     }
   }
 }
-

@@ -1,23 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
-import { LoginComponent } from '../login/login.component';
+import { AuthService } from '../../services/auth.service';
+import { LanguageService } from '../../services/language.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, LanguageSelectorComponent, LoginComponent],
+  imports: [CommonModule, RouterModule, LanguageSelectorComponent],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit, OnDestroy {
   menuOpen = false;
+  currentLanguage: string = 'en';
+  private languageSubscription?: Subscription;
 
-  constructor(private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    public languageService: LanguageService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.currentLanguage = this.languageService.getCurrentLanguage();
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+      this.currentLanguage = lang;
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
+    }
+  }
 
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
+  }
+
+  goHome(): void {
+    // Si on est déjà sur la page d'accueil, scroll vers la section home
+    if (this.router.url === '/' || this.router.url === '') {
+      this.scrollToSection('home');
+    } else {
+      // Sinon, naviguer vers la page d'accueil
+      this.router.navigate(['/']).then(() => {
+        // Attendre un peu que la page se charge puis scroll vers home
+        setTimeout(() => {
+          this.scrollToSection('home');
+        }, 100);
+      });
+    }
+    this.menuOpen = false;
   }
 
   scrollToSection(sectionId: string): void {
@@ -26,10 +63,12 @@ export class NavbarComponent {
     this.menuOpen = false;
   }
 
-  scrollToDonation(): void {
+  closeMenu(): void {
     this.menuOpen = false;
-    // Navigate to donation page
-    this.router.navigate(['/donate']);
+  }
+
+  isAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
   }
 
   onLogoError(event: Event): void {

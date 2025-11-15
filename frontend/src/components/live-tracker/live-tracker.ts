@@ -35,7 +35,7 @@ export class LiveTrackerComponent implements AfterViewInit {
       const target = Number(el.getAttribute('data-target'));
       const speed = Number(el.getAttribute('data-speed')) || 50;
 
-      const duration = speed * 100;
+      const duration = speed * 50;
       const start = performance.now();
 
       const easeOutQuad = (t: number) => t * (2 - t);

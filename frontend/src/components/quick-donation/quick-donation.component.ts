@@ -15,20 +15,10 @@ import { Subscription } from 'rxjs';
 export class QuickDonationComponent implements OnInit, OnDestroy {
   selectedAmount: number | null = null;
   customAmount: number | null = null;
-  recurringOption: string = 'one-time';
-  private languageSubscription?: Subscription;
   currentLanguage: string = 'en';
+  private languageSubscription?: Subscription;
 
   donationAmounts = [25, 50, 100, 200];
-  
-  get recurringOptions() {
-    return [
-      { value: 'one-time', label: this.languageService.getTranslation('one_time') },
-      { value: 'monthly', label: this.languageService.getTranslation('monthly') },
-      { value: 'quarterly', label: this.languageService.getTranslation('quarterly') },
-      { value: 'yearly', label: this.languageService.getTranslation('yearly') }
-    ];
-  }
 
   constructor(public languageService: LanguageService, private router: Router) {}
 
@@ -44,17 +34,17 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
       this.languageSubscription.unsubscribe();
     }
   }
-  
+
   getAmountDescription(amount: number): string {
     switch(amount) {
       case 25:
-        return this.languageService.getTranslation('amount_25_description');
+        return this.languageService.getTranslation('weekly_meals_5_children');
       case 50:
-        return this.languageService.getTranslation('amount_50_description');
+        return this.languageService.getTranslation('night_safe_shelter');
       case 100:
-        return this.languageService.getTranslation('amount_100_description');
+        return this.languageService.getTranslation('hours_translation_services');
       case 200:
-        return this.languageService.getTranslation('amount_200_description');
+        return this.languageService.getTranslation('week_counseling_support');
       default:
         return '';
     }
@@ -92,10 +82,10 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
     if (amount > 0) {
       // Save donation details to localStorage
       localStorage.setItem('donationAmount', amount.toString());
-      localStorage.setItem('recurringOption', this.recurringOption);
+      localStorage.setItem('recurringOption', 'one-time');
       
-      // Redirect to donation page (which handles auth flow)
-      this.router.navigate(['/donate']);
+      // Redirect to payment page using router
+      this.router.navigate(['/payment']);
     } else {
       alert(this.languageService.getTranslation('alert_select_amount'));
     }

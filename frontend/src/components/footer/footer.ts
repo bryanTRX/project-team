@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LanguageService } from '../../services/language.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-footer',
@@ -8,7 +10,25 @@ import { CommonModule } from '@angular/common';
   templateUrl: './footer.html',
   styleUrl: './footer.scss'
 })
-export class Footer {
+export class Footer implements OnInit, OnDestroy {
+  currentLanguage: string = 'en';
+  private languageSubscription?: Subscription;
+
+  constructor(public languageService: LanguageService) {}
+
+  ngOnInit(): void {
+    this.currentLanguage = this.languageService.getCurrentLanguage();
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+      this.currentLanguage = lang;
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
+    }
+  }
+
   onFooterLogoError(event: Event): void {
     const img = event.target as HTMLImageElement;
     if (img) {

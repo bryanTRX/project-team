@@ -1,0 +1,78 @@
+// ============================================================
+// TIER BADGES STYLES - IMAGE-BASED
+// ============================================================
+
+.tier-badges-container {
+  padding: 18px;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+}
+
+.badge-row {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+// Badge with image
+.tier-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+
+  .tier-badge__image-wrapper {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+  }
+
+  .tier-badge__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.5);
+    transition: filter 0.3s ease;
+  }
+
+  .tier-badge__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #666;
+    text-align: center;
+    transition: color 0.3s ease;
+  }
+
+  // Unlocked state
+  &.tier-badge--unlocked {
+    .tier-badge__image {
+      filter: grayscale(0%) opacity(1);
+    }
+
+    .tier-badge__label {
+      color: #2c3e50;
+    }
+  }
+
+  // Hover effect
+  &:hover {
+    transform: translateY(-4px);
+
+    .tier-badge__image-wrapper {
+      transform: scale(1.05);
+    }
+  }
+}
