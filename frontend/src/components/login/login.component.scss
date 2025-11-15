@@ -2,7 +2,8 @@
   position: relative;
   min-height: calc(100vh - 80px);
   padding: 4rem 1rem;
-  background: radial-gradient(circle at top left, rgba(255, 122, 133, 0.2), transparent 50%),
+  background:
+    radial-gradient(circle at top left, rgba(255, 122, 133, 0.2), transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(123, 104, 238, 0.25), transparent 55%),
     linear-gradient(135deg, #fdf3f4 0%, #f6f7ff 60%, #eef2ff 100%);
   display: flex;
@@ -95,7 +96,9 @@
     padding: 0.85rem 1rem;
     font-size: 1rem;
     font-family: 'Inter', sans-serif;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
     background-color: #fdfbff;
 
     &:focus {
@@ -126,7 +129,9 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   box-shadow: 0 10px 20px rgba(232, 90, 106, 0.25);
 
   &:hover:not(:disabled) {
@@ -137,6 +142,82 @@
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+  }
+}
+
+.divider {
+  position: relative;
+  margin: 1.5rem 0;
+  text-align: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #e2e8f0;
+  }
+
+  span {
+    position: relative;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0 1rem;
+    color: #718096;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+}
+
+.social-login {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  background-color: white;
+  color: #1f2a44;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #cbd5e0;
+    background-color: #f7fafc;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  span {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+.google-btn {
+  &:hover {
+    border-color: #4285f4;
+  }
+}
+
+.facebook-btn {
+  &:hover {
+    border-color: #1877f2;
   }
 }
 
