@@ -13,10 +13,27 @@
 }
 
 .live-tracker-container .header {
-    font-size: 30px;
+    font-size: 36px;
     font-weight: 700;
     color: #6B5BCE;                
-    margin-bottom: 35px;
+    margin-bottom: 12px;
+}
+
+.live-tracker-container .total-collected {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+
+.live-tracker-container .big-counter {
+    font-size: 48px;
+    font-weight: 900;
+    color: #7B68EE;
+    line-height: 1;
+    margin-bottom: 6px;
+    transition: color 0.2s ease;
 }
 
 .live-tracker-container .information {
@@ -58,6 +75,10 @@
     .live-tracker-container {
         width: 92%;
         padding: 30px 15px;
+    }
+
+    .live-tracker-container .big-counter {
+        font-size: 36px;
     }
 
     .live-tracker-container .information {

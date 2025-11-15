@@ -4,6 +4,7 @@ import {
   ElementRef,
   QueryList,
   ViewChildren,
+  ViewChild,
   OnInit,
   OnDestroy,
 } from '@angular/core';
@@ -17,6 +18,7 @@ import { Subscription } from 'rxjs';
 })
 export class LiveTrackerComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren('counter') counters!: QueryList<ElementRef>;
+  @ViewChild('bigCounter') bigCounter!: ElementRef;
 
   currentLanguage: string = 'en';
   private languageSubscription?: Subscription;
@@ -54,32 +56,57 @@ export class LiveTrackerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.counters.forEach((counter) => {
       this.observer.observe(counter.nativeElement);
     });
+
+    if (this.bigCounter && this.bigCounter.nativeElement) {
+      this.observer.observe(this.bigCounter.nativeElement);
+    }
   }
 
   startCounters() {
+    const elements: HTMLElement[] = [];
+
+    if (this.bigCounter && this.bigCounter.nativeElement) {
+      elements.push(this.bigCounter.nativeElement);
+    }
+
     this.counters.forEach((counterEl) => {
-      const el = counterEl.nativeElement;
+      elements.push(counterEl.nativeElement);
+    });
 
-      const target = Number(el.getAttribute('data-target'));
+    elements.forEach((el) => {
+      const target = Number(el.getAttribute('data-target')) || 0;
       const speed = Number(el.getAttribute('data-speed')) || 50;
-
       const duration = speed * 50;
       const start = performance.now();
 
+      const isBig = el.classList.contains('big-counter');
+
       const easeOutQuad = (t: number) => t * (2 - t);
+
+      const formatNumber = (n: number) => n.toLocaleString();
 
       const animate = (now: number) => {
         const elapsed = now - start;
         const progress = Math.min(elapsed / duration, 1);
         const eased = easeOutQuad(progress);
 
-        el.textContent = Math.floor(eased * target);
+        const value = Math.floor(eased * target);
+
+        if (isBig) {
+          el.textContent = '$' + formatNumber(value);
+        } else {
+          el.textContent = value.toString();
+        }
 
         if (progress < 1) {
           requestAnimationFrame(animate);
         } else {
-          el.textContent = target;
-          this.startLiveUpdates(el, target);
+          if (isBig) {
+            el.textContent = '$' + formatNumber(target);
+          } else {
+            el.textContent = target.toString();
+          }
+          this.startLiveUpdates(el, target, isBig);
         }
       };
 
@@ -87,15 +114,21 @@ export class LiveTrackerComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  startLiveUpdates(el: HTMLElement, current: number) {
+  startLiveUpdates(el: HTMLElement, current: number, isBig = false) {
     const randomIncreaseLoop = () => {
-      const increment = Math.floor(Math.random() * 4) + 1;
+      const increment = isBig
+        ? Math.floor(Math.random() * 100) + 5 
+        : Math.floor(Math.random() * 4) + 1; 
+
       current += increment;
 
-      el.textContent = current.toString();
+      if (isBig) {
+        el.textContent = '$' + current.toLocaleString();
+      } else {
+        el.textContent = current.toString();
+      }
 
       const delay = Math.random() * 4500 + 1500;
-
       setTimeout(randomIncreaseLoop, delay);
     };
 
