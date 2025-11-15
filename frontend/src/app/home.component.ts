@@ -7,6 +7,7 @@ import { DonationTiersComponent } from '../components/donation-tiers/donation-ti
 import { DonorFeedbackComponent } from '../components/donor-feedback/donor-feedback.component';
 import { CommunityComponent } from '../components/community/community.component';
 import { Footer } from '../components/footer/footer';
+import { LiveTrackerComponent } from '../components/live-tracker/live-tracker';
 
 @Component({
   selector: 'app-home',
@@ -18,12 +19,16 @@ import { Footer } from '../components/footer/footer';
     StoriesComponent,
     DonationTiersComponent,
     DonorFeedbackComponent,
+    LiveTrackerComponent,
     CommunityComponent,
     Footer,
   ],
   template: `
     <main id="home">
       <app-hero></app-hero>
+      <section class="live-tracker-section">
+        <app-live-tracker></app-live-tracker>
+      </section>
       <app-quick-donation></app-quick-donation>
       <section id="impact">
         <app-impact-dashboard></app-impact-dashboard>

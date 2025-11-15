@@ -1256,10 +1256,6 @@ export class LanguageService {
       it: 'Totale donato',
       de: 'Gesamt gespendet',
     },
-    lives_touched: {
-      en: 'Lives Touched',
-      fr: 'Vies touchées',
-    },
     donor_tier: {
       en: 'Donor Tier',
       fr: 'Niveau de donateur',
@@ -2087,6 +2083,72 @@ export class LanguageService {
       it: 'Vedi come la tua generosità crea un cambiamento reale',
       de: 'Sehen Sie, wie Ihre Großzügigkeit echten Wandel schafft',
     },
+
+    live_impact_tracker: {
+      en: 'Live Impact Tracker',
+      fr: 'Suivi d’impact en direct',
+      es: 'Seguimiento de impacto en vivo',
+      ar: 'متتبع الأثر المباشر',
+      zh: '实时影响追踪',
+      hi: 'लाइव इम्पैक्ट ट्रैकर',
+      ru: 'Трекер воздействия в реальном времени',
+      pt: 'Rastreador de Impacto em Tempo Real',
+      it: "Monitoraggio dell'impatto in tempo reale",
+      de: 'Live-Impact-Tracker',
+    },
+
+  meals_provided: {
+    en: 'Meals Provided',
+    fr: 'Repas fournis',
+    es: 'Comidas proporcionadas',
+    ar: 'الوجبات المقدمة',
+    zh: '提供的餐食',
+    hi: 'प्रदान किए गए भोजन',
+    ru: 'Предоставленные блюда',
+    pt: 'Refeições fornecidas',
+    it: 'Pasti forniti',
+    de: 'Bereitgestellte Mahlzeiten',
+  },
+
+  medical_kits: {
+    en: 'Medical Kits',
+    fr: 'Kits médicaux',
+    es: 'Kits médicos',
+    ar: 'أطقم طبية',
+    zh: '医疗包',
+    hi: 'चिकित्सा किट',
+    ru: 'Медицинские наборы',
+    pt: 'Kits médicos',
+    it: 'Kit medici',
+    de: 'Medizinische Kits',
+  },
+
+  transport_rides: {
+    en: 'Transport Rides',
+    fr: 'Trajets de transport',
+    es: 'Viajes de transporte',
+    ar: 'رحلات النقل',
+    zh: '交通行程',
+    hi: 'यातायात यात्राएँ',
+    ru: 'Транспортные поездки',
+    pt: 'Viagens de transporte',
+    it: 'Viaggi di trasporto',
+    de: 'Transportfahrten',
+  },
+
+  lives_touched: {
+    en: 'Lives Touched',
+    fr: 'Vies impactées',
+    es: 'Vidas impactadas',
+    ar: 'حيوات متأثرة',
+    zh: '受影响的生命',
+    hi: 'छुई गई ज़िंदगियाँ',
+    ru: 'Затронутые жизни',
+    pt: 'Vidas impactadas',
+    it: 'Vite toccate',
+    de: 'Berührte Leben',
+  },
+
   };
 
   setLanguage(languageCode: string): void {
