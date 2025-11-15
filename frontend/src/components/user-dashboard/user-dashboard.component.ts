@@ -57,15 +57,13 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
   donationHistory: DonationHistoryItem[] = [
     { date: 'Nov 10, 2024', frequency: 'One-time', amount: 250, recurring: false },
     { date: 'Oct 15, 2024', frequency: 'Monthly', amount: 100, recurring: true },
-    { date: 'Oct 1, 2024', frequency: 'One-time', amount: 500, recurring: false },
-    { date: 'Sep 15, 2024', frequency: 'Monthly', amount: 100, recurring: true },
-    { date: 'Sep 5, 2024', frequency: 'Monthly', amount: 100, recurring: true }
+    { date: 'Oct 1, 2024', frequency: 'One-time', amount: 500, recurring: false }
   ];
 
   discussions: ForumDiscussion[] = [
     { title: 'Success Stories', replies: 24 },
     { title: 'Holiday Support Drive', replies: 18 },
-    { title: 'New Program Launch', replies: 12 }
+    { title: 'New Program Launch', replies: 12 },
   ];
 
   constructor(
@@ -137,6 +135,32 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
 
   getAmountToNextTier(): number {
     return this.tierBadgesComponent?.getAmountToNextTier() || 0;
+  }
+
+  get personalGoalTarget(): number {
+    return this.user?.goal || 0;
+  }
+
+  get personalGoalProgress(): number {
+    const goal = this.personalGoalTarget;
+    if (!goal) {
+      return 0;
+    }
+    const donated = this.user?.totalDonated || 0;
+    return Math.min(100, Math.round((donated / goal) * 100));
+  }
+
+  get personalGoalRemaining(): number {
+    const goal = this.personalGoalTarget;
+    const donated = this.user?.totalDonated || 0;
+    return Math.max(0, goal - donated);
+  }
+
+  get memberSinceDate(): string {
+    if (!this.donationHistory.length) {
+      return '2023';
+    }
+    return this.donationHistory[this.donationHistory.length - 1].date;
   }
 
   logout(): void {

@@ -1256,17 +1256,9 @@ export class LanguageService {
       'it': 'Totale donato',
       'de': 'Gesamt gespendet'
     },
-    'families_helped': {
-      'en': 'Families Helped',
-      'fr': 'Familles aidées',
-      'es': 'Familias ayudadas',
-      'ar': 'العائلات المساعدة',
-      'zh': '帮助的家庭',
-      'hi': 'मदद मिली परिवार',
-      'ru': 'Семьям помогли',
-      'pt': 'Famílias ajudadas',
-      'it': 'Famiglie aiutate',
-      'de': 'Familien geholfen'
+    'lives_touched': {
+      'en': 'Lives Touched',
+      'fr': 'Vies touchées'
     },
     'donor_tier': {
       'en': 'Donor Tier',
@@ -1304,6 +1296,18 @@ export class LanguageService {
       'it': 'Completo',
       'de': 'Abgeschlossen'
     },
+    'member_since': {
+      'en': 'Member Since',
+      'fr': 'Membre depuis',
+      'es': 'Miembro desde',
+      'ar': 'عضو منذ',
+      'zh': '成为会员于',
+      'hi': 'सदस्य तब से',
+      'ru': 'Участник с',
+      'pt': 'Membro desde',
+      'it': 'Membro dal',
+      'de': 'Mitglied seit'
+    },
     'reach_tier_status': {
       'en': 'Reach {{tier}} status at ${{amount}} donated (${{remaining}} to go)',
       'fr': 'Atteignez le statut {{tier}} avec {{amount}} $ de don ({{remaining}} $ restants)',
@@ -1330,15 +1334,27 @@ export class LanguageService {
     },
     'congratulations_highest_tier': {
       'en': 'Congratulations! You\'ve reached the highest tier of support.',
-      'fr': 'Félicitations ! Vous avez atteint le niveau de soutien le plus élevé.',
-      'es': '¡Felicidades! Has alcanzado el nivel de apoyo más alto.',
-      'ar': 'تهانينا! لقد وصلت إلى أعلى مستوى من الدعم.',
-      'zh': '恭喜！您已达到最高支持等级。',
-      'hi': 'बधाई हो! आपने समर्थन के उच्चतम स्तर तक पहुंच गए हैं।',
-      'ru': 'Поздравляем! Вы достигли наивысшего уровня поддержки.',
-      'pt': 'Parabéns! Você alcançou o nível mais alto de apoio.',
-      'it': 'Congratulazioni! Hai raggiunto il livello di supporto più alto.',
-      'de': 'Herzlichen Glückwunsch! Sie haben die höchste Unterstützungsstufe erreicht.'
+      'fr': 'Félicitations ! Vous avez atteint le niveau de soutien le plus élevé.'
+    },
+    'personal_giving_goal': {
+      'en': 'Personal Giving Goal',
+      'fr': 'Objectif de don personnel'
+    },
+    'goal_label': {
+      'en': 'Goal:',
+      'fr': 'Objectif :'
+    },
+    'goal_remaining_suffix': {
+      'en': 'to reach your goal',
+      'fr': 'pour atteindre votre objectif'
+    },
+    'goal_complete_message': {
+      'en': 'Amazing! You\'ve met your personal goal.',
+      'fr': 'Incroyable ! Vous avez atteint votre objectif personnel.'
+    },
+    'contributions_over_time': {
+      'en': 'Your contributions over time',
+      'fr': 'Vos contributions au fil du temps'
     },
     'impact_news': {
       'en': 'Impact News',
@@ -1351,6 +1367,10 @@ export class LanguageService {
       'pt': 'Notícias de impacto',
       'it': 'Notizie sull\'impatto',
       'de': 'Wirkungsnachrichten'
+    },
+    'trending_discussions': {
+      'en': 'Trending discussions',
+      'fr': 'Discussions populaires'
     },
     'see_donations_making_difference': {
       'en': 'See how your donations are making a difference',
@@ -1423,6 +1443,10 @@ export class LanguageService {
       'pt': 'Ver histórico completo',
       'it': 'Visualizza cronologia completa',
       'de': 'Vollständigen Verlauf anzeigen'
+    },
+    'personal_info': {
+      'en': 'Personal Info',
+      'fr': 'Informations personnelles'
     },
     'community_forum': {
       'en': 'Community Forum',
@@ -1844,4 +1868,3 @@ export class LanguageService {
     this.setLanguage(savedLanguage);
   }
 }
-
