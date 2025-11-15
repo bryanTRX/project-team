@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 export interface UserProfile {
   username: string;
@@ -16,27 +18,34 @@ export interface UserProfile {
 })
 export class AuthService {
   private readonly storageKey = 'shield_of_athena_user';
+  // Point API calls to the backend server during development
+  private readonly apiBase = 'http://localhost:3000';
 
-  private readonly mockUser: UserProfile & { password: string } = {
-    username: 'admin',
-    password: 'admin',
-    name: 'Zeus Donor',
-    donorTier: 'Zeus',
-    totalDonated: 3750,
-    familiesHelped: 12,
-    goal: 5000,
-    donationsRequiredForTier: 5000,
-    email: 'admin@shieldofathena.org',
-  };
+  constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): boolean {
-    const normalized = username.trim().toLowerCase();
-    if (normalized === this.mockUser.username && password === this.mockUser.password) {
-      const { password: _password, ...userProfile } = this.mockUser;
-      localStorage.setItem(this.storageKey, JSON.stringify(userProfile));
-      return true;
+  async login(username: string, password: string): Promise<boolean> {
+    try {
+      const url = `${this.apiBase}/auth/login`;
+      const body = { username, password };
+      const profile = await firstValueFrom(this.http.post<UserProfile>(url, body));
+      if (profile) {
+        localStorage.setItem(this.storageKey, JSON.stringify(profile));
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.error('Login failed', err);
+      return false;
     }
-    return false;
+  }
+
+  async loginWithFacebook(): Promise<boolean> {
+    // Credentials must match the seeded social account in the DB
+    return this.login('facebook', 'facebook');
+  }
+
+  async loginWithGoogle(): Promise<boolean> {
+    return this.login('google', 'google');
   }
 
   logout(): void {

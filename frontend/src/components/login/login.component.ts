@@ -44,13 +44,26 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    const authenticated = this.authService.login(this.username, this.password);
-    if (authenticated) {
-      this.errorMessage = '';
-      this.router.navigate(['/dashboard']);
-      return;
-    }
+    this.authService.login(this.username, this.password).then((authenticated) => {
+      if (authenticated) {
+        this.errorMessage = '';
+        this.router.navigate(['/dashboard']);
+        return;
+      }
 
-    this.errorMessage = this.languageService.getTranslation('invalid_credentials');
+      this.errorMessage = this.languageService.getTranslation('invalid_credentials');
+    });
+  }
+
+  onFacebookLogin(): void {
+    this.authService.loginWithFacebook().then((ok) => {
+      if (ok) this.router.navigate(['/dashboard']);
+    });
+  }
+
+  onGoogleLogin(): void {
+    this.authService.loginWithGoogle().then((ok) => {
+      if (ok) this.router.navigate(['/dashboard']);
+    });
   }
 }

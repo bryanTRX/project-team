@@ -12,6 +12,10 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
+    "seed": "node ./scripts/seed.js",
+    "clear-users": "node ./scripts/clear-users.js",
+  "seed-social": "node ./scripts/seed-social.js",
+  "check-user": "node ./scripts/check-user.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -24,7 +28,11 @@
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "@nestjs/mongoose": "^11.0.0",
+    "mongoose": "^7.6.0",
+    "@nestjs/config": "^4.0.0",
+    "dotenv": "^16.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
