@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   menuOpen = false;
+  dropdownOpen = false;
   currentLanguage: string = 'en';
   private languageSubscription?: Subscription;
 
@@ -29,11 +30,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       this.currentLanguage = lang;
     });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', this.handleClickOutside.bind(this));
   }
 
   ngOnDestroy(): void {
     if (this.languageSubscription) {
       this.languageSubscription.unsubscribe();
+    }
+    document.removeEventListener('click', this.handleClickOutside.bind(this));
+  }
+
+  handleClickOutside(event: Event): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.user-menu-wrapper')) {
+      this.closeDropdown();
     }
   }
 
@@ -80,6 +92,41 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
+  }
+
+  toggleDropdown(event?: Event): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  closeDropdown(): void {
+    this.dropdownOpen = false;
+  }
+
+  goToSettings(): void {
+    this.closeDropdown();
+    this.router.navigate(['/dashboard']);
+    // Scroll to settings section or open settings modal
+    setTimeout(() => {
+      // Could scroll to a settings section if it exists
+    }, 100);
+  }
+
+  goToPersonalInfo(): void {
+    this.closeDropdown();
+    this.router.navigate(['/dashboard']);
+    // Scroll to personal info section or open personal info modal
+    setTimeout(() => {
+      // Could scroll to a personal info section if it exists
+    }, 100);
+  }
+
+  logout(): void {
+    this.closeDropdown();
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 
   onLogoError(event: Event): void {
