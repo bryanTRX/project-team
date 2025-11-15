@@ -44,14 +44,14 @@
   }
 
   .logo-image {
-    height: 40px;
+    height: 60px;
     width: auto;
     object-fit: contain;
     display: block;
     transition: transform 0.3s ease;
 
     @media (max-width: 768px) {
-      height: 35px;
+      height: 50px;
     }
   }
 
