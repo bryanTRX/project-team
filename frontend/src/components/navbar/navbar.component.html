@@ -29,18 +29,41 @@
         </div>
         <div class="nav-actions">
           <app-language-selector></app-language-selector>
+          <div class="user-menu-wrapper" *ngIf="isAuthenticated()">
+            <button
+              type="button"
+              class="login-btn"
+              (click)="toggleDropdown($event)"
+            >
+              <i class="fas fa-user logged-in"></i>
+              <span>{{ languageService.getTranslation('my_dashboard') }}</span>
+              <i class="fas fa-chevron-down dropdown-arrow" [class.rotated]="dropdownOpen"></i>
+            </button>
+            <div class="dropdown-menu" *ngIf="dropdownOpen" (click)="$event.stopPropagation()">
+              <button class="dropdown-item" (click)="goToSettings()">
+                <i class="fas fa-cog"></i>
+                <span>{{ languageService.getTranslation('Settings') }}</span>
+              </button>
+              <button class="dropdown-item" (click)="goToPersonalInfo()">
+                <i class="fas fa-id-card"></i>
+                <span>{{ languageService.getTranslation('personal_info') }}</span>
+              </button>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item logout-item" (click)="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>{{ languageService.getTranslation('log_out') }}</span>
+              </button>
+            </div>
+          </div>
           <button
+            *ngIf="!isAuthenticated()"
             type="button"
             class="login-btn"
-            [routerLink]="isAuthenticated() ? '/dashboard' : '/login'"
+            [routerLink]="'/login'"
             (click)="closeMenu()"
           >
-            <i class="fas fa-user" [class.logged-in]="isAuthenticated()"></i>
-            <span>{{
-              isAuthenticated()
-                ? languageService.getTranslation('my_dashboard')
-                : languageService.getTranslation('login')
-            }}</span>
+            <i class="fas fa-user"></i>
+            <span>{{ languageService.getTranslation('login') }}</span>
           </button>
         </div>
         <button
