@@ -5,30 +5,36 @@
     <div class="donation-card">
       <div class="human-impact-banner">
         <div class="impact-faces">
-          <img src="https://i.pravatar.cc/40?img=47" alt="Person helped" class="impact-face">
-          <img src="https://i.pravatar.cc/40?img=12" alt="Person helped" class="impact-face">
-          <img src="https://i.pravatar.cc/40?img=33" alt="Person helped" class="impact-face">
-          <img src="https://i.pravatar.cc/40?img=5" alt="Person helped" class="impact-face">
-          <span class="impact-count">{{ languageService.getTranslation('impact_count_more') }}</span>
+          <img src="https://i.pravatar.cc/40?img=47" alt="Person helped" class="impact-face" />
+          <img src="https://i.pravatar.cc/40?img=12" alt="Person helped" class="impact-face" />
+          <img src="https://i.pravatar.cc/40?img=33" alt="Person helped" class="impact-face" />
+          <img src="https://i.pravatar.cc/40?img=5" alt="Person helped" class="impact-face" />
+          <span class="impact-count">{{
+            languageService.getTranslation('impact_count_more')
+          }}</span>
         </div>
         <p class="impact-message">{{ languageService.getTranslation('impact_message') }}</p>
       </div>
-      
+
       <div class="amount-buttons">
         <button
           *ngFor="let amount of donationAmounts"
           class="amount-btn"
           [class.active]="selectedAmount === amount && !customAmount"
-          (click)="selectAmount(amount)">
+          (click)="selectAmount(amount)"
+        >
           <span class="amount-value">${{ amount }}</span>
           <span class="amount-description">{{ getAmountDescription(amount) }}</span>
         </button>
         <button
           class="amount-btn other-btn"
           [class.active]="customAmount !== null && customAmount !== 0"
-          (click)="selectCustomAmount()">
+          (click)="selectCustomAmount()"
+        >
           <span class="amount-value">{{ languageService.getTranslation('other') }}</span>
-          <span class="amount-description">{{ languageService.getTranslation('enter_custom_amount') }}</span>
+          <span class="amount-description">{{
+            languageService.getTranslation('enter_custom_amount')
+          }}</span>
         </button>
       </div>
 
@@ -43,13 +49,15 @@
           [value]="customAmount > 0 ? customAmount : ''"
           (input)="onCustomAmountChange($any($event.target).value)"
           class="custom-input"
-          autofocus>
+          autofocus
+        />
       </div>
 
       <button
         class="continue-btn donation-btn"
         (click)="proceedToPayment()"
-        [disabled]="getDonationAmount() === 0">
+        [disabled]="getDonationAmount() === 0"
+      >
         <i class="fas fa-arrow-right"></i>
         <span>{{ languageService.getTranslation('continue_to_payment') }}</span>
       </button>

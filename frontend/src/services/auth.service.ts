@@ -12,7 +12,7 @@ export interface UserProfile {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private readonly storageKey = 'shield_of_athena_user';
@@ -26,7 +26,7 @@ export class AuthService {
     familiesHelped: 12,
     goal: 5000,
     donationsRequiredForTier: 5000,
-    email: 'admin@shieldofathena.org'
+    email: 'admin@shieldofathena.org',
   };
 
   login(username: string, password: string): boolean {
@@ -45,7 +45,7 @@ export class AuthService {
 
   getCurrentUser(): UserProfile | null {
     const stored = localStorage.getItem(this.storageKey);
-    return stored ? JSON.parse(stored) as UserProfile : null;
+    return stored ? (JSON.parse(stored) as UserProfile) : null;
   }
 
   isAuthenticated(): boolean {

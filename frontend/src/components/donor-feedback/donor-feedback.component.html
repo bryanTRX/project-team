@@ -4,13 +4,17 @@
       <h2 class="section-title">{{ getSectionTitle() }}</h2>
       <p class="section-subtitle">{{ getSectionSubtitle() }}</p>
     </div>
-    
+
     <div class="feedback-grid">
-      <div *ngFor="let feedback of donorFeedbacks" class="feedback-card" [style.--card-color]="feedback.color">
+      <div
+        *ngFor="let feedback of donorFeedbacks"
+        class="feedback-card"
+        [style.--card-color]="feedback.color"
+      >
         <div class="quote-icon">
           <i class="fas fa-quote-left"></i>
         </div>
-        
+
         <div class="feedback-header">
           <div class="donor-info">
             <div class="avatar-wrapper">
@@ -34,14 +38,20 @@
             <span>{{ feedback.date }}</span>
           </div>
         </div>
-        
+
         <div class="feedback-content">
           <p class="feedback-text">{{ feedback.feedback }}</p>
         </div>
-        
+
         <div class="feedback-divider"></div>
-        
-        <div class="impact-badge" [style.background]="'linear-gradient(135deg, ' + feedback.color + '15, ' + feedback.color + '08)'" [style.border-color]="feedback.color + '25'">
+
+        <div
+          class="impact-badge"
+          [style.background]="
+            'linear-gradient(135deg, ' + feedback.color + '15, ' + feedback.color + '08)'
+          "
+          [style.border-color]="feedback.color + '25'"
+        >
           <div class="impact-icon" [style.color]="feedback.color">
             <i class="fas fa-sparkles"></i>
           </div>
@@ -54,4 +64,3 @@
     </div>
   </div>
 </section>
-

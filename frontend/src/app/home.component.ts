@@ -19,7 +19,7 @@ import { Footer } from '../components/footer/footer';
     DonationTiersComponent,
     DonorFeedbackComponent,
     CommunityComponent,
-    Footer
+    Footer,
   ],
   template: `
     <main id="home">
@@ -37,12 +37,13 @@ import { Footer } from '../components/footer/footer';
     </main>
     <app-footer></app-footer>
   `,
-  styles: [`
-    main {
-      width: 100%;
-      min-height: calc(100vh - 200px);
-    }
-  `]
+  styles: [
+    `
+      main {
+        width: 100%;
+        min-height: calc(100vh - 200px);
+      }
+    `,
+  ],
 })
-export class HomeComponent {
-}
+export class HomeComponent {}

@@ -1,6 +1,6 @@
 .quick-donation-section {
   padding: 3.5rem 1.25rem;
-  background: linear-gradient(to bottom, #FAF9F6 0%, #FFFFFF 100%);
+  background: linear-gradient(to bottom, #faf9f6 0%, #ffffff 100%);
   position: relative;
 
   .container {
@@ -13,8 +13,8 @@
     font-weight: 700;
     text-align: center;
     margin-bottom: 0.75rem;
-    color: #2D3748;
-    background: linear-gradient(135deg, #7B68EE, #6B5BCE);
+    color: #2d3748;
+    background: linear-gradient(135deg, #7b68ee, #6b5bce);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -27,7 +27,7 @@
   .section-subtitle {
     text-align: center;
     font-size: 0.95rem;
-    color: #4A5568;
+    color: #4a5568;
     margin-bottom: 2rem;
     max-width: 550px;
     margin-left: auto;
@@ -40,7 +40,7 @@
     border-radius: 20px;
     padding: 2rem;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    border: 1px solid #E2E8F0;
+    border: 1px solid #e2e8f0;
     transition: all 0.3s ease;
 
     &:hover {
@@ -91,7 +91,7 @@
         margin-left: 0.75rem;
         font-size: 0.875rem;
         font-weight: 600;
-        color: #7B68EE;
+        color: #7b68ee;
         white-space: nowrap;
       }
     }
@@ -100,7 +100,7 @@
       text-align: center;
       margin: 0;
       font-size: 0.9rem;
-      color: #4A5568;
+      color: #4a5568;
       font-weight: 600;
       line-height: 1.5;
     }
@@ -123,10 +123,10 @@
 
   .amount-btn {
     padding: 1rem 0.75rem;
-    border: 2px solid #E2E8F0;
+    border: 2px solid #e2e8f0;
     border-radius: 14px;
     background-color: white;
-    color: #7B68EE;
+    color: #7b68ee;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -144,7 +144,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(135deg, #7B68EE, #9B8BFF);
+      background: linear-gradient(135deg, #7b68ee, #9b8bff);
       opacity: 0;
       transition: opacity 0.3s ease;
       z-index: 0;
@@ -159,13 +159,13 @@
     .amount-value {
       font-size: 1.25rem;
       font-weight: 700;
-      color: #7B68EE;
+      color: #7b68ee;
       transition: color 0.3s ease;
     }
 
     .amount-description {
       font-size: 0.7rem;
-      color: #4A5568;
+      color: #4a5568;
       text-align: center;
       line-height: 1.3;
       transition: color 0.3s ease;
@@ -174,7 +174,7 @@
     &:hover {
       transform: translateY(-3px);
       box-shadow: 0 4px 12px rgba(123, 104, 238, 0.2);
-      border-color: #7B68EE;
+      border-color: #7b68ee;
 
       &::before {
         opacity: 0.08;
@@ -182,8 +182,8 @@
     }
 
     &.active {
-      background: linear-gradient(135deg, #7B68EE, #9B8BFF);
-      border-color: #7B68EE;
+      background: linear-gradient(135deg, #7b68ee, #9b8bff);
+      border-color: #7b68ee;
       box-shadow: 0 4px 12px rgba(123, 104, 238, 0.3);
 
       .amount-value {
@@ -227,24 +227,24 @@
       display: block;
       font-weight: 600;
       margin-bottom: 0.625rem;
-      color: #2D3748;
+      color: #2d3748;
       font-size: 0.9rem;
     }
 
     .custom-input {
       width: 100%;
       padding: 0.875rem 1.25rem;
-      border: 2px solid #E2E8F0;
+      border: 2px solid #e2e8f0;
       border-radius: 12px;
       font-size: 1.05rem;
       font-weight: 600;
-      background-color: #FAF9F6;
-      color: #2D3748;
+      background-color: #faf9f6;
+      color: #2d3748;
       transition: all 0.3s ease;
 
       &:focus {
         outline: none;
-        border-color: #7B68EE;
+        border-color: #7b68ee;
         box-shadow: 0 0 0 3px rgba(123, 104, 238, 0.1);
         background-color: white;
       }
@@ -262,25 +262,25 @@
       display: block;
       font-weight: 600;
       margin-bottom: 0.625rem;
-      color: #2D3748;
+      color: #2d3748;
       font-size: 0.9rem;
     }
 
     .recurring-select {
       width: 100%;
       padding: 0.875rem 1.25rem;
-      border: 2px solid #E2E8F0;
+      border: 2px solid #e2e8f0;
       border-radius: 12px;
       font-size: 0.95rem;
       font-weight: 500;
-      background-color: #FAF9F6;
-      color: #2D3748;
+      background-color: #faf9f6;
+      color: #2d3748;
       cursor: pointer;
       transition: all 0.3s ease;
 
       &:focus {
         outline: none;
-        border-color: #7B68EE;
+        border-color: #7b68ee;
         box-shadow: 0 0 0 3px rgba(123, 104, 238, 0.1);
         background-color: white;
       }
@@ -290,7 +290,7 @@
   .continue-btn {
     width: 100%;
     padding: 0.875rem;
-    background: linear-gradient(135deg, #FF7A85, #E85A6A);
+    background: linear-gradient(135deg, #ff7a85, #e85a6a);
     color: white;
     border: none;
     border-radius: 12px;
@@ -331,13 +331,13 @@
     gap: 0.5rem;
     text-align: center;
     font-size: 0.85rem;
-    color: #4A5568;
+    color: #4a5568;
     margin-top: 1.25rem;
     padding-top: 1.25rem;
-    border-top: 1px solid #E2E8F0;
+    border-top: 1px solid #e2e8f0;
 
     i {
-      color: #7B68EE;
+      color: #7b68ee;
       font-size: 0.9rem;
     }
 

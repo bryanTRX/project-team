@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule, RouterModule, LanguageSelectorComponent],
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   menuOpen = false;
@@ -21,12 +21,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     public languageService: LanguageService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getCurrentLanguage();
-    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       this.currentLanguage = lang;
     });
   }

@@ -4,11 +4,13 @@
       <h2 class="section-title">{{ getSectionTitle() }}</h2>
     </div>
     <div class="tiers-grid">
-      <div *ngFor="let tier of tiers" 
-           class="tier-card" 
-           [class.preferred]="tier.preferred"
-           [style.--tier-color]="tier.color"
-           [style.--tier-gradient]="tier.colorGradient">
+      <div
+        *ngFor="let tier of tiers"
+        class="tier-card"
+        [class.preferred]="tier.preferred"
+        [style.--tier-color]="tier.color"
+        [style.--tier-gradient]="tier.colorGradient"
+      >
         <div class="preferred-badge" *ngIf="tier.preferred">
           <i class="fas fa-star"></i>
           <span>{{ languageService.getTranslation('most_popular') || 'MOST POPULAR' }}</span>
@@ -21,7 +23,9 @@
           </div>
           <div class="tier-pricing">
             <div class="tier-amount">${{ tier.amount }}</div>
-            <div class="tier-frequency">{{ languageService.getTranslation('a_month_can') || 'A MONTH CAN' }}</div>
+            <div class="tier-frequency">
+              {{ languageService.getTranslation('a_month_can') || 'A MONTH CAN' }}
+            </div>
           </div>
         </div>
         <div class="tier-content">
@@ -37,4 +41,3 @@
     </div>
   </div>
 </section>
-

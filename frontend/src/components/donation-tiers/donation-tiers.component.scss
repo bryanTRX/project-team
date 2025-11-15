@@ -1,6 +1,6 @@
 .donation-tiers-section {
   padding: 5rem 1.25rem;
-  background: linear-gradient(180deg, #FFFFFF 0%, #FAF9F6 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #faf9f6 100%);
   position: relative;
   overflow: hidden;
 
@@ -40,7 +40,7 @@
   .section-title {
     font-size: 2rem;
     font-weight: 800;
-    color: #1A202C;
+    color: #1a202c;
     letter-spacing: -0.75px;
     line-height: 1.2;
     margin: 0;
@@ -74,10 +74,10 @@
   }
 
   .tier-card {
-    background: #FFFFFF;
+    background: #ffffff;
     border-radius: 16px;
     padding: 0;
-    border: 1px solid #E5E7EB;
+    border: 1px solid #e5e7eb;
     transition: all 0.3s ease;
     position: relative;
     display: flex;
@@ -85,8 +85,8 @@
     height: 100%;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     overflow: hidden;
-    --tier-color: #7B68EE;
-    --tier-gradient: linear-gradient(135deg, #7B68EE, #6B5BCE);
+    --tier-color: #7b68ee;
+    --tier-gradient: linear-gradient(135deg, #7b68ee, #6b5bce);
 
     &::before {
       content: '';
@@ -227,7 +227,7 @@
   .tier-frequency {
     font-size: 0.75rem;
     font-weight: 600;
-    color: #64748B;
+    color: #64748b;
     text-transform: uppercase;
     letter-spacing: 0.8px;
     margin: 0;
@@ -249,7 +249,7 @@
 
   .tier-description {
     font-size: 0.875rem;
-    color: #64748B;
+    color: #64748b;
     line-height: 1.6;
     margin: 0;
     font-weight: 500;
@@ -318,4 +318,3 @@
     }
   }
 }
-

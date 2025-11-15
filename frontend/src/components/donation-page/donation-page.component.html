@@ -1,5 +1,9 @@
 <app-navbar></app-navbar>
-<section class="donation-page-section" [class.simple-mode]="simpleMode" [class.large-text]="largeText">
+<section
+  class="donation-page-section"
+  [class.simple-mode]="simpleMode"
+  [class.large-text]="largeText"
+>
   <div class="container">
     <div class="donation-page-header">
       <button class="back-link" (click)="goBack()">
@@ -8,14 +12,26 @@
       </button>
       <div class="header-content">
         <h1 class="page-title">Make a New Donation</h1>
-        <p class="page-subtitle">Every contribution helps us support women and children in crisis</p>
+        <p class="page-subtitle">
+          Every contribution helps us support women and children in crisis
+        </p>
       </div>
       <div class="accessibility-controls">
-        <button class="control-btn" [class.active]="simpleMode" (click)="toggleSimpleMode()" aria-label="Toggle Simple Mode">
+        <button
+          class="control-btn"
+          [class.active]="simpleMode"
+          (click)="toggleSimpleMode()"
+          aria-label="Toggle Simple Mode"
+        >
           <i class="fas fa-magic"></i>
           <span>Simple Mode</span>
         </button>
-        <button class="control-btn" [class.active]="largeText" (click)="toggleLargeText()" aria-label="Toggle Large Text">
+        <button
+          class="control-btn"
+          [class.active]="largeText"
+          (click)="toggleLargeText()"
+          aria-label="Toggle Large Text"
+        >
           <i class="fas fa-text-height"></i>
           <span>Large Text</span>
         </button>
@@ -29,7 +45,7 @@
         <div *ngIf="isLoggedIn" class="welcome-card">
           <div class="welcome-content">
             <div class="welcome-avatar" *ngIf="userProfileImage">
-              <img [src]="userProfileImage" [alt]="userName" class="avatar-img">
+              <img [src]="userProfileImage" [alt]="userName" class="avatar-img" />
             </div>
             <div class="welcome-avatar" *ngIf="!userProfileImage">
               <i class="fas fa-user"></i>
@@ -39,7 +55,7 @@
               <p class="welcome-message">Thank you for continuing to make a difference</p>
             </div>
           </div>
-          
+
           <!-- Recurring Donation Info -->
           <div *ngIf="hasRecurringDonation" class="recurring-plan-card">
             <div class="recurring-header">
@@ -67,9 +83,11 @@
         <div *ngIf="!isLoggedIn && !showLoginForm && !showSignupForm" class="email-check-card">
           <div class="email-check-content">
             <div class="email-check-image">
-              <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=400&fit=crop&crop=face" 
-                   alt="Woman smiling warmly" 
-                   class="human-image">
+              <img
+                src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=400&fit=crop&crop=face"
+                alt="Woman smiling warmly"
+                class="human-image"
+              />
               <div class="image-overlay"></div>
             </div>
             <i class="fas fa-envelope-open-text"></i>
@@ -81,7 +99,8 @@
                 [(ngModel)]="emailForCheck"
                 placeholder="your.email@example.com"
                 class="email-input"
-                (keyup.enter)="checkEmail()">
+                (keyup.enter)="checkEmail()"
+              />
               <button class="continue-email-btn" (click)="checkEmail()" [disabled]="checkingEmail">
                 <span *ngIf="!checkingEmail">Continue</span>
                 <span *ngIf="checkingEmail">Checking...</span>
@@ -113,7 +132,8 @@
                 [(ngModel)]="loginPassword"
                 placeholder="Enter your password"
                 class="form-input"
-                (keyup.enter)="login()">
+                (keyup.enter)="login()"
+              />
             </div>
             <button class="forgot-password-link" (click)="forgotPassword = !forgotPassword">
               <span *ngIf="!forgotPassword">Forgot Password?</span>
@@ -155,7 +175,8 @@
                 id="signupName"
                 [(ngModel)]="signupName"
                 placeholder="Enter your full name"
-                class="form-input">
+                class="form-input"
+              />
             </div>
             <div class="form-group">
               <label for="signupPassword">Password</label>
@@ -164,7 +185,8 @@
                 id="signupPassword"
                 [(ngModel)]="signupPassword"
                 placeholder="Create a password (min. 6 characters)"
-                class="form-input">
+                class="form-input"
+              />
             </div>
             <div class="form-group">
               <label for="signupConfirmPassword">Confirm Password</label>
@@ -173,7 +195,8 @@
                 id="signupConfirmPassword"
                 [(ngModel)]="signupConfirmPassword"
                 placeholder="Re-enter your password"
-                class="form-input">
+                class="form-input"
+              />
             </div>
             <button class="auth-submit-btn" (click)="signup()">
               <i class="fas fa-user-plus"></i>
@@ -201,7 +224,8 @@
                 *ngFor="let amount of donationAmounts"
                 class="amount-btn"
                 [class.active]="selectedAmount === amount.value && !customAmount"
-                (click)="selectAmount(amount.value)">
+                (click)="selectAmount(amount.value)"
+              >
                 <span class="amount-value">{{ amount.label }}</span>
                 <span class="amount-impact">{{ amount.impact }}</span>
               </button>
@@ -220,7 +244,8 @@
                   placeholder="Enter amount"
                   class="custom-input"
                   min="1"
-                  *ngIf="customAmount !== null || selectedAmount === null">
+                  *ngIf="customAmount !== null || selectedAmount === null"
+                />
               </div>
             </div>
           </div>
@@ -236,7 +261,8 @@
                 *ngFor="let freq of paymentFrequencies"
                 class="frequency-btn"
                 [class.active]="paymentFrequency === freq.value"
-                (click)="paymentFrequency = freq.value">
+                (click)="paymentFrequency = freq.value"
+              >
                 <i class="fas fa-{{ freq.icon }}"></i>
                 <span class="freq-label">{{ freq.label }}</span>
                 <span class="freq-desc">{{ freq.description }}</span>
@@ -255,7 +281,8 @@
                 *ngFor="let method of paymentMethods"
                 class="payment-method-btn"
                 [class.active]="paymentMethod === method.value"
-                (click)="paymentMethod = method.value">
+                (click)="paymentMethod = method.value"
+              >
                 <i class="fab fa-{{ method.logo }}"></i>
                 <span>{{ method.label }}</span>
               </button>
@@ -265,12 +292,16 @@
           <!-- Impact Updates Checkbox -->
           <div class="updates-section">
             <label class="updates-checkbox">
-              <input type="checkbox" [(ngModel)]="agreeToUpdates" class="checkbox-input">
+              <input type="checkbox" [(ngModel)]="agreeToUpdates" class="checkbox-input" />
               <span class="checkbox-custom"></span>
               <div class="checkbox-content">
-                <span class="checkbox-label">Yes, I'd like to receive impact updates and newsletters</span>
+                <span class="checkbox-label"
+                  >Yes, I'd like to receive impact updates and newsletters</span
+                >
                 <p class="checkbox-description">
-                  Stay connected with stories of hope, updates on how your donations are making a difference, and opportunities to deepen your impact. We respect your privacy and you can unsubscribe anytime.
+                  Stay connected with stories of hope, updates on how your donations are making a
+                  difference, and opportunities to deepen your impact. We respect your privacy and
+                  you can unsubscribe anytime.
                 </p>
               </div>
             </label>
@@ -280,7 +311,8 @@
           <button
             class="donate-button"
             (click)="proceedToPayment()"
-            [disabled]="getDonationAmount() === 0">
+            [disabled]="getDonationAmount() === 0"
+          >
             <i class="fas fa-heart"></i>
             <span>{{ getDonationButtonText() }}</span>
           </button>
@@ -292,13 +324,17 @@
         <!-- Your Impact Card -->
         <div class="impact-card" *ngIf="getDonationAmount() > 0">
           <h4 class="impact-card-title">Your Impact</h4>
-          <div class="impact-amount">{{ getDonationAmount() | currency:'USD':'symbol':'1.0-0' }}</div>
+          <div class="impact-amount">
+            {{ getDonationAmount() | currency: 'USD' : 'symbol' : '1.0-0' }}
+          </div>
           <div class="impact-detail" *ngIf="getSelectedImpact()">
             <div class="impact-icon-wrapper">
               <i class="fas fa-{{ getSelectedImpact()!.icon }}"></i>
-              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&h=300&fit=crop&crop=face" 
-                   alt="Impact recipient" 
-                   class="impact-image">
+              <img
+                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&h=300&fit=crop&crop=face"
+                alt="Impact recipient"
+                class="impact-image"
+              />
             </div>
             <div class="impact-info">
               <h5>{{ getSelectedImpact()!.title }}</h5>
@@ -314,9 +350,11 @@
         <!-- Story of Hope Card -->
         <div class="story-card">
           <div class="story-avatar-wrapper">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face" 
-                 alt="Story of hope" 
-                 class="story-avatar">
+            <img
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face"
+              alt="Story of hope"
+              class="story-avatar"
+            />
             <div class="story-avatar-overlay"></div>
           </div>
           <div class="story-icon">
@@ -340,4 +378,3 @@
     </div>
   </div>
 </section>
-

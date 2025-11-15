@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit, OnDestroy {
   username = '';
@@ -23,12 +23,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
-    public languageService: LanguageService
+    public languageService: LanguageService,
   ) {}
 
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getCurrentLanguage();
-    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       this.currentLanguage = lang;
     });
 

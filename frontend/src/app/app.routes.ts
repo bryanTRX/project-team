@@ -7,22 +7,22 @@ import { LoginComponent } from '../components/login/login.component';
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'dashboard',
-    component: UserDashboardComponent
+    component: UserDashboardComponent,
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'payment',
-    component: PaymentComponent
+    component: PaymentComponent,
   },
   {
     path: '**',
-    redirectTo: ''
-  }
+    redirectTo: '',
+  },
 ];

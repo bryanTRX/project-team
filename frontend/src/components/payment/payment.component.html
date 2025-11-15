@@ -1,7 +1,10 @@
 <section class="payment-section">
   <div class="container">
     <ng-container *ngIf="!showSuccess; else successState">
-      <div class="payment-card" [ngClass]="{'text-large': textSize === 'large', 'text-xlarge': textSize === 'xlarge'}">
+      <div
+        class="payment-card"
+        [ngClass]="{ 'text-large': textSize === 'large', 'text-xlarge': textSize === 'xlarge' }"
+      >
         <div class="form-intro">
           <div class="org-brand">
             <div class="brand-icon">
@@ -23,14 +26,17 @@
           <div class="panel-row">
             <div>
               <p class="panel-title">{{ languageService.getTranslation('simple_mode') }}</p>
-              <span class="panel-subtitle">{{ languageService.getTranslation('show_only_essential') }}</span>
+              <span class="panel-subtitle">{{
+                languageService.getTranslation('show_only_essential')
+              }}</span>
             </div>
             <label class="toggle-switch">
               <input
                 type="checkbox"
                 name="simpleMode"
                 [(ngModel)]="simpleMode"
-                (change)="trackSimpleModeChange()">
+                (change)="trackSimpleModeChange()"
+              />
               <span class="slider"></span>
             </label>
           </div>
@@ -63,7 +69,8 @@
                 [(ngModel)]="email"
                 name="email"
                 placeholder="your.email@example.com"
-                required>
+                required
+              />
             </div>
             <p class="field-hint">
               {{ languageService.getTranslation('we_use_email_for_receipt') }}
@@ -80,12 +87,15 @@
                 type="button"
                 *ngFor="let option of donationOptions"
                 (click)="selectDonationAmount(option)"
-                [class.active]="donationAmount === option && !customAmount">
-                {{ option | currency:'USD':'symbol':'1.0-0' }}
+                [class.active]="donationAmount === option && !customAmount"
+              >
+                {{ option | currency: 'USD' : 'symbol' : '1.0-0' }}
               </button>
             </div>
             <div class="custom-amount">
-              <label for="customAmount">{{ languageService.getTranslation('or_enter_custom_amount') }}</label>
+              <label for="customAmount">{{
+                languageService.getTranslation('or_enter_custom_amount')
+              }}</label>
               <div class="custom-input">
                 <span class="currency-symbol">$</span>
                 <input
@@ -96,7 +106,8 @@
                   step="1"
                   placeholder="0.00"
                   [(ngModel)]="customAmount"
-                  (input)="onCustomAmountChange()">
+                  (input)="onCustomAmountChange()"
+                />
               </div>
             </div>
           </div>
@@ -109,7 +120,8 @@
                 class="frequency-card"
                 *ngFor="let option of frequencyOptions"
                 (click)="selectFrequency(option.value)"
-                [class.active]="recurringOption === option.value">
+                [class.active]="recurringOption === option.value"
+              >
                 <div class="freq-header">
                   <span class="freq-label">{{ option.label }}</span>
                   <span class="freq-badge" *ngIf="option.highlight">{{ option.highlight }}</span>
@@ -124,7 +136,9 @@
               <i class="fas fa-hands-helping"></i>
             </div>
             <div>
-              <p class="info-title">{{ languageService.getTranslation('monthly_giving_creates_impact') }}</p>
+              <p class="info-title">
+                {{ languageService.getTranslation('monthly_giving_creates_impact') }}
+              </p>
               <p class="info-description">
                 {{ languageService.getTranslation('recurring_helps_plan') }}
               </p>
@@ -137,16 +151,15 @@
             </div>
             <div class="updates-content">
               <div>
-                <p class="info-title">{{ languageService.getTranslation('stay_connected_impact') }}</p>
+                <p class="info-title">
+                  {{ languageService.getTranslation('stay_connected_impact') }}
+                </p>
                 <p class="info-description">
                   {{ languageService.getTranslation('receive_stories_updates') }}
                 </p>
               </div>
               <label class="checkbox-field">
-                <input
-                  type="checkbox"
-                  [(ngModel)]="updatesOptIn"
-                  name="updatesOptIn">
+                <input type="checkbox" [(ngModel)]="updatesOptIn" name="updatesOptIn" />
                 <span>{{ languageService.getTranslation('yes_receive_updates') }}</span>
               </label>
             </div>
@@ -155,7 +168,9 @@
           <div class="privacy-card" *ngIf="!simpleMode">
             <i class="fas fa-lock"></i>
             <div>
-              <p class="privacy-title">{{ languageService.getTranslation('your_privacy_matters') }}</p>
+              <p class="privacy-title">
+                {{ languageService.getTranslation('your_privacy_matters') }}
+              </p>
               <p>{{ languageService.getTranslation('never_share_info') }}</p>
             </div>
           </div>
@@ -167,7 +182,8 @@
                 type="button"
                 *ngFor="let method of paymentMethods"
                 (click)="selectPaymentMethod(method.value)"
-                [class.active]="selectedPaymentMethod === method.value">
+                [class.active]="selectedPaymentMethod === method.value"
+              >
                 <div class="method-header">
                   <i [class]="method.icon"></i>
                   <span>{{ method.label }}</span>
@@ -191,18 +207,22 @@
                 placeholder="1234 5678 9012 3456"
                 (input)="formatCardNumber()"
                 maxlength="19"
-                required>
+                required
+              />
             </div>
 
             <div class="form-group">
-              <label for="cardHolder">{{ languageService.getTranslation('card_holder_name') }}</label>
+              <label for="cardHolder">{{
+                languageService.getTranslation('card_holder_name')
+              }}</label>
               <input
                 type="text"
                 id="cardHolder"
                 [(ngModel)]="cardHolder"
                 name="cardHolder"
                 placeholder="John Doe"
-                required>
+                required
+              />
             </div>
 
             <div class="form-row">
@@ -216,7 +236,8 @@
                   placeholder="MM/YY"
                   (input)="formatExpiryDate()"
                   maxlength="5"
-                  required>
+                  required
+                />
               </div>
 
               <div class="form-group">
@@ -229,7 +250,8 @@
                   placeholder="123"
                   (input)="formatCvv()"
                   maxlength="4"
-                  required>
+                  required
+                />
               </div>
             </div>
           </div>
@@ -261,7 +283,9 @@
         <div class="success-animation">
           <i class="fas fa-heart"></i>
         </div>
-        <button class="back-btn" (click)="goBack()">{{ languageService.getTranslation('return_home') }}</button>
+        <button class="back-btn" (click)="goBack()">
+          {{ languageService.getTranslation('return_home') }}
+        </button>
       </div>
     </ng-template>
   </div>
