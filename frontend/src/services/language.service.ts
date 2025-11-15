@@ -2149,6 +2149,59 @@ export class LanguageService {
     de: 'Berührte Leben',
   },
 
+  story_women_children_supported: {
+  en: 'A mother of two arrived at our shelter after fleeing an unsafe home. Thanks to donors, she received emergency housing within the hour, warm meals, and counseling support.',
+  fr: 'Une mère de deux enfants est arrivée à notre refuge après avoir fui un foyer dangereux. Grâce aux donateurs, elle a reçu un hébergement d’urgence en moins d’une heure, des repas chauds et un soutien psychologique.',
+  es: 'Una madre de dos hijos llegó a nuestro refugio después de huir de un hogar inseguro. Gracias a los donantes, recibió alojamiento de emergencia en una hora, comidas calientes y apoyo psicológico.',
+  ar: 'وصلت أم لطفلين إلى ملجئنا بعد الفرار من منزل غير آمن. بفضل المتبرعين، حصلت على سكن طارئ خلال ساعة، ووجبات دافئة، ودعم نفسي.',
+  zh: '一位带着两个孩子的母亲在逃离不安全的家后来到我们的庇护所。多亏了捐助者，她在一小时内获得紧急住房、热餐和辅导支持。',
+  hi: 'दो बच्चों की माँ एक असुरक्षित घर से भागने के बाद हमारे शेल्टर में पहुँची। दाताओं की बदौलत उसे एक घंटे के भीतर आपातकालीन आश्रय, गर्म भोजन और काउंसलिंग सहायता मिली।',
+  ru: 'Мать двоих детей прибыла в наше убежище после побега из небезопасного дома. Благодаря пожертвованиям она получила экстренное жильё, горячие блюда и консультационную поддержку.',
+  pt: 'Uma mãe de dois filhos chegou ao nosso abrigo após fugir de um lar inseguro. Graças aos doadores, ela recebeu moradia de emergência em menos de uma hora, refeições quentes e apoio psicológico.',
+  it: 'Una madre di due figli è arrivata al nostro rifugio dopo essere fuggita da una casa pericolosa. Grazie ai donatori, ha ricevuto alloggio d’emergenza entro un’ora, pasti caldi e supporto psicologico.',
+  de: 'Eine Mutter mit zwei Kindern kam in unser Schutzhaus, nachdem sie aus einem unsicheren Zuhause geflohen war. Dank der Spender erhielt sie innerhalb einer Stunde eine Notunterkunft, warme Mahlzeiten und psychologische Unterstützung.',
+},
+
+story_languages_spoken: {
+  en: 'Our multilingual volunteers ensure no one is turned away because of a language barrier. Last month alone, crises were resolved in 10 different languages.',
+  fr: 'Nos bénévoles multilingues veillent à ce que personne ne soit refusé à cause d’une barrière linguistique. Le mois dernier seulement, des crises ont été résolues dans 10 langues différentes.',
+  es: 'Nuestros voluntarios multilingües aseguran que nadie sea rechazado por una barrera de idioma. Solo el mes pasado, se resolvieron crisis en 10 idiomas diferentes.',
+  ar: 'يضمن متطوعونا متعددو اللغات ألا يُرفض أي شخص بسبب حاجز لغوي. في الشهر الماضي فقط، تم حل أزمات بـ10 لغات مختلفة.',
+  zh: '我们的多语志愿者确保没有人因语言障碍而被拒绝。仅上个月就用10种语言解决了危机。',
+  hi: 'हमारे बहुभाषी स्वयंसेवक सुनिश्चित करते हैं कि किसी को भी भाषा की बाधा के कारण सहायता से वंचित न होना पड़े। सिर्फ पिछले महीने ही 10 अलग-अलग भाषाओं में संकटों को हल किया गया।',
+  ru: 'Наши многоязычные волонтёры гарантируют, что никому не откажут из-за языкового барьера. Только в прошлом месяце кризисы были решены на 10 разных языках.',
+  pt: 'Nossos voluntários multilíngues garantem que ninguém seja recusado por causa de uma barreira linguística. Só no mês passado, crises foram resolvidas em 10 idiomas diferentes.',
+  it: 'I nostri volontari multilingue garantiscono che nessuno venga respinto a causa della barriera linguistica. Solo lo scorso mese sono state risolte crisi in 10 lingue diverse.',
+  de: 'Unsere mehrsprachigen Freiwilligen stellen sicher, dass niemand aufgrund einer Sprachbarriere abgewiesen wird. Allein im letzten Monat wurden Krisen in 10 verschiedenen Sprachen gelöst.',
+},
+
+story_crisis_support: {
+  en: 'At 3:17 AM, our crisis line helped guide a woman and her child to safety. Your support keeps our emergency line active every minute of the day.',
+  fr: 'À 3 h 17, notre ligne de crise a aidé une femme et son enfant à trouver un endroit sûr. Votre soutien maintient notre ligne d’urgence active à chaque minute.',
+  es: 'A las 3:17 AM, nuestra línea de crisis ayudó a una mujer y a su hijo a llegar a un lugar seguro. Tu apoyo mantiene activa nuestra línea de emergencia las 24 horas.',
+  ar: 'في الساعة 3:17 صباحاً، ساعدت خط الأزمات لدينا امرأة وطفلها على الوصول إلى مكان آمن. دعمك يبقي خط الطوارئ فعالاً طوال اليوم.',
+  zh: '凌晨3:17，我们的危机热线帮助一位母亲和她的孩子安全脱离危险。您的支持让我们的紧急热线全天候运作。',
+  hi: 'रात 3:17 बजे, हमारी संकट लाइन ने एक महिला और उसके बच्चे को सुरक्षित स्थान पर पहुँचाया। आपका समर्थन हमारी आपातकालीन लाइन को 24/7 सक्रिय रखता है।',
+  ru: 'В 3:17 ночи наша кризисная линия помогла женщине и её ребёнку добраться до безопасного места. Ваша поддержка позволяет нам работать круглосуточно.',
+  pt: 'Às 3h17, nossa linha de crise ajudou uma mulher e seu filho a chegar a um local seguro. Seu apoio mantém nossa linha de emergência ativa 24 horas por dia.',
+  it: 'Alle 3:17 del mattino, la nostra linea di crisi ha aiutato una donna e suo figlio a raggiungere un luogo sicuro. Il tuo supporto mantiene attiva la nostra linea di emergenza 24 ore su 24.',
+  de: 'Um 3:17 Uhr half unsere Krisenhotline einer Frau und ihrem Kind, einen sicheren Ort zu erreichen. Ihre Unterstützung hält unsere Notfallnummer rund um die Uhr aktiv.',
+},
+
+story_rebuilt_lives: {
+  en: 'Nearly all women in our programs rebuild their independence with dignity new jobs, new homes, new beginnings.',
+  fr: 'Presque toutes les femmes de nos programmes reconstruisent leur indépendance avec dignité  nouveaux emplois, nouveaux foyers, nouveaux départs.',
+  es: 'Casi todas las mujeres en nuestros programas reconstruyen su independencia con dignidad  nuevos trabajos, nuevos hogares, nuevos comienzos.',
+  ar: 'تستعيد معظم النساء في برامجنا استقلاليتهن بكرامة — وظائف جديدة، منازل جديدة، بدايات جديدة.',
+  zh: '我们项目中的几乎所有女性都重新建立了有尊严的独立生活——新工作、新家园、新开始。',
+  hi: 'हमारे कार्यक्रमों में लगभग सभी महिलाएँ गरिमा के साथ अपनी स्वतंत्रता फिर से बनाती हैं — नई नौकरियाँ, नए घर, नई शुरुआत।',
+  ru: 'Почти все женщины в наших программах восстанавливают свою независимость с достоинством  новая работа, новые дома, новые начала.',
+  pt: 'Quase todas as mulheres em nossos programas reconquistam sua independência com dignidade  novos empregos, novos lares, novos começos.',
+  it: 'Quasi tutte le donne nei nostri programmi ricostruiscono la loro indipendenza con dignità nuovi lavori, nuove case, nuovi inizi.',
+  de: 'Fast alle Frauen in unseren Programmen bauen ihre Unabhängigkeit würdevoll wieder auf  neue Jobs, neue Wohnungen, neue Anfänge.',
+},
+
+
   };
 
   setLanguage(languageCode: string): void {
