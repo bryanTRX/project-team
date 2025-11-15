@@ -46,18 +46,6 @@
           autofocus>
       </div>
 
-      <div class="recurring-section">
-        <label for="recurring">{{ languageService.getTranslation('recurring_donation') }}</label>
-        <select
-          id="recurring"
-          [(ngModel)]="recurringOption"
-          class="recurring-select">
-          <option *ngFor="let option of recurringOptions" [value]="option.value">
-            {{ option.label }}
-          </option>
-        </select>
-      </div>
-
       <button
         class="continue-btn donation-btn"
         (click)="proceedToPayment()"

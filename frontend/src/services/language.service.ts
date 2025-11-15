@@ -174,16 +174,16 @@ export class LanguageService {
       'de': 'Geschichten'
     },
     'every_donation_lifeline': {
-      'en': 'Every Donation is a Lifeline',
-      'fr': 'Chaque don est une bouée de sauvetage',
-      'es': 'Cada donación es una línea de vida',
-      'ar': 'كل تبرع هو شريان حياة',
-      'zh': '每一笔捐款都是生命线',
-      'hi': 'प्रत्येक दान एक जीवन रेखा है',
-      'ru': 'Каждое пожертвование - это спасательный круг',
-      'pt': 'Cada doação é uma linha de vida',
-      'it': 'Ogni donazione è una via di fuga',
-      'de': 'Jede Spende ist eine Rettungsleine'
+      'en': 'Join the Movement',
+      'fr': 'Rejoignez le mouvement',
+      'es': 'Únete al movimiento',
+      'ar': 'انضم إلى الحركة',
+      'zh': '加入运动',
+      'hi': 'आंदोलन में शामिल हों',
+      'ru': 'Присоединяйтесь к движению',
+      'pt': 'Junte-se ao movimento',
+      'it': 'Unisciti al movimento',
+      'de': 'Schließen Sie sich der Bewegung an'
     },
     'hero_subtitle_long': {
       'en': 'Behind every number, there\'s a face. Behind every statistic, there\'s a story. Your support doesn\'t just provide shelter—it restores hope, rebuilds lives, and gives children the chance to dream again. Join thousands who are making a real difference, one donation at a time.',
@@ -474,16 +474,16 @@ export class LanguageService {
       'de': 'Zur Zahlung fortfahren'
     },
     'payment_info': {
-      'en': 'No account needed • Secure payment • 10-language support',
-      'fr': 'Aucun compte requis • Paiement sécurisé • Support en 10 langues',
-      'es': 'No se necesita cuenta • Pago seguro • Soporte en 10 idiomas',
-      'ar': 'لا حاجة لحساب • دفع آمن • دعم 10 لغات',
-      'zh': '无需账户 • 安全支付 • 支持10种语言',
-      'hi': 'कोई खाता आवश्यक नहीं • सुरक्षित भुगतान • 10-भाषा समर्थन',
-      'ru': 'Аккаунт не требуется • Безопасная оплата • Поддержка 10 языков',
-      'pt': 'Nenhuma conta necessária • Pagamento seguro • Suporte para 10 idiomas',
-      'it': 'Nessun account necessario • Pagamento sicuro • Supporto per 10 lingue',
-      'de': 'Kein Konto erforderlich • Sichere Zahlung • Unterstützung für 10 Sprachen'
+      'en': 'Secure payment • 10-language support',
+      'fr': 'Paiement sécurisé • Support en 10 langues',
+      'es': 'Pago seguro • Soporte en 10 idiomas',
+      'ar': 'دفع آمن • دعم 10 لغات',
+      'zh': '安全支付 • 支持10种语言',
+      'hi': 'सुरक्षित भुगतान • 10-भाषा समर्थन',
+      'ru': 'Безопасная оплата • Поддержка 10 языков',
+      'pt': 'Pagamento seguro • Suporte para 10 idiomas',
+      'it': 'Pagamento sicuro • Supporto per 10 lingue',
+      'de': 'Sichere Zahlung • Unterstützung für 10 Sprachen'
     },
     'alert_select_amount': {
       'en': 'Please select or enter a donation amount',

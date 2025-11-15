@@ -4,37 +4,9 @@
   </div>
   <div class="container">
     <div class="hero-content">
-      <div class="hero-image-wrapper">
-        <div class="hero-image-circle">
-          <img 
-            src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=600&fit=crop&crop=faces" 
-            alt="Empowering Women & Children - People helping each other"
-            class="hero-image"
-            loading="eager">
-          <div class="image-overlay"></div>
-        </div>
-        <div class="floating-badge">
-          <i class="fas fa-heart"></i>
-          <span>{{ languageService.getTranslation('lives_changed') }}</span>
-        </div>
-      </div>
       <div class="hero-text">
         <h1 class="hero-title">{{ languageService.getTranslation('every_donation_lifeline') }}</h1>
         <p class="hero-subtitle">{{ languageService.getTranslation('hero_subtitle_long') }}</p>
-        <div class="hero-stats">
-          <div class="stat-item">
-            <span class="stat-number">2,450+</span>
-            <span class="stat-label">{{ languageService.getTranslation('people_helped') }}</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">95%</span>
-            <span class="stat-label">{{ languageService.getTranslation('success_rate') }}</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">24/7</span>
-            <span class="stat-label">{{ languageService.getTranslation('support_available') }}</span>
-          </div>
-        </div>
         <div class="hero-buttons">
           <button class="btn btn-primary donation-btn" (click)="scrollToDonation()">
             <i class="fas fa-heart"></i>

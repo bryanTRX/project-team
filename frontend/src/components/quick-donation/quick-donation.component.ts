@@ -15,20 +15,10 @@ import { Subscription } from 'rxjs';
 export class QuickDonationComponent implements OnInit, OnDestroy {
   selectedAmount: number | null = null;
   customAmount: number | null = null;
-  recurringOption: string = 'one-time';
   currentLanguage: string = 'en';
   private languageSubscription?: Subscription;
 
   donationAmounts = [25, 50, 100, 200];
-  
-  get recurringOptions() {
-    return [
-      { value: 'one-time', label: this.languageService.getTranslation('one_time') },
-      { value: 'monthly', label: this.languageService.getTranslation('monthly') },
-      { value: 'quarterly', label: this.languageService.getTranslation('quarterly') },
-      { value: 'yearly', label: this.languageService.getTranslation('yearly') }
-    ];
-  }
 
   constructor(public languageService: LanguageService, private router: Router) {}
 
@@ -92,7 +82,7 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
     if (amount > 0) {
       // Save donation details to localStorage
       localStorage.setItem('donationAmount', amount.toString());
-      localStorage.setItem('recurringOption', this.recurringOption);
+      localStorage.setItem('recurringOption', 'one-time');
       
       // Redirect to payment page using router
       this.router.navigate(['/payment']);
