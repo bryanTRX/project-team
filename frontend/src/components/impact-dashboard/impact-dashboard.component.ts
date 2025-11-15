@@ -16,7 +16,7 @@ interface ImpactCard {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './impact-dashboard.component.html',
-  styleUrl: './impact-dashboard.component.scss'
+  styleUrl: './impact-dashboard.component.scss',
 })
 export class ImpactDashboardComponent implements OnInit, OnDestroy {
   currentLanguage: string = 'en';
@@ -27,7 +27,7 @@ export class ImpactDashboardComponent implements OnInit, OnDestroy {
     const parts = translation.split('.');
     return {
       first: parts[0] || '',
-      rest: parts.slice(1).join('.')
+      rest: parts.slice(1).join('.'),
     };
   }
 
@@ -38,29 +38,29 @@ export class ImpactDashboardComponent implements OnInit, OnDestroy {
         number: '2,450',
         title: this.languageService.getTranslation('women_children_supported'),
         description: this.languageService.getTranslation('lives_changed_programs'),
-        color: '#F28C88'
+        color: '#F28C88',
       },
       {
         icon: 'language',
         number: '10',
         title: this.languageService.getTranslation('languages_spoken'),
         description: this.languageService.getTranslation('multilingual_support'),
-        color: '#6B4FA3'
+        color: '#6B4FA3',
       },
       {
         icon: 'clock',
         number: '24/7',
         title: this.languageService.getTranslation('crisis_support_available'),
         description: this.languageService.getTranslation('round_clock_assistance'),
-        color: '#C9B5E8'
+        color: '#C9B5E8',
       },
       {
         icon: 'heart',
         number: '95%',
         title: this.languageService.getTranslation('successfully_rebuilt_lives'),
         description: this.languageService.getTranslation('survivors_found_hope'),
-        color: '#F28C88'
-      }
+        color: '#F28C88',
+      },
     ];
   }
 
@@ -68,7 +68,7 @@ export class ImpactDashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getCurrentLanguage();
-    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       this.currentLanguage = lang;
     });
   }

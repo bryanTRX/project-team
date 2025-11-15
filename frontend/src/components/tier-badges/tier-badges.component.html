@@ -8,9 +8,13 @@
       [attr.aria-label]="t.name"
     >
       <div class="tier-badge__image-wrapper">
-        <img [src]="t.imagePath" [alt]="t.name + ' tier badge'" class="tier-badge__image" />
+        <img
+          [src]="t.imagePath"
+          [alt]="getTierName(t.tier) + ' tier badge'"
+          class="tier-badge__image"
+        />
       </div>
-      <div class="tier-badge__label">{{ t.name }}</div>
+      <div class="tier-badge__label">{{ getTierName(t.tier) }}</div>
     </div>
   </div>
 </div>

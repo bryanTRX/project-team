@@ -1,9 +1,17 @@
 .community-section {
-  padding: 3.5rem 1.25rem;
-  background: linear-gradient(135deg, #7B68EE 0%, #9B8BFF 50%, #6B5BCE 100%);
+  padding: 2.5rem 1.25rem;
+  background: linear-gradient(135deg, #7b68ee 0%, #9b8bff 50%, #6b5bce 100%);
   color: white;
   position: relative;
   overflow: hidden;
+
+  @media (min-width: 768px) {
+    padding: 3rem 1.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 3.5rem 2rem;
+  }
 
   &::before {
     content: '';
@@ -28,20 +36,20 @@
   }
 
   .section-title {
-    font-size: 1.875rem;
+    font-size: 1.625rem;
     font-weight: 700;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.625rem;
     color: white;
     -webkit-text-fill-color: white;
 
     @media (min-width: 768px) {
-      font-size: 2.25rem;
+      font-size: 1.875rem;
     }
   }
 
   .section-subtitle {
-    font-size: 1rem;
-    margin-bottom: 2.5rem;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
     opacity: 0.95;
     line-height: 1.7;
     max-width: 750px;
@@ -50,16 +58,16 @@
     font-weight: 500;
 
     @media (min-width: 768px) {
-      font-size: 1.05rem;
+      font-size: 1rem;
     }
   }
 
   .features-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-top: 2rem;
-    margin-bottom: 3rem;
+    gap: 1.25rem;
+    margin-top: 1.75rem;
+    margin-bottom: 2.5rem;
 
     @media (min-width: 768px) {
       grid-template-columns: repeat(3, 1fr);
@@ -70,8 +78,8 @@
   .feature-card {
     background-color: rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(10px);
-    border-radius: 18px;
-    padding: 1.75rem;
+    border-radius: 16px;
+    padding: 1.5rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(255, 255, 255, 0.2);
 
@@ -84,7 +92,7 @@
 
   .feature-icon {
     font-size: 2.5rem;
-    color: #FF7A85;
+    color: #ff7a85;
     margin-bottom: 0.875rem;
     transition: transform 0.3s ease;
   }
@@ -142,7 +150,7 @@
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
-      color: #FF7A85;
+      color: #ff7a85;
       flex-shrink: 0;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 

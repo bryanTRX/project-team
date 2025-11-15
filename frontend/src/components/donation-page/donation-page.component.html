@@ -1,0 +1,380 @@
+<app-navbar></app-navbar>
+<section
+  class="donation-page-section"
+  [class.simple-mode]="simpleMode"
+  [class.large-text]="largeText"
+>
+  <div class="container">
+    <div class="donation-page-header">
+      <button class="back-link" (click)="goBack()">
+        <i class="fas fa-arrow-left"></i>
+        <span>← Back to Dashboard</span>
+      </button>
+      <div class="header-content">
+        <h1 class="page-title">Make a New Donation</h1>
+        <p class="page-subtitle">
+          Every contribution helps us support women and children in crisis
+        </p>
+      </div>
+      <div class="accessibility-controls">
+        <button
+          class="control-btn"
+          [class.active]="simpleMode"
+          (click)="toggleSimpleMode()"
+          aria-label="Toggle Simple Mode"
+        >
+          <i class="fas fa-magic"></i>
+          <span>Simple Mode</span>
+        </button>
+        <button
+          class="control-btn"
+          [class.active]="largeText"
+          (click)="toggleLargeText()"
+          aria-label="Toggle Large Text"
+        >
+          <i class="fas fa-text-height"></i>
+          <span>Large Text</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="donation-layout">
+      <!-- Left Column: Donation Form -->
+      <div class="donation-form-column">
+        <!-- Logged In: Welcome Message -->
+        <div *ngIf="isLoggedIn" class="welcome-card">
+          <div class="welcome-content">
+            <div class="welcome-avatar" *ngIf="userProfileImage">
+              <img [src]="userProfileImage" [alt]="userName" class="avatar-img" />
+            </div>
+            <div class="welcome-avatar" *ngIf="!userProfileImage">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="welcome-text">
+              <h3 class="welcome-title">Welcome back, {{ userName }}!</h3>
+              <p class="welcome-message">Thank you for continuing to make a difference</p>
+            </div>
+          </div>
+
+          <!-- Recurring Donation Info -->
+          <div *ngIf="hasRecurringDonation" class="recurring-plan-card">
+            <div class="recurring-header">
+              <i class="fas fa-sync-alt"></i>
+              <h4>Your Current Monthly Donation</h4>
+            </div>
+            <div class="recurring-details">
+              <div class="recurring-amount">
+                <span class="amount-value">${{ currentRecurringAmount }}</span>
+                <span class="amount-period">per month</span>
+              </div>
+              <div class="recurring-date">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Next billing: {{ nextBillingDate }}</span>
+              </div>
+              <button class="modify-btn" (click)="modifyRecurringDonation()">
+                <i class="fas fa-edit"></i>
+                <span>Modify Plan</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Not Logged In: Email Check Flow -->
+        <div *ngIf="!isLoggedIn && !showLoginForm && !showSignupForm" class="email-check-card">
+          <div class="email-check-content">
+            <div class="email-check-image">
+              <img
+                src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=400&fit=crop&crop=face"
+                alt="Woman smiling warmly"
+                class="human-image"
+              />
+              <div class="image-overlay"></div>
+            </div>
+            <i class="fas fa-envelope-open-text"></i>
+            <h3>Let's get started</h3>
+            <p>Enter your email to continue with your donation</p>
+            <div class="email-input-group">
+              <input
+                type="email"
+                [(ngModel)]="emailForCheck"
+                placeholder="your.email@example.com"
+                class="email-input"
+                (keyup.enter)="checkEmail()"
+              />
+              <button class="continue-email-btn" (click)="checkEmail()" [disabled]="checkingEmail">
+                <span *ngIf="!checkingEmail">Continue</span>
+                <span *ngIf="checkingEmail">Checking...</span>
+              </button>
+            </div>
+            <p class="privacy-note">
+              <i class="fas fa-lock"></i>
+              Your email is secure and will only be used for donation purposes
+            </p>
+          </div>
+        </div>
+
+        <!-- Login Form -->
+        <div *ngIf="showLoginForm" class="auth-card">
+          <div class="auth-header">
+            <h3>Welcome back!</h3>
+            <p>Enter your password to continue</p>
+          </div>
+          <div class="auth-content">
+            <div class="auth-email-display">
+              <i class="fas fa-envelope"></i>
+              <span>{{ userEmail }}</span>
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">Password</label>
+              <input
+                type="password"
+                id="loginPassword"
+                [(ngModel)]="loginPassword"
+                placeholder="Enter your password"
+                class="form-input"
+                (keyup.enter)="login()"
+              />
+            </div>
+            <button class="forgot-password-link" (click)="forgotPassword = !forgotPassword">
+              <span *ngIf="!forgotPassword">Forgot Password?</span>
+              <span *ngIf="forgotPassword">Remember it? Log in</span>
+            </button>
+            <div *ngIf="forgotPassword" class="forgot-password-message">
+              <i class="fas fa-info-circle"></i>
+              <p>We'll send password reset instructions to {{ userEmail }}</p>
+              <button class="send-reset-btn">Send Reset Link</button>
+            </div>
+            <button class="auth-submit-btn" (click)="login()">
+              <i class="fas fa-sign-in-alt"></i>
+              <span>Log In</span>
+            </button>
+            <div class="auth-switch">
+              <span>Don't have an account?</span>
+              <button class="switch-link" (click)="showLoginForm = false; showSignupForm = true">
+                Create one here
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Signup Form -->
+        <div *ngIf="showSignupForm" class="auth-card">
+          <div class="auth-header">
+            <h3>Create Your Donor Profile</h3>
+            <p>Join our community of compassionate supporters</p>
+          </div>
+          <div class="auth-content">
+            <div class="auth-email-display">
+              <i class="fas fa-envelope"></i>
+              <span>{{ userEmail }}</span>
+            </div>
+            <div class="form-group">
+              <label for="signupName">Full Name</label>
+              <input
+                type="text"
+                id="signupName"
+                [(ngModel)]="signupName"
+                placeholder="Enter your full name"
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="signupPassword">Password</label>
+              <input
+                type="password"
+                id="signupPassword"
+                [(ngModel)]="signupPassword"
+                placeholder="Create a password (min. 6 characters)"
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="signupConfirmPassword">Confirm Password</label>
+              <input
+                type="password"
+                id="signupConfirmPassword"
+                [(ngModel)]="signupConfirmPassword"
+                placeholder="Re-enter your password"
+                class="form-input"
+              />
+            </div>
+            <button class="auth-submit-btn" (click)="signup()">
+              <i class="fas fa-user-plus"></i>
+              <span>Create Account</span>
+            </button>
+            <div class="auth-switch">
+              <span>Already have an account?</span>
+              <button class="switch-link" (click)="showSignupForm = false; showLoginForm = true">
+                Log in here
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Donation Form (shown when logged in) -->
+        <div *ngIf="isLoggedIn" class="donation-form">
+          <!-- Choose Donation Amount -->
+          <div class="form-section-card">
+            <h3 class="section-title">
+              <i class="fas fa-heart"></i>
+              Choose Your Donation Amount
+            </h3>
+            <div class="amount-buttons-grid">
+              <button
+                *ngFor="let amount of donationAmounts"
+                class="amount-btn"
+                [class.active]="selectedAmount === amount.value && !customAmount"
+                (click)="selectAmount(amount.value)"
+              >
+                <span class="amount-value">{{ amount.label }}</span>
+                <span class="amount-impact">{{ amount.impact }}</span>
+              </button>
+            </div>
+            <div class="custom-amount-section">
+              <label class="custom-label">
+                <i class="fas fa-edit"></i>
+                <span>Custom Amount</span>
+              </label>
+              <div class="custom-input-group">
+                <span class="currency-symbol">$</span>
+                <input
+                  type="number"
+                  [(ngModel)]="customAmount"
+                  (input)="onCustomAmountChange($any($event.target).value)"
+                  placeholder="Enter amount"
+                  class="custom-input"
+                  min="1"
+                  *ngIf="customAmount !== null || selectedAmount === null"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Frequency -->
+          <div class="form-section-card">
+            <h3 class="section-title">
+              <i class="fas fa-calendar-check"></i>
+              Payment Frequency
+            </h3>
+            <div class="frequency-buttons">
+              <button
+                *ngFor="let freq of paymentFrequencies"
+                class="frequency-btn"
+                [class.active]="paymentFrequency === freq.value"
+                (click)="paymentFrequency = freq.value"
+              >
+                <i class="fas fa-{{ freq.icon }}"></i>
+                <span class="freq-label">{{ freq.label }}</span>
+                <span class="freq-desc">{{ freq.description }}</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Payment Method -->
+          <div class="form-section-card">
+            <h3 class="section-title">
+              <i class="fas fa-credit-card"></i>
+              Payment Method
+            </h3>
+            <div class="payment-method-buttons">
+              <button
+                *ngFor="let method of paymentMethods"
+                class="payment-method-btn"
+                [class.active]="paymentMethod === method.value"
+                (click)="paymentMethod = method.value"
+              >
+                <i class="fab fa-{{ method.logo }}"></i>
+                <span>{{ method.label }}</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Impact Updates Checkbox -->
+          <div class="updates-section">
+            <label class="updates-checkbox">
+              <input type="checkbox" [(ngModel)]="agreeToUpdates" class="checkbox-input" />
+              <span class="checkbox-custom"></span>
+              <div class="checkbox-content">
+                <span class="checkbox-label"
+                  >Yes, I'd like to receive impact updates and newsletters</span
+                >
+                <p class="checkbox-description">
+                  Stay connected with stories of hope, updates on how your donations are making a
+                  difference, and opportunities to deepen your impact. We respect your privacy and
+                  you can unsubscribe anytime.
+                </p>
+              </div>
+            </label>
+          </div>
+
+          <!-- Donate Button -->
+          <button
+            class="donate-button"
+            (click)="proceedToPayment()"
+            [disabled]="getDonationAmount() === 0"
+          >
+            <i class="fas fa-heart"></i>
+            <span>{{ getDonationButtonText() }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column: Impact & Story -->
+      <div class="impact-sidebar">
+        <!-- Your Impact Card -->
+        <div class="impact-card" *ngIf="getDonationAmount() > 0">
+          <h4 class="impact-card-title">Your Impact</h4>
+          <div class="impact-amount">
+            {{ getDonationAmount() | currency: 'USD' : 'symbol' : '1.0-0' }}
+          </div>
+          <div class="impact-detail" *ngIf="getSelectedImpact()">
+            <div class="impact-icon-wrapper">
+              <i class="fas fa-{{ getSelectedImpact()!.icon }}"></i>
+              <img
+                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&h=300&fit=crop&crop=face"
+                alt="Impact recipient"
+                class="impact-image"
+              />
+            </div>
+            <div class="impact-info">
+              <h5>{{ getSelectedImpact()!.title }}</h5>
+              <p>{{ getSelectedImpact()!.description }}</p>
+            </div>
+          </div>
+          <div class="impact-frequency">
+            <i class="fas fa-info-circle"></i>
+            <span>{{ getFrequencyLabel().toLowerCase() }} donation</span>
+          </div>
+        </div>
+
+        <!-- Story of Hope Card -->
+        <div class="story-card">
+          <div class="story-avatar-wrapper">
+            <img
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face"
+              alt="Story of hope"
+              class="story-avatar"
+            />
+            <div class="story-avatar-overlay"></div>
+          </div>
+          <div class="story-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <blockquote class="story-quote">
+            "Thanks to donors like you, I found safety and hope when I had nowhere else to turn."
+          </blockquote>
+          <cite class="story-attribution">— A member of our community</cite>
+        </div>
+
+        <!-- Secure Payment Card -->
+        <div class="security-card">
+          <div class="security-icon">
+            <i class="fas fa-lock"></i>
+          </div>
+          <h5 class="security-title">Secure Payment</h5>
+          <p class="security-description">Your donation is encrypted and secure</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

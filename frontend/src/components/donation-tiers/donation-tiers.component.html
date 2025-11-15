@@ -1,0 +1,43 @@
+<section class="donation-tiers-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{{ getSectionTitle() }}</h2>
+    </div>
+    <div class="tiers-grid">
+      <div
+        *ngFor="let tier of tiers"
+        class="tier-card"
+        [class.preferred]="tier.preferred"
+        [style.--tier-color]="tier.color"
+        [style.--tier-gradient]="tier.colorGradient"
+      >
+        <div class="preferred-badge" *ngIf="tier.preferred">
+          <i class="fas fa-star"></i>
+          <span>{{ languageService.getTranslation('most_popular') || 'MOST POPULAR' }}</span>
+        </div>
+        <div class="tier-header">
+          <div class="tier-icon-wrapper">
+            <div class="tier-icon">
+              <i [class]="tier.icon"></i>
+            </div>
+          </div>
+          <div class="tier-pricing">
+            <div class="tier-amount">${{ tier.amount }}</div>
+            <div class="tier-frequency">
+              {{ languageService.getTranslation('a_month_can') || 'A MONTH CAN' }}
+            </div>
+          </div>
+        </div>
+        <div class="tier-content">
+          <p class="tier-description">{{ getTierDescription(tier) }}</p>
+        </div>
+        <div class="tier-footer">
+          <button class="tier-btn" (click)="selectTier(tier)">
+            <span>{{ tier.buttonText }}</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

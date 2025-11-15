@@ -4,29 +4,43 @@
     <p class="section-subtitle">{{ languageService.getTranslation('stories_subtitle') }}</p>
     <div class="stories-grid">
       <div *ngFor="let story of stories" class="story-card">
-        <div class="story-header">
+        <div class="card-header">
           <div class="story-avatar" [style.background-color]="story.color">
-            <img [src]="story.image" [alt]="story.name" class="avatar-image">
+            <img [src]="story.image" [alt]="story.name" class="avatar-image" />
             <div class="avatar-overlay"></div>
-            <div class="emotion-badge">{{ story.emotion }}</div>
           </div>
-          <div class="story-info">
-            <h4 class="story-name">{{ story.name }}</h4>
-            <p class="story-timeline">{{ story.timeline }}</p>
+          <div class="emotion-badge">
+            <i class="fas fa-heart"></i>
+            <span>{{ story.emotion }}</span>
           </div>
         </div>
-        <div class="quote-icon">
-          <i class="fas fa-quote-left"></i>
+        <div class="card-content">
+          <div class="story-header">
+            <div class="story-info">
+              <h4 class="story-name">{{ story.name }}</h4>
+              <p class="story-timeline">{{ story.timeline }}</p>
+            </div>
+          </div>
+          <div class="quote-container">
+            <div class="quote-icon">
+              <i class="fas fa-quote-left"></i>
+            </div>
+            <p class="story-quote">{{ story.quote }}</p>
+          </div>
         </div>
-        <p class="story-quote">{{ story.quote }}</p>
-        <button class="message-btn" (click)="sendMessage(story)">
-          <i class="fas fa-heart"></i>
-          <span>{{ languageService.getTranslation('send_message_support') }}</span>
-        </button>
+        <div class="card-footer">
+          <button class="message-btn" (click)="sendMessage(story)">
+            <i class="fas fa-heart"></i>
+            <span>{{ languageService.getTranslation('send_message_support') }}</span>
+          </button>
+        </div>
       </div>
     </div>
     <div class="stories-cta">
-      <p class="cta-text">{{ languageService.getTranslation('your_support_creates') }} <strong>{{ languageService.getTranslation('every_donation_matters') }}</strong></p>
+      <p class="cta-text">
+        {{ languageService.getTranslation('your_support_creates') }}
+        <strong>{{ languageService.getTranslation('every_donation_matters') }}</strong>
+      </p>
       <button class="cta-btn" (click)="scrollToDonation()">
         <i class="fas fa-heart"></i>
         <span>{{ languageService.getTranslation('make_difference') }}</span>

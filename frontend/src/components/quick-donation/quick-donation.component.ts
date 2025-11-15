@@ -10,31 +10,24 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './quick-donation.component.html',
-  styleUrl: './quick-donation.component.scss'
+  styleUrl: './quick-donation.component.scss',
 })
 export class QuickDonationComponent implements OnInit, OnDestroy {
   selectedAmount: number | null = null;
   customAmount: number | null = null;
-  recurringOption: string = 'one-time';
   currentLanguage: string = 'en';
   private languageSubscription?: Subscription;
 
   donationAmounts = [25, 50, 100, 200];
-  
-  get recurringOptions() {
-    return [
-      { value: 'one-time', label: this.languageService.getTranslation('one_time') },
-      { value: 'monthly', label: this.languageService.getTranslation('monthly') },
-      { value: 'quarterly', label: this.languageService.getTranslation('quarterly') },
-      { value: 'yearly', label: this.languageService.getTranslation('yearly') }
-    ];
-  }
 
-  constructor(public languageService: LanguageService, private router: Router) {}
+  constructor(
+    public languageService: LanguageService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getCurrentLanguage();
-    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       this.currentLanguage = lang;
     });
   }
@@ -46,7 +39,7 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
   }
 
   getAmountDescription(amount: number): string {
-    switch(amount) {
+    switch (amount) {
       case 25:
         return this.languageService.getTranslation('weekly_meals_5_children');
       case 50:
@@ -92,8 +85,8 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
     if (amount > 0) {
       // Save donation details to localStorage
       localStorage.setItem('donationAmount', amount.toString());
-      localStorage.setItem('recurringOption', this.recurringOption);
-      
+      localStorage.setItem('recurringOption', 'one-time');
+
       // Redirect to payment page using router
       this.router.navigate(['/payment']);
     } else {
@@ -101,4 +94,3 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
     }
   }
 }
-

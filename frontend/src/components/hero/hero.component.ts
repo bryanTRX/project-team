@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './hero.component.html',
-  styleUrl: './hero.component.scss'
+  styleUrl: './hero.component.scss',
 })
 export class HeroComponent implements OnInit, OnDestroy {
   currentLanguage: string = 'en';
@@ -18,7 +18,7 @@ export class HeroComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getCurrentLanguage();
-    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       this.currentLanguage = lang;
     });
   }
@@ -42,5 +42,13 @@ export class HeroComponent implements OnInit, OnDestroy {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   }
-}
 
+  onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img) {
+      // Fallback vers une image Unsplash si l'image locale ne charge pas
+      img.src =
+        'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=800&fit=crop&crop=faces,center';
+    }
+  }
+}

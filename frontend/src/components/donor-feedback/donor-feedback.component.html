@@ -1,0 +1,66 @@
+<section class="donor-feedback-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{{ getSectionTitle() }}</h2>
+      <p class="section-subtitle">{{ getSectionSubtitle() }}</p>
+    </div>
+
+    <div class="feedback-grid">
+      <div
+        *ngFor="let feedback of donorFeedbacks"
+        class="feedback-card"
+        [style.--card-color]="feedback.color"
+      >
+        <div class="quote-icon">
+          <i class="fas fa-quote-left"></i>
+        </div>
+
+        <div class="feedback-header">
+          <div class="donor-info">
+            <div class="avatar-wrapper">
+              <div class="avatar" [style.border-color]="feedback.color + '40'">
+                <img [src]="feedback.avatar" [alt]="feedback.name" />
+              </div>
+              <div class="avatar-badge" [style.background-color]="feedback.color">
+                <i class="fas fa-heart"></i>
+              </div>
+            </div>
+            <div class="donor-details">
+              <h3 class="donor-name">{{ feedback.name }}</h3>
+              <div class="donation-info">
+                <span class="donation-amount">${{ feedback.amount }}</span>
+                <span class="donation-period">/month</span>
+              </div>
+            </div>
+          </div>
+          <div class="feedback-date">
+            <i class="far fa-clock"></i>
+            <span>{{ feedback.date }}</span>
+          </div>
+        </div>
+
+        <div class="feedback-content">
+          <p class="feedback-text">{{ feedback.feedback }}</p>
+        </div>
+
+        <div class="feedback-divider"></div>
+
+        <div
+          class="impact-badge"
+          [style.background]="
+            'linear-gradient(135deg, ' + feedback.color + '15, ' + feedback.color + '08)'
+          "
+          [style.border-color]="feedback.color + '25'"
+        >
+          <div class="impact-icon" [style.color]="feedback.color">
+            <i class="fas fa-sparkles"></i>
+          </div>
+          <div class="impact-content">
+            <span class="impact-label">{{ getImpactLabel() }}</span>
+            <span class="impact-text">{{ feedback.impact }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

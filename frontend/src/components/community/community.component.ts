@@ -14,7 +14,7 @@ interface CommunityFeature {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './community.component.html',
-  styleUrl: './community.component.scss'
+  styleUrl: './community.component.scss',
 })
 export class CommunityComponent implements OnInit, OnDestroy {
   currentLanguage: string = 'en';
@@ -25,18 +25,18 @@ export class CommunityComponent implements OnInit, OnDestroy {
       {
         icon: 'trophy',
         title: this.languageService.getTranslation('milestone'),
-        description: this.languageService.getTranslation('see_donations_making_difference')
+        description: this.languageService.getTranslation('see_donations_making_difference'),
       },
       {
         icon: 'share-alt',
         title: this.languageService.getTranslation('our_impact'),
-        description: this.languageService.getTranslation('support_creates_ripples')
+        description: this.languageService.getTranslation('support_creates_ripples'),
       },
       {
         icon: 'users',
         title: this.languageService.getTranslation('community_forum'),
-        description: this.languageService.getTranslation('connect_with_supporters')
-      }
+        description: this.languageService.getTranslation('connect_with_supporters'),
+      },
     ];
   }
 
@@ -44,7 +44,7 @@ export class CommunityComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getCurrentLanguage();
-    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       this.currentLanguage = lang;
     });
   }
@@ -55,4 +55,3 @@ export class CommunityComponent implements OnInit, OnDestroy {
     }
   }
 }
-
