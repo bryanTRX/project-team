@@ -2062,6 +2062,30 @@ export class LanguageService {
       'pt': 'DOAR $100',
       'it': 'DONA $100',
       'de': 'SPENDEN $100'
+    },
+    'donor_feedback_title': {
+      'en': 'Hear from Our Donors',
+      'fr': 'Témoignages de nos donateurs',
+      'es': 'Escuche a nuestros donantes',
+      'ar': 'استمع إلى متبرعينا',
+      'zh': '聆听我们捐赠者的声音',
+      'hi': 'हमारे दानदाताओं से सुनें',
+      'ru': 'Услышьте от наших доноров',
+      'pt': 'Ouça nossos doadores',
+      'it': 'Ascolta i nostri donatori',
+      'de': 'Hören Sie von unseren Spendern'
+    },
+    'donor_feedback_subtitle': {
+      'en': 'See how your generosity creates real change',
+      'fr': 'Découvrez comment votre générosité crée un changement réel',
+      'es': 'Vea cómo su generosidad crea un cambio real',
+      'ar': 'شاهد كيف تخلق كرمك تغييراً حقيقياً',
+      'zh': '看看您的慷慨如何创造真正的改变',
+      'hi': 'देखें कि आपकी उदारता कैसे वास्तविक बदलाव लाती है',
+      'ru': 'Посмотрите, как ваша щедрость создает реальные изменения',
+      'pt': 'Veja como sua generosidade cria mudanças reais',
+      'it': 'Vedi come la tua generosità crea un cambiamento reale',
+      'de': 'Sehen Sie, wie Ihre Großzügigkeit echten Wandel schafft'
     }
   };
 
