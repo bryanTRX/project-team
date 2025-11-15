@@ -30,45 +30,18 @@ export class TierBadgesComponent implements OnInit, OnChanges {
 
   tiers: TierBadge[] = [
     {
-      tier: 'persephone',
-      name: 'Persephone',
-      subtitle: 'Renewal Tier',
-      minAmount: 0,
-      maxAmount: 99,
-      imagePath: 'assets/images/tiers/persephone.svg',
-      benefits: ['Thank you email', 'Monthly newsletter', 'Community updates'],
-      isUnlocked: false,
-      progress: 0,
-    },
-    {
       tier: 'demeter',
       name: 'Demeter',
       subtitle: 'Nurture Tier',
-      minAmount: 100,
-      maxAmount: 499,
+      minAmount: 0,
+      maxAmount: 999,
       imagePath: 'assets/images/tiers/demeter.svg',
       benefits: [
-        'All Persephone benefits',
+        'Thank you email',
+        'Monthly newsletter',
+        'Community updates',
         'Exclusive donor badge',
         'Quarterly impact reports',
-        'Priority email support',
-      ],
-      isUnlocked: false,
-      progress: 0,
-    },
-    {
-      tier: 'hestia',
-      name: 'Hestia',
-      subtitle: 'Hearth Tier',
-      minAmount: 500,
-      maxAmount: 999,
-      imagePath: 'assets/images/tiers/hestia.svg',
-      benefits: [
-        'All Demeter benefits',
-        'Recognition on donor wall',
-        'Invitation to annual gala',
-        'Personal impact dashboard',
-        'Tax receipt priority processing',
       ],
       isUnlocked: false,
       progress: 0,
@@ -81,11 +54,11 @@ export class TierBadgesComponent implements OnInit, OnChanges {
       maxAmount: 4999,
       imagePath: 'assets/images/tiers/artemis.svg',
       benefits: [
-        'All Hestia benefits',
+        'All Demeter benefits',
+        'Recognition on donor wall',
         'VIP event access',
         'One-on-one impact briefing',
         'Featured in annual report',
-        'Personalized thank you video',
       ],
       isUnlocked: false,
       progress: 0,
@@ -180,9 +153,7 @@ export class TierBadgesComponent implements OnInit, OnChanges {
 
   getTierName(tierKey: string): string {
     const tierNameMap: { [key: string]: string } = {
-      persephone: 'tier_persephone',
       demeter: 'tier_demeter',
-      hestia: 'tier_hestia',
       artemis: 'tier_artemis',
       athena: 'tier_athena',
     };
@@ -192,9 +163,7 @@ export class TierBadgesComponent implements OnInit, OnChanges {
 
   getTierSubtitle(subtitle: string): string {
     const subtitleMap: { [key: string]: string } = {
-      'Renewal Tier': 'tier_renewal',
       'Nurture Tier': 'tier_nurture',
-      'Hearth Tier': 'tier_hearth',
       'Protector Tier': 'tier_protector',
       'Guardian Tier': 'tier_guardian',
     };
