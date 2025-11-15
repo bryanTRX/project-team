@@ -3,6 +3,7 @@ import { HeroComponent } from '../components/hero/hero.component';
 import { QuickDonationComponent } from '../components/quick-donation/quick-donation.component';
 import { ImpactDashboardComponent } from '../components/impact-dashboard/impact-dashboard.component';
 import { StoriesComponent } from '../components/stories/stories.component';
+import { DonationTiersComponent } from '../components/donation-tiers/donation-tiers.component';
 import { CommunityComponent } from '../components/community/community.component';
 import { Footer } from '../components/footer/footer';
 
@@ -14,6 +15,7 @@ import { Footer } from '../components/footer/footer';
     QuickDonationComponent,
     ImpactDashboardComponent,
     StoriesComponent,
+    DonationTiersComponent,
     CommunityComponent,
     Footer
   ],
@@ -27,6 +29,7 @@ import { Footer } from '../components/footer/footer';
       <section id="stories">
         <app-stories></app-stories>
       </section>
+      <app-donation-tiers></app-donation-tiers>
       <app-community></app-community>
     </main>
     <app-footer></app-footer>

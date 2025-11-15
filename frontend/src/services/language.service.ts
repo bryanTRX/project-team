@@ -1942,6 +1942,102 @@ export class LanguageService {
       'pt': 'Nível de guardião',
       'it': 'Livello di guardiano',
       'de': 'Wächterstufe'
+    },
+    'you_can_help_real_impact': {
+      'en': 'Your monthly support makes a real difference in people\'s lives.',
+      'fr': 'Votre soutien mensuel fait une vraie différence dans la vie des gens.',
+      'es': 'Tu apoyo mensual marca una diferencia real en la vida de las personas.',
+      'ar': 'دعمك الشهري يحدث فرقاً حقيقياً في حياة الناس.',
+      'zh': '您的每月支持真正改变了人们的生活。',
+      'hi': 'आपका मासिक समर्थन लोगों के जीवन में एक वास्तविक अंतर लाता है।',
+      'ru': 'Ваша ежемесячная поддержка реально меняет жизнь людей.',
+      'pt': 'Seu apoio mensal faz uma diferença real na vida das pessoas.',
+      'it': 'Il tuo supporto mensile fa una vera differenza nella vita delle persone.',
+      'de': 'Ihre monatliche Unterstützung macht einen echten Unterschied im Leben der Menschen.'
+    },
+    'a_month_can': {
+      'en': 'A MONTH CAN',
+      'fr': 'PAR MOIS PEUT',
+      'es': 'AL MES PUEDE',
+      'ar': 'شهرياً يمكن',
+      'zh': '每月可以',
+      'hi': 'प्रति महीने कर सकता है',
+      'ru': 'В МЕСЯЦ МОЖЕТ',
+      'pt': 'POR MÊS PODE',
+      'it': 'AL MESE PUÒ',
+      'de': 'PRO MONAT KANN'
+    },
+    'tier_25_description': {
+      'en': 'Instead of buying a few coffees this month, your $25 donation can provide essential care packages and support services to someone in need',
+      'fr': 'Au lieu d\'acheter quelques cafés ce mois-ci, votre don de 25 $ peut fournir des colis de soins essentiels et des services de soutien à une personne dans le besoin',
+      'es': 'En lugar de comprar algunos cafés este mes, tu donación de $25 puede proporcionar paquetes de atención esencial y servicios de apoyo a alguien que lo necesite',
+      'ar': 'بدلاً من شراء بعض القهوة هذا الشهر، يمكن لتبرعك البالغ 25 دولاراً توفير حزم رعاية أساسية وخدمات دعم لشخص محتاج',
+      'zh': '与其本月买几杯咖啡，您 25 美元的捐款可以为需要帮助的人提供基本护理包和支持服务',
+      'hi': 'इस महीने कुछ कॉफी खरीदने के बजाय, आपका $25 का दान जरूरतमंद व्यक्ति को आवश्यक देखभाल पैकेज और सहायता सेवाएं प्रदान कर सकता है',
+      'ru': 'Вместо покупки нескольких кофе в этом месяце, ваше пожертвование в размере $25 может предоставить необходимые пакеты помощи и услуги поддержки тому, кто в них нуждается',
+      'pt': 'Em vez de comprar alguns cafés este mês, sua doação de $25 pode fornecer pacotes de cuidados essenciais e serviços de apoio a alguém que precisa',
+      'it': 'Invece di comprare alcuni caffè questo mese, la tua donazione di $25 può fornire pacchetti di assistenza essenziali e servizi di supporto a qualcuno che ne ha bisogno',
+      'de': 'Anstatt diesen Monat ein paar Kaffees zu kaufen, kann Ihre Spende von $25 wesentliche Betreuungspakete und Unterstützungsdienste für jemanden bereitstellen, der sie braucht'
+    },
+    'tier_50_description': {
+      'en': 'Skip one restaurant dinner and donate $50 instead. Your contribution helps fund educational programs, counseling services, and community outreach initiatives',
+      'fr': 'Sautez un dîner au restaurant et donnez 50 $ à la place. Votre contribution aide à financer des programmes éducatifs, des services de counseling et des initiatives de sensibilisation communautaire',
+      'es': 'Salta una cena en restaurante y dona $50 en su lugar. Tu contribución ayuda a financiar programas educativos, servicios de asesoramiento e iniciativas de alcance comunitario',
+      'ar': 'تخطى عشاء واحد في المطعم وتبرع بـ 50 دولاراً بدلاً من ذلك. يساعد تبرعك في تمويل البرامج التعليمية وخدمات الاستشارة ومبادرات الوصول المجتمعي',
+      'zh': '跳过一次餐厅晚餐，改为捐赠 50 美元。您的贡献有助于资助教育项目、咨询服务和外展计划',
+      'hi': 'एक रेस्तरां डिनर छोड़ें और इसके बजाय $50 दान करें। आपका योगदान शैक्षिक कार्यक्रम, परामर्श सेवाओं और सामुदायिक आउटरीच पहलों को वित्तपोषित करने में मदद करता है',
+      'ru': 'Пропустите один ужин в ресторане и пожертвуйте $50 вместо этого. Ваш вклад помогает финансировать образовательные программы, консультационные услуги и общественные инициативы',
+      'pt': 'Pule um jantar no restaurante e doe $50 em vez disso. Sua contribuição ajuda a financiar programas educacionais, serviços de aconselhamento e iniciativas de alcance comunitário',
+      'it': 'Salta una cena al ristorante e dona $50 invece. Il tuo contributo aiuta a finanziare programmi educativi, servizi di consulenza e iniziative di sensibilizzazione della comunità',
+      'de': 'Überspringen Sie ein Restaurant-Dinner und spenden Sie stattdessen $50. Ihr Beitrag hilft, Bildungsprogramme, Beratungsdienste und gemeindenahe Initiativen zu finanzieren'
+    },
+    'tier_100_description': {
+      'en': 'Your $100 monthly donation equals what many spend on a single shopping trip. This generous contribution enables us to expand support programs, fund emergency assistance, and create lasting positive change in our community',
+      'fr': 'Votre don mensuel de 100 $ équivaut à ce que beaucoup dépensent lors d\'un seul voyage de magasinage. Cette contribution généreuse nous permet d\'élargir les programmes de soutien, de financer l\'aide d\'urgence et de créer des changements positifs durables dans notre communauté',
+      'es': 'Tu donación mensual de $100 equivale a lo que muchos gastan en un solo viaje de compras. Esta contribución generosa nos permite expandir programas de apoyo, financiar asistencia de emergencia y crear cambios positivos duraderos en nuestra comunidad',
+      'ar': 'تبرعك الشهري البالغ 100 دولار يساوي ما ينفقه الكثيرون في رحلة تسوق واحدة. يتيح لنا هذا التبرع السخي توسيع برامج الدعم وتمويل المساعدة الطارئة وإنشاء تغيير إيجابي دائم في مجتمعنا',
+      'zh': '您每月 100 美元的捐款相当于许多人一次购物的花费。这笔慷慨的捐款使我们能够扩大支持项目、资助紧急援助并在社区中创造持久的积极变化',
+      'hi': 'आपका $100 का मासिक दान कई लोगों द्वारा एक बार की खरीदारी पर खर्च की जाने वाली राशि के बराबर है। यह उदार योगदान हमें सहायता कार्यक्रमों का विस्तार करने, आपातकालीन सहायता को वित्तपोषित करने और हमारे समुदाय में स्थायी सकारात्मक बदलाव लाने में सक्षम बनाता है',
+      'ru': 'Ваше ежемесячное пожертвование в размере $100 равно тому, что многие тратят на одну поездку за покупками. Этот щедрый вклад позволяет нам расширять программы поддержки, финансировать экстренную помощь и создавать долгосрочные позитивные изменения в нашем сообществе',
+      'pt': 'Sua doação mensal de $100 equivale ao que muitos gastam em uma única viagem de compras. Esta contribuição generosa nos permite expandir programas de apoio, financiar assistência de emergência e criar mudanças positivas duradouras em nossa comunidade',
+      'it': 'La tua donazione mensile di $100 equivale a ciò che molti spendono in un solo viaggio di shopping. Questo generoso contributo ci consente di espandere i programmi di supporto, finanziare l\'assistenza di emergenza e creare cambiamenti positivi duraturi nella nostra comunità',
+      'de': 'Ihre monatliche Spende von $100 entspricht dem, was viele für eine einzige Shopping-Tour ausgeben. Dieser großzügige Beitrag ermöglicht es uns, Unterstützungsprogramme auszuweiten, Notfallhilfe zu finanzieren und dauerhafte positive Veränderungen in unserer Gemeinschaft zu schaffen'
+    },
+    'give_25': {
+      'en': 'GIVE $25',
+      'fr': 'DONNER 25 $',
+      'es': 'DONAR $25',
+      'ar': 'تبرع 25 $',
+      'zh': '捐赠 $25',
+      'hi': '$25 दें',
+      'ru': 'ПОЖЕРТВОВАТЬ $25',
+      'pt': 'DOAR $25',
+      'it': 'DONA $25',
+      'de': 'SPENDEN $25'
+    },
+    'give_50': {
+      'en': 'GIVE $50',
+      'fr': 'DONNER 50 $',
+      'es': 'DONAR $50',
+      'ar': 'تبرع 50 $',
+      'zh': '捐赠 $50',
+      'hi': '$50 दें',
+      'ru': 'ПОЖЕРТВОВАТЬ $50',
+      'pt': 'DOAR $50',
+      'it': 'DONA $50',
+      'de': 'SPENDEN $50'
+    },
+    'give_100': {
+      'en': 'GIVE $100',
+      'fr': 'DONNER 100 $',
+      'es': 'DONAR $100',
+      'ar': 'تبرع 100 $',
+      'zh': '捐赠 $100',
+      'hi': '$100 दें',
+      'ru': 'ПОЖЕРТВОВАТЬ $100',
+      'pt': 'DOAR $100',
+      'it': 'DONA $100',
+      'de': 'SPENDEN $100'
     }
   };
 
