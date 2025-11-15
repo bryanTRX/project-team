@@ -39,6 +39,8 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   currentUtterance: SpeechSynthesisUtterance | null = null;
   speakingMessageIndex: number | null = null;
   private isPausedState: boolean = false;
+  private voicesLoaded: boolean = false;
+  private availableVoices: SpeechSynthesisVoice[] = [];
 
   constructor(
     public languageService: LanguageService,
@@ -54,11 +56,21 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       this.speechSynthesis = window.speechSynthesis;
       
       // Load voices (some browsers need this)
+      this.loadVoices();
+      
+      // Some browsers load voices asynchronously
       if (this.speechSynthesis.onvoiceschanged !== undefined) {
         this.speechSynthesis.onvoiceschanged = () => {
-          // Voices loaded
+          this.loadVoices();
         };
       }
+      
+      // Fallback: try loading voices after a short delay (for browsers that don't fire onvoiceschanged)
+      setTimeout(() => {
+        if (!this.voicesLoaded && this.speechSynthesis) {
+          this.loadVoices();
+        }
+      }, 100);
     }
     
     this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
@@ -227,61 +239,105 @@ export class ChatbotComponent implements OnInit, OnDestroy {
 
     if (!cleanText) return;
 
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    
-    // Set language based on current language - get fresh value
-    const currentLang = this.languageService.getCurrentLanguage();
-    const langMap: { [key: string]: string } = {
-      en: 'en-US',
-      fr: 'fr-FR',
-      es: 'es-ES',
-      ar: 'ar-SA',
-      zh: 'zh-CN',
-      hi: 'hi-IN',
-      ru: 'ru-RU',
-      pt: 'pt-BR',
-      it: 'it-IT',
-      de: 'de-DE',
-    };
-    const langCode = langMap[currentLang] || langMap['en'] || 'en-US';
-    utterance.lang = langCode;
-    
-    // Select a voice that matches the language
-    const voice = this.getVoiceForLanguage(langCode);
-    if (voice) {
-      utterance.voice = voice;
+    try {
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      
+      // Set language based on current language - get fresh value
+      const currentLang = this.languageService.getCurrentLanguage();
+      const langMap: { [key: string]: string } = {
+        en: 'en-US',
+        fr: 'fr-FR',
+        es: 'es-ES',
+        ar: 'ar-SA',
+        zh: 'zh-CN',
+        hi: 'hi-IN',
+        ru: 'ru-RU',
+        pt: 'pt-BR',
+        it: 'it-IT',
+        de: 'de-DE',
+      };
+      const langCode = langMap[currentLang] || langMap['en'] || 'en-US';
+      utterance.lang = langCode;
+      
+      // Select a voice that matches the language
+      const voice = this.getVoiceForLanguage(langCode);
+      if (voice) {
+        utterance.voice = voice;
+        // Also set lang to match voice for better compatibility
+        utterance.lang = voice.lang;
+      } else {
+        // If no voice found, still set the language code
+        // The browser will try to use its default voice for that language
+        utterance.lang = langCode;
+      }
+      
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      utterance.volume = 0.8;
+
+      utterance.onend = () => {
+        this.speakingMessageIndex = null;
+        this.currentUtterance = null;
+        this.isPausedState = false;
+        this.cdr.detectChanges();
+      };
+
+      utterance.onerror = (error) => {
+        console.warn('Speech synthesis error:', error);
+        this.speakingMessageIndex = null;
+        this.currentUtterance = null;
+        this.isPausedState = false;
+        this.cdr.detectChanges();
+      };
+
+      this.currentUtterance = utterance;
+      this.speakingMessageIndex = messageIndex;
+      this.isPausedState = false;
+      this.cdr.detectChanges();
+      
+      // Attempt to speak - will work even if no perfect voice match is found
+      this.speechSynthesis.speak(utterance);
+    } catch (error) {
+      console.error('Error in speakMessage:', error);
+      // Reset state on error
+      this.speakingMessageIndex = null;
+      this.currentUtterance = null;
+      this.isPausedState = false;
+      this.cdr.detectChanges();
     }
+  }
+
+  loadVoices(): void {
+    if (!this.speechSynthesis) return;
     
-    utterance.rate = 1.0;
-    utterance.pitch = 1.0;
-    utterance.volume = 0.8;
-
-    utterance.onend = () => {
-      this.speakingMessageIndex = null;
-      this.currentUtterance = null;
-      this.isPausedState = false;
-      this.cdr.detectChanges();
-    };
-
-    utterance.onerror = () => {
-      this.speakingMessageIndex = null;
-      this.currentUtterance = null;
-      this.isPausedState = false;
-      this.cdr.detectChanges();
-    };
-
-    this.currentUtterance = utterance;
-    this.speakingMessageIndex = messageIndex;
-    this.isPausedState = false;
-    this.cdr.detectChanges();
-    this.speechSynthesis.speak(utterance);
+    try {
+      const voices = this.speechSynthesis.getVoices();
+      if (voices && voices.length > 0) {
+        this.availableVoices = voices;
+        this.voicesLoaded = true;
+      }
+    } catch (error) {
+      console.warn('Error loading voices:', error);
+      this.voicesLoaded = false;
+    }
   }
 
   getVoiceForLanguage(langCode: string): SpeechSynthesisVoice | null {
     if (!this.speechSynthesis) return null;
     
-    const voices = this.speechSynthesis.getVoices();
-    if (!voices || voices.length === 0) return null;
+    // Ensure voices are loaded
+    if (!this.voicesLoaded || this.availableVoices.length === 0) {
+      this.loadVoices();
+    }
+    
+    const voices = this.availableVoices.length > 0 
+      ? this.availableVoices 
+      : this.speechSynthesis.getVoices();
+    
+    if (!voices || voices.length === 0) {
+      // No voices available on this device
+      return null;
+    }
 
     // Try to find a voice that matches the language exactly
     let voice = voices.find(v => v.lang === langCode);
@@ -315,7 +371,9 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       }
     }
     
-    return voice || voices[0]; // Fallback to first available voice
+    // Fallback: prefer a default voice, but if none available, use first voice
+    // Some devices may not have voices for all languages, so we gracefully degrade
+    return voice || voices.find(v => v.default) || voices[0] || null;
   }
 
   toggleSpeech(messageIndex: number, text: string): void {
