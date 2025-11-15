@@ -93,7 +93,11 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   ngAfterViewInit(): void {
-    // TierBadgesComponent is now initialized and has calculated tiers
+    setTimeout(() => {
+      if (this.tierBadgesComponent) {
+        this.tierBadgesComponent.calculateTierProgress();
+      }
+    }, 0);
   }
 
   getFrequencyTranslation(frequency: string): string {

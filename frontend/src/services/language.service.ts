@@ -1822,6 +1822,126 @@ export class LanguageService {
       'pt': 'Selecionar idioma',
       'it': 'Seleziona lingua',
       'de': 'Sprache auswählen'
+    },
+    'tier_persephone': {
+      'en': 'Persephone',
+      'fr': 'Perséphone',
+      'es': 'Perséfone',
+      'ar': 'بيرسيفوني',
+      'zh': '珀耳塞福涅',
+      'hi': 'पर्सेफ़ोन',
+      'ru': 'Персефона',
+      'pt': 'Perséfone',
+      'it': 'Persefone',
+      'de': 'Persephone'
+    },
+    'tier_renewal': {
+      'en': 'Renewal Tier',
+      'fr': 'Niveau de renouveau',
+      'es': 'Nivel de renovación',
+      'ar': 'مستوى التجديد',
+      'zh': '更新等级',
+      'hi': 'नवीकरण स्तर',
+      'ru': 'Уровень обновления',
+      'pt': 'Nível de renovação',
+      'it': 'Livello di rinnovo',
+      'de': 'Erneuerungsstufe'
+    },
+    'tier_demeter': {
+      'en': 'Demeter',
+      'fr': 'Déméter',
+      'es': 'Deméter',
+      'ar': 'ديميتر',
+      'zh': '得墨忒耳',
+      'hi': 'डेमेटर',
+      'ru': 'Деметра',
+      'pt': 'Deméter',
+      'it': 'Demetra',
+      'de': 'Demeter'
+    },
+    'tier_nurture': {
+      'en': 'Nurture Tier',
+      'fr': 'Niveau de bienveillance',
+      'es': 'Nivel de crianza',
+      'ar': 'مستوى الرعاية',
+      'zh': '培育等级',
+      'hi': 'पोषण स्तर',
+      'ru': 'Уровень заботы',
+      'pt': 'Nível de nutrição',
+      'it': 'Livello di nutrimento',
+      'de': 'Pflegestufe'
+    },
+    'tier_hestia': {
+      'en': 'Hestia',
+      'fr': 'Hestia',
+      'es': 'Hestia',
+      'ar': 'هستيا',
+      'zh': '赫斯提亚',
+      'hi': 'हेस्टिया',
+      'ru': 'Гестия',
+      'pt': 'Héstia',
+      'it': 'Estia',
+      'de': 'Hestia'
+    },
+    'tier_hearth': {
+      'en': 'Hearth Tier',
+      'fr': 'Niveau du foyer',
+      'es': 'Nivel del hogar',
+      'ar': 'مستوى الموقد',
+      'zh': '炉火等级',
+      'hi': 'चूल्हा स्तर',
+      'ru': 'Уровень очага',
+      'pt': 'Nível de lar',
+      'it': 'Livello del focolare',
+      'de': 'Herdstufe'
+    },
+    'tier_artemis': {
+      'en': 'Artemis',
+      'fr': 'Artémis',
+      'es': 'Artemisa',
+      'ar': 'أرتميس',
+      'zh': '阿耳忒弥斯',
+      'hi': 'आर्टेमिस',
+      'ru': 'Артемида',
+      'pt': 'Artemis',
+      'it': 'Artemide',
+      'de': 'Artemis'
+    },
+    'tier_protector': {
+      'en': 'Protector Tier',
+      'fr': 'Niveau de protecteur',
+      'es': 'Nivel de protector',
+      'ar': 'مستوى الحامي',
+      'zh': '保护者等级',
+      'hi': 'संरक्षक स्तर',
+      'ru': 'Уровень защитника',
+      'pt': 'Nível de protetor',
+      'it': 'Livello di protettore',
+      'de': 'Beschützerstufe'
+    },
+    'tier_athena': {
+      'en': 'Athena',
+      'fr': 'Athéna',
+      'es': 'Atenea',
+      'ar': 'أثينا',
+      'zh': '雅典娜',
+      'hi': 'एथेना',
+      'ru': 'Афина',
+      'pt': 'Atena',
+      'it': 'Atena',
+      'de': 'Athena'
+    },
+    'tier_guardian': {
+      'en': 'Guardian Tier',
+      'fr': 'Niveau de gardien',
+      'es': 'Nivel de guardián',
+      'ar': 'مستوى الوصي',
+      'zh': '守护者等级',
+      'hi': 'संरक्षक स्तर',
+      'ru': 'Уровень опекуна',
+      'pt': 'Nível de guardião',
+      'it': 'Livello di guardiano',
+      'de': 'Wächterstufe'
     }
   };
 
