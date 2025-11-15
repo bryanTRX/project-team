@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LanguageService } from '../../services/language.service';
 
 export interface TierBadge {
   tier: string;
@@ -25,64 +26,39 @@ export class TierBadgesComponent implements OnInit, OnChanges {
   @Input() showProgress: boolean = true;
   @Input() displayMode: 'full' | 'compact' | 'mini' = 'full';
 
+  constructor(public languageService: LanguageService) {}
+
   tiers: TierBadge[] = [
     {
-      tier: 'aegis',
-      name: 'Aegis',
-      subtitle: 'Guardian Tier',
+      tier: 'demeter',
+      name: 'Demeter',
+      subtitle: 'Nurture Tier',
       minAmount: 0,
-      maxAmount: 99,
-      imagePath: 'assets/images/tiers/aegis.svg',
-      benefits: ['Thank you email', 'Monthly newsletter', 'Community updates'],
-      isUnlocked: false,
-      progress: 0,
-    },
-    {
-      tier: 'poseidon',
-      name: 'Poseidon',
-      subtitle: 'Depth Tier',
-      minAmount: 100,
-      maxAmount: 499,
-      imagePath: 'assets/images/tiers/poseidon.svg',
+      maxAmount: 999,
+      imagePath: 'assets/images/tiers/demeter.svg',
       benefits: [
-        'All Aegis benefits',
+        'Thank you email',
+        'Monthly newsletter',
+        'Community updates',
         'Exclusive donor badge',
         'Quarterly impact reports',
-        'Priority email support',
       ],
       isUnlocked: false,
       progress: 0,
     },
     {
-      tier: 'ares',
-      name: 'Ares',
-      subtitle: 'Valor Tier',
-      minAmount: 500,
-      maxAmount: 999,
-      imagePath: 'assets/images/tiers/ares.svg',
-      benefits: [
-        'All Poseidon benefits',
-        'Recognition on donor wall',
-        'Invitation to annual gala',
-        'Personal impact dashboard',
-        'Tax receipt priority processing',
-      ],
-      isUnlocked: false,
-      progress: 0,
-    },
-    {
-      tier: 'zeus',
-      name: 'Zeus',
-      subtitle: 'Supreme Tier',
+      tier: 'artemis',
+      name: 'Artemis',
+      subtitle: 'Protector Tier',
       minAmount: 1000,
       maxAmount: 4999,
-      imagePath: 'assets/images/tiers/zeus.svg',
+      imagePath: 'assets/images/tiers/artemis.svg',
       benefits: [
-        'All Ares benefits',
+        'All Demeter benefits',
+        'Recognition on donor wall',
         'VIP event access',
         'One-on-one impact briefing',
         'Featured in annual report',
-        'Personalized thank you video',
       ],
       isUnlocked: false,
       progress: 0,
@@ -90,11 +66,11 @@ export class TierBadgesComponent implements OnInit, OnChanges {
     {
       tier: 'athena',
       name: 'Athena',
-      subtitle: 'Legendary Shield',
+      subtitle: 'Guardian Tier',
       minAmount: 5000,
       imagePath: 'assets/images/tiers/athena.svg',
       benefits: [
-        'All Zeus benefits',
+        'All Artemis benefits',
         'Board meeting attendance',
         'Program naming opportunities',
         'Exclusive site visit',
@@ -173,5 +149,25 @@ export class TierBadgesComponent implements OnInit, OnChanges {
 
   isNextTier(tier: TierBadge): boolean {
     return this.nextTier?.tier === tier.tier;
+  }
+
+  getTierName(tierKey: string): string {
+    const tierNameMap: { [key: string]: string } = {
+      demeter: 'tier_demeter',
+      artemis: 'tier_artemis',
+      athena: 'tier_athena',
+    };
+    const translationKey = tierNameMap[tierKey];
+    return translationKey ? this.languageService.getTranslation(translationKey) : tierKey;
+  }
+
+  getTierSubtitle(subtitle: string): string {
+    const subtitleMap: { [key: string]: string } = {
+      'Nurture Tier': 'tier_nurture',
+      'Protector Tier': 'tier_protector',
+      'Guardian Tier': 'tier_guardian',
+    };
+    const translationKey = subtitleMap[subtitle];
+    return translationKey ? this.languageService.getTranslation(translationKey) : subtitle;
   }
 }
