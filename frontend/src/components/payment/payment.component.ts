@@ -16,8 +16,8 @@ import { Subscription } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class PaymentComponent implements OnInit, OnDestroy {
-  donationOptions: number[] = [25, 50, 100, 250, 500];
-  donationAmount: number = this.donationOptions[1];
+  donationOptions: number[] = [100, 250, 500, 1000];
+  donationAmount: number = this.donationOptions[0];
   customAmount: string = '';
   recurringOption: string = 'one-time';
   currentLanguage: string = 'en';

@@ -389,6 +389,18 @@ export class LanguageService {
       it: '1 settimana di supporto di consulenza',
       de: '1 Woche Beratungsunterstützung',
     },
+    month_safe_shelter: {
+      en: '1 month of safe shelter',
+      fr: '1 mois d\'abri sûr',
+      es: '1 mes de refugio seguro',
+      ar: 'شهر واحد من المأوى الآمن',
+      zh: '1个月安全住所',
+      hi: '1 महीना सुरक्षित आश्रय',
+      ru: '1 месяц безопасного убежища',
+      pt: '1 mês de abrigo seguro',
+      it: '1 mese di rifugio sicuro',
+      de: '1 Monat sicherer Unterkunft',
+    },
     other: {
       en: 'Other',
       fr: 'Autre',

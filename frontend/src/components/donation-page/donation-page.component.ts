@@ -54,28 +54,6 @@ export class DonationPageComponent implements OnInit {
   get donationAmounts(): DonationAmount[] {
     return [
       {
-        value: 10,
-        label: '$10',
-        impact:
-          this.languageService.getTranslation('emergency_food_supplies') ||
-          'Emergency food supplies',
-        icon: 'utensils',
-      },
-      {
-        value: 25,
-        label: '$25',
-        impact:
-          this.languageService.getTranslation('meals_family_day') || 'Meals for a family for a day',
-        icon: 'home',
-      },
-      {
-        value: 50,
-        label: '$50',
-        impact:
-          this.languageService.getTranslation('night_safe_shelter') || '1 night of safe shelter',
-        icon: 'bed',
-      },
-      {
         value: 100,
         label: '$100',
         impact: this.languageService.getTranslation('therapy_session') || '1 therapy session',
@@ -88,37 +66,26 @@ export class DonationPageComponent implements OnInit {
           this.languageService.getTranslation('legal_aid_consultation') || 'Legal aid consultation',
         icon: 'balance-scale',
       },
+      {
+        value: 500,
+        label: '$500',
+        impact:
+          this.languageService.getTranslation('week_counseling_support') ||
+          '1 week of counseling support',
+        icon: 'users',
+      },
+      {
+        value: 1000,
+        label: '$1000',
+        impact:
+          this.languageService.getTranslation('month_safe_shelter') || '1 month of safe shelter',
+        icon: 'home',
+      },
     ];
   }
 
   get impactDetails(): { [key: number]: ImpactDetail } {
     return {
-      10: {
-        amount: 10,
-        title:
-          this.languageService.getTranslation('emergency_food_supplies') ||
-          'Emergency Food Supplies',
-        description:
-          this.languageService.getTranslation('provides_essential_nutrition') ||
-          'Provides essential nutrition for families in crisis',
-        icon: 'utensils',
-      },
-      25: {
-        amount: 25,
-        title: this.languageService.getTranslation('daily_meals') || 'Daily Meals',
-        description:
-          this.languageService.getTranslation('feeds_family_full_day') ||
-          'Feeds a family of 4 for one full day',
-        icon: 'home',
-      },
-      50: {
-        amount: 50,
-        title: this.languageService.getTranslation('safe_shelter') || 'Safe Shelter',
-        description:
-          this.languageService.getTranslation('one_night_secure_housing') ||
-          'One night of secure housing for a family',
-        icon: 'bed',
-      },
       100: {
         amount: 100,
         title: this.languageService.getTranslation('therapy_session') || 'Therapy Session',
@@ -134,6 +101,24 @@ export class DonationPageComponent implements OnInit {
           this.languageService.getTranslation('professional_legal_consultation') ||
           'Professional consultation for legal protection',
         icon: 'balance-scale',
+      },
+      500: {
+        amount: 500,
+        title:
+          this.languageService.getTranslation('week_counseling_support') ||
+          'Week of Counseling Support',
+        description:
+          this.languageService.getTranslation('counseling_trauma_recovery') ||
+          'One week of comprehensive counseling support',
+        icon: 'users',
+      },
+      1000: {
+        amount: 1000,
+        title: this.languageService.getTranslation('safe_shelter') || 'Safe Shelter',
+        description:
+          this.languageService.getTranslation('month_safe_shelter') ||
+          'One month of secure housing for a family',
+        icon: 'home',
       },
     };
   }

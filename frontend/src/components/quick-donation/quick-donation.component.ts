@@ -18,7 +18,7 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
   currentLanguage: string = 'en';
   private languageSubscription?: Subscription;
 
-  donationAmounts = [25, 50, 100, 200];
+  donationAmounts = [100, 250, 500, 1000];
 
   constructor(
     public languageService: LanguageService,
@@ -40,14 +40,14 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
 
   getAmountDescription(amount: number): string {
     switch (amount) {
-      case 25:
-        return this.languageService.getTranslation('weekly_meals_5_children');
-      case 50:
-        return this.languageService.getTranslation('night_safe_shelter');
       case 100:
-        return this.languageService.getTranslation('hours_translation_services');
-      case 200:
-        return this.languageService.getTranslation('week_counseling_support');
+        return this.languageService.getTranslation('therapy_session') || '1 therapy session';
+      case 250:
+        return this.languageService.getTranslation('legal_aid_consultation') || 'Legal aid consultation';
+      case 500:
+        return this.languageService.getTranslation('week_counseling_support') || '1 week of counseling support';
+      case 1000:
+        return this.languageService.getTranslation('month_safe_shelter') || '1 month of safe shelter';
       default:
         return '';
     }
