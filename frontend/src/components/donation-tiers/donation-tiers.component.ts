@@ -94,4 +94,8 @@ export class DonationTiersComponent implements OnInit, OnDestroy {
     // Redirect to payment page
     this.router.navigate(['/payment']);
   }
+
+  formatNumber(value: number): string {
+    return value.toLocaleString();
+  }
 }

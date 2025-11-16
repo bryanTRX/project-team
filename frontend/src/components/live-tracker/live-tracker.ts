@@ -95,7 +95,7 @@ export class LiveTrackerComponent implements OnInit, AfterViewInit, OnDestroy {
         if (isBig) {
           el.textContent = '$' + formatNumber(value);
         } else {
-          el.textContent = value.toString();
+          el.textContent = formatNumber(value);
         }
 
         if (progress < 1) {
@@ -104,7 +104,7 @@ export class LiveTrackerComponent implements OnInit, AfterViewInit, OnDestroy {
           if (isBig) {
             el.textContent = '$' + formatNumber(target);
           } else {
-            el.textContent = target.toString();
+            el.textContent = formatNumber(target);
           }
           this.startLiveUpdates(el, target, isBig);
         }
@@ -125,7 +125,7 @@ export class LiveTrackerComponent implements OnInit, AfterViewInit, OnDestroy {
       if (isBig) {
         el.textContent = '$' + current.toLocaleString();
       } else {
-        el.textContent = current.toString();
+        el.textContent = current.toLocaleString();
       }
 
       const delay = Math.random() * 4500 + 1500;

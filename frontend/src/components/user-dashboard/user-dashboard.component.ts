@@ -208,4 +208,8 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
   startNewDonation(): void {
     this.router.navigate(['/payment']);
   }
+
+  formatNumber(value: number): string {
+    return value.toLocaleString();
+  }
 }

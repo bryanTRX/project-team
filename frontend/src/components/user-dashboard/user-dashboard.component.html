@@ -27,7 +27,7 @@
           <div class="stat-card">
             <div class="stat-content">
               <p>{{ languageService.getTranslation('lives_touched') }}</p>
-              <span class="stat-value">{{ user.familiesHelped }}</span>
+              <span class="stat-value">{{ formatNumber(user.familiesHelped) }}</span>
             </div>
             <span class="stat-icon group"><i class="fas fa-user-friends"></i></span>
           </div>
@@ -225,7 +225,8 @@
                 <div class="discussion-row">
                   <p>{{ discussion.title }}</p>
                   <span
-                    >{{ discussion.replies }} {{ languageService.getTranslation('replies') }}</span
+                    >{{ formatNumber(discussion.replies) }}
+                    {{ languageService.getTranslation('replies') }}</span
                   >
                 </div>
               }

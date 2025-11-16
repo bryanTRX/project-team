@@ -56,7 +56,7 @@
             <!-- Contact Information Section -->
             <div class="contact-info-section">
               <h3 class="section-subtitle">Contact Information</h3>
-              
+
               <div class="input-field">
                 <label for="email">{{ languageService.getTranslation('email_address') }}*</label>
                 <p class="field-hint inline-under-label">
@@ -109,7 +109,9 @@
                 </div>
               </div>
               <div class="input-field">
-                <label for="paymentPassword">{{ languageService.getTranslation('password') }}</label>
+                <label for="paymentPassword">{{
+                  languageService.getTranslation('password')
+                }}</label>
                 <input
                   type="password"
                   id="paymentPassword"
@@ -121,12 +123,19 @@
               </div>
               <div class="checkbox-group" *ngIf="!simpleMode">
                 <label class="checkbox-field">
-                  <input type="checkbox" [(ngModel)]="wishToRemainAnonymous" name="wishToRemainAnonymous" />
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="wishToRemainAnonymous"
+                    name="wishToRemainAnonymous"
+                  />
                   <span>I wish to remain anonymous? <i class="fas fa-question-circle"></i></span>
                 </label>
                 <label class="checkbox-field">
                   <input type="checkbox" [(ngModel)]="updatesOptIn" name="updatesOptIn" />
-                  <span>{{ languageService.getTranslation('yes_receive_updates') }} <i class="fas fa-question-circle"></i></span>
+                  <span
+                    >{{ languageService.getTranslation('yes_receive_updates') }}
+                    <i class="fas fa-question-circle"></i
+                  ></span>
                 </label>
               </div>
 
@@ -174,7 +183,7 @@
             <!-- Address Section -->
             <div class="address-section" *ngIf="!simpleMode">
               <h3 class="section-subtitle">Address</h3>
-              
+
               <div class="input-field">
                 <label for="address">Street Address (Line 1)*</label>
                 <div class="input-with-icon">
@@ -482,7 +491,9 @@
                 <p>After you click Complete Donation, an agent will call to finalize your gift.</p>
                 <div class="phone-form-fields" *ngIf="!isAuthenticated">
                   <div class="phone-field">
-                    <label for="phonePassword">{{ languageService.getTranslation('password') }}</label>
+                    <label for="phonePassword">{{
+                      languageService.getTranslation('password')
+                    }}</label>
                     <input
                       type="password"
                       id="phonePassword"
