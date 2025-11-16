@@ -10,7 +10,7 @@
         *ngIf="isOpen"
         class="chatbot-toggle"
         (click)="toggleChat(); $event.stopPropagation()"
-        [attr.aria-label]="'Close chat'"
+        [attr.aria-label]="getTranslation('close_chat', currentLanguage) || 'Close chat'"
       >
         <i class="fas fa-chevron-down"></i>
       </button>

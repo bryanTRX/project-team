@@ -29,7 +29,7 @@
               <h3 class="donor-name">{{ feedback.name }}</h3>
               <div class="donation-info">
                 <span class="donation-amount">${{ formatNumber(feedback.amount) }}</span>
-                <span class="donation-period">/month</span>
+                <span class="donation-period">/{{ languageService.getTranslation('month') || 'month' }}</span>
               </div>
             </div>
           </div>

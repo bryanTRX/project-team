@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { LanguageService } from '../../services/language.service';
 
 interface DonationAmount {
   value: number;
@@ -102,7 +103,10 @@ export class DonationPageComponent implements OnInit {
     { value: 'bank-transfer', label: 'Bank Transfer', icon: 'university', logo: 'bank' },
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    public languageService: LanguageService,
+  ) {}
 
   ngOnInit(): void {
     const savedUser = localStorage.getItem('currentUser');

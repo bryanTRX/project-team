@@ -67,9 +67,9 @@
             <div class="tier-popup-modal" (click)="$event.stopPropagation()">
               <div class="tier-popup-header">
                 <div class="tier-popup-header-content">
-                  <h3>Donor Tiers & Benefits</h3>
+                  <h3>{{ languageService.getTranslation('donor_tiers_benefits') || 'Donor Tiers & Benefits' }}</h3>
                   <p class="tier-popup-subtitle-header">
-                    Discover all donation levels and their exclusive benefits
+                    {{ languageService.getTranslation('discover_donation_levels') || 'Discover all donation levels and their exclusive benefits' }}
                   </p>
                 </div>
                 <button
@@ -98,7 +98,7 @@
                     <div class="tier-popup-badge" *ngIf="isCurrentTier(tier)">
                       <span class="current-badge">
                         <i class="fas fa-check-circle"></i>
-                        Your Current Tier
+                        {{ languageService.getTranslation('your_current_tier') || 'Your Current Tier' }}
                       </span>
                     </div>
                   </div>
@@ -106,7 +106,7 @@
                   <div class="tier-popup-benefits">
                     <h5 class="benefits-title">
                       <i class="fas fa-gift"></i>
-                      Benefits
+                      {{ languageService.getTranslation('benefits') || 'Benefits' }}
                     </h5>
                     <ul>
                       <li *ngFor="let benefit of tier.benefits">
@@ -123,7 +123,7 @@
                   (click)="startNewDonation(); closeTierPopup()"
                 >
                   <i class="fas fa-heart"></i>
-                  Make a Donation
+                  {{ languageService.getTranslation('make_donation') || 'Make a Donation' }}
                 </button>
               </div>
             </div>
