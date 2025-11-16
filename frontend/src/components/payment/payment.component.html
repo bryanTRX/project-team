@@ -53,69 +53,239 @@
             *ngIf="!isAuthenticated"
             [class.has-error]="emailSectionInvalid"
           >
-            <label for="email">{{ languageService.getTranslation('email_address') }}</label>
-            <p class="field-hint inline-under-label">
-              {{ languageService.getTranslation('email_account_notice') }}
-            </p>
-            <div class="input-with-icon">
-              <i class="fas fa-envelope"></i>
-              <input
-                type="email"
-                id="email"
-                [(ngModel)]="email"
-                name="email"
-                placeholder="your.email@example.com"
-                (input)="handleEmailInput()"
-                required
-              />
+            <!-- Contact Information Section -->
+            <div class="contact-info-section">
+              <h3 class="section-subtitle">Contact Information</h3>
+              
+              <div class="input-field">
+                <label for="email">{{ languageService.getTranslation('email_address') }}*</label>
+                <p class="field-hint inline-under-label">
+                  {{ languageService.getTranslation('email_account_notice') }}
+                </p>
+                <div class="input-with-icon">
+                  <i class="fas fa-envelope"></i>
+                  <input
+                    type="email"
+                    id="email"
+                    [(ngModel)]="email"
+                    name="email"
+                    placeholder="your.email@example.com"
+                    (input)="handleEmailInput()"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="name-fields-row">
+                <div class="input-field">
+                  <label for="firstName">First Name*</label>
+                  <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input
+                      type="text"
+                      id="firstName"
+                      [(ngModel)]="firstName"
+                      name="firstName"
+                      placeholder="Enter your first name"
+                      autocomplete="given-name"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="input-field">
+                  <label for="lastName">Last Name*</label>
+                  <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input
+                      type="text"
+                      id="lastName"
+                      [(ngModel)]="lastName"
+                      name="lastName"
+                      placeholder="Enter your last name"
+                      autocomplete="family-name"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="input-field">
+                <label for="paymentPassword">{{ languageService.getTranslation('password') }}</label>
+                <input
+                  type="password"
+                  id="paymentPassword"
+                  [(ngModel)]="paymentPassword"
+                  name="paymentPassword"
+                  placeholder="{{ languageService.getTranslation('enter_password') }}"
+                  autocomplete="new-password"
+                />
+              </div>
+              <div class="checkbox-group" *ngIf="!simpleMode">
+                <label class="checkbox-field">
+                  <input type="checkbox" [(ngModel)]="wishToRemainAnonymous" name="wishToRemainAnonymous" />
+                  <span>I wish to remain anonymous? <i class="fas fa-question-circle"></i></span>
+                </label>
+                <label class="checkbox-field">
+                  <input type="checkbox" [(ngModel)]="updatesOptIn" name="updatesOptIn" />
+                  <span>{{ languageService.getTranslation('yes_receive_updates') }} <i class="fas fa-question-circle"></i></span>
+                </label>
+              </div>
+
+              <div class="account-flow new" *ngIf="emailMode === 'new'">
+                <p>{{ languageService.getTranslation('new_account_prompt') }}</p>
+                <label for="newUsername">{{
+                  languageService.getTranslation('create_username_label')
+                }}</label>
+                <input
+                  type="text"
+                  id="newUsername"
+                  [(ngModel)]="newUsername"
+                  name="newUsername"
+                  placeholder="Choose a username"
+                  autocomplete="username"
+                />
+                <label for="newPassword">{{
+                  languageService.getTranslation('create_password_label')
+                }}</label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  [(ngModel)]="newPassword"
+                  name="newPassword"
+                  placeholder="Create a password"
+                  autocomplete="new-password"
+                />
+              </div>
+              <div class="account-flow existing" *ngIf="emailMode === 'existing'">
+                <p>{{ languageService.getTranslation('existing_account_prompt') }}</p>
+                <label for="existingPassword">{{
+                  languageService.getTranslation('existing_account_password_label')
+                }}</label>
+                <input
+                  type="password"
+                  id="existingPassword"
+                  [(ngModel)]="loginPassword"
+                  name="loginPassword"
+                  placeholder="••••••••"
+                  autocomplete="current-password"
+                />
+              </div>
             </div>
-            <div class="account-flow new" *ngIf="emailMode === 'new'">
-              <p>{{ languageService.getTranslation('new_account_prompt') }}</p>
-              <label for="newUsername">{{
-                languageService.getTranslation('create_username_label')
-              }}</label>
-              <input
-                type="text"
-                id="newUsername"
-                [(ngModel)]="newUsername"
-                name="newUsername"
-                placeholder="Choose a username"
-                autocomplete="username"
-              />
-              <label for="newPassword">{{
-                languageService.getTranslation('create_password_label')
-              }}</label>
-              <input
-                type="password"
-                id="newPassword"
-                [(ngModel)]="newPassword"
-                name="newPassword"
-                placeholder="Create a password"
-                autocomplete="new-password"
-              />
-            </div>
-            <div class="account-flow existing" *ngIf="emailMode === 'existing'">
-              <p>{{ languageService.getTranslation('existing_account_prompt') }}</p>
-              <label for="existingPassword">{{
-                languageService.getTranslation('existing_account_password_label')
-              }}</label>
-              <input
-                type="password"
-                id="existingPassword"
-                [(ngModel)]="loginPassword"
-                name="loginPassword"
-                placeholder="••••••••"
-                autocomplete="current-password"
-              />
-            </div>
-            <div class="inline-updates-card" *ngIf="!simpleMode">
-              <p class="info-description">
-                {{ languageService.getTranslation('receive_stories_updates') }}
-              </p>
-              <label class="checkbox-field">
-                <input type="checkbox" [(ngModel)]="updatesOptIn" name="updatesOptIn" />
-                <span>{{ languageService.getTranslation('yes_receive_updates') }}</span>
-              </label>
+
+            <!-- Address Section -->
+            <div class="address-section" *ngIf="!simpleMode">
+              <h3 class="section-subtitle">Address</h3>
+              
+              <div class="input-field">
+                <label for="address">Street Address (Line 1)*</label>
+                <div class="input-with-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <input
+                    type="text"
+                    id="address"
+                    [(ngModel)]="address"
+                    name="address"
+                    placeholder="Enter your address"
+                    autocomplete="street-address"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="input-field">
+                <label for="addressLine2">Street Address (Line 2) (Optional)</label>
+                <div class="input-with-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <input
+                    type="text"
+                    id="addressLine2"
+                    [(ngModel)]="addressLine2"
+                    name="addressLine2"
+                    placeholder="Apartment, suite, etc."
+                    autocomplete="address-line2"
+                  />
+                </div>
+              </div>
+
+              <div class="address-fields-row">
+                <div class="input-field">
+                  <label for="city">City*</label>
+                  <input
+                    type="text"
+                    id="city"
+                    [(ngModel)]="city"
+                    name="city"
+                    placeholder="Enter your city"
+                    autocomplete="address-level2"
+                    required
+                  />
+                </div>
+                <div class="input-field">
+                  <label for="country">Country*</label>
+                  <select
+                    id="country"
+                    [(ngModel)]="country"
+                    name="country"
+                    autocomplete="country"
+                    required
+                  >
+                    <option value="Canada">Canada</option>
+                    <option value="United States">United States</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="address-fields-row">
+                <div class="input-field">
+                  <label for="province">Province/State*</label>
+                  <select
+                    id="province"
+                    [(ngModel)]="province"
+                    name="province"
+                    autocomplete="address-level1"
+                    required
+                  >
+                    <option value="">Select province/state</option>
+                    <option value="Quebec">Quebec</option>
+                    <option value="Ontario">Ontario</option>
+                    <option value="British Columbia">British Columbia</option>
+                    <option value="Alberta">Alberta</option>
+                    <option value="Manitoba">Manitoba</option>
+                    <option value="Saskatchewan">Saskatchewan</option>
+                    <option value="Nova Scotia">Nova Scotia</option>
+                    <option value="New Brunswick">New Brunswick</option>
+                    <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+                    <option value="Prince Edward Island">Prince Edward Island</option>
+                    <option value="Northwest Territories">Northwest Territories</option>
+                    <option value="Yukon">Yukon</option>
+                    <option value="Nunavut">Nunavut</option>
+                  </select>
+                </div>
+                <div class="input-field">
+                  <label for="postalCode">Postal Code/ZIP*</label>
+                  <input
+                    type="text"
+                    id="postalCode"
+                    [(ngModel)]="postalCode"
+                    name="postalCode"
+                    placeholder="Enter your postal code"
+                    autocomplete="postal-code"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="input-field">
+                <label for="phoneNumber">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phoneNumber"
+                  [(ngModel)]="phoneNumber"
+                  name="phoneNumber"
+                  placeholder="(555) 123-4567"
+                  autocomplete="tel"
+                />
+              </div>
             </div>
           </div>
 
@@ -308,8 +478,21 @@
             </div>
             <div class="method-detail phone-detail" *ngIf="selectedPaymentMethod === 'phone'">
               <i class="fas fa-phone-alt"></i>
-              <div>
+              <div class="phone-details-form">
                 <p>After you click Complete Donation, an agent will call to finalize your gift.</p>
+                <div class="phone-form-fields" *ngIf="!isAuthenticated">
+                  <div class="phone-field">
+                    <label for="phonePassword">{{ languageService.getTranslation('password') }}</label>
+                    <input
+                      type="password"
+                      id="phonePassword"
+                      [(ngModel)]="phonePassword"
+                      name="phonePassword"
+                      placeholder="{{ languageService.getTranslation('enter_password') }}"
+                      autocomplete="new-password"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
             <div class="payment-security-note">

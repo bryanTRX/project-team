@@ -81,6 +81,19 @@ export class PaymentComponent implements OnInit, OnDestroy {
   cardHolder: string = '';
   expiryDate: string = '';
   cvv: string = '';
+  // Contact Information
+  firstName: string = '';
+  lastName: string = '';
+  address: string = '';
+  addressLine2: string = '';
+  city: string = '';
+  province: string = '';
+  postalCode: string = '';
+  country: string = 'Canada';
+  phoneNumber: string = '';
+  wishToRemainAnonymous: boolean = false;
+  paymentPassword: string = '';
+  phonePassword: string = '';
   email: string = '';
   emailMode: 'idle' | 'existing' | 'new' = 'idle';
   loginPassword = '';
@@ -273,6 +286,45 @@ export class PaymentComponent implements OnInit, OnDestroy {
                 .getTranslation('invalid_credentials')
                 .replace('username or password', ''),
           );
+          this.emailSectionInvalid = true;
+          return false;
+        }
+      }
+
+      // Validate contact and address fields if not in simple mode
+      if (!this.simpleMode) {
+        if (!this.firstName || !this.firstName.trim()) {
+          alert('First Name is required');
+          this.emailSectionInvalid = true;
+          return false;
+        }
+        if (!this.lastName || !this.lastName.trim()) {
+          alert('Last Name is required');
+          this.emailSectionInvalid = true;
+          return false;
+        }
+        if (!this.address || !this.address.trim()) {
+          alert('Street Address is required');
+          this.emailSectionInvalid = true;
+          return false;
+        }
+        if (!this.city || !this.city.trim()) {
+          alert('City is required');
+          this.emailSectionInvalid = true;
+          return false;
+        }
+        if (!this.province || !this.province.trim()) {
+          alert('Province/State is required');
+          this.emailSectionInvalid = true;
+          return false;
+        }
+        if (!this.postalCode || !this.postalCode.trim()) {
+          alert('Postal Code/ZIP is required');
+          this.emailSectionInvalid = true;
+          return false;
+        }
+        if (!this.country || !this.country.trim()) {
+          alert('Country is required');
           this.emailSectionInvalid = true;
           return false;
         }
