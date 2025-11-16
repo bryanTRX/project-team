@@ -45,6 +45,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
 
   user: UserProfile | null = null;
   currentLanguage: string = 'en';
+  showTierPopup = false;
   private languageSubscription?: Subscription;
   private routerSubscription?: Subscription;
 
@@ -211,5 +212,40 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
 
   formatNumber(value: number): string {
     return value.toLocaleString();
+  }
+
+  get allTiers(): TierBadge[] {
+    if (!this.tierBadgesComponent) {
+      return [];
+    }
+    return this.tierBadgesComponent.tiers || [];
+  }
+
+  isCurrentTier(tier: TierBadge): boolean {
+    return this.currentTier?.tier === tier.tier;
+  }
+
+  getTierDescription(tier: TierBadge): string {
+    const descriptions: { [key: string]: string } = {
+      demeter: 'Our foundational tier for compassionate supporters who help nurture families in need.',
+      artemis: 'For dedicated protectors who provide significant support to safeguard vulnerable families.',
+      athena: 'Our highest tier for guardians who champion lasting change and transformation.',
+    };
+    return descriptions[tier.tier] || '';
+  }
+
+  getTierAmountRange(tier: TierBadge): string {
+    if (tier.maxAmount) {
+      return `$${tier.minAmount.toLocaleString()} - $${tier.maxAmount.toLocaleString()}`;
+    }
+    return `$${tier.minAmount.toLocaleString()}+`;
+  }
+
+  onTierCardClick(): void {
+    this.showTierPopup = !this.showTierPopup;
+  }
+
+  closeTierPopup(): void {
+    this.showTierPopup = false;
   }
 }
