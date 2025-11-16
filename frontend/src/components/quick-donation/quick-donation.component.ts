@@ -43,11 +43,18 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
       case 100:
         return this.languageService.getTranslation('therapy_session') || '1 therapy session';
       case 250:
-        return this.languageService.getTranslation('legal_aid_consultation') || 'Legal aid consultation';
+        return (
+          this.languageService.getTranslation('legal_aid_consultation') || 'Legal aid consultation'
+        );
       case 500:
-        return this.languageService.getTranslation('week_counseling_support') || '1 week of counseling support';
+        return (
+          this.languageService.getTranslation('week_counseling_support') ||
+          '1 week of counseling support'
+        );
       case 1000:
-        return this.languageService.getTranslation('month_safe_shelter') || '1 month of safe shelter';
+        return (
+          this.languageService.getTranslation('month_safe_shelter') || '1 month of safe shelter'
+        );
       default:
         return '';
     }

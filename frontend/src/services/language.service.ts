@@ -391,7 +391,7 @@ export class LanguageService {
     },
     month_safe_shelter: {
       en: '1 month of safe shelter',
-      fr: '1 mois d\'abri sûr',
+      fr: "1 mois d'abri sûr",
       es: '1 mes de refugio seguro',
       ar: 'شهر واحد من المأوى الآمن',
       zh: '1个月安全住所',

@@ -162,11 +162,11 @@
     align-items: center;
     gap: 1.25rem;
     flex-shrink: 0;
-    margin-right: 100px; // Add margin to avoid chatbot overlap
+    margin-right: 100px;
 
     @media (max-width: 1024px) {
       gap: 1rem;
-      margin-right: 0; // Remove margin on smaller screens
+      margin-right: 0;
     }
 
     & > * {
