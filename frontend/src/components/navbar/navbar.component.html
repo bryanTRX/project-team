@@ -46,6 +46,39 @@
           </a>
         </div>
         <div class="nav-actions">
+          <div class="accessibility-menu-wrapper">
+            <button
+              type="button"
+              class="accessibility-btn"
+              (click)="toggleAccessibilityMenu($event)"
+              [attr.aria-label]="languageService.getTranslation('accessibility_settings')"
+            >
+              <i class="fas fa-universal-access"></i>
+            </button>
+            <div
+              class="accessibility-menu"
+              *ngIf="accessibilityMenuOpen"
+              (click)="$event.stopPropagation()"
+            >
+              <div class="accessibility-menu-item">
+                <label class="accessibility-select-label">
+                  <i class="fas fa-text-height"></i>
+                  {{ languageService.getTranslation('text_size') }}
+                </label>
+                <select
+                  class="accessibility-select"
+                  [value]="textSize"
+                  (change)="onTextSizeChange($any($event.target).value)"
+                >
+                  <option value="normal">{{ languageService.getTranslation('normal') }}</option>
+                  <option value="large">{{ languageService.getTranslation('large') }}</option>
+                  <option value="xlarge">{{
+                    languageService.getTranslation('extra_large')
+                  }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
           <app-language-selector></app-language-selector>
           <div class="user-menu-wrapper" *ngIf="isAuthenticated()">
             <button type="button" class="login-btn" (click)="toggleDropdown($event)">

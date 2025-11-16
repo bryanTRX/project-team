@@ -175,6 +175,116 @@
     }
   }
 
+  .accessibility-menu-wrapper {
+    position: relative;
+  }
+
+  .accessibility-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: white;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 50%;
+    color: #7b68ee;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    flex-shrink: 0;
+
+    @media (max-width: 768px) {
+      width: 34px;
+      height: 34px;
+    }
+
+    i {
+      font-size: 1rem;
+    }
+
+    &:hover {
+      background-color: #7b68ee;
+      color: white;
+      border-color: #7b68ee;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(123, 104, 238, 0.2);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  .accessibility-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    min-width: 220px;
+    z-index: 1001;
+    overflow: hidden;
+    animation: slideDown 0.2s ease;
+    padding: 0.75rem;
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .accessibility-menu-item {
+    padding: 0;
+  }
+
+  .accessibility-select-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+
+    i {
+      font-size: 0.875rem;
+      color: #7b68ee;
+      width: 16px;
+      text-align: center;
+    }
+  }
+
+  .accessibility-select {
+    width: 100%;
+    border-radius: 8px;
+    border: 1.5px solid rgba(123, 104, 238, 0.3);
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    background: #fff;
+    font-family: inherit;
+    color: #2d3748;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #7b68ee;
+      box-shadow: 0 0 0 3px rgba(123, 104, 238, 0.15);
+    }
+
+    &:hover {
+      border-color: #7b68ee;
+    }
+  }
+
   .user-menu-wrapper {
     position: relative;
   }

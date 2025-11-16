@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 import { AuthService } from '../../services/auth.service';
+import { AccessibilityService } from '../../services/accessibility.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -67,13 +68,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
     ];
   }
 
-  get textSizeOptions() {
-    return [
-      { value: 'normal', label: this.languageService.getTranslation('normal') },
-      { value: 'large', label: this.languageService.getTranslation('large') },
-      { value: 'xlarge', label: this.languageService.getTranslation('extra_large') },
-    ];
-  }
 
   selectedPaymentMethod = 'card';
   updatesOptIn = false;
@@ -101,14 +95,14 @@ export class PaymentComponent implements OnInit, OnDestroy {
   newPassword = '';
   emailSectionInvalid = false;
   showSuccess = false;
-  showAccessibilityPanel = false;
-  simpleMode = false;
   textSize: 'normal' | 'large' | 'xlarge' = 'normal';
+  private textSizeSubscription?: Subscription;
 
   constructor(
     private router: Router,
     public languageService: LanguageService,
     private authService: AuthService,
+    private accessibilityService: AccessibilityService,
   ) {}
 
   ngOnInit(): void {
@@ -142,11 +136,22 @@ export class PaymentComponent implements OnInit, OnDestroy {
         this.email = user.email;
       }
     }
+
+    // Load accessibility settings
+    this.textSize = this.accessibilityService.textSize;
+
+    // Subscribe to text size changes
+    this.textSizeSubscription = this.accessibilityService.textSize$.subscribe((value) => {
+      this.textSize = value;
+    });
   }
 
   ngOnDestroy(): void {
     if (this.languageSubscription) {
       this.languageSubscription.unsubscribe();
+    }
+    if (this.textSizeSubscription) {
+      this.textSizeSubscription.unsubscribe();
     }
   }
 
@@ -291,43 +296,41 @@ export class PaymentComponent implements OnInit, OnDestroy {
         }
       }
 
-      // Validate contact and address fields if not in simple mode
-      if (!this.simpleMode) {
-        if (!this.firstName || !this.firstName.trim()) {
-          alert('First Name is required');
-          this.emailSectionInvalid = true;
-          return false;
-        }
-        if (!this.lastName || !this.lastName.trim()) {
-          alert('Last Name is required');
-          this.emailSectionInvalid = true;
-          return false;
-        }
-        if (!this.address || !this.address.trim()) {
-          alert('Street Address is required');
-          this.emailSectionInvalid = true;
-          return false;
-        }
-        if (!this.city || !this.city.trim()) {
-          alert('City is required');
-          this.emailSectionInvalid = true;
-          return false;
-        }
-        if (!this.province || !this.province.trim()) {
-          alert('Province/State is required');
-          this.emailSectionInvalid = true;
-          return false;
-        }
-        if (!this.postalCode || !this.postalCode.trim()) {
-          alert('Postal Code/ZIP is required');
-          this.emailSectionInvalid = true;
-          return false;
-        }
-        if (!this.country || !this.country.trim()) {
-          alert('Country is required');
-          this.emailSectionInvalid = true;
-          return false;
-        }
+      // Validate contact and address fields
+      if (!this.firstName || !this.firstName.trim()) {
+        alert('First Name is required');
+        this.emailSectionInvalid = true;
+        return false;
+      }
+      if (!this.lastName || !this.lastName.trim()) {
+        alert('Last Name is required');
+        this.emailSectionInvalid = true;
+        return false;
+      }
+      if (!this.address || !this.address.trim()) {
+        alert('Street Address is required');
+        this.emailSectionInvalid = true;
+        return false;
+      }
+      if (!this.city || !this.city.trim()) {
+        alert('City is required');
+        this.emailSectionInvalid = true;
+        return false;
+      }
+      if (!this.province || !this.province.trim()) {
+        alert('Province/State is required');
+        this.emailSectionInvalid = true;
+        return false;
+      }
+      if (!this.postalCode || !this.postalCode.trim()) {
+        alert('Postal Code/ZIP is required');
+        this.emailSectionInvalid = true;
+        return false;
+      }
+      if (!this.country || !this.country.trim()) {
+        alert('Country is required');
+        this.emailSectionInvalid = true;
+        return false;
       }
     }
     return true;
@@ -403,16 +406,5 @@ export class PaymentComponent implements OnInit, OnDestroy {
     return translation
       .replace('${{amount}}', formattedAmount)
       .replace('{{amount}}', formattedAmount);
-  }
-
-  toggleAccessibilityPanel(): void {
-    this.showAccessibilityPanel = !this.showAccessibilityPanel;
-  }
-
-  trackSimpleModeChange(): void {
-    // Clear optional fields when entering simple mode for clarity
-    if (this.simpleMode) {
-      this.updatesOptIn = false;
-    }
   }
 }

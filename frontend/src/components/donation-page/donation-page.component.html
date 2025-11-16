@@ -1,7 +1,6 @@
 <app-navbar></app-navbar>
 <section
   class="donation-page-section"
-  [class.simple-mode]="simpleMode"
   [class.large-text]="largeText"
 >
   <div class="container">
@@ -17,15 +16,6 @@
         </p>
       </div>
       <div class="accessibility-controls">
-        <button
-          class="control-btn"
-          [class.active]="simpleMode"
-          (click)="toggleSimpleMode()"
-          aria-label="Toggle Simple Mode"
-        >
-          <i class="fas fa-magic"></i>
-          <span>Simple Mode</span>
-        </button>
         <button
           class="control-btn"
           [class.active]="largeText"

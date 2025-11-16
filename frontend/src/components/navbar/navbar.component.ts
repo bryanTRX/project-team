@@ -1,34 +1,48 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { AuthService } from '../../services/auth.service';
 import { LanguageService } from '../../services/language.service';
+import { AccessibilityService } from '../../services/accessibility.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule, LanguageSelectorComponent],
+  imports: [CommonModule, RouterModule, FormsModule, LanguageSelectorComponent],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   menuOpen = false;
   dropdownOpen = false;
+  accessibilityMenuOpen = false;
   currentLanguage: string = 'en';
+  textSize: 'normal' | 'large' | 'xlarge' = 'normal';
   private languageSubscription?: Subscription;
+  private textSizeSubscription?: Subscription;
 
   constructor(
     private authService: AuthService,
     public languageService: LanguageService,
     private router: Router,
+    private accessibilityService: AccessibilityService,
   ) {}
 
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getCurrentLanguage();
     this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       this.currentLanguage = lang;
+    });
+
+    // Load accessibility settings
+    this.textSize = this.accessibilityService.textSize;
+
+    // Subscribe to text size changes
+    this.textSizeSubscription = this.accessibilityService.textSize$.subscribe((value) => {
+      this.textSize = value;
     });
 
     // Close dropdown when clicking outside
@@ -39,6 +53,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (this.languageSubscription) {
       this.languageSubscription.unsubscribe();
     }
+    if (this.textSizeSubscription) {
+      this.textSizeSubscription.unsubscribe();
+    }
     document.removeEventListener('click', this.handleClickOutside.bind(this));
   }
 
@@ -46,6 +63,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const target = event.target as HTMLElement;
     if (!target.closest('.user-menu-wrapper')) {
       this.closeDropdown();
+    }
+    if (!target.closest('.accessibility-menu-wrapper')) {
+      this.closeAccessibilityMenu();
     }
   }
 
@@ -138,5 +158,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
         fallback.style.display = 'flex';
       }
     }
+  }
+
+  toggleAccessibilityMenu(event?: Event): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.accessibilityMenuOpen = !this.accessibilityMenuOpen;
+  }
+
+  closeAccessibilityMenu(): void {
+    this.accessibilityMenuOpen = false;
+  }
+
+  onTextSizeChange(size: 'normal' | 'large' | 'xlarge'): void {
+    this.accessibilityService.setTextSize(size);
   }
 }

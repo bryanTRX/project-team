@@ -52,7 +52,6 @@ export class DonationPageComponent implements OnInit {
   paymentMethod: string = 'credit-card';
 
   // Accessibility
-  simpleMode = false;
   largeText = false;
 
   // Final step
@@ -140,9 +139,6 @@ export class DonationPageComponent implements OnInit {
     }
   }
 
-  toggleSimpleMode(): void {
-    this.simpleMode = !this.simpleMode;
-  }
 
   toggleLargeText(): void {
     this.largeText = !this.largeText;

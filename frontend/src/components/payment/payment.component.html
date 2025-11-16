@@ -5,45 +5,8 @@
         class="payment-card"
         [ngClass]="{ 'text-large': textSize === 'large', 'text-xlarge': textSize === 'xlarge' }"
       >
-        <div class="accessibility-panel" *ngIf="showAccessibilityPanel">
-          <div class="panel-row">
-            <div>
-              <p class="panel-title">{{ languageService.getTranslation('simple_mode') }}</p>
-              <span class="panel-subtitle">{{
-                languageService.getTranslation('show_only_essential')
-              }}</span>
-            </div>
-            <label class="toggle-switch">
-              <input
-                type="checkbox"
-                name="simpleMode"
-                [(ngModel)]="simpleMode"
-                (change)="trackSimpleModeChange()"
-              />
-              <span class="slider"></span>
-            </label>
-          </div>
-          <div class="panel-row">
-            <div class="panel-label">
-              <i class="fas fa-text-height"></i>
-              <span>{{ languageService.getTranslation('text_size') }}</span>
-            </div>
-            <select [(ngModel)]="textSize" name="textSize">
-              <option *ngFor="let option of textSizeOptions" [value]="option.value">
-                {{ option.label }}
-              </option>
-            </select>
-          </div>
-        </div>
-
         <div class="form-headline">
-          <div class="headline-row">
-            <h1>{{ languageService.getTranslation('make_difference_today_payment') }}</h1>
-            <button class="accessibility-btn" type="button" (click)="toggleAccessibilityPanel()">
-              <i class="fas fa-universal-access"></i>
-              <span>{{ languageService.getTranslation('accessibility_settings') }}</span>
-            </button>
-          </div>
+          <h1>{{ languageService.getTranslation('make_difference_today_payment') }}</h1>
           <p>{{ languageService.getTranslation('generosity_provides_safety') }}</p>
         </div>
 
@@ -121,7 +84,7 @@
                   autocomplete="new-password"
                 />
               </div>
-              <div class="checkbox-group" *ngIf="!simpleMode">
+              <div class="checkbox-group">
                 <label class="checkbox-field">
                   <input
                     type="checkbox"
@@ -181,7 +144,7 @@
             </div>
 
             <!-- Address Section -->
-            <div class="address-section" *ngIf="!simpleMode">
+            <div class="address-section">
               <h3 class="section-subtitle">Address</h3>
 
               <div class="input-field">

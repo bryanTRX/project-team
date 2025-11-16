@@ -1260,23 +1260,6 @@
   margin: 0;
 }
 
-// Simple Mode Styles
-.simple-mode {
-  .amount-buttons-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .form-section-card {
-    .section-title {
-      font-size: 1.1rem;
-    }
-  }
-
-  .amount-btn .amount-impact,
-  .frequency-btn .freq-desc {
-    display: none;
-  }
-}
 
 // Responsive
 @media (max-width: 1023px) {
