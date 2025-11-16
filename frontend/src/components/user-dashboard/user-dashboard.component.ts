@@ -1,4 +1,12 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  AfterViewInit,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { AuthService, UserProfile } from '../../services/auth.service';
@@ -83,7 +91,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
 
     // Reload user data when navigating to dashboard
     this.routerSubscription = this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         this.loadUserData();
       });

@@ -668,7 +668,9 @@ input[type='number']::-webkit-inner-spin-button {
       padding: 0.7rem 0.85rem;
       background: #faf9f6;
       font-size: 0.95rem;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 
       &:focus {
         outline: none;
@@ -701,7 +703,9 @@ input[type='number']::-webkit-inner-spin-button {
     background: #faf9f6;
     font-size: 0.92rem;
     font-family: inherit;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
 
     &:focus {
       outline: none;
@@ -759,7 +763,9 @@ input[type='number']::-webkit-inner-spin-button {
   justify-content: center;
   gap: 0.4rem;
   box-shadow: 0 12px 24px rgba(123, 104, 238, 0.25);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:hover {
     transform: translateY(-1px);

@@ -1,4 +1,10 @@
-import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpException,
+  HttpStatus,
+  Post,
+} from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { LoginDto } from './dto/login.dto';
 
@@ -22,13 +28,25 @@ export class AuthController {
     }
     if (!user) {
       if (debug) console.log('[auth] user not found for', username);
-      throw new HttpException('Invalid username or password', HttpStatus.UNAUTHORIZED);
+      throw new HttpException(
+        'Invalid username or password',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     // NOTE: For simple dev flow we compare plaintext. If you hash passwords, replace with bcrypt.compare
     if (user.password !== password) {
-      if (debug) console.log('[auth] password mismatch; stored:', user.password, 'received:', password);
-      throw new HttpException('Invalid username or password', HttpStatus.UNAUTHORIZED);
+      if (debug)
+        console.log(
+          '[auth] password mismatch; stored:',
+          user.password,
+          'received:',
+          password,
+        );
+      throw new HttpException(
+        'Invalid username or password',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     // Remove password before returning

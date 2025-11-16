@@ -19,7 +19,7 @@ import { AuthController } from './auth/auth.controller';
         const uri = configService.get<string>('MONGO_URI');
         if (!uri) {
           throw new Error(
-            'MONGO_URI is not set. Set the MONGO_URI environment variable to your MongoDB Atlas connection string.'
+            'MONGO_URI is not set. Set the MONGO_URI environment variable to your MongoDB Atlas connection string.',
           );
         }
         return { uri };

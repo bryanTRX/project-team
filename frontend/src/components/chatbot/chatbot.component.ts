@@ -50,21 +50,21 @@ export class ChatbotComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getCurrentLanguage();
-    
+
     // Initialize Text-to-Speech
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       this.speechSynthesis = window.speechSynthesis;
-      
+
       // Load voices (some browsers need this)
       this.loadVoices();
-      
+
       // Some browsers load voices asynchronously
       if (this.speechSynthesis.onvoiceschanged !== undefined) {
         this.speechSynthesis.onvoiceschanged = () => {
           this.loadVoices();
         };
       }
-      
+
       // Fallback: try loading voices after a short delay (for browsers that don't fire onvoiceschanged)
       setTimeout(() => {
         if (!this.voicesLoaded && this.speechSynthesis) {
@@ -72,14 +72,14 @@ export class ChatbotComponent implements OnInit, OnDestroy {
         }
       }, 100);
     }
-    
+
     this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       const previousLang = this.currentLanguage;
       this.currentLanguage = lang;
-      
+
       // Stop any ongoing speech when language changes
       this.stopSpeech();
-      
+
       // If language changed, update all existing messages
       if (previousLang !== lang) {
         this.updateMessagesForNewLanguage();
@@ -98,7 +98,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     // Collect all user messages and update bot messages
     for (let i = 0; i < this.messages.length; i++) {
       const msg = this.messages[i];
-      
+
       if (msg.isUser) {
         userMessages.push(msg.text);
         updatedMessages.push(msg);
@@ -110,12 +110,12 @@ export class ChatbotComponent implements OnInit, OnDestroy {
 
     // Clear messages and regenerate conversation in new language
     this.messages = [];
-    
+
     // If we have user messages, regenerate the conversation
     if (userMessages.length > 0) {
       // Add welcome message in new language
       this.addBotMessage(this.getWelcomeMessage(), this.getWelcomeQuickActions());
-      
+
       // Regenerate responses for each user message
       userMessages.forEach((userText) => {
         this.addUserMessage(userText);
@@ -159,7 +159,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     this.showQuickActions = false;
     this.addUserMessage(action);
     this.isTyping = true;
-    
+
     setTimeout(() => {
       const response = this.generateResponse(action);
       this.addBotMessage(response.text, response.quickActions);
@@ -212,12 +212,14 @@ export class ChatbotComponent implements OnInit, OnDestroy {
 
     // Use Web Share API if available
     if (navigator.share) {
-      navigator.share({
-        title: 'Chat with Shield of Athena',
-        text: shareText,
-      }).catch((err) => {
-        console.log('Error sharing:', err);
-      });
+      navigator
+        .share({
+          title: 'Chat with Shield of Athena',
+          text: shareText,
+        })
+        .catch((err) => {
+          console.log('Error sharing:', err);
+        });
     } else {
       // If Web Share API is not available, show a message
       alert(this.getTranslation('share_not_available', this.currentLanguage));
@@ -241,7 +243,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
 
     try {
       const utterance = new SpeechSynthesisUtterance(cleanText);
-      
+
       // Set language based on current language - get fresh value
       const currentLang = this.languageService.getCurrentLanguage();
       const langMap: { [key: string]: string } = {
@@ -258,7 +260,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       };
       const langCode = langMap[currentLang] || langMap['en'] || 'en-US';
       utterance.lang = langCode;
-      
+
       // Select a voice that matches the language
       const voice = this.getVoiceForLanguage(langCode);
       if (voice) {
@@ -270,7 +272,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
         // The browser will try to use its default voice for that language
         utterance.lang = langCode;
       }
-      
+
       utterance.rate = 1.0;
       utterance.pitch = 1.0;
       utterance.volume = 0.8;
@@ -294,7 +296,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       this.speakingMessageIndex = messageIndex;
       this.isPausedState = false;
       this.cdr.detectChanges();
-      
+
       // Attempt to speak - will work even if no perfect voice match is found
       this.speechSynthesis.speak(utterance);
     } catch (error) {
@@ -309,7 +311,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
 
   loadVoices(): void {
     if (!this.speechSynthesis) return;
-    
+
     try {
       const voices = this.speechSynthesis.getVoices();
       if (voices && voices.length > 0) {
@@ -324,56 +326,55 @@ export class ChatbotComponent implements OnInit, OnDestroy {
 
   getVoiceForLanguage(langCode: string): SpeechSynthesisVoice | null {
     if (!this.speechSynthesis) return null;
-    
+
     // Ensure voices are loaded
     if (!this.voicesLoaded || this.availableVoices.length === 0) {
       this.loadVoices();
     }
-    
-    const voices = this.availableVoices.length > 0 
-      ? this.availableVoices 
-      : this.speechSynthesis.getVoices();
-    
+
+    const voices =
+      this.availableVoices.length > 0 ? this.availableVoices : this.speechSynthesis.getVoices();
+
     if (!voices || voices.length === 0) {
       // No voices available on this device
       return null;
     }
 
     // Try to find a voice that matches the language exactly
-    let voice = voices.find(v => v.lang === langCode);
-    
+    let voice = voices.find((v) => v.lang === langCode);
+
     // If exact match not found, try to find a voice with the same language prefix
     if (!voice) {
       const langPrefix = langCode.split('-')[0];
-      voice = voices.find(v => v.lang.startsWith(langPrefix));
+      voice = voices.find((v) => v.lang.startsWith(langPrefix));
     }
-    
+
     // If still not found, try to find any voice with similar language
     if (!voice) {
       const langMap: { [key: string]: string[] } = {
-        'en': ['en-US', 'en-GB', 'en-AU', 'en-CA'],
-        'fr': ['fr-FR', 'fr-CA', 'fr-BE'],
-        'es': ['es-ES', 'es-MX', 'es-AR'],
-        'ar': ['ar-SA', 'ar-EG', 'ar-AE'],
-        'zh': ['zh-CN', 'zh-TW', 'zh-HK'],
-        'hi': ['hi-IN'],
-        'ru': ['ru-RU'],
-        'pt': ['pt-BR', 'pt-PT'],
-        'it': ['it-IT'],
-        'de': ['de-DE', 'de-AT', 'de-CH'],
+        en: ['en-US', 'en-GB', 'en-AU', 'en-CA'],
+        fr: ['fr-FR', 'fr-CA', 'fr-BE'],
+        es: ['es-ES', 'es-MX', 'es-AR'],
+        ar: ['ar-SA', 'ar-EG', 'ar-AE'],
+        zh: ['zh-CN', 'zh-TW', 'zh-HK'],
+        hi: ['hi-IN'],
+        ru: ['ru-RU'],
+        pt: ['pt-BR', 'pt-PT'],
+        it: ['it-IT'],
+        de: ['de-DE', 'de-AT', 'de-CH'],
       };
-      
+
       const langPrefix = langCode.split('-')[0];
       const possibleLangs = langMap[langPrefix] || [];
       for (const possibleLang of possibleLangs) {
-        voice = voices.find(v => v.lang === possibleLang);
+        voice = voices.find((v) => v.lang === possibleLang);
         if (voice) break;
       }
     }
-    
+
     // Fallback: prefer a default voice, but if none available, use first voice
     // Some devices may not have voices for all languages, so we gracefully degrade
-    return voice || voices.find(v => v.default) || voices[0] || null;
+    return voice || voices.find((v) => v.default) || voices[0] || null;
   }
 
   toggleSpeech(messageIndex: number, text: string): void {
@@ -421,8 +422,10 @@ export class ChatbotComponent implements OnInit, OnDestroy {
 
   isSpeaking(messageIndex: number): boolean {
     if (!this.speechSynthesis) return false;
-    return this.speakingMessageIndex === messageIndex && 
-           (this.speechSynthesis.speaking || this.speechSynthesis.paused);
+    return (
+      this.speakingMessageIndex === messageIndex &&
+      (this.speechSynthesis.speaking || this.speechSynthesis.paused)
+    );
   }
 
   isPaused(messageIndex: number): boolean {
@@ -462,7 +465,9 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     }
 
     // Help/Assistance queries
-    if (this.containsKeywords(message, ['help', 'aide', 'ayuda', 'assistance', 'emergency', 'urgent'])) {
+    if (
+      this.containsKeywords(message, ['help', 'aide', 'ayuda', 'assistance', 'emergency', 'urgent'])
+    ) {
       const quickActions = [
         { label: this.getTranslation('quick_helpline', lang), action: 'helpline' },
         { label: this.getTranslation('quick_shelter', lang), action: 'shelter' },
@@ -497,7 +502,16 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     }
 
     // Impact/Results queries
-    if (this.containsKeywords(message, ['impact', 'impacto', 'effet', 'result', 'statistics', 'numbers'])) {
+    if (
+      this.containsKeywords(message, [
+        'impact',
+        'impacto',
+        'effet',
+        'result',
+        'statistics',
+        'numbers',
+      ])
+    ) {
       return {
         text: this.getTranslation('chat_impact_info', lang),
         quickActions: [
@@ -508,7 +522,9 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     }
 
     // Shelter queries
-    if (this.containsKeywords(message, ['shelter', 'refuge', 'albergue', 'abri', 'housing', 'safe'])) {
+    if (
+      this.containsKeywords(message, ['shelter', 'refuge', 'albergue', 'abri', 'housing', 'safe'])
+    ) {
       return {
         text: this.getTranslation('chat_shelter_info', lang),
         quickActions: [
@@ -574,7 +590,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
         'chi sei',
         'wer sind Sie',
         'shield of athena',
-        'bouclier d\'athéna',
+        "bouclier d'athéna",
         'escudo de atenea',
         'درع أثينا',
         '雅典娜之盾',
@@ -706,7 +722,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   getTierInfo(lang: string): string {
     const translations: { [key: string]: string } = {
       en: "Oh, great question! We have three donation tiers that recognize our amazing supporters:\n\n🌟 Demeter (Nurture Tier): $0-$999\n   You'll get thank you emails, our newsletter, and community updates\n\n🛡️ Artemis (Protector Tier): $1,000-$4,999\n   Everything from Demeter, plus recognition on our donor wall and VIP event access\n\n⚔️ Athena (Guardian Tier): $5,000+\n   All Artemis benefits, plus you can attend board meetings and even name programs!\n\nPretty cool, right? Want to know more?",
-      fr: "Oh, excellente question! On a trois niveaux de don qui reconnaissent nos super supporters:\n\n🌟 Demeter (Niveau Nurture): 0$-999$\n   Tu recevras des emails de remerciement, notre newsletter, et des mises à jour communautaires\n\n🛡️ Artemis (Niveau Protecteur): 1,000$-4,999$\n   Tout de Demeter, plus reconnaissance sur notre mur des donateurs et accès aux événements VIP\n\n⚔️ Athena (Niveau Gardien): 5,000$+\n   Tous les avantages Artemis, plus tu peux assister aux réunions du conseil et même nommer des programmes!\n\nPlutôt cool, non? Tu veux en savoir plus?",
+      fr: 'Oh, excellente question! On a trois niveaux de don qui reconnaissent nos super supporters:\n\n🌟 Demeter (Niveau Nurture): 0$-999$\n   Tu recevras des emails de remerciement, notre newsletter, et des mises à jour communautaires\n\n🛡️ Artemis (Niveau Protecteur): 1,000$-4,999$\n   Tout de Demeter, plus reconnaissance sur notre mur des donateurs et accès aux événements VIP\n\n⚔️ Athena (Niveau Gardien): 5,000$+\n   Tous les avantages Artemis, plus tu peux assister aux réunions du conseil et même nommer des programmes!\n\nPlutôt cool, non? Tu veux en savoir plus?',
       es: '¡Oh, excelente pregunta! Tenemos tres niveles de donación que reconocen a nuestros increíbles seguidores:\n\n🌟 Demeter (Nivel Nutrir): $0-$999\n   Recibirás emails de agradecimiento, nuestro boletín y actualizaciones comunitarias\n\n🛡️ Artemis (Nivel Protector): $1,000-$4,999\n   Todo de Demeter, más reconocimiento en nuestro muro de donantes y acceso a eventos VIP\n\n⚔️ Athena (Nivel Guardián): $5,000+\n   ¡Todos los beneficios de Artemis, más puedes asistir a reuniones de junta e incluso nombrar programas!\n\n¡Bastante genial, ¿verdad? ¿Quieres saber más?',
       ar: 'أوه، سؤال رائع! لدينا ثلاثة مستويات تبرع تعترف بداعمينا الرائعين:\n\n🌟 ديميتر (مستوى الرعاية): 0$-999$\n   ستحصل على رسائل شكر، نشرتنا الإخبارية، وتحديثات المجتمع\n\n🛡️ أرتميس (مستوى الحماية): 1,000$-4,999$\n   كل شيء من ديميتر، بالإضافة إلى الاعتراف على جدار المتبرعين والوصول إلى فعاليات VIP\n\n⚔️ أثينا (مستوى الحارس): 5,000$+\n   جميع فوائد أرتميس، بالإضافة إلى أنه يمكنك حضور اجتماعات المجلس وحتى تسمية البرامج!\n\nرائع جداً، أليس كذلك؟ تريد معرفة المزيد؟',
       zh: '哦，好问题！我们有三个捐赠等级来认可我们出色的支持者：\n\n🌟 得墨忒耳（培育等级）：$0-$999\n   您将收到感谢邮件、我们的通讯和社区更新\n\n🛡️ 阿尔忒弥斯（保护者等级）：$1,000-$4,999\n   得墨忒耳的所有福利，加上在我们的捐赠墙上获得认可和VIP活动访问权限\n\n⚔️ 雅典娜（守护者等级）：$5,000+\n   阿尔忒弥斯的所有福利，加上您可以参加董事会会议甚至命名项目！\n\n很酷，对吧？想了解更多吗？',
@@ -729,7 +745,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       hi: 'मुझे बहुत खुशी है कि आपने पूछा! शील्ड ऑफ एथेना मॉन्ट्रियल, क्यूबेक में स्थित एक गैर-लाभकारी संगठन है। हम 1991 से घरेलू हिंसा का अनुभव करने वाली महिलाओं और बच्चों की मदद कर रहे हैं।\n\nहमारा मिशन प्रदान करना है:\n\n🛡️ सुरक्षा - घरेलू हिंसा से भागने वाली महिलाओं और बच्चों के लिए सुरक्षित आश्रय और आपातकालीन सेवाएं\n💙 समर्थन - बचे लोगों को ठीक होने और अपने जीवन को फिर से बनाने में मदद करने के लिए परामर्श और भावनात्मक समर्थन\n📚 शिक्षा - हिंसा के चक्र को तोड़ने के लिए रोकथाम कार्यक्रम और कौशल प्रशिक्षण\n🌍 बहुभाषी सेवाएं - हम मॉन्ट्रियल में विविध समुदायों की सेवा के लिए 10+ भाषाएं बोलते हैं\n⚖️ कानूनी सहायता - कानूनी प्रणाली में नेविगेट करने और संसाधनों तक पहुंचने में मदद\n\nहम 24/7 यहां हैं ताकि महिलाओं और बच्चों को घरेलू हिंसा से बचने और नया जीवन शुरू करने में मदद कर सकें। हर दान हमें इस महत्वपूर्ण काम को जारी रखने में मदद करता है। आप कैसे मदद कर सकते हैं, इसके बारे में और जानना चाहेंगे?',
       ru: 'Я так рада, что вы спросили! Щит Афины - это некоммерческая организация, базирующаяся в Монреале, Квебек. Мы помогаем женщинам и детям, переживающим домашнее насилие, с 1991 года.\n\nНаша миссия - предоставлять:\n\n🛡️ Защита - Безопасное убежище и экстренные услуги для женщин и детей, спасающихся от домашнего насилия\n💙 Поддержка - Консультирование и эмоциональная поддержка, чтобы помочь выжившим исцелиться и восстановить свою жизнь\n📚 Образование - Программы профилактики и обучение навыкам, чтобы разорвать цикл насилия\n🌍 Многоязычные услуги - Мы говорим на 10+ языках, чтобы обслуживать разнообразные сообщества в Монреале\n⚖️ Юридическая помощь - Помощь в навигации по правовой системе и доступе к ресурсам\n\nМы здесь 24/7, чтобы помочь женщинам и детям избежать домашнего насилия и начать новую жизнь. Каждое пожертвование помогает нам продолжать эту критически важную работу. Хотите узнать больше о том, как вы можете помочь?',
       pt: 'Estou tão feliz que você perguntou! Escudo de Atena é uma organização sem fins lucrativos com sede em Montreal, Quebec. Temos ajudado mulheres e crianças que sofrem violência doméstica desde 1991.\n\nNossa missão é fornecer:\n\n🛡️ Proteção - Abrigo seguro e serviços de emergência para mulheres e crianças que fogem da violência doméstica\n💙 Apoio - Aconselhamento e apoio emocional para ajudar sobreviventes a curar e reconstruir suas vidas\n📚 Educação - Programas de prevenção e treinamento de habilidades para quebrar o ciclo de violência\n🌍 Serviços Multilíngues - Falamos 10+ idiomas para servir comunidades diversas em Montreal\n⚖️ Ajuda Legal - Ajuda para navegar no sistema legal e acessar recursos\n\nEstamos aqui 24/7 para ajudar mulheres e crianças a escapar da violência doméstica e começar novas vidas. Cada doação nos ajuda a continuar este trabalho crítico. Quer saber mais sobre como você pode ajudar?',
-      it: 'Sono così felice che tu abbia chiesto! Scudo di Atena è un\'organizzazione senza scopo di lucro con sede a Montreal, Quebec. Aiutiamo donne e bambini che subiscono violenza domestica dal 1991.\n\nLa nostra missione è fornire:\n\n🛡️ Protezione - Rifugio sicuro e servizi di emergenza per donne e bambini che fuggono dalla violenza domestica\n💙 Supporto - Consulenza e supporto emotivo per aiutare i sopravvissuti a guarire e ricostruire le loro vite\n📚 Educazione - Programmi di prevenzione e formazione per rompere il ciclo della violenza\n🌍 Servizi Multilingue - Parliamo 10+ lingue per servire comunità diverse a Montreal\n⚖️ Assistenza Legale - Aiuto per navigare nel sistema legale e accedere alle risorse\n\nSiamo qui 24/7 per aiutare donne e bambini a fuggire dalla violenza domestica e iniziare nuove vite. Ogni donazione ci aiuta a continuare questo lavoro critico. Vuoi saperne di più su come puoi aiutare?',
+      it: "Sono così felice che tu abbia chiesto! Scudo di Atena è un'organizzazione senza scopo di lucro con sede a Montreal, Quebec. Aiutiamo donne e bambini che subiscono violenza domestica dal 1991.\n\nLa nostra missione è fornire:\n\n🛡️ Protezione - Rifugio sicuro e servizi di emergenza per donne e bambini che fuggono dalla violenza domestica\n💙 Supporto - Consulenza e supporto emotivo per aiutare i sopravvissuti a guarire e ricostruire le loro vite\n📚 Educazione - Programmi di prevenzione e formazione per rompere il ciclo della violenza\n🌍 Servizi Multilingue - Parliamo 10+ lingue per servire comunità diverse a Montreal\n⚖️ Assistenza Legale - Aiuto per navigare nel sistema legale e accedere alle risorse\n\nSiamo qui 24/7 per aiutare donne e bambini a fuggire dalla violenza domestica e iniziare nuove vite. Ogni donazione ci aiuta a continuare questo lavoro critico. Vuoi saperne di più su come puoi aiutare?",
       de: 'Ich bin so glücklich, dass Sie gefragt haben! Schild der Athena ist eine gemeinnützige Organisation mit Sitz in Montreal, Quebec. Wir helfen seit 1991 Frauen und Kindern, die häusliche Gewalt erleben.\n\nUnsere Mission ist es, bereitzustellen:\n\n🛡️ Schutz - Sichere Unterkünfte und Notdienste für Frauen und Kinder, die vor häuslicher Gewalt fliehen\n💙 Unterstützung - Beratung und emotionale Unterstützung, um Überlebenden zu helfen, zu heilen und ihr Leben wieder aufzubauen\n📚 Bildung - Präventionsprogramme und Kompetenztraining, um den Kreislauf der Gewalt zu durchbrechen\n🌍 Mehrsprachige Dienste - Wir sprechen 10+ Sprachen, um vielfältige Gemeinschaften in Montreal zu bedienen\n⚖️ Rechtshilfe - Hilfe bei der Navigation im Rechtssystem und beim Zugang zu Ressourcen\n\nWir sind 24/7 hier, um Frauen und Kindern zu helfen, häuslicher Gewalt zu entkommen und neue Leben zu beginnen. Jede Spende hilft uns, diese kritische Arbeit fortzusetzen. Möchten Sie mehr darüber erfahren, wie Sie helfen können?',
     };
     return translations[lang] || translations['en'];
@@ -838,7 +854,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       },
       help: {
         en: 'I need help',
-        fr: 'j\'ai besoin d\'aide',
+        fr: "j'ai besoin d'aide",
         es: 'necesito ayuda',
         ar: 'أحتاج مساعدة',
         zh: '我需要帮助',
@@ -1136,12 +1152,12 @@ export class ChatbotComponent implements OnInit, OnDestroy {
         hi: 'मैं मदद के लिए यहां हूं! यदि आपको तत्काल सहायता की आवश्यकता है, कृपया हमारी 24/7 हेल्पलाइन 1-888-HELP-NOW पर कॉल करें - कोई न कोई हमेशा उपलब्ध रहता है। प्रश्नों या गैर-जरूरी मामलों के लिए, आप हमें help@shieldathena.org पर ईमेल कर सकते हैं। हम आपके लिए यहां हैं, ठीक है?',
         ru: 'Я здесь, чтобы помочь! Если вам нужна немедленная помощь, пожалуйста, позвоните на нашу круглосуточную линию помощи 1-888-HELP-NOW - кто-то всегда доступен. По вопросам или не срочным делам вы можете написать нам на help@shieldathena.org. Мы здесь для вас, хорошо?',
         pt: 'Estou aqui para ajudar! Se você precisar de assistência imediata, ligue para nossa linha de ajuda 24/7 no 1-888-HELP-NOW - sempre há alguém disponível. Para perguntas ou assuntos não urgentes, você pode nos enviar um e-mail para help@shieldathena.org. Estamos aqui para você, ok?',
-        it: 'Sono qui per aiutarti! Se hai bisogno di assistenza immediata, chiama la nostra linea di supporto 24/7 al 1-888-HELP-NOW - c\'è sempre qualcuno disponibile. Per domande o questioni non urgenti, puoi inviarci un\'email a help@shieldathena.org. Siamo qui per te, ok?',
+        it: "Sono qui per aiutarti! Se hai bisogno di assistenza immediata, chiama la nostra linea di supporto 24/7 al 1-888-HELP-NOW - c'è sempre qualcuno disponibile. Per domande o questioni non urgenti, puoi inviarci un'email a help@shieldathena.org. Siamo qui per te, ok?",
         de: 'Ich bin hier, um zu helfen! Wenn Sie sofortige Hilfe benötigen, rufen Sie bitte unsere 24/7-Hotline unter 1-888-HELP-NOW an - jemand ist immer verfügbar. Für Fragen oder nicht dringende Angelegenheiten können Sie uns eine E-Mail an help@shieldathena.org senden. Wir sind für Sie da, okay?',
       },
       chat_contact_info: {
         en: "Sure! Here's how you can reach us:\n\n📞 Phone: 1-888-HELP-NOW (24/7)\n📧 Email: help@shieldathena.org\n📍 We're in Montreal, QC\n\nWe're always here if you need us, especially for emergencies!",
-        fr: "Bien sûr! Voici comment nous joindre:\n\n📞 Téléphone: 1-888-HELP-NOW (24/7)\n📧 Courriel: help@shieldathena.org\n📍 On est à Montréal, QC\n\nOn est toujours là si tu as besoin, surtout pour les urgences!",
+        fr: 'Bien sûr! Voici comment nous joindre:\n\n📞 Téléphone: 1-888-HELP-NOW (24/7)\n📧 Courriel: help@shieldathena.org\n📍 On est à Montréal, QC\n\nOn est toujours là si tu as besoin, surtout pour les urgences!',
         es: '¡Por supuesto! Así puedes contactarnos:\n\n📞 Teléfono: 1-888-HELP-NOW (24/7)\n📧 Correo: help@shieldathena.org\n📍 Estamos en Montreal, QC\n\n¡Siempre estamos aquí si nos necesitas, especialmente para emergencias!',
         ar: 'بالتأكيد! إليك كيف يمكنك التواصل معنا:\n\n📞 الهاتف: 1-888-HELP-NOW (24/7)\n📧 البريد الإلكتروني: help@shieldathena.org\n📍 نحن في مونتريال، كيبيك\n\nنحن دائماً هنا إذا كنت بحاجة إلينا، خاصة في حالات الطوارئ!',
         zh: '当然！以下是如何联系我们：\n\n📞 电话：1-888-HELP-NOW (24/7)\n📧 电子邮件：help@shieldathena.org\n📍 我们在魁北克省蒙特利尔\n\n如果您需要我们，我们总是在这里，特别是在紧急情况下！',
@@ -1160,7 +1176,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
         hi: 'मुझे आपके साथ यह साझा करने पर बहुत गर्व है! पिछले साल, हमने 2,500 से अधिक लोगों की मदद की, 15,000 से अधिक रातों के लिए सुरक्षित आश्रय प्रदान किया, और 500 से अधिक परिवारों का समर्थन किया। हर दान एक वास्तविक अंतर बनाता है - आप सचमुच जीवन बदल रहे हैं!',
         ru: 'Я так горжусь тем, что делюсь этим с вами! В прошлом году мы помогли более 2500 людям, предоставили безопасное убежище на более чем 15000 ночей и поддержали более 500 семей. Каждое пожертвование имеет реальное значение - вы буквально меняете жизни!',
         pt: 'Estou tão orgulhosa de compartilhar isso com você! No ano passado, ajudamos mais de 2.500 pessoas, fornecemos abrigo seguro por mais de 15.000 noites e apoiamos mais de 500 famílias. Cada doação faz uma diferença real - você está literalmente mudando vidas!',
-        it: 'Sono così orgogliosa di condividere questo con te! L\'anno scorso abbiamo aiutato più di 2.500 persone, fornito rifugio sicuro per più di 15.000 notti e sostenuto più di 500 famiglie. Ogni donazione fa una vera differenza - stai letteralmente cambiando vite!',
+        it: "Sono così orgogliosa di condividere questo con te! L'anno scorso abbiamo aiutato più di 2.500 persone, fornito rifugio sicuro per più di 15.000 notti e sostenuto più di 500 famiglie. Ogni donazione fa una vera differenza - stai letteralmente cambiando vite!",
         de: 'Ich bin so stolz, dies mit Ihnen zu teilen! Im letzten Jahr haben wir über 2.500 Menschen geholfen, sichere Unterkünfte für über 15.000 Nächte bereitgestellt und mehr als 500 Familien unterstützt. Jede Spende macht einen echten Unterschied - Sie verändern buchstäblich Leben!',
       },
       chat_shelter_info: {
@@ -1177,7 +1193,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       },
       chat_greeting: {
         en: 'Hey! Good to see you again. What can I help you with?',
-        fr: 'Salut! Content de te revoir. Comment puis-je t\'aider?',
+        fr: "Salut! Content de te revoir. Comment puis-je t'aider?",
         es: '¡Hola! Me alegra verte de nuevo. ¿En qué puedo ayudarte?',
         ar: 'مرحباً! من الجيد رؤيتك مرة أخرى. كيف يمكنني مساعدتك؟',
         zh: '嘿！很高兴再次见到您。我能为您做些什么？',
@@ -1196,7 +1212,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
         hi: 'आपका स्वागत है! 😊 क्या आप कुछ और जानना चाहेंगे? मैं मदद के लिए यहां हूं!',
         ru: 'Пожалуйста! 😊 Есть ли что-то еще, что вы хотели бы узнать? Я здесь, чтобы помочь!',
         pt: 'De nada! 😊 Há mais alguma coisa que você gostaria de saber? Estou aqui para ajudar!',
-        it: 'Prego! 😊 C\'è qualcos\'altro che vorresti sapere? Sono qui per aiutare!',
+        it: "Prego! 😊 C'è qualcos'altro che vorresti sapere? Sono qui per aiutare!",
         de: 'Bitte sehr! 😊 Gibt es noch etwas, das Sie wissen möchten? Ich bin hier, um zu helfen!',
       },
       chat_default: {
@@ -1208,7 +1224,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
         hi: 'हम्म, मुझे पूरी तरह से यकीन नहीं है कि आप किस बारे में पूछ रहे हैं। क्या आप मुझे थोड़ा और बता सकते हैं? मैं आपकी दान, हमारे कार्यक्रमों, मदद प्राप्त करने, या बस हम क्या करते हैं के बारे में प्रश्नों का उत्तर देने में मदद कर सकती हूं। आप क्या जानना चाहेंगे?',
         ru: 'Хм, я не совсем уверена, о чем вы спрашиваете. Не могли бы вы рассказать мне немного больше? Я могу помочь вам с пожертвованиями, нашими программами, получением помощи или просто ответить на вопросы о том, что мы делаем. Что бы вы хотели узнать?',
         pt: 'Hmm, não tenho certeza do que você está perguntando. Você poderia me contar um pouco mais? Posso ajudá-lo com doações, nossos programas, obter ajuda ou apenas responder perguntas sobre o que fazemos. O que você gostaria de saber?',
-        it: 'Hmm, non sono del tutto sicura di cosa stai chiedendo. Potresti dirmi un po\' di più? Posso aiutarti con donazioni, i nostri programmi, ottenere aiuto o semplicemente rispondere a domande su ciò che facciamo. Cosa vorresti sapere?',
+        it: "Hmm, non sono del tutto sicura di cosa stai chiedendo. Potresti dirmi un po' di più? Posso aiutarti con donazioni, i nostri programmi, ottenere aiuto o semplicemente rispondere a domande su ciò che facciamo. Cosa vorresti sapere?",
         de: 'Hmm, ich bin mir nicht ganz sicher, wonach Sie fragen. Könnten Sie mir ein bisschen mehr erzählen? Ich kann Ihnen bei Spenden, unseren Programmen, Hilfe erhalten oder einfach Fragen zu dem beantworten, was wir tun. Was möchten Sie wissen?',
       },
       share_conversation: {
@@ -1225,7 +1241,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       },
       share_not_available: {
         en: 'Sharing is not available on this device. Please use the native share feature of your browser.',
-        fr: 'Le partage n\'est pas disponible sur cet appareil. Veuillez utiliser la fonction de partage native de votre navigateur.',
+        fr: "Le partage n'est pas disponible sur cet appareil. Veuillez utiliser la fonction de partage native de votre navigateur.",
         es: 'Compartir no está disponible en este dispositivo. Por favor, use la función de compartir nativa de su navegador.',
         ar: 'المشاركة غير متاحة على هذا الجهاز. يرجى استخدام ميزة المشاركة الأصلية لمتصفحك.',
         zh: '此设备上不可用分享功能。请使用浏览器的原生分享功能。',

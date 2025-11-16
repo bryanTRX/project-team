@@ -7,11 +7,7 @@
 
     <!-- IMPACT CARDS -->
     <div class="impact-cards">
-      <div
-        *ngFor="let card of impactCards"
-        class="impact-card"
-        (click)="onCardClick(card)"
-      >
+      <div *ngFor="let card of impactCards" class="impact-card" (click)="onCardClick(card)">
         <div class="card-icon" [style.color]="card.color">
           <i class="fas fa-{{ card.icon }}"></i>
         </div>
@@ -26,28 +22,21 @@
       <div class="message-content">
         <i class="fas fa-heart"></i>
         <ng-container *ngIf="supportRipplesText as text">
-          <p><strong>{{ text.first }}.</strong> {{ text.rest }}</p>
+          <p>
+            <strong>{{ text.first }}.</strong> {{ text.rest }}
+          </p>
         </ng-container>
       </div>
     </div>
   </div>
 
-
-  <div
-    class="impact-modal-backdrop"
-    *ngIf="selectedCard"
-    (click)="closeModal()"
-  ></div>
-
+  <div class="impact-modal-backdrop" *ngIf="selectedCard" (click)="closeModal()"></div>
 
   <div class="impact-modal" *ngIf="selectedCard">
     <button class="close-btn" (click)="closeModal()">×</button>
 
     <div class="modal-image">
-      <img
-        [src]="'../../assets/images/' + selectedCard.icon + '.png'"
-        alt="impact image"
-      />
+      <img [src]="'../../assets/images/' + selectedCard.icon + '.png'" alt="impact image" />
     </div>
 
     <h2 class="modal-title">{{ selectedCard.title }}</h2>

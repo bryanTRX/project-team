@@ -1,4 +1,11 @@
-import { Body, Controller, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 
 interface DonationPayload {
@@ -16,7 +23,10 @@ export class UsersController {
       throw new HttpException('User id is required', HttpStatus.BAD_REQUEST);
     }
     if (!Number.isFinite(amount) || amount <= 0) {
-      throw new HttpException('Donation amount must be greater than zero', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'Donation amount must be greater than zero',
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     const updated = await this.usersService.incrementTotalDonated(id, amount);

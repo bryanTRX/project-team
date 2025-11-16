@@ -1,19 +1,25 @@
 <section class="payment-section">
   <div class="container">
     <ng-container *ngIf="!showSuccess; else successState">
-      <div class="payment-card" [ngClass]="{'text-large': textSize === 'large', 'text-xlarge': textSize === 'xlarge'}">
+      <div
+        class="payment-card"
+        [ngClass]="{ 'text-large': textSize === 'large', 'text-xlarge': textSize === 'xlarge' }"
+      >
         <div class="accessibility-panel" *ngIf="showAccessibilityPanel">
           <div class="panel-row">
             <div>
               <p class="panel-title">{{ languageService.getTranslation('simple_mode') }}</p>
-              <span class="panel-subtitle">{{ languageService.getTranslation('show_only_essential') }}</span>
+              <span class="panel-subtitle">{{
+                languageService.getTranslation('show_only_essential')
+              }}</span>
             </div>
             <label class="toggle-switch">
               <input
                 type="checkbox"
                 name="simpleMode"
                 [(ngModel)]="simpleMode"
-                (change)="trackSimpleModeChange()">
+                (change)="trackSimpleModeChange()"
+              />
               <span class="slider"></span>
             </label>
           </div>
@@ -42,7 +48,11 @@
         </div>
 
         <form (ngSubmit)="onSubmit()" class="donation-form">
-          <div class="form-section email-section" *ngIf="!isAuthenticated" [class.has-error]="emailSectionInvalid">
+          <div
+            class="form-section email-section"
+            *ngIf="!isAuthenticated"
+            [class.has-error]="emailSectionInvalid"
+          >
             <label for="email">{{ languageService.getTranslation('email_address') }}</label>
             <p class="field-hint inline-under-label">
               {{ languageService.getTranslation('email_account_notice') }}
@@ -56,47 +66,54 @@
                 name="email"
                 placeholder="your.email@example.com"
                 (input)="handleEmailInput()"
-                required>
+                required
+              />
             </div>
             <div class="account-flow new" *ngIf="emailMode === 'new'">
               <p>{{ languageService.getTranslation('new_account_prompt') }}</p>
-              <label for="newUsername">{{ languageService.getTranslation('create_username_label') }}</label>
+              <label for="newUsername">{{
+                languageService.getTranslation('create_username_label')
+              }}</label>
               <input
                 type="text"
                 id="newUsername"
                 [(ngModel)]="newUsername"
                 name="newUsername"
                 placeholder="Choose a username"
-                autocomplete="username">
-              <label for="newPassword">{{ languageService.getTranslation('create_password_label') }}</label>
+                autocomplete="username"
+              />
+              <label for="newPassword">{{
+                languageService.getTranslation('create_password_label')
+              }}</label>
               <input
                 type="password"
                 id="newPassword"
                 [(ngModel)]="newPassword"
                 name="newPassword"
                 placeholder="Create a password"
-                autocomplete="new-password">
+                autocomplete="new-password"
+              />
             </div>
             <div class="account-flow existing" *ngIf="emailMode === 'existing'">
               <p>{{ languageService.getTranslation('existing_account_prompt') }}</p>
-              <label for="existingPassword">{{ languageService.getTranslation('existing_account_password_label') }}</label>
+              <label for="existingPassword">{{
+                languageService.getTranslation('existing_account_password_label')
+              }}</label>
               <input
                 type="password"
                 id="existingPassword"
                 [(ngModel)]="loginPassword"
                 name="loginPassword"
                 placeholder="••••••••"
-                autocomplete="current-password">
+                autocomplete="current-password"
+              />
             </div>
             <div class="inline-updates-card" *ngIf="!simpleMode">
               <p class="info-description">
                 {{ languageService.getTranslation('receive_stories_updates') }}
               </p>
               <label class="checkbox-field">
-                <input
-                  type="checkbox"
-                  [(ngModel)]="updatesOptIn"
-                  name="updatesOptIn">
+                <input type="checkbox" [(ngModel)]="updatesOptIn" name="updatesOptIn" />
                 <span>{{ languageService.getTranslation('yes_receive_updates') }}</span>
               </label>
             </div>
@@ -109,12 +126,15 @@
                 type="button"
                 *ngFor="let option of donationOptions"
                 (click)="selectDonationAmount(option)"
-                [class.active]="donationAmount === option">
-                {{ option | currency:'USD':'symbol':'1.0-0' }}
+                [class.active]="donationAmount === option"
+              >
+                {{ option | currency: 'USD' : 'symbol' : '1.0-0' }}
               </button>
             </div>
             <div class="custom-amount">
-              <label for="customAmount">{{ languageService.getTranslation('or_enter_custom_amount') }}</label>
+              <label for="customAmount">{{
+                languageService.getTranslation('or_enter_custom_amount')
+              }}</label>
               <div class="custom-input">
                 <span class="currency-symbol">$</span>
                 <input
@@ -125,7 +145,8 @@
                   step="1"
                   placeholder="0.00"
                   [(ngModel)]="customAmount"
-                  (input)="onCustomAmountChange()">
+                  (input)="onCustomAmountChange()"
+                />
               </div>
             </div>
           </div>
@@ -142,7 +163,8 @@
                 class="frequency-card"
                 *ngFor="let option of frequencyOptions"
                 (click)="selectFrequency(option.value)"
-                [class.active]="recurringOption === option.value">
+                [class.active]="recurringOption === option.value"
+              >
                 <div class="freq-header">
                   <span class="freq-label">{{ option.label }}</span>
                   <span class="freq-badge" *ngIf="option.highlight">{{ option.highlight }}</span>
@@ -163,7 +185,8 @@
                 type="button"
                 *ngFor="let method of paymentMethods"
                 (click)="selectPaymentMethod(method.value)"
-                [class.active]="selectedPaymentMethod === method.value">
+                [class.active]="selectedPaymentMethod === method.value"
+              >
                 <div class="method-header">
                   <i [class]="method.icon"></i>
                   <span>{{ method.label }}</span>
@@ -179,11 +202,15 @@
                   <div class="header-icon">
                     <i class="far fa-credit-card"></i>
                   </div>
-                  <p class="panel-title">{{ languageService.getTranslation('payment_information') }}</p>
+                  <p class="panel-title">
+                    {{ languageService.getTranslation('payment_information') }}
+                  </p>
                 </div>
                 <div class="card-grid">
                   <div class="card-field full-width">
-                    <label for="cardNumber">{{ languageService.getTranslation('card_number') }}</label>
+                    <label for="cardNumber">{{
+                      languageService.getTranslation('card_number')
+                    }}</label>
                     <input
                       type="text"
                       id="cardNumber"
@@ -192,20 +219,26 @@
                       placeholder="1234 5678 9012 3456"
                       (input)="formatCardNumber()"
                       maxlength="19"
-                      required>
+                      required
+                    />
                   </div>
                   <div class="card-field full-width">
-                    <label for="cardHolder">{{ languageService.getTranslation('card_holder_name') }}</label>
+                    <label for="cardHolder">{{
+                      languageService.getTranslation('card_holder_name')
+                    }}</label>
                     <input
                       type="text"
                       id="cardHolder"
                       [(ngModel)]="cardHolder"
                       name="cardHolder"
                       placeholder="John Doe"
-                      required>
+                      required
+                    />
                   </div>
                   <div class="card-field">
-                    <label for="expiryDate">{{ languageService.getTranslation('expiry_date') }}</label>
+                    <label for="expiryDate">{{
+                      languageService.getTranslation('expiry_date')
+                    }}</label>
                     <input
                       type="text"
                       id="expiryDate"
@@ -214,7 +247,8 @@
                       placeholder="MM/YY"
                       (input)="formatExpiryDate()"
                       maxlength="5"
-                      required>
+                      required
+                    />
                   </div>
                   <div class="card-field">
                     <label for="cvv">{{ languageService.getTranslation('cvv') }}</label>
@@ -226,14 +260,20 @@
                       placeholder="123"
                       (input)="formatCvv()"
                       maxlength="4"
-                      required>
+                      required
+                    />
                   </div>
                 </div>
               </div>
             </div>
             <div class="method-detail paypal-detail" *ngIf="selectedPaymentMethod === 'paypal'">
               <div class="paypal-logo" aria-hidden="true">
-                <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false">
+                <svg
+                  viewBox="0 0 120 40"
+                  xmlns="http://www.w3.org/2000/svg"
+                  role="presentation"
+                  focusable="false"
+                >
                   <rect width="120" height="40" rx="8" fill="url(#paypalGradient)" />
                   <defs>
                     <linearGradient id="paypalGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -241,12 +281,27 @@
                       <stop offset="100%" stop-color="#003087" />
                     </linearGradient>
                   </defs>
-                  <text x="60" y="26" text-anchor="middle" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="700" fill="#fff">PayPal</text>
+                  <text
+                    x="60"
+                    y="26"
+                    text-anchor="middle"
+                    font-family="'Helvetica Neue', Arial, sans-serif"
+                    font-size="18"
+                    font-weight="700"
+                    fill="#fff"
+                  >
+                    PayPal
+                  </text>
                 </svg>
               </div>
               <div>
                 <p>Complete your gift securely through PayPal.</p>
-                <a class="paypal-link" href="https://www.paypal.com/donate" target="_blank" rel="noopener">
+                <a
+                  class="paypal-link"
+                  href="https://www.paypal.com/donate"
+                  target="_blank"
+                  rel="noopener"
+                >
                   Go to PayPal
                 </a>
               </div>

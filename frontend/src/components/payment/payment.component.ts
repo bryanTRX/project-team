@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   imports: [CommonModule, FormsModule],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class PaymentComponent implements OnInit, OnDestroy {
   donationOptions: number[] = [25, 50, 100, 250, 500];
@@ -25,18 +25,45 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   get frequencyOptions() {
     return [
-      { value: 'one-time', label: this.languageService.getTranslation('one_time'), description: this.languageService.getTranslation('single_donation') },
-      { value: 'monthly', label: this.languageService.getTranslation('monthly'), description: this.languageService.getTranslation('recurring_monthly'), highlight: this.languageService.getTranslation('most_popular') },
-      { value: 'quarterly', label: this.languageService.getTranslation('quarterly'), description: this.languageService.getTranslation('every_3_months') },
-      { value: 'yearly', label: this.languageService.getTranslation('yearly'), description: this.languageService.getTranslation('every_year') }
+      {
+        value: 'one-time',
+        label: this.languageService.getTranslation('one_time'),
+        description: this.languageService.getTranslation('single_donation'),
+      },
+      {
+        value: 'monthly',
+        label: this.languageService.getTranslation('monthly'),
+        description: this.languageService.getTranslation('recurring_monthly'),
+        highlight: this.languageService.getTranslation('most_popular'),
+      },
+      {
+        value: 'quarterly',
+        label: this.languageService.getTranslation('quarterly'),
+        description: this.languageService.getTranslation('every_3_months'),
+      },
+      {
+        value: 'yearly',
+        label: this.languageService.getTranslation('yearly'),
+        description: this.languageService.getTranslation('every_year'),
+      },
     ];
   }
 
   get paymentMethods() {
     return [
-      { value: 'card', label: this.languageService.getTranslation('credit_debit_card'), icon: 'far fa-credit-card', badges: [] },
+      {
+        value: 'card',
+        label: this.languageService.getTranslation('credit_debit_card'),
+        icon: 'far fa-credit-card',
+        badges: [],
+      },
       { value: 'paypal', label: 'PayPal', icon: 'fab fa-paypal', badges: [] },
-      { value: 'phone', label: this.languageService.getTranslation('paying_by_phone'), icon: 'fas fa-mobile-alt', badges: [] }
+      {
+        value: 'phone',
+        label: this.languageService.getTranslation('paying_by_phone'),
+        icon: 'fas fa-mobile-alt',
+        badges: [],
+      },
     ];
   }
 
@@ -44,7 +71,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
     return [
       { value: 'normal', label: this.languageService.getTranslation('normal') },
       { value: 'large', label: this.languageService.getTranslation('large') },
-      { value: 'xlarge', label: this.languageService.getTranslation('extra_large') }
+      { value: 'xlarge', label: this.languageService.getTranslation('extra_large') },
     ];
   }
 
@@ -68,19 +95,19 @@ export class PaymentComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     public languageService: LanguageService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getCurrentLanguage();
-    this.languageSubscription = this.languageService.currentLanguage$.subscribe(lang => {
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       this.currentLanguage = lang;
     });
 
     // Get donation amount from localStorage or route params
     const savedAmount = localStorage.getItem('donationAmount');
     const savedRecurring = localStorage.getItem('recurringOption');
-    
+
     if (savedAmount) {
       this.donationAmount = parseFloat(savedAmount);
       if (!this.donationOptions.includes(this.donationAmount)) {
@@ -147,7 +174,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       console.log('Processing payment:', {
         amount: this.donationAmount,
         recurring: this.recurringOption,
-        email: this.email
+        email: this.email,
       });
 
       this.showSuccess = true;
@@ -164,40 +191,88 @@ export class PaymentComponent implements OnInit, OnDestroy {
       return false;
     }
     if (!this.cardNumber || this.cardNumber.replace(/\s/g, '').length !== 16) {
-      alert(this.languageService.getTranslation('card_number') + ' - ' + this.languageService.getTranslation('invalid_credentials').replace('username or password', ''));
+      alert(
+        this.languageService.getTranslation('card_number') +
+          ' - ' +
+          this.languageService
+            .getTranslation('invalid_credentials')
+            .replace('username or password', ''),
+      );
       return false;
     }
     if (!this.cardHolder) {
-      alert(this.languageService.getTranslation('card_holder_name') + ' - ' + this.languageService.getTranslation('invalid_credentials').replace('username or password', ''));
+      alert(
+        this.languageService.getTranslation('card_holder_name') +
+          ' - ' +
+          this.languageService
+            .getTranslation('invalid_credentials')
+            .replace('username or password', ''),
+      );
       return false;
     }
     if (!this.expiryDate || !/^\d{2}\/\d{2}$/.test(this.expiryDate)) {
-      alert(this.languageService.getTranslation('expiry_date') + ' - ' + this.languageService.getTranslation('invalid_credentials').replace('username or password', ''));
+      alert(
+        this.languageService.getTranslation('expiry_date') +
+          ' - ' +
+          this.languageService
+            .getTranslation('invalid_credentials')
+            .replace('username or password', ''),
+      );
       return false;
     }
     if (!this.cvv || this.cvv.length < 3) {
-      alert(this.languageService.getTranslation('cvv') + ' - ' + this.languageService.getTranslation('invalid_credentials').replace('username or password', ''));
+      alert(
+        this.languageService.getTranslation('cvv') +
+          ' - ' +
+          this.languageService
+            .getTranslation('invalid_credentials')
+            .replace('username or password', ''),
+      );
       return false;
     }
     if (!this.email || !this.email.includes('@')) {
-      alert(this.languageService.getTranslation('email_address') + ' - ' + this.languageService.getTranslation('invalid_credentials').replace('username or password', ''));
+      alert(
+        this.languageService.getTranslation('email_address') +
+          ' - ' +
+          this.languageService
+            .getTranslation('invalid_credentials')
+            .replace('username or password', ''),
+      );
       this.emailSectionInvalid = true;
       return false;
     }
     if (!this.isAuthenticated) {
       if (this.emailMode === 'existing' && !this.loginPassword) {
-        alert(this.languageService.getTranslation('existing_account_password_label') + ' - ' + this.languageService.getTranslation('invalid_credentials').replace('username or password', ''));
+        alert(
+          this.languageService.getTranslation('existing_account_password_label') +
+            ' - ' +
+            this.languageService
+              .getTranslation('invalid_credentials')
+              .replace('username or password', ''),
+        );
         this.emailSectionInvalid = true;
         return false;
       }
       if (this.emailMode === 'new') {
         if (!this.newUsername) {
-          alert(this.languageService.getTranslation('create_username_label') + ' - ' + this.languageService.getTranslation('invalid_credentials').replace('username or password', ''));
+          alert(
+            this.languageService.getTranslation('create_username_label') +
+              ' - ' +
+              this.languageService
+                .getTranslation('invalid_credentials')
+                .replace('username or password', ''),
+          );
           this.emailSectionInvalid = true;
           return false;
         }
         if (!this.newPassword) {
-          alert(this.languageService.getTranslation('create_password_label') + ' - ' + this.languageService.getTranslation('invalid_credentials').replace('username or password', ''));
+          alert(
+            this.languageService.getTranslation('create_password_label') +
+              ' - ' +
+              this.languageService
+                .getTranslation('invalid_credentials')
+                .replace('username or password', ''),
+          );
           this.emailSectionInvalid = true;
           return false;
         }
@@ -207,7 +282,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   getRecurringLabel(): string {
-    return this.languageService.getTranslation(this.recurringOption.replace('-', '_') as any) || this.recurringOption;
+    return (
+      this.languageService.getTranslation(this.recurringOption.replace('-', '_') as any) ||
+      this.recurringOption
+    );
   }
 
   onCustomAmountChange(): void {
@@ -265,7 +343,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   getDonationProcessedText(amount: number): string {
     const translation = this.languageService.getTranslation('donation_processed_successfully');
-    const formattedAmount = amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 });
+    const formattedAmount = amount.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+    });
     return translation
       .replace('${{amount}}', formattedAmount)
       .replace('{{amount}}', formattedAmount);

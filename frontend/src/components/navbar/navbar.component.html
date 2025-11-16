@@ -48,11 +48,7 @@
         <div class="nav-actions">
           <app-language-selector></app-language-selector>
           <div class="user-menu-wrapper" *ngIf="isAuthenticated()">
-            <button
-              type="button"
-              class="login-btn"
-              (click)="toggleDropdown($event)"
-            >
+            <button type="button" class="login-btn" (click)="toggleDropdown($event)">
               <i class="fas fa-user logged-in"></i>
               <span>{{ languageService.getTranslation('my_dashboard') }}</span>
               <i class="fas fa-chevron-down dropdown-arrow" [class.rotated]="dropdownOpen"></i>

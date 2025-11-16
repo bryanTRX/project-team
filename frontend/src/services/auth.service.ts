@@ -98,7 +98,7 @@ export class AuthService {
         console.log('Donation recorded - Updated user:', {
           totalDonated: updated.totalDonated,
           familiesHelped: updated.familiesHelped,
-          previousFamiliesHelped: user.familiesHelped
+          previousFamiliesHelped: user.familiesHelped,
         });
         this.persistUser(updated);
         return updated;

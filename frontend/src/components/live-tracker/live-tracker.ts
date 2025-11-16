@@ -50,7 +50,7 @@ export class LiveTrackerComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         });
       },
-      { threshold: 0.4 }
+      { threshold: 0.4 },
     );
 
     this.counters.forEach((counter) => {
@@ -117,8 +117,8 @@ export class LiveTrackerComponent implements OnInit, AfterViewInit, OnDestroy {
   startLiveUpdates(el: HTMLElement, current: number, isBig = false) {
     const randomIncreaseLoop = () => {
       const increment = isBig
-        ? Math.floor(Math.random() * 100) + 5 
-        : Math.floor(Math.random() * 4) + 1; 
+        ? Math.floor(Math.random() * 100) + 5
+        : Math.floor(Math.random() * 4) + 1;
 
       current += increment;
 
