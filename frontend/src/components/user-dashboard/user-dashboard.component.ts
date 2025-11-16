@@ -223,12 +223,16 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   getTierDescription(tier: TierBadge): string {
-    const descriptions: { [key: string]: string } = {
-      demeter: 'Our foundational tier for compassionate supporters who help nurture families in need.',
-      artemis: 'For dedicated protectors who provide significant support to safeguard vulnerable families.',
-      athena: 'Our highest tier for guardians who champion lasting change and transformation.',
+    const tierKeys: { [key: string]: string } = {
+      demeter: 'tier_demeter_description',
+      artemis: 'tier_artemis_description',
+      athena: 'tier_athena_description',
     };
-    return descriptions[tier.tier] || '';
+    const key = tierKeys[tier.tier];
+    if (key) {
+      return this.languageService.getTranslation(key) || '';
+    }
+    return '';
   }
 
   getTierAmountRange(tier: TierBadge): string {

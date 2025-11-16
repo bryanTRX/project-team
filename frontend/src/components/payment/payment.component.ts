@@ -199,51 +199,41 @@ export class PaymentComponent implements OnInit, OnDestroy {
     }
     if (!this.cardNumber || this.cardNumber.replace(/\s/g, '').length !== 16) {
       alert(
-        this.languageService.getTranslation('card_number') +
+        (this.languageService.getTranslation('card_number') || 'Card Number') +
           ' - ' +
-          this.languageService
-            .getTranslation('invalid_credentials')
-            .replace('username or password', ''),
+          (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
       );
       return false;
     }
     if (!this.cardHolder) {
       alert(
-        this.languageService.getTranslation('card_holder_name') +
+        (this.languageService.getTranslation('card_holder_name') || 'Card Holder Name') +
           ' - ' +
-          this.languageService
-            .getTranslation('invalid_credentials')
-            .replace('username or password', ''),
+          (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
       );
       return false;
     }
     if (!this.expiryDate || !/^\d{2}\/\d{2}$/.test(this.expiryDate)) {
       alert(
-        this.languageService.getTranslation('expiry_date') +
+        (this.languageService.getTranslation('expiry_date') || 'Expiry Date') +
           ' - ' +
-          this.languageService
-            .getTranslation('invalid_credentials')
-            .replace('username or password', ''),
+          (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
       );
       return false;
     }
     if (!this.cvv || this.cvv.length < 3) {
       alert(
-        this.languageService.getTranslation('cvv') +
+        (this.languageService.getTranslation('cvv') || 'CVV') +
           ' - ' +
-          this.languageService
-            .getTranslation('invalid_credentials')
-            .replace('username or password', ''),
+          (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
       );
       return false;
     }
     if (!this.email || !this.email.includes('@')) {
       alert(
-        this.languageService.getTranslation('email_address') +
+        (this.languageService.getTranslation('email_address') || 'Email Address') +
           ' - ' +
-          this.languageService
-            .getTranslation('invalid_credentials')
-            .replace('username or password', ''),
+          (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
       );
       this.emailSectionInvalid = true;
       return false;
@@ -251,11 +241,9 @@ export class PaymentComponent implements OnInit, OnDestroy {
     if (!this.isAuthenticated) {
       if (this.emailMode === 'existing' && !this.loginPassword) {
         alert(
-          this.languageService.getTranslation('existing_account_password_label') +
+          (this.languageService.getTranslation('existing_account_password_label') || 'Password') +
             ' - ' +
-            this.languageService
-              .getTranslation('invalid_credentials')
-              .replace('username or password', ''),
+            (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
         );
         this.emailSectionInvalid = true;
         return false;
@@ -263,22 +251,18 @@ export class PaymentComponent implements OnInit, OnDestroy {
       if (this.emailMode === 'new') {
         if (!this.newUsername) {
           alert(
-            this.languageService.getTranslation('create_username_label') +
+            (this.languageService.getTranslation('create_username_label') || 'Username') +
               ' - ' +
-              this.languageService
-                .getTranslation('invalid_credentials')
-                .replace('username or password', ''),
+              (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
           );
           this.emailSectionInvalid = true;
           return false;
         }
         if (!this.newPassword) {
           alert(
-            this.languageService.getTranslation('create_password_label') +
+            (this.languageService.getTranslation('create_password_label') || 'Password') +
               ' - ' +
-              this.languageService
-                .getTranslation('invalid_credentials')
-                .replace('username or password', ''),
+              (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
           );
           this.emailSectionInvalid = true;
           return false;
@@ -286,37 +270,37 @@ export class PaymentComponent implements OnInit, OnDestroy {
       }
 
       if (!this.firstName || !this.firstName.trim()) {
-        alert('First Name is required');
+        alert((this.languageService.getTranslation('first_name') || 'First Name') + ' - ' + (this.languageService.getTranslation('field_required') || 'is required'));
         this.emailSectionInvalid = true;
         return false;
       }
       if (!this.lastName || !this.lastName.trim()) {
-        alert('Last Name is required');
+        alert((this.languageService.getTranslation('last_name') || 'Last Name') + ' - ' + (this.languageService.getTranslation('field_required') || 'is required'));
         this.emailSectionInvalid = true;
         return false;
       }
       if (!this.address || !this.address.trim()) {
-        alert('Street Address is required');
+        alert((this.languageService.getTranslation('street_address_line1') || 'Street Address') + ' - ' + (this.languageService.getTranslation('field_required') || 'is required'));
         this.emailSectionInvalid = true;
         return false;
       }
       if (!this.city || !this.city.trim()) {
-        alert('City is required');
+        alert((this.languageService.getTranslation('city') || 'City') + ' - ' + (this.languageService.getTranslation('field_required') || 'is required'));
         this.emailSectionInvalid = true;
         return false;
       }
       if (!this.province || !this.province.trim()) {
-        alert('Province/State is required');
+        alert((this.languageService.getTranslation('province_state') || 'Province/State') + ' - ' + (this.languageService.getTranslation('field_required') || 'is required'));
         this.emailSectionInvalid = true;
         return false;
       }
       if (!this.postalCode || !this.postalCode.trim()) {
-        alert('Postal Code/ZIP is required');
+        alert((this.languageService.getTranslation('postal_code_zip') || 'Postal Code/ZIP') + ' - ' + (this.languageService.getTranslation('field_required') || 'is required'));
         this.emailSectionInvalid = true;
         return false;
       }
       if (!this.country || !this.country.trim()) {
-        alert('Country is required');
+        alert((this.languageService.getTranslation('country') || 'Country') + ' - ' + (this.languageService.getTranslation('field_required') || 'is required'));
         this.emailSectionInvalid = true;
         return false;
       }

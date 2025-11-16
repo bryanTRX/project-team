@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { LanguageService } from '../../services/language.service';
+import { AuthService } from '../../services/auth.service';
 
 interface DonationAmount {
   value: number;
@@ -50,76 +51,104 @@ export class DonationPageComponent implements OnInit {
   nextBillingDate = '2024-02-15';
   hasRecurringDonation = false;
 
-  donationAmounts: DonationAmount[] = [
-    { value: 10, label: '$10', impact: 'Emergency food supplies', icon: 'utensils' },
-    { value: 25, label: '$25', impact: 'Meals for a family for a day', icon: 'home' },
-    { value: 50, label: '$50', impact: '1 night of safe shelter', icon: 'bed' },
-    { value: 100, label: '$100', impact: '1 therapy session', icon: 'heart' },
-    { value: 250, label: '$250', impact: 'Legal aid consultation', icon: 'balance-scale' },
-  ];
+  get donationAmounts(): DonationAmount[] {
+    return [
+      { value: 10, label: '$10', impact: this.languageService.getTranslation('emergency_food_supplies') || 'Emergency food supplies', icon: 'utensils' },
+      { value: 25, label: '$25', impact: this.languageService.getTranslation('meals_family_day') || 'Meals for a family for a day', icon: 'home' },
+      { value: 50, label: '$50', impact: this.languageService.getTranslation('night_safe_shelter') || '1 night of safe shelter', icon: 'bed' },
+      { value: 100, label: '$100', impact: this.languageService.getTranslation('therapy_session') || '1 therapy session', icon: 'heart' },
+      { value: 250, label: '$250', impact: this.languageService.getTranslation('legal_aid_consultation') || 'Legal aid consultation', icon: 'balance-scale' },
+    ];
+  }
 
-  impactDetails: { [key: number]: ImpactDetail } = {
-    10: {
-      amount: 10,
-      title: 'Emergency Food Supplies',
-      description: 'Provides essential nutrition for families in crisis',
-      icon: 'utensils',
-    },
-    25: {
-      amount: 25,
-      title: 'Daily Meals',
-      description: 'Feeds a family of 4 for one full day',
-      icon: 'home',
-    },
-    50: {
-      amount: 50,
-      title: 'Safe Shelter',
-      description: 'One night of secure housing for a family',
-      icon: 'bed',
-    },
-    100: {
-      amount: 100,
-      title: 'Therapy Session',
-      description: 'One-on-one counseling for trauma recovery',
-      icon: 'heart',
-    },
-    250: {
-      amount: 250,
-      title: 'Legal Aid',
-      description: 'Professional consultation for legal protection',
-      icon: 'balance-scale',
-    },
-  };
+  get impactDetails(): { [key: number]: ImpactDetail } {
+    return {
+      10: {
+        amount: 10,
+        title: this.languageService.getTranslation('emergency_food_supplies') || 'Emergency Food Supplies',
+        description: this.languageService.getTranslation('provides_essential_nutrition') || 'Provides essential nutrition for families in crisis',
+        icon: 'utensils',
+      },
+      25: {
+        amount: 25,
+        title: this.languageService.getTranslation('daily_meals') || 'Daily Meals',
+        description: this.languageService.getTranslation('feeds_family_full_day') || 'Feeds a family of 4 for one full day',
+        icon: 'home',
+      },
+      50: {
+        amount: 50,
+        title: this.languageService.getTranslation('safe_shelter') || 'Safe Shelter',
+        description: this.languageService.getTranslation('one_night_secure_housing') || 'One night of secure housing for a family',
+        icon: 'bed',
+      },
+      100: {
+        amount: 100,
+        title: this.languageService.getTranslation('therapy_session') || 'Therapy Session',
+        description: this.languageService.getTranslation('counseling_trauma_recovery') || 'One-on-one counseling for trauma recovery',
+        icon: 'heart',
+      },
+      250: {
+        amount: 250,
+        title: this.languageService.getTranslation('legal_aid') || 'Legal Aid',
+        description: this.languageService.getTranslation('professional_legal_consultation') || 'Professional consultation for legal protection',
+        icon: 'balance-scale',
+      },
+    };
+  }
 
-  paymentFrequencies = [
-    { value: 'one-time', label: 'One-Time', icon: 'bolt', description: 'Single donation' },
-    { value: 'monthly', label: 'Monthly', icon: 'sync', description: 'Recurring monthly' },
-    { value: 'quarterly', label: 'Quarterly', icon: 'calendar-alt', description: 'Every 3 months' },
-  ];
+  get paymentFrequencies() {
+    return [
+      { value: 'one-time', label: this.languageService.getTranslation('one_time') || 'One-Time', icon: 'bolt', description: this.languageService.getTranslation('single_donation') || 'Single donation' },
+      { value: 'monthly', label: this.languageService.getTranslation('monthly') || 'Monthly', icon: 'sync', description: this.languageService.getTranslation('recurring_monthly') || 'Recurring monthly' },
+      { value: 'quarterly', label: this.languageService.getTranslation('quarterly') || 'Quarterly', icon: 'calendar-alt', description: this.languageService.getTranslation('every_3_months') || 'Every 3 months' },
+    ];
+  }
 
-  paymentMethods = [
-    { value: 'credit-card', label: 'Credit Card', icon: 'credit-card', logo: 'cc-visa' },
-    { value: 'paypal', label: 'PayPal', icon: 'paypal', logo: 'paypal' },
-    { value: 'bank-transfer', label: 'Bank Transfer', icon: 'university', logo: 'bank' },
-  ];
+  get paymentMethods() {
+    return [
+      { value: 'credit-card', label: this.languageService.getTranslation('credit_debit_card') || 'Credit Card', icon: 'credit-card', logo: 'cc-visa' },
+      { value: 'paypal', label: 'PayPal', icon: 'paypal', logo: 'paypal' },
+      { value: 'bank-transfer', label: this.languageService.getTranslation('bank_transfer') || 'Bank Transfer', icon: 'university', logo: 'bank' },
+    ];
+  }
 
   constructor(
     private router: Router,
     public languageService: LanguageService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
-    const savedUser = localStorage.getItem('currentUser');
-    if (savedUser) {
-      const user = JSON.parse(savedUser);
-      this.isLoggedIn = true;
-      this.userName = user.name || '';
-      this.userEmail = user.email || '';
-      this.userProfileImage = user.profileImage || '';
-      this.hasRecurringDonation = user.hasRecurringDonation || false;
-      if (user.recurringAmount) this.currentRecurringAmount = user.recurringAmount;
-      if (user.nextBillingDate) this.nextBillingDate = user.nextBillingDate;
+    if (this.authService.isAuthenticated()) {
+      const user = this.authService.getCurrentUser();
+      if (user) {
+        this.isLoggedIn = true;
+        this.userName = user.name || '';
+        this.userEmail = user.email || '';
+        this.userProfileImage = user.profileImage || '';
+        this.hasRecurringDonation = user.hasRecurringDonation || false;
+        
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) {
+          const localUser = JSON.parse(savedUser);
+          if (localUser.recurringAmount) this.currentRecurringAmount = localUser.recurringAmount;
+          if (localUser.nextBillingDate) this.nextBillingDate = localUser.nextBillingDate;
+        }
+      }
+    } else {
+      const savedUser = localStorage.getItem('currentUser');
+      if (savedUser) {
+        const user = JSON.parse(savedUser);
+        this.isLoggedIn = true;
+        this.userName = user.name || '';
+        this.userEmail = user.email || '';
+        this.userProfileImage = user.profileImage || '';
+        this.hasRecurringDonation = user.hasRecurringDonation || false;
+        if (user.recurringAmount) this.currentRecurringAmount = user.recurringAmount;
+        if (user.nextBillingDate) this.nextBillingDate = user.nextBillingDate;
+      }
     }
+    
     const savedAmount = localStorage.getItem('donationAmount');
     if (savedAmount) {
       this.selectedAmount = parseFloat(savedAmount);
@@ -154,56 +183,86 @@ export class DonationPageComponent implements OnInit {
     }, 1000);
   }
 
-  login(): void {
+  async login(): Promise<void> {
     if (!this.loginPassword) {
-      alert('Please enter your password');
+      alert(this.languageService.getTranslation('alert_enter_password') || 'Please enter your password');
       return;
     }
-    const user = {
-      name: 'Sarah Johnson',
-      email: this.userEmail,
-      profileImage: 'https://i.pravatar.cc/150?img=47',
-      hasRecurringDonation: false,
-    };
 
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    this.isLoggedIn = true;
-    this.userName = user.name;
-    this.userProfileImage = user.profileImage;
-    this.showLoginForm = false;
-    this.loginPassword = '';
+    try {
+      const authenticated = await this.authService.login(this.userEmail, this.loginPassword);
+      if (authenticated) {
+        const user = this.authService.getCurrentUser();
+        if (user) {
+          this.isLoggedIn = true;
+          this.userName = user.name || '';
+          this.userEmail = user.email || '';
+          this.userProfileImage = user.profileImage || '';
+          this.hasRecurringDonation = user.hasRecurringDonation || false;
+          this.showLoginForm = false;
+          this.loginPassword = '';
+        }
+      } else {
+        alert(this.languageService.getTranslation('invalid_credentials') || 'Invalid email or password');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      alert(this.languageService.getTranslation('login_failed') || 'Login failed. Please try again.');
+    }
   }
 
-  signup(): void {
+  async signup(): Promise<void> {
     if (!this.signupName || !this.signupPassword) {
-      alert('Please fill in all required fields');
+      alert(this.languageService.getTranslation('alert_fill_required_fields') || 'Please fill in all required fields');
       return;
     }
 
     if (this.signupPassword !== this.signupConfirmPassword) {
-      alert('Passwords do not match');
+      alert(this.languageService.getTranslation('passwords_do_not_match') || 'Passwords do not match');
       return;
     }
 
     if (this.signupPassword.length < 6) {
-      alert('Password must be at least 6 characters');
+      alert(this.languageService.getTranslation('password_min_length') || 'Password must be at least 6 characters');
       return;
     }
-    const user = {
-      name: this.signupName,
-      email: this.userEmail,
-      profileImage: '',
-      hasRecurringDonation: false,
-    };
 
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    this.isLoggedIn = true;
-    this.userName = this.signupName;
-    this.showSignupForm = false;
-    this.signupName = '';
-    this.signupPassword = '';
-    this.signupConfirmPassword = '';
-    this.emailForCheck = '';
+    try {
+      const profile = await this.authService.signup(
+        this.userEmail,
+        this.signupName,
+        this.signupPassword
+      );
+
+      if (profile) {
+        this.isLoggedIn = true;
+        this.userName = profile.name || this.signupName;
+        this.userEmail = profile.email || this.userEmail;
+        this.userProfileImage = profile.profileImage || '';
+        this.hasRecurringDonation = profile.hasRecurringDonation || false;
+        this.showSignupForm = false;
+        this.signupName = '';
+        this.signupPassword = '';
+        this.signupConfirmPassword = '';
+        this.emailForCheck = '';
+        
+        localStorage.setItem('currentUser', JSON.stringify({
+          name: this.userName,
+          email: this.userEmail,
+          profileImage: this.userProfileImage,
+          hasRecurringDonation: this.hasRecurringDonation,
+        }));
+      }
+    } catch (error: any) {
+      console.error('Signup error:', error);
+      if (error?.error?.message) {
+        alert(error.error.message);
+      } else if (error?.status === 409) {
+        alert(this.languageService.getTranslation('user_already_exists') || 'User with this email already exists. Please log in instead.');
+      } else {
+        alert(this.languageService.getTranslation('signup_failed') || 'Failed to create account. Please try again.');
+      }
+    }
   }
 
   selectAmount(amount: number): void {
@@ -242,18 +301,18 @@ export class DonationPageComponent implements OnInit {
   }
 
   modifyRecurringDonation(): void {
-    alert('Redirecting to recurring donation settings...');
+    alert(this.languageService.getTranslation('redirecting_recurring_settings') || 'Redirecting to recurring donation settings...');
   }
 
   proceedToPayment(): void {
     if (!this.isLoggedIn) {
-      alert('Please log in or create an account first');
+      alert(this.languageService.getTranslation('alert_login_required') || 'Please log in or create an account first');
       return;
     }
 
     const amount = this.getDonationAmount();
     if (amount === 0) {
-      alert('Please select or enter a donation amount');
+      alert(this.languageService.getTranslation('alert_select_amount') || 'Please select or enter a donation amount');
       return;
     }
     localStorage.setItem('donationAmount', amount.toString());

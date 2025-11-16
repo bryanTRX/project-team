@@ -7,10 +7,60 @@ import {
 } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { LoginDto } from './dto/login.dto';
+import { SignupDto } from './dto/signup.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly usersService: UsersService) {}
+
+  @Post('signup')
+  async signup(@Body() dto: SignupDto) {
+    const { email, name, password, username } = dto;
+    const debug = process.env.DEBUG_AUTH === 'true';
+    
+    if (debug) console.log('[auth] signup attempt:', { email, name, username });
+    
+    if (!email || !password || !name) {
+      throw new HttpException(
+        'Missing required fields: email, name, and password are required',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    if (password.length < 6) {
+      throw new HttpException(
+        'Password must be at least 6 characters',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    try {
+      const generatedUsername = username || email.split('@')[0];
+      
+      const user = await this.usersService.create({
+        username: generatedUsername,
+        email: email.toLowerCase().trim(),
+        password,
+        name,
+      });
+
+      if (debug) console.log('[auth] user created successfully:', user._id);
+      
+      return user;
+    } catch (error: any) {
+      if (error.message?.includes('already exists')) {
+        throw new HttpException(
+          'User with this email or username already exists',
+          HttpStatus.CONFLICT,
+        );
+      }
+      if (debug) console.error('[auth] signup error:', error);
+      throw new HttpException(
+        'Failed to create user account',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
 
   @Post('login')
   async login(@Body() dto: LoginDto) {

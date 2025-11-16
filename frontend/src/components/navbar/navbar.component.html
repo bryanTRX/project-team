@@ -5,7 +5,7 @@
         <div class="logo" (click)="goHome()">
           <img
             src="assets/images/logos/logo.png"
-            alt="Shield of Athena Logo"
+            [alt]="languageService.getTranslation('shield_of_athena_logo') || 'Shield of Athena Logo'"
             class="logo-image"
             (error)="onLogoError($event)"
           />

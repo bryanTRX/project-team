@@ -32,7 +32,7 @@
                     id="email"
                     [(ngModel)]="email"
                     name="email"
-                    placeholder="your.email@example.com"
+                    [placeholder]="languageService.getTranslation('email_placeholder') || 'your.email@example.com'"
                     (input)="handleEmailInput()"
                     required
                   />

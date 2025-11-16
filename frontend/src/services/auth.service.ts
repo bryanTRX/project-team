@@ -13,6 +13,8 @@ export interface UserProfile {
   goal: number;
   donationsRequiredForTier: number;
   email: string;
+  profileImage?: string;
+  hasRecurringDonation?: boolean;
 }
 
 @Injectable({
@@ -38,6 +40,22 @@ export class AuthService {
       return null;
     }
     return user._id || user.id || null;
+  }
+
+  async signup(email: string, name: string, password: string, username?: string): Promise<UserProfile | null> {
+    try {
+      const url = `${this.apiBase}/auth/signup`;
+      const body = { email: email.toLowerCase().trim(), name, password, username };
+      const profile = await firstValueFrom(this.http.post<UserProfile>(url, body));
+      if (profile) {
+        this.persistUser(profile);
+        return profile;
+      }
+      return null;
+    } catch (err: any) {
+      console.error('Signup failed', err);
+      throw err;
+    }
   }
 
   async login(username: string, password: string): Promise<boolean> {

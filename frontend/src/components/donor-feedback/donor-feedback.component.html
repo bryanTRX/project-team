@@ -19,7 +19,7 @@
           <div class="donor-info">
             <div class="avatar-wrapper">
               <div class="avatar" [style.border-color]="feedback.color + '40'">
-                <img [src]="feedback.avatar" [alt]="feedback.name" />
+                <img [src]="feedback.avatar" [alt]="(languageService.getTranslation('donor_avatar') || 'Donor avatar') + ': ' + feedback.name" />
               </div>
               <div class="avatar-badge" [style.background-color]="feedback.color">
                 <i class="fas fa-heart"></i>

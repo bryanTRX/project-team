@@ -75,7 +75,7 @@
             <div class="email-check-image">
               <img
                 src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=400&fit=crop&crop=face"
-                alt="Woman smiling warmly"
+                [alt]="languageService.getTranslation('woman_smiling_warmly') || 'Woman smiling warmly'"
                 class="human-image"
               />
               <div class="image-overlay"></div>
