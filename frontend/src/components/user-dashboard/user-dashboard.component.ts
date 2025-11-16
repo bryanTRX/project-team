@@ -4,8 +4,6 @@ import {
   OnDestroy,
   ViewChild,
   AfterViewInit,
-  OnChanges,
-  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
@@ -90,7 +88,6 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
       this.currentLanguage = lang;
     });
 
-    // Reload user data when navigating to dashboard
     this.routerSubscription = this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {

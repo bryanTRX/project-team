@@ -20,9 +20,7 @@ export interface UserProfile {
 })
 export class AuthService {
   private readonly storageKey = 'shield_of_athena_user';
-  // Point API calls to the backend server during development
   private readonly apiBase = 'http://localhost:3000';
-  // Default seeded users for quick demos and social logins
   private readonly knownSeedEmails = [
     'admin@shieldofathena.org',
     'facebook@shieldofathena.org',

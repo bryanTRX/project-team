@@ -1,6 +1,6 @@
 .dashboard-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #fdf3f4 0%, #f6f7ff 60%, #eef2ff 100%);
+  background: linear-gradient(135deg, var(--background) 0%, var(--background) 60%, var(--background) 100%);
   padding: 2rem 1rem 3rem;
   font-family: 'Inter', sans-serif;
 }
@@ -15,8 +15,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(123, 104, 238, 0.15);
+  background: var(--surface);
+  border: 1px solid var(--border-light);
   border-radius: 24px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -75,12 +75,12 @@
   h2 {
     margin: 0;
     font-size: 1.6rem;
-    color: #1f2a44;
+    color: var(--text-primary);
   }
 
   .dashboard-subtitle {
     margin: 0.25rem 0 0;
-    color: #5b6385;
+    color: var(--text-secondary);
     font-size: 1rem;
   }
 }
@@ -93,9 +93,9 @@
 }
 
 .stat-card {
-  background: #fff;
-  border-radius: 22px;
-  border: 1px solid #ece9ff;
+  background: var(--surface);
+  border-radius: 16px;
+  border: 1px solid var(--border-light);
   padding: 0.45rem 0.9rem;
   display: flex;
   justify-content: space-between;
@@ -113,7 +113,7 @@
     margin: 0;
     font-size: 0.95rem;
     font-weight: 600;
-    color: #5a5f7d;
+    color: var(--text-secondary);
   }
 }
 
@@ -225,7 +225,7 @@
 
   .outline-btn {
     border: 1.25px solid #d4cdfc;
-    color: #5a5f7d;
+    color: var(--text-secondary);
     background: rgba(255, 255, 255, 0.9);
   }
 }
@@ -274,7 +274,7 @@
   p {
     margin: 0;
     font-weight: 600;
-    color: #1f2a44;
+    color: var(--text-primary);
     font-size: 1rem;
   }
 }
@@ -287,7 +287,7 @@
   margin-top: 0.15rem;
 
   &.member-since {
-    color: #5a5f7d;
+    color: var(--text-secondary);
   }
 }
 
@@ -353,12 +353,12 @@
 
   h2 {
     margin: 0;
-    color: #1f2a44;
+    color: var(--text-primary);
   }
 
   p {
     margin: 0.3rem 0 0;
-    color: #4a5568;
+    color: var(--text-secondary);
   }
 
   .forum-subtitle {
@@ -405,13 +405,13 @@
 
   h3 {
     margin: 0.5rem 0;
-    color: #1f2a44;
+    color: var(--text-primary);
     font-size: 1.1rem;
   }
 
   p {
     margin: 0;
-    color: #4a5568;
+    color: var(--text-secondary);
   }
 }
 
@@ -584,7 +584,7 @@
   p {
     margin: 0;
     font-weight: 600;
-    color: #1f2a44;
+    color: var(--text-primary);
   }
 
   span {
@@ -606,7 +606,7 @@
 
   .outline-btn.muted {
     border-color: rgba(123, 104, 238, 0.25);
-    color: #5b6385;
+    color: var(--text-secondary);
     background: #f5f2ff;
   }
 
@@ -690,7 +690,6 @@
   }
 }
 
-// Tier Popup Modal Styles
 .tier-popup-overlay {
   position: fixed;
   top: 0;
@@ -756,20 +755,20 @@
       margin: 0 0 0.25rem;
       font-size: 1.25rem;
       font-weight: 700;
-      color: #1f2a44;
+      color: var(--text-primary);
     }
 
     .tier-popup-subtitle-header {
       margin: 0;
       font-size: 0.85rem;
-      color: #5a5f7d;
+      color: var(--text-secondary);
     }
   }
 
   .tier-popup-close {
     background: none;
     border: none;
-    color: #5a5f7d;
+    color: var(--text-secondary);
     font-size: 1.1rem;
     cursor: pointer;
     padding: 0.35rem;
@@ -783,7 +782,7 @@
 
     &:hover {
       background: #f5f3ff;
-      color: #7b68ee;
+      color: var(--primary);
     }
   }
 }
@@ -889,21 +888,21 @@
     margin: 0 0 0.25rem;
     font-size: 1.05rem;
     font-weight: 700;
-    color: #1f2a44;
+    color: var(--text-primary);
     line-height: 1.3;
   }
 
   .tier-popup-subtitle {
     margin: 0 0 0.25rem;
     font-size: 0.8rem;
-    color: #5a5f7d;
+    color: var(--text-secondary);
     font-weight: 600;
   }
 
   .tier-popup-amount {
     margin: 0;
     font-size: 0.9rem;
-    color: #7b68ee;
+    color: var(--primary);
     font-weight: 700;
   }
 }
@@ -947,13 +946,13 @@
     margin: 0 0 0.75rem;
     font-size: 0.85rem;
     font-weight: 700;
-    color: #1f2a44;
+    color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: 0.4rem;
 
     i {
-      color: #7b68ee;
+      color: var(--primary);
       font-size: 0.85rem;
     }
   }
@@ -969,11 +968,11 @@
       gap: 0.6rem;
       margin-bottom: 0.5rem;
       font-size: 0.8rem;
-      color: #4a5568;
+      color: var(--text-secondary);
       line-height: 1.4;
 
       i {
-        color: #7b68ee;
+        color: var(--primary);
         font-size: 0.75rem;
         margin-top: 0.25rem;
         flex-shrink: 0;

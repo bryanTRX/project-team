@@ -33,8 +33,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   private languageSubscription?: Subscription;
   currentLanguage: string = 'en';
   showQuickActions: boolean = true;
-
-  // Text-to-Speech properties
   speechSynthesis: SpeechSynthesis | null = null;
   currentUtterance: SpeechSynthesisUtterance | null = null;
   speakingMessageIndex: number | null = null;
@@ -51,21 +49,16 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getCurrentLanguage();
 
-    // Initialize Text-to-Speech
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       this.speechSynthesis = window.speechSynthesis;
-
-      // Load voices (some browsers need this)
       this.loadVoices();
 
-      // Some browsers load voices asynchronously
       if (this.speechSynthesis.onvoiceschanged !== undefined) {
         this.speechSynthesis.onvoiceschanged = () => {
           this.loadVoices();
         };
       }
 
-      // Fallback: try loading voices after a short delay (for browsers that don't fire onvoiceschanged)
       setTimeout(() => {
         if (!this.voicesLoaded && this.speechSynthesis) {
           this.loadVoices();
@@ -76,54 +69,38 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       const previousLang = this.currentLanguage;
       this.currentLanguage = lang;
-
-      // Stop any ongoing speech when language changes
       this.stopSpeech();
 
-      // If language changed, update all existing messages
       if (previousLang !== lang) {
         this.updateMessagesForNewLanguage();
       }
     });
 
-    // Welcome message with quick actions
     this.addBotMessage(this.getWelcomeMessage(), this.getWelcomeQuickActions());
   }
 
   updateMessagesForNewLanguage(): void {
-    // Store user messages to regenerate bot responses
     const userMessages: string[] = [];
     const updatedMessages: Message[] = [];
 
-    // Collect all user messages and update bot messages
     for (let i = 0; i < this.messages.length; i++) {
       const msg = this.messages[i];
-
       if (msg.isUser) {
         userMessages.push(msg.text);
         updatedMessages.push(msg);
-      } else {
-        // For bot messages, we'll regenerate them based on the conversation context
-        // Skip bot messages for now, we'll regenerate them
       }
     }
 
-    // Clear messages and regenerate conversation in new language
     this.messages = [];
 
-    // If we have user messages, regenerate the conversation
     if (userMessages.length > 0) {
-      // Add welcome message in new language
       this.addBotMessage(this.getWelcomeMessage(), this.getWelcomeQuickActions());
-
-      // Regenerate responses for each user message
       userMessages.forEach((userText) => {
         this.addUserMessage(userText);
         const response = this.generateResponse(userText);
         this.addBotMessage(response.text, response.quickActions);
       });
     } else {
-      // Just update welcome message
       this.addBotMessage(this.getWelcomeMessage(), this.getWelcomeQuickActions());
     }
   }
@@ -145,8 +122,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     this.addUserMessage(userMessage);
     this.userInput = '';
     this.showQuickActions = false;
-
-    // Simulate bot typing
     this.isTyping = true;
     setTimeout(() => {
       const response = this.generateResponse(userMessage);
@@ -200,7 +175,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Generate conversation summary
     const conversationText = this.messages
       .map((msg) => {
         const sender = msg.isUser ? 'You' : 'Athena';
@@ -210,7 +184,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
 
     const shareText = `Chat with Shield of Athena:\n\n${conversationText}\n\n---\nShield of Athena - Supporting women and children`;
 
-    // Use Web Share API if available
     if (navigator.share) {
       navigator
         .share({
@@ -221,19 +194,14 @@ export class ChatbotComponent implements OnInit, OnDestroy {
           console.log('Error sharing:', err);
         });
     } else {
-      // If Web Share API is not available, show a message
       alert(this.getTranslation('share_not_available', this.currentLanguage));
     }
   }
 
-  // Text-to-Speech methods
   speakMessage(text: string, messageIndex: number): void {
     if (!this.speechSynthesis) return;
-
-    // Stop any current speech
     this.stopSpeech();
 
-    // Clean text (remove emojis and special formatting for better speech)
     const cleanText = text
       .replace(/[👋🛡️💙📚🌍⚖️🏠💬⚔️🌟📞📧📍]/g, '')
       .replace(/\n/g, '. ')
@@ -243,8 +211,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
 
     try {
       const utterance = new SpeechSynthesisUtterance(cleanText);
-
-      // Set language based on current language - get fresh value
       const currentLang = this.languageService.getCurrentLanguage();
       const langMap: { [key: string]: string } = {
         en: 'en-US',
@@ -261,15 +227,11 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       const langCode = langMap[currentLang] || langMap['en'] || 'en-US';
       utterance.lang = langCode;
 
-      // Select a voice that matches the language
       const voice = this.getVoiceForLanguage(langCode);
       if (voice) {
         utterance.voice = voice;
-        // Also set lang to match voice for better compatibility
         utterance.lang = voice.lang;
       } else {
-        // If no voice found, still set the language code
-        // The browser will try to use its default voice for that language
         utterance.lang = langCode;
       }
 
@@ -296,12 +258,9 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       this.speakingMessageIndex = messageIndex;
       this.isPausedState = false;
       this.cdr.detectChanges();
-
-      // Attempt to speak - will work even if no perfect voice match is found
       this.speechSynthesis.speak(utterance);
     } catch (error) {
       console.error('Error in speakMessage:', error);
-      // Reset state on error
       this.speakingMessageIndex = null;
       this.currentUtterance = null;
       this.isPausedState = false;
@@ -327,7 +286,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   getVoiceForLanguage(langCode: string): SpeechSynthesisVoice | null {
     if (!this.speechSynthesis) return null;
 
-    // Ensure voices are loaded
     if (!this.voicesLoaded || this.availableVoices.length === 0) {
       this.loadVoices();
     }
@@ -336,20 +294,15 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       this.availableVoices.length > 0 ? this.availableVoices : this.speechSynthesis.getVoices();
 
     if (!voices || voices.length === 0) {
-      // No voices available on this device
       return null;
     }
 
-    // Try to find a voice that matches the language exactly
     let voice = voices.find((v) => v.lang === langCode);
 
-    // If exact match not found, try to find a voice with the same language prefix
     if (!voice) {
       const langPrefix = langCode.split('-')[0];
       voice = voices.find((v) => v.lang.startsWith(langPrefix));
     }
-
-    // If still not found, try to find any voice with similar language
     if (!voice) {
       const langMap: { [key: string]: string[] } = {
         en: ['en-US', 'en-GB', 'en-AU', 'en-CA'],
@@ -372,39 +325,29 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       }
     }
 
-    // Fallback: prefer a default voice, but if none available, use first voice
-    // Some devices may not have voices for all languages, so we gracefully degrade
     return voice || voices.find((v) => v.default) || voices[0] || null;
   }
 
   toggleSpeech(messageIndex: number, text: string): void {
     if (!this.speechSynthesis) return;
 
-    // Check if this message is currently being spoken
     if (this.speakingMessageIndex === messageIndex) {
-      // Currently speaking this message - pause/resume
       if (this.speechSynthesis.speaking && !this.isPausedState) {
-        // Pause
         this.speechSynthesis.pause();
         this.isPausedState = true;
-        // Use setTimeout to ensure state is updated after browser processes pause
         setTimeout(() => {
           this.cdr.detectChanges();
         }, 0);
       } else if (this.isPausedState) {
-        // Resume
         this.speechSynthesis.resume();
         this.isPausedState = false;
-        // Use setTimeout to ensure state is updated after browser processes resume
         setTimeout(() => {
           this.cdr.detectChanges();
         }, 0);
       } else {
-        // Not speaking but index matches - stop
         this.stopSpeech();
       }
     } else {
-      // Start speaking this message (stops any current speech)
       this.isPausedState = false;
       this.speakMessage(text, messageIndex);
     }
@@ -437,7 +380,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     const message = userMessage.toLowerCase();
     const lang = this.currentLanguage;
 
-    // Donation-related queries
     if (
       this.containsKeywords(message, [
         'don',
@@ -464,7 +406,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       };
     }
 
-    // Help/Assistance queries
     if (
       this.containsKeywords(message, ['help', 'aide', 'ayuda', 'assistance', 'emergency', 'urgent'])
     ) {
@@ -479,7 +420,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       };
     }
 
-    // Contact information
     if (
       this.containsKeywords(message, [
         'contact',
@@ -501,7 +441,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       };
     }
 
-    // Impact/Results queries
     if (
       this.containsKeywords(message, [
         'impact',
@@ -521,7 +460,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       };
     }
 
-    // Shelter queries
     if (
       this.containsKeywords(message, ['shelter', 'refuge', 'albergue', 'abri', 'housing', 'safe'])
     ) {
@@ -534,7 +472,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       };
     }
 
-    // Tier/Badge queries
     if (
       this.containsKeywords(message, [
         'tier',
@@ -556,7 +493,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       };
     }
 
-    // Organization/About queries
     if (
       this.containsKeywords(message, [
         'organization',
@@ -637,7 +573,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       };
     }
 
-    // Programs/Services queries
     if (
       this.containsKeywords(message, [
         'program',
@@ -658,7 +593,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       };
     }
 
-    // Greetings
     if (
       this.containsKeywords(message, [
         'hello',
@@ -691,7 +625,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       };
     }
 
-    // Thanks
     if (this.containsKeywords(message, ['thank', 'merci', 'gracias', 'thanks', 'appreciate'])) {
       return {
         text: this.getTranslation('chat_thanks', lang),
@@ -702,7 +635,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       };
     }
 
-    // Default response
     return {
       text: this.getTranslation('chat_default', lang),
       quickActions: this.getWelcomeQuickActions(),
@@ -894,7 +826,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
 
   getTranslation(key: string, lang: string): string {
     const translation = this.languageService.getTranslation(key);
-    // If translation service returns the key itself or null, use default translation
     if (!translation || translation === key) {
       return this.getDefaultTranslation(key, lang);
     }
@@ -1253,11 +1184,9 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       },
     };
 
-    // Try to get translation for current language, fallback to English, then to key itself
     if (translations[key]) {
       return translations[key][lang] || translations[key]['en'] || key;
     }
-    // If key doesn't exist in translations, return a friendly message
     return key;
   }
 }

@@ -75,7 +75,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
   cardHolder: string = '';
   expiryDate: string = '';
   cvv: string = '';
-  // Contact Information
   firstName: string = '';
   lastName: string = '';
   address: string = '';
@@ -111,7 +110,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
       this.currentLanguage = lang;
     });
 
-    // Get donation amount from localStorage or route params
     const savedAmount = localStorage.getItem('donationAmount');
     const savedRecurring = localStorage.getItem('recurringOption');
 
@@ -137,10 +135,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       }
     }
 
-    // Load accessibility settings
     this.textSize = this.accessibilityService.textSize;
-
-    // Subscribe to text size changes
     this.textSizeSubscription = this.accessibilityService.textSize$.subscribe((value) => {
       this.textSize = value;
     });
@@ -156,18 +151,13 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   formatCardNumber(): void {
-    // Remove all non-digits
     let value = this.cardNumber.replace(/\D/g, '');
-    // Add spaces every 4 digits
     value = value.match(/.{1,4}/g)?.join(' ') || value;
-    // Limit to 19 characters (16 digits + 3 spaces)
     this.cardNumber = value.slice(0, 19);
   }
 
   formatExpiryDate(): void {
-    // Remove all non-digits
     let value = this.expiryDate.replace(/\D/g, '');
-    // Add slash after 2 digits
     if (value.length >= 2) {
       value = value.slice(0, 2) + '/' + value.slice(2, 4);
     }
@@ -175,7 +165,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   formatCvv(): void {
-    // Remove all non-digits and limit to 4
     this.cvv = this.cvv.replace(/\D/g, '').slice(0, 4);
   }
 
@@ -296,7 +285,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
         }
       }
 
-      // Validate contact and address fields
       if (!this.firstName || !this.firstName.trim()) {
         alert('First Name is required');
         this.emailSectionInvalid = true;

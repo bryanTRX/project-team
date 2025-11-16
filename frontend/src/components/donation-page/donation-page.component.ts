@@ -26,38 +26,25 @@ interface ImpactDetail {
   styleUrl: './donation-page.component.scss',
 })
 export class DonationPageComponent implements OnInit {
-  // User state
   isLoggedIn = false;
   userName = '';
   userEmail = '';
   userProfileImage = '';
-
-  // Email check flow
   checkingEmail = false;
   emailForCheck = '';
   showLoginForm = false;
   showSignupForm = false;
   loginPassword = '';
   forgotPassword = false;
-
-  // Signup
   signupName = '';
   signupPassword = '';
   signupConfirmPassword = '';
-
-  // Donation state
   selectedAmount: number | null = null;
   customAmount: number | null = null;
   paymentFrequency: string = 'one-time';
   paymentMethod: string = 'credit-card';
-
-  // Accessibility
   largeText = false;
-
-  // Final step
   agreeToUpdates = false;
-
-  // Recurring donation info (for logged in users)
   currentRecurringAmount = 50;
   nextBillingDate = '2024-02-15';
   hasRecurringDonation = false;
@@ -118,7 +105,6 @@ export class DonationPageComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // Check if user is logged in (in real app, this would check a service)
     const savedUser = localStorage.getItem('currentUser');
     if (savedUser) {
       const user = JSON.parse(savedUser);
@@ -130,8 +116,6 @@ export class DonationPageComponent implements OnInit {
       if (user.recurringAmount) this.currentRecurringAmount = user.recurringAmount;
       if (user.nextBillingDate) this.nextBillingDate = user.nextBillingDate;
     }
-
-    // Get donation amount from previous step if any
     const savedAmount = localStorage.getItem('donationAmount');
     if (savedAmount) {
       this.selectedAmount = parseFloat(savedAmount);
@@ -152,11 +136,8 @@ export class DonationPageComponent implements OnInit {
     }
 
     this.checkingEmail = true;
-
-    // Simulate API call to check if email exists
     setTimeout(() => {
       this.checkingEmail = false;
-      // Simulate: check if email exists (in real app, this would be an API call)
       const existingAccounts = ['test@example.com', 'donor@example.com'];
 
       if (existingAccounts.includes(this.emailForCheck.toLowerCase())) {
@@ -174,8 +155,6 @@ export class DonationPageComponent implements OnInit {
       alert('Please enter your password');
       return;
     }
-
-    // Simulate login
     const user = {
       name: 'Sarah Johnson',
       email: this.userEmail,
@@ -206,8 +185,6 @@ export class DonationPageComponent implements OnInit {
       alert('Password must be at least 6 characters');
       return;
     }
-
-    // Simulate account creation
     const user = {
       name: this.signupName,
       email: this.userEmail,
@@ -261,7 +238,6 @@ export class DonationPageComponent implements OnInit {
   }
 
   modifyRecurringDonation(): void {
-    // In real app, this would open a modal or navigate to settings
     alert('Redirecting to recurring donation settings...');
   }
 
@@ -276,15 +252,23 @@ export class DonationPageComponent implements OnInit {
       alert('Please select or enter a donation amount');
       return;
     }
-
-    // Save donation details
     localStorage.setItem('donationAmount', amount.toString());
     localStorage.setItem('recurringOption', this.paymentFrequency);
     localStorage.setItem('paymentMethod', this.paymentMethod);
     localStorage.setItem('agreeToUpdates', this.agreeToUpdates.toString());
-
-    // Navigate to payment
-    this.router.navigate(['/payment']);
+    this.router.navigate(['/payment']).then(() => {
+      setTimeout(() => {
+        const contactInfoSection = document.getElementById('contact-information');
+        if (contactInfoSection) {
+          const navbarHeight = 80;
+          const elementPosition = contactInfoSection.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 100);
+    });
   }
 
   goBack(): void {

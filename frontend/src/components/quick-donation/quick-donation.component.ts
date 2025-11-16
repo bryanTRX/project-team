@@ -83,12 +83,19 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
   proceedToPayment(): void {
     const amount = this.getDonationAmount();
     if (amount > 0) {
-      // Save donation details to localStorage
       localStorage.setItem('donationAmount', amount.toString());
       localStorage.setItem('recurringOption', 'one-time');
-
-      // Redirect to payment page using router
-      this.router.navigate(['/payment']);
+      this.router.navigate(['/payment']).then(() => {
+        setTimeout(() => {
+          const contactInfoSection = document.getElementById('contact-information');
+          if (contactInfoSection) {
+            const navbarHeight = 80;
+            const elementPosition = contactInfoSection.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+          }
+        }, 100);
+      });
     } else {
       alert(this.languageService.getTranslation('alert_select_amount'));
     }

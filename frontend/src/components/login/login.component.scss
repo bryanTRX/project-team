@@ -5,7 +5,7 @@
   background:
     radial-gradient(circle at top left, rgba(255, 122, 133, 0.2), transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(123, 104, 238, 0.25), transparent 55%),
-    linear-gradient(135deg, #fdf3f4 0%, #f6f7ff 60%, #eef2ff 100%);
+    linear-gradient(135deg, var(--background) 0%, var(--background) 60%, var(--background) 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,7 +42,7 @@
 .login-card {
   width: 100%;
   max-width: 440px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: var(--surface);
   border-radius: 28px;
   padding: 2.75rem;
   box-shadow: 0 30px 80px rgba(66, 56, 140, 0.2);
@@ -63,12 +63,12 @@
   h1 {
     font-size: 2rem;
     font-weight: 700;
-    color: #1f2a44;
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
   }
 
   p {
-    color: #4a5568;
+    color: var(--text-secondary);
     margin: 0;
   }
 }
@@ -87,11 +87,11 @@
   label {
     font-size: 0.9rem;
     font-weight: 600;
-    color: #1f2a44;
+    color: var(--text-primary);
   }
 
   input {
-    border: 1.5px solid #e2e8f0;
+    border: 1.5px solid var(--border);
     border-radius: 14px;
     padding: 0.85rem 1rem;
     font-size: 1rem;
@@ -99,11 +99,11 @@
     transition:
       border-color 0.2s ease,
       box-shadow 0.2s ease;
-    background-color: #fdfbff;
+    background-color: var(--background);
 
     &:focus {
       outline: none;
-      border-color: #7b68ee;
+      border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(123, 104, 238, 0.15);
       background-color: white;
     }
@@ -124,7 +124,7 @@
   padding: 0.9rem 1rem;
   border: none;
   border-radius: 16px;
-  background: linear-gradient(135deg, #ff7a85 0%, #e85a6a 100%);
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
   color: white;
   font-size: 1rem;
   font-weight: 600;
