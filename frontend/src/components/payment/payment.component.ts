@@ -85,7 +85,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
   phoneNumber: string = '';
   wishToRemainAnonymous: boolean = false;
   paymentPassword: string = '';
-  phonePassword: string = '';
   email: string = '';
   emailMode: 'idle' | 'existing' | 'new' = 'idle';
   loginPassword = '';

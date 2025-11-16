@@ -560,23 +560,6 @@
                       'After you click Complete Donation, an agent will call to finalize your gift.'
                   }}
                 </p>
-                <div class="phone-form-fields" *ngIf="!isAuthenticated">
-                  <div class="phone-field">
-                    <label for="phonePassword">{{
-                      languageService.getTranslation('password') || 'Password'
-                    }}</label>
-                    <input
-                      type="password"
-                      id="phonePassword"
-                      [(ngModel)]="phonePassword"
-                      name="phonePassword"
-                      [placeholder]="
-                        languageService.getTranslation('enter_password') || 'Enter your password'
-                      "
-                      autocomplete="new-password"
-                    />
-                  </div>
-                </div>
               </div>
             </div>
             <div class="payment-security-note">
