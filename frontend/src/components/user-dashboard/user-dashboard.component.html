@@ -121,7 +121,7 @@
                     <ul>
                       <li *ngFor="let benefit of tier.benefits">
                         <i class="fas fa-check"></i>
-                        <span>{{ benefit }}</span>
+                        <span>{{ languageService.getTranslation(benefit) || benefit }}</span>
                       </li>
                     </ul>
                   </div>
