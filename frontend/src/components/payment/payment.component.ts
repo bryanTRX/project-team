@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 import { AuthService } from '../../services/auth.service';
+import { AccessibilityService } from '../../services/accessibility.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -15,8 +16,8 @@ import { Subscription } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class PaymentComponent implements OnInit, OnDestroy {
-  donationOptions: number[] = [25, 50, 100, 250, 500];
-  donationAmount: number = this.donationOptions[1];
+  donationOptions: number[] = [100, 250, 500, 1000];
+  donationAmount: number = this.donationOptions[0];
   customAmount: string = '';
   recurringOption: string = 'one-time';
   currentLanguage: string = 'en';
@@ -67,21 +68,12 @@ export class PaymentComponent implements OnInit, OnDestroy {
     ];
   }
 
-  get textSizeOptions() {
-    return [
-      { value: 'normal', label: this.languageService.getTranslation('normal') },
-      { value: 'large', label: this.languageService.getTranslation('large') },
-      { value: 'xlarge', label: this.languageService.getTranslation('extra_large') },
-    ];
-  }
-
   selectedPaymentMethod = 'card';
   updatesOptIn = false;
   cardNumber: string = '';
   cardHolder: string = '';
   expiryDate: string = '';
   cvv: string = '';
-  // Contact Information
   firstName: string = '';
   lastName: string = '';
   address: string = '';
@@ -93,7 +85,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
   phoneNumber: string = '';
   wishToRemainAnonymous: boolean = false;
   paymentPassword: string = '';
-  phonePassword: string = '';
   email: string = '';
   emailMode: 'idle' | 'existing' | 'new' = 'idle';
   loginPassword = '';
@@ -101,14 +92,14 @@ export class PaymentComponent implements OnInit, OnDestroy {
   newPassword = '';
   emailSectionInvalid = false;
   showSuccess = false;
-  showAccessibilityPanel = false;
-  simpleMode = false;
   textSize: 'normal' | 'large' | 'xlarge' = 'normal';
+  private textSizeSubscription?: Subscription;
 
   constructor(
     private router: Router,
     public languageService: LanguageService,
     private authService: AuthService,
+    private accessibilityService: AccessibilityService,
   ) {}
 
   ngOnInit(): void {
@@ -117,7 +108,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
       this.currentLanguage = lang;
     });
 
-    // Get donation amount from localStorage or route params
     const savedAmount = localStorage.getItem('donationAmount');
     const savedRecurring = localStorage.getItem('recurringOption');
 
@@ -142,27 +132,30 @@ export class PaymentComponent implements OnInit, OnDestroy {
         this.email = user.email;
       }
     }
+
+    this.textSize = this.accessibilityService.textSize;
+    this.textSizeSubscription = this.accessibilityService.textSize$.subscribe((value) => {
+      this.textSize = value;
+    });
   }
 
   ngOnDestroy(): void {
     if (this.languageSubscription) {
       this.languageSubscription.unsubscribe();
     }
+    if (this.textSizeSubscription) {
+      this.textSizeSubscription.unsubscribe();
+    }
   }
 
   formatCardNumber(): void {
-    // Remove all non-digits
     let value = this.cardNumber.replace(/\D/g, '');
-    // Add spaces every 4 digits
     value = value.match(/.{1,4}/g)?.join(' ') || value;
-    // Limit to 19 characters (16 digits + 3 spaces)
     this.cardNumber = value.slice(0, 19);
   }
 
   formatExpiryDate(): void {
-    // Remove all non-digits
     let value = this.expiryDate.replace(/\D/g, '');
-    // Add slash after 2 digits
     if (value.length >= 2) {
       value = value.slice(0, 2) + '/' + value.slice(2, 4);
     }
@@ -170,7 +163,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   formatCvv(): void {
-    // Remove all non-digits and limit to 4
     this.cvv = this.cvv.replace(/\D/g, '').slice(0, 4);
   }
 
@@ -205,51 +197,41 @@ export class PaymentComponent implements OnInit, OnDestroy {
     }
     if (!this.cardNumber || this.cardNumber.replace(/\s/g, '').length !== 16) {
       alert(
-        this.languageService.getTranslation('card_number') +
+        (this.languageService.getTranslation('card_number') || 'Card Number') +
           ' - ' +
-          this.languageService
-            .getTranslation('invalid_credentials')
-            .replace('username or password', ''),
+          (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
       );
       return false;
     }
     if (!this.cardHolder) {
       alert(
-        this.languageService.getTranslation('card_holder_name') +
+        (this.languageService.getTranslation('card_holder_name') || 'Card Holder Name') +
           ' - ' +
-          this.languageService
-            .getTranslation('invalid_credentials')
-            .replace('username or password', ''),
+          (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
       );
       return false;
     }
     if (!this.expiryDate || !/^\d{2}\/\d{2}$/.test(this.expiryDate)) {
       alert(
-        this.languageService.getTranslation('expiry_date') +
+        (this.languageService.getTranslation('expiry_date') || 'Expiry Date') +
           ' - ' +
-          this.languageService
-            .getTranslation('invalid_credentials')
-            .replace('username or password', ''),
+          (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
       );
       return false;
     }
     if (!this.cvv || this.cvv.length < 3) {
       alert(
-        this.languageService.getTranslation('cvv') +
+        (this.languageService.getTranslation('cvv') || 'CVV') +
           ' - ' +
-          this.languageService
-            .getTranslation('invalid_credentials')
-            .replace('username or password', ''),
+          (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
       );
       return false;
     }
     if (!this.email || !this.email.includes('@')) {
       alert(
-        this.languageService.getTranslation('email_address') +
+        (this.languageService.getTranslation('email_address') || 'Email Address') +
           ' - ' +
-          this.languageService
-            .getTranslation('invalid_credentials')
-            .replace('username or password', ''),
+          (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
       );
       this.emailSectionInvalid = true;
       return false;
@@ -257,11 +239,9 @@ export class PaymentComponent implements OnInit, OnDestroy {
     if (!this.isAuthenticated) {
       if (this.emailMode === 'existing' && !this.loginPassword) {
         alert(
-          this.languageService.getTranslation('existing_account_password_label') +
+          (this.languageService.getTranslation('existing_account_password_label') || 'Password') +
             ' - ' +
-            this.languageService
-              .getTranslation('invalid_credentials')
-              .replace('username or password', ''),
+            (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
         );
         this.emailSectionInvalid = true;
         return false;
@@ -269,65 +249,86 @@ export class PaymentComponent implements OnInit, OnDestroy {
       if (this.emailMode === 'new') {
         if (!this.newUsername) {
           alert(
-            this.languageService.getTranslation('create_username_label') +
+            (this.languageService.getTranslation('create_username_label') || 'Username') +
               ' - ' +
-              this.languageService
-                .getTranslation('invalid_credentials')
-                .replace('username or password', ''),
+              (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
           );
           this.emailSectionInvalid = true;
           return false;
         }
         if (!this.newPassword) {
           alert(
-            this.languageService.getTranslation('create_password_label') +
+            (this.languageService.getTranslation('create_password_label') || 'Password') +
               ' - ' +
-              this.languageService
-                .getTranslation('invalid_credentials')
-                .replace('username or password', ''),
+              (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
           );
           this.emailSectionInvalid = true;
           return false;
         }
       }
 
-      // Validate contact and address fields if not in simple mode
-      if (!this.simpleMode) {
-        if (!this.firstName || !this.firstName.trim()) {
-          alert('First Name is required');
-          this.emailSectionInvalid = true;
-          return false;
-        }
-        if (!this.lastName || !this.lastName.trim()) {
-          alert('Last Name is required');
-          this.emailSectionInvalid = true;
-          return false;
-        }
-        if (!this.address || !this.address.trim()) {
-          alert('Street Address is required');
-          this.emailSectionInvalid = true;
-          return false;
-        }
-        if (!this.city || !this.city.trim()) {
-          alert('City is required');
-          this.emailSectionInvalid = true;
-          return false;
-        }
-        if (!this.province || !this.province.trim()) {
-          alert('Province/State is required');
-          this.emailSectionInvalid = true;
-          return false;
-        }
-        if (!this.postalCode || !this.postalCode.trim()) {
-          alert('Postal Code/ZIP is required');
-          this.emailSectionInvalid = true;
-          return false;
-        }
-        if (!this.country || !this.country.trim()) {
-          alert('Country is required');
-          this.emailSectionInvalid = true;
-          return false;
-        }
+      if (!this.firstName || !this.firstName.trim()) {
+        alert(
+          (this.languageService.getTranslation('first_name') || 'First Name') +
+            ' - ' +
+            (this.languageService.getTranslation('field_required') || 'is required'),
+        );
+        this.emailSectionInvalid = true;
+        return false;
+      }
+      if (!this.lastName || !this.lastName.trim()) {
+        alert(
+          (this.languageService.getTranslation('last_name') || 'Last Name') +
+            ' - ' +
+            (this.languageService.getTranslation('field_required') || 'is required'),
+        );
+        this.emailSectionInvalid = true;
+        return false;
+      }
+      if (!this.address || !this.address.trim()) {
+        alert(
+          (this.languageService.getTranslation('street_address_line1') || 'Street Address') +
+            ' - ' +
+            (this.languageService.getTranslation('field_required') || 'is required'),
+        );
+        this.emailSectionInvalid = true;
+        return false;
+      }
+      if (!this.city || !this.city.trim()) {
+        alert(
+          (this.languageService.getTranslation('city') || 'City') +
+            ' - ' +
+            (this.languageService.getTranslation('field_required') || 'is required'),
+        );
+        this.emailSectionInvalid = true;
+        return false;
+      }
+      if (!this.province || !this.province.trim()) {
+        alert(
+          (this.languageService.getTranslation('province_state') || 'Province/State') +
+            ' - ' +
+            (this.languageService.getTranslation('field_required') || 'is required'),
+        );
+        this.emailSectionInvalid = true;
+        return false;
+      }
+      if (!this.postalCode || !this.postalCode.trim()) {
+        alert(
+          (this.languageService.getTranslation('postal_code_zip') || 'Postal Code/ZIP') +
+            ' - ' +
+            (this.languageService.getTranslation('field_required') || 'is required'),
+        );
+        this.emailSectionInvalid = true;
+        return false;
+      }
+      if (!this.country || !this.country.trim()) {
+        alert(
+          (this.languageService.getTranslation('country') || 'Country') +
+            ' - ' +
+            (this.languageService.getTranslation('field_required') || 'is required'),
+        );
+        this.emailSectionInvalid = true;
+        return false;
       }
     }
     return true;
@@ -403,16 +404,5 @@ export class PaymentComponent implements OnInit, OnDestroy {
     return translation
       .replace('${{amount}}', formattedAmount)
       .replace('{{amount}}', formattedAmount);
-  }
-
-  toggleAccessibilityPanel(): void {
-    this.showAccessibilityPanel = !this.showAccessibilityPanel;
-  }
-
-  trackSimpleModeChange(): void {
-    // Clear optional fields when entering simple mode for clarity
-    if (this.simpleMode) {
-      this.updatesOptIn = false;
-    }
   }
 }

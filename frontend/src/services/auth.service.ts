@@ -13,6 +13,8 @@ export interface UserProfile {
   goal: number;
   donationsRequiredForTier: number;
   email: string;
+  profileImage?: string;
+  hasRecurringDonation?: boolean;
 }
 
 @Injectable({
@@ -20,9 +22,7 @@ export interface UserProfile {
 })
 export class AuthService {
   private readonly storageKey = 'shield_of_athena_user';
-  // Point API calls to the backend server during development
   private readonly apiBase = 'http://localhost:3000';
-  // Default seeded users for quick demos and social logins
   private readonly knownSeedEmails = [
     'admin@shieldofathena.org',
     'facebook@shieldofathena.org',
@@ -42,6 +42,27 @@ export class AuthService {
     return user._id || user.id || null;
   }
 
+  async signup(
+    email: string,
+    name: string,
+    password: string,
+    username?: string,
+  ): Promise<UserProfile | null> {
+    try {
+      const url = `${this.apiBase}/auth/signup`;
+      const body = { email: email.toLowerCase().trim(), name, password, username };
+      const profile = await firstValueFrom(this.http.post<UserProfile>(url, body));
+      if (profile) {
+        this.persistUser(profile);
+        return profile;
+      }
+      return null;
+    } catch (err: any) {
+      console.error('Signup failed', err);
+      throw err;
+    }
+  }
+
   async login(username: string, password: string): Promise<boolean> {
     try {
       const url = `${this.apiBase}/auth/login`;
@@ -59,7 +80,6 @@ export class AuthService {
   }
 
   async loginWithFacebook(): Promise<boolean> {
-    // Credentials must match the seeded social account in the DB
     return this.login('facebook', 'facebook');
   }
 

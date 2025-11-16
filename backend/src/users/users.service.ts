@@ -19,6 +19,42 @@ export class UsersService {
     return this.userModel.findById(id).lean().exec();
   }
 
+  async create(userData: {
+    username: string;
+    email: string;
+    password: string;
+    name?: string;
+    donorTier?: string;
+    totalDonated?: number;
+    familiesHelped?: number;
+    goal?: number;
+    donationsRequiredForTier?: number;
+  }) {
+    const existingUser = await this.userModel.findOne({
+      $or: [{ email: userData.email }, { username: userData.username }],
+    });
+    
+    if (existingUser) {
+      throw new Error('User with this email or username already exists');
+    }
+
+    const newUser = new this.userModel({
+      username: userData.username,
+      email: userData.email,
+      password: userData.password,
+      name: userData.name || userData.username,
+      donorTier: userData.donorTier || 'demeter',
+      totalDonated: userData.totalDonated || 0,
+      familiesHelped: userData.familiesHelped || 0,
+      goal: userData.goal || 0,
+      donationsRequiredForTier: userData.donationsRequiredForTier || 0,
+    });
+
+    const saved = await newUser.save();
+    const { password: _p, ...userWithoutPassword } = saved.toObject();
+    return userWithoutPassword;
+  }
+
   async incrementTotalDonated(id: string, amount: number) {
     // First, get the current user to calculate the new familiesHelped value
     const user = await this.userModel.findById(id).lean().exec();

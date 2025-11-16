@@ -1,5 +1,4 @@
 :root {
-  // Palette de couleurs harmonieuse et professionnelle
   --primary: #7b68ee;
   --primary-dark: #6b5bce;
   --primary-light: #9b8bff;
@@ -17,7 +16,6 @@
   --warning: #ed8936;
   --error: #f56565;
 
-  // Anciennes couleurs pour compatibilité (à remplacer progressivement)
   --mauve: #c9b5e8;
   --deep-purple: #6b4fa3;
   --ivory: #f8f5ff;
@@ -95,6 +93,125 @@ h3 {
 h4 {
   font-size: 1.25rem;
   font-weight: 600;
+}
+
+body.text-normal,
+html.text-normal {
+  font-size: 15px;
+}
+
+body.text-large,
+html.text-large {
+  font-size: 17px;
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.75rem;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+  }
+
+  p,
+  span,
+  label,
+  a,
+  li,
+  td,
+  th {
+    font-size: 1.13em;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-size: 1.13em;
+  }
+}
+
+body.text-xlarge,
+html.text-xlarge {
+  font-size: 19px;
+
+  .navbar-wrapper {
+    .navbar {
+      padding: 0.75rem 0;
+
+      .nav-content {
+        gap: 2rem;
+      }
+
+      .nav-links {
+        gap: 1.5rem;
+
+        a {
+          font-size: 0.95rem;
+          padding: 0.25rem 0;
+        }
+      }
+
+      .logo-image {
+        height: 50px;
+      }
+
+      .login-btn {
+        font-size: 0.85rem;
+        padding: 0.45rem 0.875rem;
+        height: 36px;
+      }
+
+      .nav-actions {
+        gap: 1rem;
+      }
+
+      .accessibility-btn {
+        width: 34px;
+        height: 34px;
+      }
+    }
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2.25rem;
+  }
+
+  h3 {
+    font-size: 2rem;
+  }
+
+  h4 {
+    font-size: 1.75rem;
+  }
+
+  p,
+  span,
+  label,
+  a,
+  li,
+  td,
+  th {
+    font-size: 1.27em;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-size: 1.27em;
+  }
 }
 
 .container {
@@ -214,7 +331,6 @@ main {
   width: 100%;
 }
 
-// Responsive typography
 @media (max-width: 768px) {
   body {
     font-size: 14px;
@@ -233,7 +349,6 @@ main {
   }
 }
 
-// Loading animations
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -254,7 +369,6 @@ main {
   }
 }
 
-// Utility classes
 .text-center {
   text-align: center;
 }

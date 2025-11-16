@@ -18,7 +18,7 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
   currentLanguage: string = 'en';
   private languageSubscription?: Subscription;
 
-  donationAmounts = [25, 50, 100, 200];
+  donationAmounts = [100, 250, 500, 1000];
 
   constructor(
     public languageService: LanguageService,
@@ -40,14 +40,21 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
 
   getAmountDescription(amount: number): string {
     switch (amount) {
-      case 25:
-        return this.languageService.getTranslation('weekly_meals_5_children');
-      case 50:
-        return this.languageService.getTranslation('night_safe_shelter');
       case 100:
-        return this.languageService.getTranslation('hours_translation_services');
-      case 200:
-        return this.languageService.getTranslation('week_counseling_support');
+        return this.languageService.getTranslation('therapy_session') || '1 therapy session';
+      case 250:
+        return (
+          this.languageService.getTranslation('legal_aid_consultation') || 'Legal aid consultation'
+        );
+      case 500:
+        return (
+          this.languageService.getTranslation('week_counseling_support') ||
+          '1 week of counseling support'
+        );
+      case 1000:
+        return (
+          this.languageService.getTranslation('month_safe_shelter') || '1 month of safe shelter'
+        );
       default:
         return '';
     }
@@ -83,12 +90,19 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
   proceedToPayment(): void {
     const amount = this.getDonationAmount();
     if (amount > 0) {
-      // Save donation details to localStorage
       localStorage.setItem('donationAmount', amount.toString());
       localStorage.setItem('recurringOption', 'one-time');
-
-      // Redirect to payment page using router
-      this.router.navigate(['/payment']);
+      this.router.navigate(['/payment']).then(() => {
+        setTimeout(() => {
+          const contactInfoSection = document.getElementById('contact-information');
+          if (contactInfoSection) {
+            const navbarHeight = 80;
+            const elementPosition = contactInfoSection.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+          }
+        }, 100);
+      });
     } else {
       alert(this.languageService.getTranslation('alert_select_amount'));
     }

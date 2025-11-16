@@ -68,7 +68,10 @@ export class StoriesComponent implements OnInit, OnDestroy {
   ];
 
   sendMessage(story: Story): void {
-    alert(`Sending a message of support to ${story.name}. Your kindness makes all the difference!`);
+    const message =
+      this.languageService.getTranslation('sending_support_message') ||
+      `Sending a message of support to ${story.name}. Your kindness makes all the difference!`;
+    alert(message.replace('{{name}}', story.name));
   }
 
   scrollToDonation(): void {

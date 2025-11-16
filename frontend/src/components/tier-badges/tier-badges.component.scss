@@ -1,7 +1,3 @@
-// ============================================================
-// TIER BADGES STYLES - IMAGE-BASED
-// ============================================================
-
 .tier-badges-container {
   padding: 18px;
   font-family:
@@ -20,7 +16,6 @@
   align-items: flex-start;
 }
 
-// Badge with image
 .tier-badge {
   display: inline-flex;
   flex-direction: column;
@@ -56,7 +51,6 @@
     transition: color 0.3s ease;
   }
 
-  // Unlocked state
   &.tier-badge--unlocked {
     .tier-badge__image {
       filter: grayscale(0%) opacity(1);
@@ -67,7 +61,6 @@
     }
   }
 
-  // Hover effect
   &:hover {
     transform: translateY(-4px);
 

@@ -19,7 +19,14 @@
           <div class="donor-info">
             <div class="avatar-wrapper">
               <div class="avatar" [style.border-color]="feedback.color + '40'">
-                <img [src]="feedback.avatar" [alt]="feedback.name" />
+                <img
+                  [src]="feedback.avatar"
+                  [alt]="
+                    (languageService.getTranslation('donor_avatar') || 'Donor avatar') +
+                    ': ' +
+                    feedback.name
+                  "
+                />
               </div>
               <div class="avatar-badge" [style.background-color]="feedback.color">
                 <i class="fas fa-heart"></i>
@@ -28,8 +35,10 @@
             <div class="donor-details">
               <h3 class="donor-name">{{ feedback.name }}</h3>
               <div class="donation-info">
-                <span class="donation-amount">${{ feedback.amount }}</span>
-                <span class="donation-period">/month</span>
+                <span class="donation-amount">${{ formatNumber(feedback.amount) }}</span>
+                <span class="donation-period"
+                  >/{{ languageService.getTranslation('month') || 'month' }}</span
+                >
               </div>
             </div>
           </div>

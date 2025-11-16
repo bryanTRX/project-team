@@ -1,39 +1,35 @@
 <app-navbar></app-navbar>
-<section
-  class="donation-page-section"
-  [class.simple-mode]="simpleMode"
-  [class.large-text]="largeText"
->
+<section class="donation-page-section" [class.large-text]="largeText">
   <div class="container">
     <div class="donation-page-header">
       <button class="back-link" (click)="goBack()">
         <i class="fas fa-arrow-left"></i>
-        <span>← Back to Dashboard</span>
+        <span>{{
+          languageService.getTranslation('back_to_dashboard') || '← Back to Dashboard'
+        }}</span>
       </button>
       <div class="header-content">
-        <h1 class="page-title">Make a New Donation</h1>
+        <h1 class="page-title">
+          {{ languageService.getTranslation('make_new_donation') || 'Make a New Donation' }}
+        </h1>
         <p class="page-subtitle">
-          Every contribution helps us support women and children in crisis
+          {{
+            languageService.getTranslation('every_contribution_helps') ||
+              'Every contribution helps us support women and children in crisis'
+          }}
         </p>
       </div>
       <div class="accessibility-controls">
         <button
           class="control-btn"
-          [class.active]="simpleMode"
-          (click)="toggleSimpleMode()"
-          aria-label="Toggle Simple Mode"
-        >
-          <i class="fas fa-magic"></i>
-          <span>Simple Mode</span>
-        </button>
-        <button
-          class="control-btn"
           [class.active]="largeText"
           (click)="toggleLargeText()"
-          aria-label="Toggle Large Text"
+          [attr.aria-label]="
+            languageService.getTranslation('toggle_large_text') || 'Toggle Large Text'
+          "
         >
           <i class="fas fa-text-height"></i>
-          <span>Large Text</span>
+          <span>{{ languageService.getTranslation('large_text') || 'Large Text' }}</span>
         </button>
       </div>
     </div>
@@ -51,8 +47,16 @@
               <i class="fas fa-user"></i>
             </div>
             <div class="welcome-text">
-              <h3 class="welcome-title">Welcome back, {{ userName }}!</h3>
-              <p class="welcome-message">Thank you for continuing to make a difference</p>
+              <h3 class="welcome-title">
+                {{ languageService.getTranslation('welcome_back') || 'Welcome back' }},
+                {{ userName }}!
+              </h3>
+              <p class="welcome-message">
+                {{
+                  languageService.getTranslation('thank_you_continue') ||
+                    'Thank you for continuing to make a difference'
+                }}
+              </p>
             </div>
           </div>
 
@@ -60,20 +64,30 @@
           <div *ngIf="hasRecurringDonation" class="recurring-plan-card">
             <div class="recurring-header">
               <i class="fas fa-sync-alt"></i>
-              <h4>Your Current Monthly Donation</h4>
+              <h4>
+                {{
+                  languageService.getTranslation('current_monthly_donation') ||
+                    'Your Current Monthly Donation'
+                }}
+              </h4>
             </div>
             <div class="recurring-details">
               <div class="recurring-amount">
                 <span class="amount-value">${{ currentRecurringAmount }}</span>
-                <span class="amount-period">per month</span>
+                <span class="amount-period">{{
+                  languageService.getTranslation('per_month') || 'per month'
+                }}</span>
               </div>
               <div class="recurring-date">
                 <i class="fas fa-calendar-alt"></i>
-                <span>Next billing: {{ nextBillingDate }}</span>
+                <span
+                  >{{ languageService.getTranslation('next_billing') || 'Next billing' }}:
+                  {{ nextBillingDate }}</span
+                >
               </div>
               <button class="modify-btn" (click)="modifyRecurringDonation()">
                 <i class="fas fa-edit"></i>
-                <span>Modify Plan</span>
+                <span>{{ languageService.getTranslation('modify_plan') || 'Modify Plan' }}</span>
               </button>
             </div>
           </div>
@@ -85,30 +99,46 @@
             <div class="email-check-image">
               <img
                 src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=400&fit=crop&crop=face"
-                alt="Woman smiling warmly"
+                [alt]="
+                  languageService.getTranslation('woman_smiling_warmly') || 'Woman smiling warmly'
+                "
                 class="human-image"
               />
               <div class="image-overlay"></div>
             </div>
             <i class="fas fa-envelope-open-text"></i>
-            <h3>Let's get started</h3>
-            <p>Enter your email to continue with your donation</p>
+            <h3>{{ languageService.getTranslation('lets_get_started') || "Let's get started" }}</h3>
+            <p>
+              {{
+                languageService.getTranslation('enter_email_continue_donation') ||
+                  'Enter your email to continue with your donation'
+              }}
+            </p>
             <div class="email-input-group">
               <input
                 type="email"
                 [(ngModel)]="emailForCheck"
-                placeholder="your.email@example.com"
+                [placeholder]="
+                  languageService.getTranslation('email_placeholder') || 'your.email@example.com'
+                "
                 class="email-input"
                 (keyup.enter)="checkEmail()"
               />
               <button class="continue-email-btn" (click)="checkEmail()" [disabled]="checkingEmail">
-                <span *ngIf="!checkingEmail">Continue</span>
-                <span *ngIf="checkingEmail">Checking...</span>
+                <span *ngIf="!checkingEmail">{{
+                  languageService.getTranslation('continue') || 'Continue'
+                }}</span>
+                <span *ngIf="checkingEmail">{{
+                  languageService.getTranslation('checking') || 'Checking...'
+                }}</span>
               </button>
             </div>
             <p class="privacy-note">
               <i class="fas fa-lock"></i>
-              Your email is secure and will only be used for donation purposes
+              {{
+                languageService.getTranslation('email_secure_donation') ||
+                  'Your email is secure and will only be used for donation purposes'
+              }}
             </p>
           </div>
         </div>
@@ -116,8 +146,13 @@
         <!-- Login Form -->
         <div *ngIf="showLoginForm" class="auth-card">
           <div class="auth-header">
-            <h3>Welcome back!</h3>
-            <p>Enter your password to continue</p>
+            <h3>{{ languageService.getTranslation('welcome_back') || 'Welcome back' }}!</h3>
+            <p>
+              {{
+                languageService.getTranslation('enter_password_continue') ||
+                  'Enter your password to continue'
+              }}
+            </p>
           </div>
           <div class="auth-content">
             <div class="auth-email-display">
@@ -125,33 +160,51 @@
               <span>{{ userEmail }}</span>
             </div>
             <div class="form-group">
-              <label for="loginPassword">Password</label>
+              <label for="loginPassword">{{
+                languageService.getTranslation('password') || 'Password'
+              }}</label>
               <input
                 type="password"
                 id="loginPassword"
                 [(ngModel)]="loginPassword"
-                placeholder="Enter your password"
+                [placeholder]="
+                  languageService.getTranslation('enter_password') || 'Enter your password'
+                "
                 class="form-input"
                 (keyup.enter)="login()"
               />
             </div>
             <button class="forgot-password-link" (click)="forgotPassword = !forgotPassword">
-              <span *ngIf="!forgotPassword">Forgot Password?</span>
-              <span *ngIf="forgotPassword">Remember it? Log in</span>
+              <span *ngIf="!forgotPassword">{{
+                languageService.getTranslation('forgot_password') || 'Forgot Password?'
+              }}</span>
+              <span *ngIf="forgotPassword">{{
+                languageService.getTranslation('remember_it_login') || 'Remember it? Log in'
+              }}</span>
             </button>
             <div *ngIf="forgotPassword" class="forgot-password-message">
               <i class="fas fa-info-circle"></i>
-              <p>We'll send password reset instructions to {{ userEmail }}</p>
-              <button class="send-reset-btn">Send Reset Link</button>
+              <p>
+                {{
+                  languageService.getTranslation('send_password_reset') ||
+                    "We'll send password reset instructions to"
+                }}
+                {{ userEmail }}
+              </p>
+              <button class="send-reset-btn">
+                {{ languageService.getTranslation('send_reset_link') || 'Send Reset Link' }}
+              </button>
             </div>
             <button class="auth-submit-btn" (click)="login()">
               <i class="fas fa-sign-in-alt"></i>
-              <span>Log In</span>
+              <span>{{ languageService.getTranslation('log_in') || 'Log In' }}</span>
             </button>
             <div class="auth-switch">
-              <span>Don't have an account?</span>
+              <span>{{
+                languageService.getTranslation('no_account') || "Don't have an account?"
+              }}</span>
               <button class="switch-link" (click)="showLoginForm = false; showSignupForm = true">
-                Create one here
+                {{ languageService.getTranslation('create_one_here') || 'Create one here' }}
               </button>
             </div>
           </div>
@@ -160,8 +213,18 @@
         <!-- Signup Form -->
         <div *ngIf="showSignupForm" class="auth-card">
           <div class="auth-header">
-            <h3>Create Your Donor Profile</h3>
-            <p>Join our community of compassionate supporters</p>
+            <h3>
+              {{
+                languageService.getTranslation('create_donor_profile') ||
+                  'Create Your Donor Profile'
+              }}
+            </h3>
+            <p>
+              {{
+                languageService.getTranslation('join_community_supporters') ||
+                  'Join our community of compassionate supporters'
+              }}
+            </p>
           </div>
           <div class="auth-content">
             <div class="auth-email-display">
@@ -169,43 +232,60 @@
               <span>{{ userEmail }}</span>
             </div>
             <div class="form-group">
-              <label for="signupName">Full Name</label>
+              <label for="signupName">{{
+                languageService.getTranslation('full_name') || 'Full Name'
+              }}</label>
               <input
                 type="text"
                 id="signupName"
                 [(ngModel)]="signupName"
-                placeholder="Enter your full name"
+                [placeholder]="
+                  languageService.getTranslation('enter_full_name') || 'Enter your full name'
+                "
                 class="form-input"
               />
             </div>
             <div class="form-group">
-              <label for="signupPassword">Password</label>
+              <label for="signupPassword">{{
+                languageService.getTranslation('password') || 'Password'
+              }}</label>
               <input
                 type="password"
                 id="signupPassword"
                 [(ngModel)]="signupPassword"
-                placeholder="Create a password (min. 6 characters)"
+                [placeholder]="
+                  languageService.getTranslation('create_password_min') ||
+                  'Create a password (min. 6 characters)'
+                "
                 class="form-input"
               />
             </div>
             <div class="form-group">
-              <label for="signupConfirmPassword">Confirm Password</label>
+              <label for="signupConfirmPassword">{{
+                languageService.getTranslation('confirm_password') || 'Confirm Password'
+              }}</label>
               <input
                 type="password"
                 id="signupConfirmPassword"
                 [(ngModel)]="signupConfirmPassword"
-                placeholder="Re-enter your password"
+                [placeholder]="
+                  languageService.getTranslation('reenter_password') || 'Re-enter your password'
+                "
                 class="form-input"
               />
             </div>
             <button class="auth-submit-btn" (click)="signup()">
               <i class="fas fa-user-plus"></i>
-              <span>Create Account</span>
+              <span>{{
+                languageService.getTranslation('create_account') || 'Create Account'
+              }}</span>
             </button>
             <div class="auth-switch">
-              <span>Already have an account?</span>
+              <span>{{
+                languageService.getTranslation('already_have_account') || 'Already have an account?'
+              }}</span>
               <button class="switch-link" (click)="showSignupForm = false; showLoginForm = true">
-                Log in here
+                {{ languageService.getTranslation('log_in_here') || 'Log in here' }}
               </button>
             </div>
           </div>
@@ -217,7 +297,10 @@
           <div class="form-section-card">
             <h3 class="section-title">
               <i class="fas fa-heart"></i>
-              Choose Your Donation Amount
+              {{
+                languageService.getTranslation('choose_donation_amount') ||
+                  'Choose Your Donation Amount'
+              }}
             </h3>
             <div class="amount-buttons-grid">
               <button
@@ -233,7 +316,9 @@
             <div class="custom-amount-section">
               <label class="custom-label">
                 <i class="fas fa-edit"></i>
-                <span>Custom Amount</span>
+                <span>{{
+                  languageService.getTranslation('custom_amount') || 'Custom Amount'
+                }}</span>
               </label>
               <div class="custom-input-group">
                 <span class="currency-symbol">$</span>
@@ -241,7 +326,7 @@
                   type="number"
                   [(ngModel)]="customAmount"
                   (input)="onCustomAmountChange($any($event.target).value)"
-                  placeholder="Enter amount"
+                  [placeholder]="languageService.getTranslation('enter_amount') || 'Enter amount'"
                   class="custom-input"
                   min="1"
                   *ngIf="customAmount !== null || selectedAmount === null"
@@ -254,7 +339,7 @@
           <div class="form-section-card">
             <h3 class="section-title">
               <i class="fas fa-calendar-check"></i>
-              Payment Frequency
+              {{ languageService.getTranslation('payment_frequency') || 'Payment Frequency' }}
             </h3>
             <div class="frequency-buttons">
               <button
@@ -264,8 +349,14 @@
                 (click)="paymentFrequency = freq.value"
               >
                 <i class="fas fa-{{ freq.icon }}"></i>
-                <span class="freq-label">{{ freq.label }}</span>
-                <span class="freq-desc">{{ freq.description }}</span>
+                <span class="freq-label">{{
+                  languageService.getTranslation(freq.value) || freq.label
+                }}</span>
+                <span class="freq-desc">{{
+                  languageService.getTranslation(
+                    freq.description.toLowerCase().replace(' ', '_')
+                  ) || freq.description
+                }}</span>
               </button>
             </div>
           </div>
@@ -274,7 +365,7 @@
           <div class="form-section-card">
             <h3 class="section-title">
               <i class="fas fa-credit-card"></i>
-              Payment Method
+              {{ languageService.getTranslation('payment_method') || 'Payment Method' }}
             </h3>
             <div class="payment-method-buttons">
               <button
@@ -284,7 +375,9 @@
                 (click)="paymentMethod = method.value"
               >
                 <i class="fab fa-{{ method.logo }}"></i>
-                <span>{{ method.label }}</span>
+                <span>{{
+                  languageService.getTranslation(method.value.replace('-', '_')) || method.label
+                }}</span>
               </button>
             </div>
           </div>
@@ -295,13 +388,15 @@
               <input type="checkbox" [(ngModel)]="agreeToUpdates" class="checkbox-input" />
               <span class="checkbox-custom"></span>
               <div class="checkbox-content">
-                <span class="checkbox-label"
-                  >Yes, I'd like to receive impact updates and newsletters</span
-                >
+                <span class="checkbox-label">{{
+                  languageService.getTranslation('yes_receive_updates') ||
+                    "Yes, I'd like to receive impact updates and newsletters"
+                }}</span>
                 <p class="checkbox-description">
-                  Stay connected with stories of hope, updates on how your donations are making a
-                  difference, and opportunities to deepen your impact. We respect your privacy and
-                  you can unsubscribe anytime.
+                  {{
+                    languageService.getTranslation('stay_connected_description') ||
+                      'Stay connected with stories of hope, updates on how your donations are making a difference, and opportunities to deepen your impact. We respect your privacy and you can unsubscribe anytime.'
+                  }}
                 </p>
               </div>
             </label>
@@ -323,7 +418,9 @@
       <div class="impact-sidebar">
         <!-- Your Impact Card -->
         <div class="impact-card" *ngIf="getDonationAmount() > 0">
-          <h4 class="impact-card-title">Your Impact</h4>
+          <h4 class="impact-card-title">
+            {{ languageService.getTranslation('your_impact') || 'Your Impact' }}
+          </h4>
           <div class="impact-amount">
             {{ getDonationAmount() | currency: 'USD' : 'symbol' : '1.0-0' }}
           </div>
@@ -332,7 +429,7 @@
               <i class="fas fa-{{ getSelectedImpact()!.icon }}"></i>
               <img
                 src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&h=300&fit=crop&crop=face"
-                alt="Impact recipient"
+                [alt]="languageService.getTranslation('impact_recipient') || 'Impact recipient'"
                 class="impact-image"
               />
             </div>
@@ -343,7 +440,10 @@
           </div>
           <div class="impact-frequency">
             <i class="fas fa-info-circle"></i>
-            <span>{{ getFrequencyLabel().toLowerCase() }} donation</span>
+            <span
+              >{{ getFrequencyLabel().toLowerCase() }}
+              {{ languageService.getTranslation('donation') || 'donation' }}</span
+            >
           </div>
         </div>
 
@@ -352,7 +452,7 @@
           <div class="story-avatar-wrapper">
             <img
               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face"
-              alt="Story of hope"
+              [alt]="languageService.getTranslation('story_of_hope') || 'Story of hope'"
               class="story-avatar"
             />
             <div class="story-avatar-overlay"></div>
@@ -361,9 +461,17 @@
             <i class="fas fa-heart"></i>
           </div>
           <blockquote class="story-quote">
-            "Thanks to donors like you, I found safety and hope when I had nowhere else to turn."
+            "{{
+              languageService.getTranslation('thanks_donors_story') ||
+                'Thanks to donors like you, I found safety and hope when I had nowhere else to turn.'
+            }}"
           </blockquote>
-          <cite class="story-attribution">— A member of our community</cite>
+          <cite class="story-attribution"
+            >—
+            {{
+              languageService.getTranslation('member_of_community') || 'A member of our community'
+            }}</cite
+          >
         </div>
 
         <!-- Secure Payment Card -->
@@ -371,8 +479,15 @@
           <div class="security-icon">
             <i class="fas fa-lock"></i>
           </div>
-          <h5 class="security-title">Secure Payment</h5>
-          <p class="security-description">Your donation is encrypted and secure</p>
+          <h5 class="security-title">
+            {{ languageService.getTranslation('secure_payment') || 'Secure Payment' }}
+          </h5>
+          <p class="security-description">
+            {{
+              languageService.getTranslation('donation_encrypted_secure') ||
+                'Your donation is encrypted and secure'
+            }}
+          </p>
         </div>
       </div>
     </div>

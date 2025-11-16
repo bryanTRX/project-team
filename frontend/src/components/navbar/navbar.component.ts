@@ -1,28 +1,34 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { AuthService } from '../../services/auth.service';
 import { LanguageService } from '../../services/language.service';
+import { AccessibilityService } from '../../services/accessibility.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule, LanguageSelectorComponent],
+  imports: [CommonModule, RouterModule, FormsModule, LanguageSelectorComponent],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   menuOpen = false;
   dropdownOpen = false;
+  accessibilityMenuOpen = false;
   currentLanguage: string = 'en';
+  textSize: 'normal' | 'large' | 'xlarge' = 'normal';
   private languageSubscription?: Subscription;
+  private textSizeSubscription?: Subscription;
 
   constructor(
     private authService: AuthService,
     public languageService: LanguageService,
     private router: Router,
+    private accessibilityService: AccessibilityService,
   ) {}
 
   ngOnInit(): void {
@@ -31,13 +37,21 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.currentLanguage = lang;
     });
 
-    // Close dropdown when clicking outside
+    this.textSize = this.accessibilityService.textSize;
+
+    this.textSizeSubscription = this.accessibilityService.textSize$.subscribe((value) => {
+      this.textSize = value;
+    });
+
     document.addEventListener('click', this.handleClickOutside.bind(this));
   }
 
   ngOnDestroy(): void {
     if (this.languageSubscription) {
       this.languageSubscription.unsubscribe();
+    }
+    if (this.textSizeSubscription) {
+      this.textSizeSubscription.unsubscribe();
     }
     document.removeEventListener('click', this.handleClickOutside.bind(this));
   }
@@ -47,6 +61,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (!target.closest('.user-menu-wrapper')) {
       this.closeDropdown();
     }
+    if (!target.closest('.accessibility-menu-wrapper')) {
+      this.closeAccessibilityMenu();
+    }
   }
 
   toggleMenu(): void {
@@ -54,13 +71,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   goHome(): void {
-    // Si on est déjà sur la page d'accueil, scroll vers la section home
     if (this.router.url === '/' || this.router.url === '') {
       this.scrollToSection('home');
     } else {
-      // Sinon, naviguer vers la page d'accueil
       this.router.navigate(['/']).then(() => {
-        // Attendre un peu que la page se charge puis scroll vers home
         setTimeout(() => {
           this.scrollToSection('home');
         }, 100);
@@ -108,19 +122,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
   goToSettings(): void {
     this.closeDropdown();
     this.router.navigate(['/dashboard']);
-    // Scroll to settings section or open settings modal
-    setTimeout(() => {
-      // Could scroll to a settings section if it exists
-    }, 100);
+    setTimeout(() => {}, 100);
   }
 
   goToPersonalInfo(): void {
     this.closeDropdown();
     this.router.navigate(['/dashboard']);
-    // Scroll to personal info section or open personal info modal
-    setTimeout(() => {
-      // Could scroll to a personal info section if it exists
-    }, 100);
+    setTimeout(() => {}, 100);
   }
 
   logout(): void {
@@ -138,5 +146,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
         fallback.style.display = 'flex';
       }
     }
+  }
+
+  toggleAccessibilityMenu(event?: Event): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.accessibilityMenuOpen = !this.accessibilityMenuOpen;
+  }
+
+  closeAccessibilityMenu(): void {
+    this.accessibilityMenuOpen = false;
+  }
+
+  onTextSizeChange(size: 'normal' | 'large' | 'xlarge'): void {
+    this.accessibilityService.setTextSize(size);
   }
 }

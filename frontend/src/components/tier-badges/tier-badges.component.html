@@ -10,7 +10,11 @@
       <div class="tier-badge__image-wrapper">
         <img
           [src]="t.imagePath"
-          [alt]="getTierName(t.tier) + ' tier badge'"
+          [alt]="
+            getTierName(t.tier) +
+            ' ' +
+            (languageService.getTranslation('tier_badge') || 'tier badge')
+          "
           class="tier-badge__image"
         />
       </div>

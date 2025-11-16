@@ -1,7 +1,7 @@
 .payment-section {
   min-height: calc(100vh - 80px);
   padding: 1.1rem 0.5rem;
-  background: linear-gradient(135deg, #faf9f6 0%, #ffffff 100%);
+  background: linear-gradient(135deg, var(--background) 0%, var(--surface) 100%);
 
   @media (min-width: 768px) {
     padding: 1.6rem 1rem;
@@ -14,115 +14,17 @@
 }
 
 .payment-card {
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 30px 80px rgba(123, 104, 238, 0.15);
-  padding: 1.5rem 1.75rem;
-  border: 1px solid #e2e8f0;
-  font-size: 0.9rem;
-  line-height: 1.4;
-  color: #1f2a44;
+  background: var(--surface);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  padding: 1.75rem;
+  border: 1px solid var(--border-light);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-primary);
 
   @media (min-width: 768px) {
     padding: 2rem 2.25rem;
-  }
-}
-
-.accessibility-panel {
-  background: linear-gradient(135deg, rgba(255, 122, 133, 0.08), rgba(123, 104, 238, 0.08));
-  border-radius: 14px;
-  padding: 0.75rem;
-  border: 1px solid rgba(123, 104, 238, 0.2);
-  margin-bottom: 0.9rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-
-  .panel-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-
-  .panel-title {
-    margin: 0;
-    font-weight: 700;
-    color: #7b68ee;
-  }
-
-  .panel-subtitle {
-    color: #4a5568;
-    font-size: 0.9rem;
-  }
-
-  .panel-label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    color: #1f2a44;
-  }
-
-  select {
-    border-radius: 10px;
-    border: 1.5px solid rgba(123, 104, 238, 0.3);
-    padding: 0.35rem 0.6rem;
-    font-size: 0.9rem;
-    background: #fff;
-    font-family: inherit;
-
-    &:focus {
-      outline: none;
-      border-color: #7b68ee;
-      box-shadow: 0 0 0 3px rgba(123, 104, 238, 0.15);
-    }
-  }
-}
-
-.toggle-switch {
-  position: relative;
-  width: 40px;
-  height: 22px;
-
-  input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #cbd5f5;
-    transition: 0.2s;
-    border-radius: 999px;
-
-    &:before {
-      position: absolute;
-      content: '';
-      height: 18px;
-      width: 18px;
-      left: 2px;
-      top: 2px;
-      background: #fff;
-      border-radius: 50%;
-      transition: 0.2s;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    }
-  }
-
-  input:checked + .slider {
-    background: linear-gradient(135deg, #ff7a85, #7b68ee);
-  }
-
-  input:checked + .slider:before {
-    transform: translateX(24px);
   }
 }
 
@@ -148,50 +50,20 @@
   }
 }
 
-.accessibility-btn {
-  border: 1.5px solid #e2e8f0;
-  border-radius: 999px;
-  padding: 0.35rem 0.7rem;
-  background: #fff;
-  color: #2d3748;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-weight: 600;
-  font-size: 0.88rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-
-  &:hover {
-    border-color: #7b68ee;
-    color: #7b68ee;
-  }
-}
-
 .form-headline {
   text-align: left;
   margin-bottom: 0.9rem;
-
-  .headline-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
 
   h1 {
     margin: 0;
     font-size: 1.5rem;
     font-weight: 700;
-    color: #2d3748;
-    flex: 1;
+    color: var(--text-primary);
   }
 
   p {
     margin: 0.4rem 0 0;
-    color: #4a5568;
+    color: var(--text-secondary);
     font-size: 0.85rem;
   }
 }
@@ -203,8 +75,8 @@
 }
 
 .form-section {
-  background: #faf9f6;
-  border: 1px solid #e2e8f0;
+  background: var(--background);
+  border: 1px solid var(--border);
   border-radius: 14px;
   padding: 1rem;
   display: flex;
@@ -213,13 +85,13 @@
 
   label {
     font-weight: 600;
-    color: #1f2a44;
+    color: var(--text-primary);
     font-size: 0.95rem;
   }
 }
 
 .email-section.has-error {
-  border-color: #f56565;
+  border-color: var(--error);
   box-shadow: 0 0 0 2px rgba(245, 101, 101, 0.2);
 }
 
@@ -227,13 +99,13 @@
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid var(--border);
   border-radius: 10px;
   padding: 0.5rem 0.75rem;
-  background: #fff;
+  background: var(--surface);
 
   i {
-    color: #7b68ee;
+    color: var(--primary);
   }
 
   input {
@@ -241,7 +113,7 @@
     flex: 1;
     font-size: 0.95rem;
     font-family: inherit;
-    color: #2d3748;
+    color: var(--text-primary);
     padding: 0;
     margin: 0;
     line-height: 1.4;
@@ -277,10 +149,10 @@
   button {
     padding: 0.6rem;
     border-radius: 12px;
-    border: 1.5px solid #e2e8f0;
-    background: #fff;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
     font-weight: 600;
-    color: #1f2a44;
+    color: var(--text-primary);
     font-size: 0.95rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -288,7 +160,7 @@
     &.active {
       border-color: #7b68ee;
       background: rgba(123, 104, 238, 0.08);
-      color: #7b68ee;
+      color: var(--primary);
       box-shadow: 0 6px 16px rgba(123, 104, 238, 0.2);
     }
   }
@@ -303,14 +175,14 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    border: 1.5px solid #e2e8f0;
+    border: 1.5px solid var(--border);
     border-radius: 10px;
     padding: 0.45rem 0.65rem;
-    background: #fff;
+    background: var(--surface);
 
     .currency-symbol {
       font-weight: 700;
-      color: #718096;
+      color: var(--text-muted);
       display: flex;
       align-items: center;
       align-self: stretch;
@@ -350,10 +222,10 @@ input[type='number']::-webkit-inner-spin-button {
 }
 
 .frequency-card {
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid var(--border);
   border-radius: 12px;
   padding: 0.55rem 0.6rem;
-  background: #fff;
+  background: var(--surface);
   text-align: left;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -369,7 +241,7 @@ input[type='number']::-webkit-inner-spin-button {
 
   .freq-label {
     font-weight: 600;
-    color: #2d3748;
+    color: var(--text-primary);
   }
 
   .freq-badge {
@@ -381,7 +253,7 @@ input[type='number']::-webkit-inner-spin-button {
   }
 
   .freq-description {
-    color: #718096;
+    color: var(--text-muted);
     font-size: 0.8rem;
   }
 
@@ -405,7 +277,7 @@ input[type='number']::-webkit-inner-spin-button {
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 0.75rem;
-  background: #fff;
+  background: var(--surface);
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
@@ -413,12 +285,12 @@ input[type='number']::-webkit-inner-spin-button {
   .info-title {
     margin: 0;
     font-weight: 700;
-    color: #2d3748;
+    color: var(--text-primary);
   }
 
   .info-description {
     margin: 0.25rem 0 0;
-    color: #4a5568;
+    color: var(--text-secondary);
     line-height: 1.35;
   }
 }
@@ -428,7 +300,7 @@ input[type='number']::-webkit-inner-spin-button {
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 0.85rem;
-  background: #fff;
+  background: var(--surface);
   display: flex;
   flex-direction: column;
   gap: 0.45rem;
@@ -436,7 +308,7 @@ input[type='number']::-webkit-inner-spin-button {
   p {
     margin: 0;
     font-size: 0.9rem;
-    color: #1f2a44;
+    color: var(--text-primary);
     font-weight: 600;
   }
 
@@ -455,7 +327,7 @@ input[type='number']::-webkit-inner-spin-button {
 
   label {
     font-weight: 600;
-    color: #2d3748;
+    color: var(--text-primary);
     font-size: 0.9rem;
   }
 }
@@ -482,7 +354,7 @@ input[type='number']::-webkit-inner-spin-button {
   .section-subtitle {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #1f2a44;
+    color: var(--text-primary);
     margin-bottom: 1rem;
   }
 
@@ -506,7 +378,7 @@ input[type='number']::-webkit-inner-spin-button {
 
     label {
       font-weight: 600;
-      color: #2d3748;
+      color: var(--text-primary);
       font-size: 0.9rem;
     }
 
@@ -517,7 +389,7 @@ input[type='number']::-webkit-inner-spin-button {
       border: 1.5px solid #d2daf0;
       border-radius: 10px;
       padding: 0.55rem 0.75rem;
-      background: #fff;
+      background: var(--surface);
       transition: all 0.2s ease;
 
       &:focus-within {
@@ -526,7 +398,7 @@ input[type='number']::-webkit-inner-spin-button {
       }
 
       i {
-        color: #718096;
+        color: var(--text-muted);
         font-size: 0.95rem;
         flex-shrink: 0;
       }
@@ -580,10 +452,10 @@ input[type='number']::-webkit-inner-spin-button {
       align-items: center;
       cursor: pointer;
       font-size: 0.88rem;
-      color: #1f2a44;
+      color: var(--text-primary);
 
       i {
-        color: #7b68ee;
+        color: var(--primary);
         font-size: 0.85rem;
       }
 
@@ -604,7 +476,7 @@ input[type='number']::-webkit-inner-spin-button {
   color: #2d3748;
 
   i {
-    color: #7b68ee;
+    color: var(--primary);
     margin-top: 0.2rem;
   }
 
@@ -615,7 +487,7 @@ input[type='number']::-webkit-inner-spin-button {
 
   p {
     margin: 0;
-    color: #4a5568;
+    color: var(--text-secondary);
     font-size: 1rem;
   }
 }
@@ -627,9 +499,9 @@ input[type='number']::-webkit-inner-spin-button {
 
   button {
     border-radius: 12px;
-    border: 1.5px solid #e2e8f0;
+    border: 1.5px solid var(--border);
     padding: 0.6rem 0.65rem;
-    background: #fff;
+    background: var(--surface);
     text-align: left;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -639,10 +511,10 @@ input[type='number']::-webkit-inner-spin-button {
       align-items: center;
       gap: 0.5rem;
       font-weight: 600;
-      color: #2d3748;
+      color: var(--text-primary);
 
       i {
-        color: #7b68ee;
+        color: var(--primary);
       }
     }
 
@@ -657,7 +529,7 @@ input[type='number']::-webkit-inner-spin-button {
         background: #f1f5f9;
         padding: 0.12rem 0.5rem;
         font-size: 0.7rem;
-        color: #4a5568;
+        color: var(--text-secondary);
       }
     }
 
@@ -686,7 +558,7 @@ input[type='number']::-webkit-inner-spin-button {
   p {
     margin: 0 0 0.15rem;
     font-weight: 600;
-    color: #2d3748;
+    color: var(--text-primary);
   }
 }
 
@@ -698,13 +570,13 @@ input[type='number']::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: #fff;
+  background: var(--surface);
   color: #2d3748;
 
   p {
     margin: 0;
     font-weight: 600;
-    color: #1f2a44;
+    color: var(--text-primary);
   }
 
   a {
@@ -726,7 +598,7 @@ input[type='number']::-webkit-inner-spin-button {
 
   i {
     font-size: 1.2rem;
-    color: #7b68ee;
+    color: var(--primary);
   }
 
   &.phone-detail {
@@ -755,7 +627,7 @@ input[type='number']::-webkit-inner-spin-button {
 
           label {
             font-weight: 600;
-            color: #2d3748;
+            color: var(--text-primary);
             font-size: 0.9rem;
           }
 
@@ -782,9 +654,9 @@ input[type='number']::-webkit-inner-spin-button {
   margin-top: 0.75rem;
 
   .card-panel {
-    border: 1.5px solid #e2e8f0;
+    border: 1.5px solid var(--border);
     border-radius: 16px;
-    background: #fff;
+    background: var(--surface);
     padding: 1.25rem;
     box-shadow: 0 10px 24px rgba(31, 42, 68, 0.07);
   }
@@ -803,14 +675,14 @@ input[type='number']::-webkit-inner-spin-button {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #7b68ee;
+      color: var(--primary);
       font-size: 1.2rem;
     }
 
     .panel-title {
       margin: 0;
       font-weight: 700;
-      color: #1f2a44;
+      color: var(--text-primary);
     }
   }
 
@@ -827,7 +699,7 @@ input[type='number']::-webkit-inner-spin-button {
 
     label {
       font-size: 0.92rem;
-      color: #1f2a44;
+      color: var(--text-primary);
       font-weight: 600;
     }
 
@@ -861,7 +733,7 @@ input[type='number']::-webkit-inner-spin-button {
 
   label {
     font-size: 0.92rem;
-    color: #1f2a44;
+    color: var(--text-primary);
   }
 
   input {
@@ -902,13 +774,13 @@ input[type='number']::-webkit-inner-spin-button {
 
   i {
     font-size: 1.1rem;
-    color: #7b68ee;
+    color: var(--primary);
   }
 
   p {
     margin: 0;
     font-weight: 600;
-    color: #2d3748;
+    color: var(--text-primary);
     font-size: 0.9rem;
   }
 
@@ -943,7 +815,7 @@ input[type='number']::-webkit-inner-spin-button {
 }
 
 .success-message {
-  background: #fff;
+  background: var(--surface);
   border-radius: 18px;
   padding: 1.75rem 1.5rem;
   text-align: center;
@@ -960,12 +832,12 @@ input[type='number']::-webkit-inner-spin-button {
 
   h2 {
     font-size: 1.5rem;
-    color: #2d3748;
+    color: var(--text-primary);
     margin-bottom: 0.4rem;
   }
 
   p {
-    color: #4a5568;
+    color: var(--text-secondary);
     margin: 0.25rem 0;
   }
 

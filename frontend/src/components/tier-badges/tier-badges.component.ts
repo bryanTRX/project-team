@@ -95,14 +95,12 @@ export class TierBadgesComponent implements OnInit, OnChanges {
   }
 
   calculateTierProgress(): void {
-    // Determine current tier
     for (let i = this.tiers.length - 1; i >= 0; i--) {
       const tier = this.tiers[i];
       if (this.totalDonated >= tier.minAmount) {
         this.currentTier = tier;
         tier.isUnlocked = true;
 
-        // Find next tier
         if (i < this.tiers.length - 1) {
           this.nextTier = this.tiers[i + 1];
           const tierRange = this.nextTier.minAmount - tier.minAmount;
@@ -115,7 +113,6 @@ export class TierBadgesComponent implements OnInit, OnChanges {
       }
     }
 
-    // Calculate progress for each tier
     this.tiers.forEach((tier) => {
       if (this.totalDonated >= tier.minAmount) {
         tier.isUnlocked = true;

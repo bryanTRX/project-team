@@ -27,12 +27,16 @@
           <div class="stat-card">
             <div class="stat-content">
               <p>{{ languageService.getTranslation('lives_touched') }}</p>
-              <span class="stat-value">{{ user.familiesHelped }}</span>
+              <span class="stat-value">{{ formatNumber(user.familiesHelped) }}</span>
             </div>
             <span class="stat-icon group"><i class="fas fa-user-friends"></i></span>
           </div>
 
-          <div class="stat-card tier-card">
+          <div
+            class="stat-card tier-card"
+            (click)="onTierCardClick()"
+            style="cursor: pointer; position: relative"
+          >
             <div class="stat-content">
               <p>{{ languageService.getTranslation('donor_tier') }}</p>
               <span class="stat-value">{{
@@ -49,6 +53,90 @@
               />
             </div>
             <span class="stat-icon badge" *ngIf="!currentTier"><i class="fas fa-ribbon"></i></span>
+            <button
+              class="tier-toggle-btn"
+              (click)="onTierCardClick(); $event.stopPropagation()"
+              [attr.aria-label]="showTierPopup ? 'Close tiers' : 'View tiers'"
+            >
+              <i
+                class="fas"
+                [class.fa-chevron-up]="showTierPopup"
+                [class.fa-chevron-down]="!showTierPopup"
+              ></i>
+            </button>
+          </div>
+
+          <!-- Tier Popup Modal - Outside tier-card to avoid layout issues -->
+          <div class="tier-popup-overlay" *ngIf="showTierPopup" (click)="closeTierPopup()">
+            <div class="tier-popup-modal" (click)="$event.stopPropagation()">
+              <div class="tier-popup-header">
+                <div class="tier-popup-header-content">
+                  <h3>
+                    {{
+                      languageService.getTranslation('donor_tiers_benefits') ||
+                        'Donor Tiers & Benefits'
+                    }}
+                  </h3>
+                  <p class="tier-popup-subtitle-header">
+                    {{
+                      languageService.getTranslation('discover_donation_levels') ||
+                        'Discover all donation levels and their exclusive benefits'
+                    }}
+                  </p>
+                </div>
+                <button class="tier-popup-close" (click)="closeTierPopup()" aria-label="Close">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <div class="tier-popup-content">
+                <div
+                  class="tier-popup-item"
+                  *ngFor="let tier of allTiers"
+                  [class.current-tier]="isCurrentTier(tier)"
+                >
+                  <div class="tier-popup-item-header">
+                    <div class="tier-popup-image">
+                      <img [src]="tier.imagePath" [alt]="tier.name + ' tier badge'" />
+                    </div>
+                    <div class="tier-popup-info">
+                      <h4 class="tier-popup-name">{{ tier.name }}</h4>
+                      <p class="tier-popup-subtitle">{{ tier.subtitle }}</p>
+                      <p class="tier-popup-amount">{{ getTierAmountRange(tier) }}</p>
+                    </div>
+                    <div class="tier-popup-badge" *ngIf="isCurrentTier(tier)">
+                      <span class="current-badge">
+                        <i class="fas fa-check-circle"></i>
+                        {{
+                          languageService.getTranslation('your_current_tier') || 'Your Current Tier'
+                        }}
+                      </span>
+                    </div>
+                  </div>
+                  <p class="tier-popup-description">{{ getTierDescription(tier) }}</p>
+                  <div class="tier-popup-benefits">
+                    <h5 class="benefits-title">
+                      <i class="fas fa-gift"></i>
+                      {{ languageService.getTranslation('benefits') || 'Benefits' }}
+                    </h5>
+                    <ul>
+                      <li *ngFor="let benefit of tier.benefits">
+                        <i class="fas fa-check"></i>
+                        <span>{{ benefit }}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="tier-popup-footer">
+                <button
+                  class="tier-popup-donate-btn"
+                  (click)="startNewDonation(); closeTierPopup()"
+                >
+                  <i class="fas fa-heart"></i>
+                  {{ languageService.getTranslation('make_donation') || 'Make a Donation' }}
+                </button>
+              </div>
+            </div>
           </div>
 
           <div class="action-cards">
@@ -225,7 +313,8 @@
                 <div class="discussion-row">
                   <p>{{ discussion.title }}</p>
                   <span
-                    >{{ discussion.replies }} {{ languageService.getTranslation('replies') }}</span
+                    >{{ formatNumber(discussion.replies) }}
+                    {{ languageService.getTranslation('replies') }}</span
                   >
                 </div>
               }

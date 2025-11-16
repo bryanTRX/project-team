@@ -11,7 +11,6 @@ export class ThemeService {
   public theme$: Observable<Theme> = this.themeSubject.asObservable();
 
   constructor() {
-    // Check for saved theme preference or default to light mode
     const savedTheme = localStorage.getItem('theme') as Theme;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');

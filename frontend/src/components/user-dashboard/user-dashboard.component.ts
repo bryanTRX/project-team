@@ -1,12 +1,4 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild,
-  AfterViewInit,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { AuthService, UserProfile } from '../../services/auth.service';
@@ -45,6 +37,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
 
   user: UserProfile | null = null;
   currentLanguage: string = 'en';
+  showTierPopup = false;
   private languageSubscription?: Subscription;
   private routerSubscription?: Subscription;
 
@@ -89,7 +82,6 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
       this.currentLanguage = lang;
     });
 
-    // Reload user data when navigating to dashboard
     this.routerSubscription = this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
@@ -207,5 +199,48 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
 
   startNewDonation(): void {
     this.router.navigate(['/payment']);
+  }
+
+  formatNumber(value: number): string {
+    return value.toLocaleString();
+  }
+
+  get allTiers(): TierBadge[] {
+    if (!this.tierBadgesComponent) {
+      return [];
+    }
+    return this.tierBadgesComponent.tiers || [];
+  }
+
+  isCurrentTier(tier: TierBadge): boolean {
+    return this.currentTier?.tier === tier.tier;
+  }
+
+  getTierDescription(tier: TierBadge): string {
+    const tierKeys: { [key: string]: string } = {
+      demeter: 'tier_demeter_description',
+      artemis: 'tier_artemis_description',
+      athena: 'tier_athena_description',
+    };
+    const key = tierKeys[tier.tier];
+    if (key) {
+      return this.languageService.getTranslation(key) || '';
+    }
+    return '';
+  }
+
+  getTierAmountRange(tier: TierBadge): string {
+    if (tier.maxAmount) {
+      return `$${tier.minAmount.toLocaleString()} - $${tier.maxAmount.toLocaleString()}`;
+    }
+    return `$${tier.minAmount.toLocaleString()}+`;
+  }
+
+  onTierCardClick(): void {
+    this.showTierPopup = !this.showTierPopup;
+  }
+
+  closeTierPopup(): void {
+    this.showTierPopup = false;
   }
 }

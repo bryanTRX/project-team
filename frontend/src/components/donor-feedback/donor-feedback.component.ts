@@ -116,4 +116,8 @@ export class DonorFeedbackComponent implements OnInit, OnDestroy {
   getImpactLabel(): string {
     return this.languageService.getTranslation('impact') || 'Impact';
   }
+
+  formatNumber(value: number): string {
+    return value.toLocaleString();
+  }
 }
