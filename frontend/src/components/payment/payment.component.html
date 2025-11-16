@@ -16,12 +16,15 @@
             *ngIf="!isAuthenticated"
             [class.has-error]="emailSectionInvalid"
           >
-            <!-- Contact Information Section -->
             <div id="contact-information" class="contact-info-section">
-              <h3 class="section-subtitle">{{ languageService.getTranslation('contact_information') || 'Contact Information' }}</h3>
+              <h3 class="section-subtitle">
+                {{ languageService.getTranslation('contact_information') || 'Contact Information' }}
+              </h3>
 
               <div class="input-field">
-                <label for="email">{{ languageService.getTranslation('email_address') || 'Email Address' }}*</label>
+                <label for="email"
+                  >{{ languageService.getTranslation('email_address') || 'Email Address' }}*</label
+                >
                 <p class="field-hint inline-under-label">
                   {{ languageService.getTranslation('email_account_notice') }}
                 </p>
@@ -32,7 +35,10 @@
                     id="email"
                     [(ngModel)]="email"
                     name="email"
-                    [placeholder]="languageService.getTranslation('email_placeholder') || 'your.email@example.com'"
+                    [placeholder]="
+                      languageService.getTranslation('email_placeholder') ||
+                      'your.email@example.com'
+                    "
                     (input)="handleEmailInput()"
                     required
                   />
@@ -41,7 +47,9 @@
 
               <div class="name-fields-row">
                 <div class="input-field">
-                  <label for="firstName">{{ languageService.getTranslation('first_name') || 'First Name' }}*</label>
+                  <label for="firstName"
+                    >{{ languageService.getTranslation('first_name') || 'First Name' }}*</label
+                  >
                   <div class="input-with-icon">
                     <i class="fas fa-user"></i>
                     <input
@@ -49,14 +57,19 @@
                       id="firstName"
                       [(ngModel)]="firstName"
                       name="firstName"
-                      [placeholder]="languageService.getTranslation('enter_first_name') || 'Enter your first name'"
+                      [placeholder]="
+                        languageService.getTranslation('enter_first_name') ||
+                        'Enter your first name'
+                      "
                       autocomplete="given-name"
                       required
                     />
                   </div>
                 </div>
                 <div class="input-field">
-                  <label for="lastName">{{ languageService.getTranslation('last_name') || 'Last Name' }}*</label>
+                  <label for="lastName"
+                    >{{ languageService.getTranslation('last_name') || 'Last Name' }}*</label
+                  >
                   <div class="input-with-icon">
                     <i class="fas fa-user"></i>
                     <input
@@ -64,7 +77,9 @@
                       id="lastName"
                       [(ngModel)]="lastName"
                       name="lastName"
-                      [placeholder]="languageService.getTranslation('enter_last_name') || 'Enter your last name'"
+                      [placeholder]="
+                        languageService.getTranslation('enter_last_name') || 'Enter your last name'
+                      "
                       autocomplete="family-name"
                       required
                     />
@@ -91,19 +106,33 @@
                     [(ngModel)]="wishToRemainAnonymous"
                     name="wishToRemainAnonymous"
                   />
-                  <span>{{ languageService.getTranslation('wish_remain_anonymous') || 'I wish to remain anonymous?' }} <i class="fas fa-question-circle"></i></span>
+                  <span
+                    >{{
+                      languageService.getTranslation('wish_remain_anonymous') ||
+                        'I wish to remain anonymous?'
+                    }}
+                    <i class="fas fa-question-circle"></i
+                  ></span>
                 </label>
                 <label class="checkbox-field">
                   <input type="checkbox" [(ngModel)]="updatesOptIn" name="updatesOptIn" />
                   <span
-                    >{{ languageService.getTranslation('yes_receive_updates') || "Yes, I'd like to receive impact updates and newsletters" }}
+                    >{{
+                      languageService.getTranslation('yes_receive_updates') ||
+                        "Yes, I'd like to receive impact updates and newsletters"
+                    }}
                     <i class="fas fa-question-circle"></i
                   ></span>
                 </label>
               </div>
 
               <div class="account-flow new" *ngIf="emailMode === 'new'">
-                <p>{{ languageService.getTranslation('new_account_prompt') || 'This email is not registered. Create an account to continue.' }}</p>
+                <p>
+                  {{
+                    languageService.getTranslation('new_account_prompt') ||
+                      'This email is not registered. Create an account to continue.'
+                  }}
+                </p>
                 <label for="newUsername">{{
                   languageService.getTranslation('create_username_label') || 'Username'
                 }}</label>
@@ -112,7 +141,9 @@
                   id="newUsername"
                   [(ngModel)]="newUsername"
                   name="newUsername"
-                  [placeholder]="languageService.getTranslation('choose_username') || 'Choose a username'"
+                  [placeholder]="
+                    languageService.getTranslation('choose_username') || 'Choose a username'
+                  "
                   autocomplete="username"
                 />
                 <label for="newPassword">{{
@@ -123,12 +154,19 @@
                   id="newPassword"
                   [(ngModel)]="newPassword"
                   name="newPassword"
-                  [placeholder]="languageService.getTranslation('create_password') || 'Create a password'"
+                  [placeholder]="
+                    languageService.getTranslation('create_password') || 'Create a password'
+                  "
                   autocomplete="new-password"
                 />
               </div>
               <div class="account-flow existing" *ngIf="emailMode === 'existing'">
-                <p>{{ languageService.getTranslation('existing_account_prompt') || 'This email is already registered. Enter your password to continue.' }}</p>
+                <p>
+                  {{
+                    languageService.getTranslation('existing_account_prompt') ||
+                      'This email is already registered. Enter your password to continue.'
+                  }}
+                </p>
                 <label for="existingPassword">{{
                   languageService.getTranslation('existing_account_password_label') || 'Password'
                 }}</label>
@@ -137,18 +175,26 @@
                   id="existingPassword"
                   [(ngModel)]="loginPassword"
                   name="loginPassword"
-                  [placeholder]="languageService.getTranslation('enter_password') || 'Enter your password'"
+                  [placeholder]="
+                    languageService.getTranslation('enter_password') || 'Enter your password'
+                  "
                   autocomplete="current-password"
                 />
               </div>
             </div>
 
-            <!-- Address Section -->
             <div class="address-section">
-              <h3 class="section-subtitle">{{ languageService.getTranslation('address') || 'Address' }}</h3>
+              <h3 class="section-subtitle">
+                {{ languageService.getTranslation('address') || 'Address' }}
+              </h3>
 
               <div class="input-field">
-                <label for="address">{{ languageService.getTranslation('street_address_line1') || 'Street Address (Line 1)' }}*</label>
+                <label for="address"
+                  >{{
+                    languageService.getTranslation('street_address_line1') ||
+                      'Street Address (Line 1)'
+                  }}*</label
+                >
                 <div class="input-with-icon">
                   <i class="fas fa-map-marker-alt"></i>
                   <input
@@ -156,7 +202,9 @@
                     id="address"
                     [(ngModel)]="address"
                     name="address"
-                    [placeholder]="languageService.getTranslation('enter_address') || 'Enter your address'"
+                    [placeholder]="
+                      languageService.getTranslation('enter_address') || 'Enter your address'
+                    "
                     autocomplete="street-address"
                     required
                   />
@@ -164,7 +212,10 @@
               </div>
 
               <div class="input-field">
-                <label for="addressLine2">{{ languageService.getTranslation('street_address_line2') || 'Street Address (Line 2) (Optional)' }}</label>
+                <label for="addressLine2">{{
+                  languageService.getTranslation('street_address_line2') ||
+                    'Street Address (Line 2) (Optional)'
+                }}</label>
                 <div class="input-with-icon">
                   <i class="fas fa-map-marker-alt"></i>
                   <input
@@ -172,7 +223,9 @@
                     id="addressLine2"
                     [(ngModel)]="addressLine2"
                     name="addressLine2"
-                    [placeholder]="languageService.getTranslation('apartment_suite') || 'Apartment, suite, etc.'"
+                    [placeholder]="
+                      languageService.getTranslation('apartment_suite') || 'Apartment, suite, etc.'
+                    "
                     autocomplete="address-line2"
                   />
                 </div>
@@ -186,13 +239,17 @@
                     id="city"
                     [(ngModel)]="city"
                     name="city"
-                    [placeholder]="languageService.getTranslation('enter_city') || 'Enter your city'"
+                    [placeholder]="
+                      languageService.getTranslation('enter_city') || 'Enter your city'
+                    "
                     autocomplete="address-level2"
                     required
                   />
                 </div>
                 <div class="input-field">
-                  <label for="country">{{ languageService.getTranslation('country') || 'Country' }}*</label>
+                  <label for="country"
+                    >{{ languageService.getTranslation('country') || 'Country' }}*</label
+                  >
                   <select
                     id="country"
                     [(ngModel)]="country"
@@ -202,14 +259,20 @@
                   >
                     <option value="Canada">Canada</option>
                     <option value="United States">United States</option>
-                    <option value="Other">{{ languageService.getTranslation('other') || 'Other' }}</option>
+                    <option value="Other">
+                      {{ languageService.getTranslation('other') || 'Other' }}
+                    </option>
                   </select>
                 </div>
               </div>
 
               <div class="address-fields-row">
                 <div class="input-field">
-                  <label for="province">{{ languageService.getTranslation('province_state') || 'Province/State' }}*</label>
+                  <label for="province"
+                    >{{
+                      languageService.getTranslation('province_state') || 'Province/State'
+                    }}*</label
+                  >
                   <select
                     id="province"
                     [(ngModel)]="province"
@@ -217,7 +280,12 @@
                     autocomplete="address-level1"
                     required
                   >
-                    <option value="">{{ languageService.getTranslation('select_province_state') || 'Select province/state' }}</option>
+                    <option value="">
+                      {{
+                        languageService.getTranslation('select_province_state') ||
+                          'Select province/state'
+                      }}
+                    </option>
                     <option value="Quebec">Quebec</option>
                     <option value="Ontario">Ontario</option>
                     <option value="British Columbia">British Columbia</option>
@@ -234,13 +302,20 @@
                   </select>
                 </div>
                 <div class="input-field">
-                  <label for="postalCode">{{ languageService.getTranslation('postal_code_zip') || 'Postal Code/ZIP' }}*</label>
+                  <label for="postalCode"
+                    >{{
+                      languageService.getTranslation('postal_code_zip') || 'Postal Code/ZIP'
+                    }}*</label
+                  >
                   <input
                     type="text"
                     id="postalCode"
                     [(ngModel)]="postalCode"
                     name="postalCode"
-                    [placeholder]="languageService.getTranslation('enter_postal_code') || 'Enter your postal code'"
+                    [placeholder]="
+                      languageService.getTranslation('enter_postal_code') ||
+                      'Enter your postal code'
+                    "
                     autocomplete="postal-code"
                     required
                   />
@@ -248,13 +323,17 @@
               </div>
 
               <div class="input-field">
-                <label for="phoneNumber">{{ languageService.getTranslation('phone_number') || 'Phone Number' }}</label>
+                <label for="phoneNumber">{{
+                  languageService.getTranslation('phone_number') || 'Phone Number'
+                }}</label>
                 <input
                   type="tel"
                   id="phoneNumber"
                   [(ngModel)]="phoneNumber"
                   name="phoneNumber"
-                  [placeholder]="languageService.getTranslation('phone_placeholder') || '(555) 123-4567'"
+                  [placeholder]="
+                    languageService.getTranslation('phone_placeholder') || '(555) 123-4567'
+                  "
                   autocomplete="tel"
                 />
               </div>
@@ -262,7 +341,9 @@
           </div>
 
           <div class="form-section amount-section">
-            <label>{{ languageService.getTranslation('choose_donation_amount') || 'Choose Donation Amount' }}</label>
+            <label>{{
+              languageService.getTranslation('choose_donation_amount') || 'Choose Donation Amount'
+            }}</label>
             <div class="amount-options">
               <button
                 type="button"
@@ -294,10 +375,15 @@
           </div>
 
           <div class="form-section frequency-section">
-            <label>{{ languageService.getTranslation('donation_frequency') || 'Donation Frequency' }}</label>
+            <label>{{
+              languageService.getTranslation('donation_frequency') || 'Donation Frequency'
+            }}</label>
             <p class="frequency-subtext">
               <span aria-hidden="true">💫</span>
-              {{ languageService.getTranslation('recurring_helps_plan') || 'Recurring donations help us plan and provide consistent support.' }}
+              {{
+                languageService.getTranslation('recurring_helps_plan') ||
+                  'Recurring donations help us plan and provide consistent support.'
+              }}
             </p>
             <div class="frequency-options">
               <button
@@ -317,10 +403,15 @@
           </div>
 
           <div class="form-section payment-method-section">
-            <label>{{ languageService.getTranslation('payment_method') || 'Payment Method' }}</label>
+            <label>{{
+              languageService.getTranslation('payment_method') || 'Payment Method'
+            }}</label>
             <p class="payment-subtext">
               <span aria-hidden="true">🔐</span>
-              {{ languageService.getTranslation('all_info_confidential') || 'All information is encrypted and confidential' }}
+              {{
+                languageService.getTranslation('all_info_confidential') ||
+                  'All information is encrypted and confidential'
+              }}
             </p>
             <div class="payment-methods">
               <button
@@ -345,7 +436,9 @@
                     <i class="far fa-credit-card"></i>
                   </div>
                   <p class="panel-title">
-                    {{ languageService.getTranslation('payment_information') || 'Payment Information' }}
+                    {{
+                      languageService.getTranslation('payment_information') || 'Payment Information'
+                    }}
                   </p>
                 </div>
                 <div class="card-grid">
@@ -358,7 +451,10 @@
                       id="cardNumber"
                       [(ngModel)]="cardNumber"
                       name="cardNumber"
-                      [placeholder]="languageService.getTranslation('card_number_placeholder') || '1234 5678 9012 3456'"
+                      [placeholder]="
+                        languageService.getTranslation('card_number_placeholder') ||
+                        '1234 5678 9012 3456'
+                      "
                       (input)="formatCardNumber()"
                       maxlength="19"
                       required
@@ -373,7 +469,9 @@
                       id="cardHolder"
                       [(ngModel)]="cardHolder"
                       name="cardHolder"
-                      [placeholder]="languageService.getTranslation('card_holder_placeholder') || 'John Doe'"
+                      [placeholder]="
+                        languageService.getTranslation('card_holder_placeholder') || 'John Doe'
+                      "
                       required
                     />
                   </div>
@@ -437,7 +535,12 @@
                 </svg>
               </div>
               <div>
-                <p>{{ languageService.getTranslation('complete_gift_paypal') || 'Complete your gift securely through PayPal.' }}</p>
+                <p>
+                  {{
+                    languageService.getTranslation('complete_gift_paypal') ||
+                      'Complete your gift securely through PayPal.'
+                  }}
+                </p>
                 <a
                   class="paypal-link"
                   href="https://www.paypal.com/donate"
@@ -451,7 +554,12 @@
             <div class="method-detail phone-detail" *ngIf="selectedPaymentMethod === 'phone'">
               <i class="fas fa-phone-alt"></i>
               <div class="phone-details-form">
-                <p>{{ languageService.getTranslation('phone_donation_note') || 'After you click Complete Donation, an agent will call to finalize your gift.' }}</p>
+                <p>
+                  {{
+                    languageService.getTranslation('phone_donation_note') ||
+                      'After you click Complete Donation, an agent will call to finalize your gift.'
+                  }}
+                </p>
                 <div class="phone-form-fields" *ngIf="!isAuthenticated">
                   <div class="phone-field">
                     <label for="phonePassword">{{
@@ -462,7 +570,9 @@
                       id="phonePassword"
                       [(ngModel)]="phonePassword"
                       name="phonePassword"
-                      [placeholder]="languageService.getTranslation('enter_password') || 'Enter your password'"
+                      [placeholder]="
+                        languageService.getTranslation('enter_password') || 'Enter your password'
+                      "
                       autocomplete="new-password"
                     />
                   </div>
@@ -470,13 +580,20 @@
               </div>
             </div>
             <div class="payment-security-note">
-              <p>{{ languageService.getTranslation('donation_secure_tax_deductible') || 'Your donation is secure and tax-deductible.' }}</p>
+              <p>
+                {{
+                  languageService.getTranslation('donation_secure_tax_deductible') ||
+                    'Your donation is secure and tax-deductible.'
+                }}
+              </p>
             </div>
           </div>
 
           <button type="submit" class="submit-payment-btn">
             <i class="fas fa-heart"></i>
-            <span>{{ languageService.getTranslation('complete_donation') || 'Complete Donation' }}</span>
+            <span>{{
+              languageService.getTranslation('complete_donation') || 'Complete Donation'
+            }}</span>
           </button>
         </form>
       </div>
@@ -489,11 +606,18 @@
         </div>
         <h2>{{ languageService.getTranslation('thank_you') || 'Thank You!' }}</h2>
         <p>{{ getDonationProcessedText(donationAmount) }}</p>
-        <p>{{ languageService.getTranslation('confirmation_email_shortly') || 'A confirmation email will be sent to you shortly.' }}</p>
+        <p>
+          {{
+            languageService.getTranslation('confirmation_email_shortly') ||
+              'A confirmation email will be sent to you shortly.'
+          }}
+        </p>
         <div class="success-animation">
           <i class="fas fa-heart"></i>
         </div>
-        <button class="ok-btn" (click)="redirectToDashboard()">{{ languageService.getTranslation('ok') || 'OK' }}</button>
+        <button class="ok-btn" (click)="redirectToDashboard()">
+          {{ languageService.getTranslation('ok') || 'OK' }}
+        </button>
       </div>
     </ng-template>
   </div>

@@ -1,6 +1,11 @@
 .dashboard-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--background) 0%, var(--background) 60%, var(--background) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--background) 0%,
+    var(--background) 60%,
+    var(--background) 100%
+  );
   padding: 2rem 1rem 3rem;
   font-family: 'Inter', sans-serif;
 }
@@ -718,7 +723,9 @@
 .tier-popup-modal {
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(123, 104, 238, 0.1);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(123, 104, 238, 0.1);
   width: 95vw;
   max-width: 1200px;
   max-height: 85vh;
@@ -776,7 +783,9 @@
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease;
     width: 32px;
     height: 32px;
 

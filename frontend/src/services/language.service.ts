@@ -593,7 +593,6 @@ export class LanguageService {
       it: 'Fai la differenza',
       de: 'Machen Sie einen Unterschied',
     },
-    // Payment component translations
     supporting_women_children: {
       en: 'Supporting women and children on their journey to safety, healing, and new beginnings',
       fr: 'Soutenir les femmes et les enfants dans leur cheminement vers la sécurité, la guérison et de nouveaux départs',
@@ -906,7 +905,6 @@ export class LanguageService {
       it: "Sì, vorrei ricevere aggiornamenti sull'impatto e newsletter",
       de: 'Ja, ich möchte Updates zur Wirkung und Newsletter erhalten',
     },
-    // Missing payment-related labels (EN/FR only)
     email_account_notice: {
       en: "We'll use this to send you a donation receipt and optional updates.",
       fr: "Nous l'utiliserons pour vous envoyer un reçu de don et des mises à jour optionnelles.",
@@ -1127,7 +1125,6 @@ export class LanguageService {
       it: 'Torna alla home',
       de: 'Zurück zur Startseite',
     },
-    // Login component translations
     welcome_back: {
       en: 'Welcome back',
       fr: 'Bon retour',
@@ -1224,7 +1221,6 @@ export class LanguageService {
       it: '← Torna alla home',
       de: '← Zurück zur Startseite',
     },
-    // Dashboard component translations
     your_impact_dashboard: {
       en: 'Your Impact Dashboard',
       fr: "Votre tableau de bord d'impact",
@@ -1569,7 +1565,6 @@ export class LanguageService {
       it: 'Visita il forum',
       de: 'Forum besuchen',
     },
-    // Footer component translations
     supporting_since_1991: {
       en: 'Supporting women and children affected by domestic violence since 1991.',
       fr: 'Soutenir les femmes et les enfants touchés par la violence conjugale depuis 1991.',
@@ -1690,7 +1685,6 @@ export class LanguageService {
       it: 'Tutti i diritti riservati.',
       de: 'Alle Rechte vorbehalten.',
     },
-    // Community component translations
     join_community_compassion: {
       en: 'Join a Community Built on Compassion',
       fr: 'Rejoignez une communauté construite sur la compassion',
@@ -1739,7 +1733,6 @@ export class LanguageService {
       it: "Raccolto quest'anno",
       de: 'In diesem Jahr gesammelt',
     },
-    // Impact dashboard component translations
     our_impact_2024: {
       en: 'Our Impact in 2024',
       fr: 'Notre impact en 2024',
@@ -2315,7 +2308,7 @@ export class LanguageService {
     },
     story_avatar: {
       en: 'Story avatar',
-      fr: 'Avatar de l\'histoire',
+      fr: "Avatar de l'histoire",
       es: 'Avatar de la historia',
       ar: 'صورة القصة',
       zh: '故事头像',
@@ -2339,7 +2332,7 @@ export class LanguageService {
     },
     shield_of_athena_logo: {
       en: 'Shield of Athena Logo',
-      fr: 'Logo du Bouclier d\'Athéna',
+      fr: "Logo du Bouclier d'Athéna",
       es: 'Logotipo del Escudo de Atenea',
       ar: 'شعار درع أثينا',
       zh: '雅典娜之盾标志',
@@ -2363,7 +2356,7 @@ export class LanguageService {
     },
     alert_login_required: {
       en: 'Please log in or create an account first',
-      fr: 'Veuillez vous connecter ou créer un compte d\'abord',
+      fr: "Veuillez vous connecter ou créer un compte d'abord",
       es: 'Por favor inicie sesión o cree una cuenta primero',
       ar: 'يرجى تسجيل الدخول أو إنشاء حساب أولاً',
       zh: '请先登录或创建帐户',
@@ -2387,7 +2380,7 @@ export class LanguageService {
     },
     emergency_food_supplies: {
       en: 'Emergency food supplies',
-      fr: 'Fournitures alimentaires d\'urgence',
+      fr: "Fournitures alimentaires d'urgence",
       es: 'Suministros de alimentos de emergencia',
       ar: 'إمدادات غذائية طارئة',
       zh: '紧急食品供应',
@@ -2423,7 +2416,7 @@ export class LanguageService {
     },
     legal_aid_consultation: {
       en: 'Legal aid consultation',
-      fr: 'Consultation d\'aide juridique',
+      fr: "Consultation d'aide juridique",
       es: 'Consulta de asistencia legal',
       ar: 'استشارة المساعدة القانونية',
       zh: '法律援助咨询',
@@ -2495,7 +2488,7 @@ export class LanguageService {
     },
     counseling_trauma_recovery: {
       en: 'One-on-one counseling for trauma recovery',
-      fr: 'Consultation individuelle pour la guérison d\'un traumatisme',
+      fr: "Consultation individuelle pour la guérison d'un traumatisme",
       es: 'Asesoramiento individual para la recuperación del trauma',
       ar: 'استشارة فردية للتعافي من الصدمة',
       zh: '一对一创伤恢复咨询',
@@ -2543,7 +2536,7 @@ export class LanguageService {
     },
     sending_support_message: {
       en: 'Sending a message of support to {{name}}. Your kindness makes all the difference!',
-      fr: 'Envoi d\'un message de soutien à {{name}}. Votre gentillesse fait toute la différence !',
+      fr: "Envoi d'un message de soutien à {{name}}. Votre gentillesse fait toute la différence !",
       es: 'Enviando un mensaje de apoyo a {{name}}. ¡Tu bondad marca la diferencia!',
       ar: 'إرسال رسالة دعم إلى {{name}}. لطفك يحدث فرقاً كبيراً!',
       zh: '向{{name}}发送支持消息。您的善意改变一切！',
@@ -2658,7 +2651,7 @@ export class LanguageService {
       hi: 'खाता बनाने में विफल। कृपया पुनः प्रयास करें।',
       ru: 'Не удалось создать учетную запись. Пожалуйста, попробуйте еще раз.',
       pt: 'Falha ao criar conta. Por favor, tente novamente.',
-      it: 'Impossibile creare l\'account. Riprova.',
+      it: "Impossibile creare l'account. Riprova.",
       de: 'Konto konnte nicht erstellt werden. Bitte versuchen Sie es erneut.',
     },
     login_failed: {
@@ -2939,7 +2932,7 @@ export class LanguageService {
     },
     choose_username: {
       en: 'Choose a username',
-      fr: 'Choisissez un nom d\'utilisateur',
+      fr: "Choisissez un nom d'utilisateur",
       es: 'Elija un nombre de usuario',
       ar: 'اختر اسم مستخدم',
       zh: '选择一个用户名',

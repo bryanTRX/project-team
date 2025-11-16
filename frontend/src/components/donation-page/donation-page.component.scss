@@ -148,7 +148,6 @@
   }
 }
 
-// Welcome Card
 .welcome-card {
   background: linear-gradient(135deg, rgba(123, 104, 238, 0.12), rgba(255, 122, 133, 0.12));
   border-radius: 24px;
@@ -290,7 +289,6 @@
   }
 }
 
-// Email Check Card
 .email-check-card {
   background: white;
   border-radius: 24px;
@@ -431,7 +429,6 @@
   }
 }
 
-// Auth Cards
 .auth-card {
   background: white;
   border-radius: 20px;
@@ -598,7 +595,6 @@
   }
 }
 
-// Donation Form
 .donation-form {
   display: flex;
   flex-direction: column;
@@ -1029,7 +1025,6 @@
   }
 }
 
-// Right Column: Impact Sidebar
 .impact-sidebar {
   display: flex;
   flex-direction: column;
@@ -1260,8 +1255,6 @@
   margin: 0;
 }
 
-
-// Responsive
 @media (max-width: 1023px) {
   .impact-sidebar {
     order: -1;

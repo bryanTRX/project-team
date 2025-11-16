@@ -6,7 +6,15 @@
       <div *ngFor="let story of stories" class="story-card">
         <div class="card-header">
           <div class="story-avatar" [style.background-color]="story.color">
-            <img [src]="story.image" [alt]="(languageService.getTranslation('story_avatar') || 'Story avatar') + ': ' + story.name" class="avatar-image" />
+            <img
+              [src]="story.image"
+              [alt]="
+                (languageService.getTranslation('story_avatar') || 'Story avatar') +
+                ': ' +
+                story.name
+              "
+              class="avatar-image"
+            />
             <div class="avatar-overlay"></div>
           </div>
           <div class="emotion-badge">

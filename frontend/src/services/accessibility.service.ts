@@ -47,7 +47,7 @@ export class AccessibilityService {
     if (typeof document !== 'undefined' && document.body) {
       document.body.classList.remove('text-normal', 'text-large', 'text-xlarge');
       document.body.classList.add(`text-${this.textSize}`);
-      
+
       if (document.documentElement) {
         document.documentElement.classList.remove('text-normal', 'text-large', 'text-xlarge');
         document.documentElement.classList.add(`text-${this.textSize}`);
@@ -55,4 +55,3 @@ export class AccessibilityService {
     }
   }
 }
-

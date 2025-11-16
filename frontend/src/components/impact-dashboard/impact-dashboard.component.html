@@ -33,10 +33,19 @@
   <div class="impact-modal-backdrop" *ngIf="selectedCard" (click)="closeModal()"></div>
 
   <div class="impact-modal" *ngIf="selectedCard">
-    <button class="close-btn" (click)="closeModal()" [attr.aria-label]="languageService.getTranslation('close') || 'Close'">×</button>
+    <button
+      class="close-btn"
+      (click)="closeModal()"
+      [attr.aria-label]="languageService.getTranslation('close') || 'Close'"
+    >
+      ×
+    </button>
 
     <div class="modal-image">
-      <img [src]="'../../assets/images/' + selectedCard.icon + '.png'" [alt]="languageService.getTranslation('impact_image') || 'impact image'" />
+      <img
+        [src]="'../../assets/images/' + selectedCard.icon + '.png'"
+        [alt]="languageService.getTranslation('impact_image') || 'impact image'"
+      />
     </div>
 
     <h2 class="modal-title">{{ selectedCard.title }}</h2>

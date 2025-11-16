@@ -35,7 +35,7 @@
           <div
             class="stat-card tier-card"
             (click)="onTierCardClick()"
-            style="cursor: pointer; position: relative;"
+            style="cursor: pointer; position: relative"
           >
             <div class="stat-content">
               <p>{{ languageService.getTranslation('donor_tier') }}</p>
@@ -58,7 +58,11 @@
               (click)="onTierCardClick(); $event.stopPropagation()"
               [attr.aria-label]="showTierPopup ? 'Close tiers' : 'View tiers'"
             >
-              <i class="fas" [class.fa-chevron-up]="showTierPopup" [class.fa-chevron-down]="!showTierPopup"></i>
+              <i
+                class="fas"
+                [class.fa-chevron-up]="showTierPopup"
+                [class.fa-chevron-down]="!showTierPopup"
+              ></i>
             </button>
           </div>
 
@@ -67,16 +71,20 @@
             <div class="tier-popup-modal" (click)="$event.stopPropagation()">
               <div class="tier-popup-header">
                 <div class="tier-popup-header-content">
-                  <h3>{{ languageService.getTranslation('donor_tiers_benefits') || 'Donor Tiers & Benefits' }}</h3>
+                  <h3>
+                    {{
+                      languageService.getTranslation('donor_tiers_benefits') ||
+                        'Donor Tiers & Benefits'
+                    }}
+                  </h3>
                   <p class="tier-popup-subtitle-header">
-                    {{ languageService.getTranslation('discover_donation_levels') || 'Discover all donation levels and their exclusive benefits' }}
+                    {{
+                      languageService.getTranslation('discover_donation_levels') ||
+                        'Discover all donation levels and their exclusive benefits'
+                    }}
                   </p>
                 </div>
-                <button
-                  class="tier-popup-close"
-                  (click)="closeTierPopup()"
-                  aria-label="Close"
-                >
+                <button class="tier-popup-close" (click)="closeTierPopup()" aria-label="Close">
                   <i class="fas fa-times"></i>
                 </button>
               </div>
@@ -98,7 +106,9 @@
                     <div class="tier-popup-badge" *ngIf="isCurrentTier(tier)">
                       <span class="current-badge">
                         <i class="fas fa-check-circle"></i>
-                        {{ languageService.getTranslation('your_current_tier') || 'Your Current Tier' }}
+                        {{
+                          languageService.getTranslation('your_current_tier') || 'Your Current Tier'
+                        }}
                       </span>
                     </div>
                   </div>

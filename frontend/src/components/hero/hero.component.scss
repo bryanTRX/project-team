@@ -207,25 +207,16 @@
   border-radius: 50%;
   border: 5px solid rgba(255, 255, 255, 0.4);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  // Filtres pour améliorer l'image et potentiellement supprimer le fond
   filter: brightness(1.1) contrast(1.05) saturate(1.15);
   background: transparent;
   position: relative;
   isolation: isolate;
-
-  // Essayer d'utiliser mix-blend-mode pour supprimer le fond clair
-  // Cela fonctionne mieux si l'image a un fond uni
   mix-blend-mode: multiply;
   opacity: 0.95;
-
-  // Alternative: utiliser un filtre pour supprimer le blanc/crème
-  // Si l'image a un fond blanc ou beige clair
   background-blend-mode: multiply;
 }
 
-// Si l'image a un fond transparent ou besoin d'un traitement spécial
 .hero-image-wrapper {
-  // Assurer que le conteneur ne bloque pas le mix-blend-mode
   position: relative;
   z-index: 1;
 }

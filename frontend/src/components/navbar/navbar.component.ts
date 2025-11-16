@@ -37,15 +37,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.currentLanguage = lang;
     });
 
-    // Load accessibility settings
     this.textSize = this.accessibilityService.textSize;
 
-    // Subscribe to text size changes
     this.textSizeSubscription = this.accessibilityService.textSize$.subscribe((value) => {
       this.textSize = value;
     });
 
-    // Close dropdown when clicking outside
     document.addEventListener('click', this.handleClickOutside.bind(this));
   }
 
@@ -74,13 +71,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   goHome(): void {
-    // Si on est déjà sur la page d'accueil, scroll vers la section home
     if (this.router.url === '/' || this.router.url === '') {
       this.scrollToSection('home');
     } else {
-      // Sinon, naviguer vers la page d'accueil
       this.router.navigate(['/']).then(() => {
-        // Attendre un peu que la page se charge puis scroll vers home
         setTimeout(() => {
           this.scrollToSection('home');
         }, 100);
@@ -128,19 +122,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
   goToSettings(): void {
     this.closeDropdown();
     this.router.navigate(['/dashboard']);
-    // Scroll to settings section or open settings modal
-    setTimeout(() => {
-      // Could scroll to a settings section if it exists
-    }, 100);
+    setTimeout(() => {}, 100);
   }
 
   goToPersonalInfo(): void {
     this.closeDropdown();
     this.router.navigate(['/dashboard']);
-    // Scroll to personal info section or open personal info modal
-    setTimeout(() => {
-      // Could scroll to a personal info section if it exists
-    }, 100);
+    setTimeout(() => {}, 100);
   }
 
   logout(): void {

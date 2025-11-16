@@ -42,7 +42,12 @@ export class AuthService {
     return user._id || user.id || null;
   }
 
-  async signup(email: string, name: string, password: string, username?: string): Promise<UserProfile | null> {
+  async signup(
+    email: string,
+    name: string,
+    password: string,
+    username?: string,
+  ): Promise<UserProfile | null> {
     try {
       const url = `${this.apiBase}/auth/signup`;
       const body = { email: email.toLowerCase().trim(), name, password, username };
@@ -75,7 +80,6 @@ export class AuthService {
   }
 
   async loginWithFacebook(): Promise<boolean> {
-    // Credentials must match the seeded social account in the DB
     return this.login('facebook', 'facebook');
   }
 

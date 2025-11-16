@@ -1,5 +1,4 @@
 :root {
-  // Palette de couleurs harmonieuse et professionnelle
   --primary: #7b68ee;
   --primary-dark: #6b5bce;
   --primary-light: #9b8bff;
@@ -17,7 +16,6 @@
   --warning: #ed8936;
   --error: #f56565;
 
-  // Anciennes couleurs pour compatibilité (à remplacer progressivement)
   --mauve: #c9b5e8;
   --deep-purple: #6b4fa3;
   --ivory: #f8f5ff;
@@ -97,10 +95,8 @@ h4 {
   font-weight: 600;
 }
 
-// Accessibility styles - Text Size (applies globally to all pages)
 body.text-normal,
 html.text-normal {
-  // Default styles - no change needed
   font-size: 15px;
 }
 
@@ -297,7 +293,6 @@ main {
   width: 100%;
 }
 
-// Responsive typography
 @media (max-width: 768px) {
   body {
     font-size: 14px;
@@ -316,7 +311,6 @@ main {
   }
 }
 
-// Loading animations
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -337,7 +331,6 @@ main {
   }
 }
 
-// Utility classes
 .text-center {
   text-align: center;
 }

@@ -46,7 +46,6 @@ export class HeroComponent implements OnInit, OnDestroy {
   onImageError(event: Event): void {
     const img = event.target as HTMLImageElement;
     if (img) {
-      // Fallback vers une image Unsplash si l'image locale ne charge pas
       img.src =
         'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=800&fit=crop&crop=faces,center';
     }

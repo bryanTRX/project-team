@@ -68,7 +68,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
     ];
   }
 
-
   selectedPaymentMethod = 'card';
   updatesOptIn = false;
   cardNumber: string = '';
@@ -270,37 +269,65 @@ export class PaymentComponent implements OnInit, OnDestroy {
       }
 
       if (!this.firstName || !this.firstName.trim()) {
-        alert((this.languageService.getTranslation('first_name') || 'First Name') + ' - ' + (this.languageService.getTranslation('field_required') || 'is required'));
+        alert(
+          (this.languageService.getTranslation('first_name') || 'First Name') +
+            ' - ' +
+            (this.languageService.getTranslation('field_required') || 'is required'),
+        );
         this.emailSectionInvalid = true;
         return false;
       }
       if (!this.lastName || !this.lastName.trim()) {
-        alert((this.languageService.getTranslation('last_name') || 'Last Name') + ' - ' + (this.languageService.getTranslation('field_required') || 'is required'));
+        alert(
+          (this.languageService.getTranslation('last_name') || 'Last Name') +
+            ' - ' +
+            (this.languageService.getTranslation('field_required') || 'is required'),
+        );
         this.emailSectionInvalid = true;
         return false;
       }
       if (!this.address || !this.address.trim()) {
-        alert((this.languageService.getTranslation('street_address_line1') || 'Street Address') + ' - ' + (this.languageService.getTranslation('field_required') || 'is required'));
+        alert(
+          (this.languageService.getTranslation('street_address_line1') || 'Street Address') +
+            ' - ' +
+            (this.languageService.getTranslation('field_required') || 'is required'),
+        );
         this.emailSectionInvalid = true;
         return false;
       }
       if (!this.city || !this.city.trim()) {
-        alert((this.languageService.getTranslation('city') || 'City') + ' - ' + (this.languageService.getTranslation('field_required') || 'is required'));
+        alert(
+          (this.languageService.getTranslation('city') || 'City') +
+            ' - ' +
+            (this.languageService.getTranslation('field_required') || 'is required'),
+        );
         this.emailSectionInvalid = true;
         return false;
       }
       if (!this.province || !this.province.trim()) {
-        alert((this.languageService.getTranslation('province_state') || 'Province/State') + ' - ' + (this.languageService.getTranslation('field_required') || 'is required'));
+        alert(
+          (this.languageService.getTranslation('province_state') || 'Province/State') +
+            ' - ' +
+            (this.languageService.getTranslation('field_required') || 'is required'),
+        );
         this.emailSectionInvalid = true;
         return false;
       }
       if (!this.postalCode || !this.postalCode.trim()) {
-        alert((this.languageService.getTranslation('postal_code_zip') || 'Postal Code/ZIP') + ' - ' + (this.languageService.getTranslation('field_required') || 'is required'));
+        alert(
+          (this.languageService.getTranslation('postal_code_zip') || 'Postal Code/ZIP') +
+            ' - ' +
+            (this.languageService.getTranslation('field_required') || 'is required'),
+        );
         this.emailSectionInvalid = true;
         return false;
       }
       if (!this.country || !this.country.trim()) {
-        alert((this.languageService.getTranslation('country') || 'Country') + ' - ' + (this.languageService.getTranslation('field_required') || 'is required'));
+        alert(
+          (this.languageService.getTranslation('country') || 'Country') +
+            ' - ' +
+            (this.languageService.getTranslation('field_required') || 'is required'),
+        );
         this.emailSectionInvalid = true;
         return false;
       }
