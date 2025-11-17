@@ -233,6 +233,7 @@
       background-color: #faf9f6;
       color: #2d3748;
       transition: all 0.3s ease;
+      appearance: textfield; // hide native number controls in Firefox
 
       &:focus {
         outline: none;
@@ -243,6 +244,13 @@
 
       &::placeholder {
         color: #718096;
+      }
+
+      // Hide the up/down steppers on number input
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
     }
   }

@@ -126,40 +126,6 @@
                 </label>
               </div>
 
-              <div class="account-flow new" *ngIf="emailMode === 'new'">
-                <p>
-                  {{
-                    languageService.getTranslation('new_account_prompt') ||
-                      'This email is not registered. Create an account to continue.'
-                  }}
-                </p>
-                <label for="newUsername">{{
-                  languageService.getTranslation('create_username_label') || 'Username'
-                }}</label>
-                <input
-                  type="text"
-                  id="newUsername"
-                  [(ngModel)]="newUsername"
-                  name="newUsername"
-                  [placeholder]="
-                    languageService.getTranslation('choose_username') || 'Choose a username'
-                  "
-                  autocomplete="username"
-                />
-                <label for="newPassword">{{
-                  languageService.getTranslation('create_password_label') || 'Create Password'
-                }}</label>
-                <input
-                  type="password"
-                  id="newPassword"
-                  [(ngModel)]="newPassword"
-                  name="newPassword"
-                  [placeholder]="
-                    languageService.getTranslation('create_password') || 'Create a password'
-                  "
-                  autocomplete="new-password"
-                />
-              </div>
               <div class="account-flow existing" *ngIf="emailMode === 'existing'">
                 <p>
                   {{
@@ -552,9 +518,9 @@
               </div>
             </div>
             <div class="method-detail phone-detail" *ngIf="selectedPaymentMethod === 'phone'">
-              <i class="fas fa-phone-alt"></i>
               <div class="phone-details-form">
-                <p>
+                <p class="phone-note">
+                  <span class="phone-emoji" aria-hidden="true">📞</span>
                   {{
                     languageService.getTranslation('phone_donation_note') ||
                       'After you click Complete Donation, an agent will call to finalize your gift.'

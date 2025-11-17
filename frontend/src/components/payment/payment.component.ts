@@ -6,6 +6,7 @@ import { LanguageService } from '../../services/language.service';
 import { AuthService } from '../../services/auth.service';
 import { AccessibilityService } from '../../services/accessibility.service';
 import { Subscription } from 'rxjs';
+import { DONATION_AMOUNTS } from '../../constants/donation-amounts';
 
 @Component({
   selector: 'app-payment',
@@ -16,7 +17,7 @@ import { Subscription } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class PaymentComponent implements OnInit, OnDestroy {
-  donationOptions: number[] = [100, 250, 500, 1000];
+  donationOptions: number[] = DONATION_AMOUNTS;
   donationAmount: number = this.donationOptions[0];
   customAmount: string = '';
   selectedAmount: number | null = this.donationOptions[0];
@@ -87,7 +88,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   wishToRemainAnonymous: boolean = false;
   paymentPassword: string = '';
   email: string = '';
-  emailMode: 'idle' | 'existing' | 'new' = 'idle';
+  emailMode: 'idle' | 'existing' = 'idle';
   loginPassword = '';
   newUsername = '';
   newPassword = '';
@@ -256,27 +257,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
         this.emailSectionInvalid = true;
         return false;
       }
-      if (this.emailMode === 'new') {
-        if (!this.newUsername) {
-          alert(
-            (this.languageService.getTranslation('create_username_label') || 'Username') +
-              ' - ' +
-              (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
-          );
-          this.emailSectionInvalid = true;
-          return false;
-        }
-        if (!this.newPassword) {
-          alert(
-            (this.languageService.getTranslation('create_password_label') || 'Password') +
-              ' - ' +
-              (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
-          );
-          this.emailSectionInvalid = true;
-          return false;
-        }
-      }
-
       if (!this.firstName || !this.firstName.trim()) {
         alert(
           (this.languageService.getTranslation('first_name') || 'First Name') +
@@ -377,8 +357,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
       this.newUsername = '';
       this.newPassword = '';
     } else {
-      this.emailMode = 'new';
+      this.emailMode = 'idle';
       this.loginPassword = '';
+      this.newUsername = '';
+      this.newPassword = '';
     }
   }
 
