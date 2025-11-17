@@ -40,7 +40,9 @@ export class HeroComponent implements OnInit, OnDestroy {
   scrollToStories(): void {
     const element = document.getElementById('stories');
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const headerOffset = 80; // adjust so target isn't hidden by navbar spacing
+      const targetPosition = element.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top: targetPosition, behavior: 'smooth' });
     }
   }
 

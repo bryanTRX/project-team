@@ -97,7 +97,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   openDonationPage(event: Event): void {
     event.preventDefault();
-    this.goHome();
+    this.router.navigate(['/payment']);
+    this.menuOpen = false;
   }
 
   closeMenu(): void {

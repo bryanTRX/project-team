@@ -14,9 +14,15 @@ import { Subscription } from 'rxjs';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  mode: 'login' | 'signup' = 'login';
   username = '';
   password = '';
+  signupName = '';
+  signupEmail = '';
+  signupPassword = '';
+  signupConfirmPassword = '';
   errorMessage = '';
+  infoMessage = '';
   currentLanguage: string = 'en';
   private languageSubscription?: Subscription;
 
@@ -43,7 +49,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
+  setMode(mode: 'login' | 'signup'): void {
+    this.mode = mode;
+    this.errorMessage = '';
+    this.infoMessage = '';
+  }
+
   onSubmit(): void {
+    if (this.mode !== 'login') {
+      return;
+    }
+
     this.authService.login(this.username, this.password).then((authenticated) => {
       if (authenticated) {
         this.errorMessage = '';
@@ -53,6 +69,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       this.errorMessage = this.languageService.getTranslation('invalid_credentials');
     });
+  }
+
+  onSignupSubmit(): void {
+    // Visual-only placeholder; no signup logic yet.
+    this.infoMessage = 'Signup is currently a visual preview — account creation coming soon.';
   }
 
   onFacebookLogin(): void {

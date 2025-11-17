@@ -51,24 +51,6 @@
           <div class="feedback-content">
             <p class="feedback-text">{{ feedback.feedback }}</p>
           </div>
-
-          <div class="feedback-divider"></div>
-
-          <div
-            class="impact-badge"
-            [style.background]="
-              'linear-gradient(135deg, ' + feedback.color + '15, ' + feedback.color + '08)'
-            "
-            [style.border-color]="feedback.color + '25'"
-          >
-            <div class="impact-icon" [style.color]="feedback.color">
-              <i class="fas fa-sparkles"></i>
-            </div>
-            <div class="impact-content">
-              <span class="impact-label">{{ getImpactLabel() }}</span>
-              <span class="impact-text">{{ feedback.impact }}</span>
-            </div>
-          </div>
         </div>
       </div>
       <button
@@ -92,7 +74,6 @@
             <h3 class="feature-title">{{ feature.title }}</h3>
           </div>
           <p class="feature-description">{{ feature.description }}</p>
-          <p *ngIf="feature.extra" class="feature-extra">{{ feature.extra }}</p>
         </div>
       </div>
     </div>

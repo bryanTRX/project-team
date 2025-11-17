@@ -37,13 +37,14 @@ export class StoriesComponent implements OnInit, OnDestroy {
       this.languageSubscription.unsubscribe();
     }
   }
+
   stories: Story[] = [
     {
       name: "Sarah's Journey",
       timeline: 'Supported since 2022',
       quote:
         "When I walked through those doors with my three children, I was broken. Today, we're healing together. The shelter didn't just give us a roof—it gave us back our lives. My children can sleep peacefully now, and I can finally see hope in their eyes again.",
-      image: 'https://i.pravatar.cc/150?img=47',
+      image: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=300&q=80',
       color: '#C9B5E8',
       emotion: 'Hope Restored',
     },
@@ -52,7 +53,7 @@ export class StoriesComponent implements OnInit, OnDestroy {
       timeline: 'Thriving since 2021',
       quote:
         "The multilingual support was everything. They understood my struggles, my fears, my dreams—in my own language. I'm not just surviving anymore; I'm thriving. I started my own small business, my children are in school, and we're building a future I never thought possible.",
-      image: 'https://i.pravatar.cc/150?img=12',
+      image: 'assets/images/moms-9c91bb44e10e47a991d2b52cd5973213.jpg',
       color: '#6B4FA3',
       emotion: 'Dreams Realized',
     },
@@ -61,7 +62,7 @@ export class StoriesComponent implements OnInit, OnDestroy {
       timeline: 'Supported since 2023',
       quote:
         "From hiding in fear to standing in strength—that's my story. The counseling services gave me the courage to start over. My children and I are safe now, and for the first time in years, I'm excited about tomorrow. Thank you for believing in us when we couldn't believe in ourselves.",
-      image: 'https://i.pravatar.cc/150?img=33',
+      image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
       color: '#F28C88',
       emotion: 'Strength Found',
     },
@@ -80,4 +81,6 @@ export class StoriesComponent implements OnInit, OnDestroy {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   }
+
+  // Carousel helpers removed (no longer using carousel)
 }

@@ -3,16 +3,16 @@
   background: transparent;
   position: relative;
   overflow: hidden;
-  margin-top: 2.5rem;
+  margin-top: 0.75rem;
 
   @media (min-width: 768px) {
     padding: 4rem 1.25rem 4.5rem;
-    margin-top: 3rem;
+    margin-top: 1.25rem;
   }
 
   @media (min-width: 1024px) {
     padding: 4.5rem 2rem 5rem;
-    margin-top: 3.5rem;
+    margin-top: 1.5rem;
   }
 
   .container {
@@ -324,98 +324,56 @@
     }
   }
 
-  .feedback-divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
-    margin: 1rem 0;
-    position: relative;
-    z-index: 1;
-  }
-
-  .impact-badge {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    padding: 0.75rem 1rem;
-    border-radius: 12px;
-    border: 1px solid;
-    margin-top: auto;
-    position: relative;
-    z-index: 1;
-    transition: all 0.3s ease;
-
-    .impact-icon {
-      flex-shrink: 0;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.6);
-      border-radius: 8px;
-      font-size: 0.875rem;
-      transition: transform 0.3s ease;
-    }
-
-    .impact-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      min-width: 0;
-    }
-
-    .impact-label {
-      font-size: 0.625rem;
-      font-weight: 700;
-      color: var(--card-color);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      line-height: 1.2;
-    }
-
-    .impact-text {
-      font-size: 0.8125rem;
-      color: #1e293b;
-      font-weight: 600;
-      line-height: 1.4;
-    }
-
-    &:hover {
-      .impact-icon {
-        transform: scale(1.05) rotate(3deg);
-      }
-    }
-  }
-
   .community-features {
     margin-top: 1.5rem;
+    margin-bottom: 2.5rem; // add breathing room below the features block
 
     @media (min-width: 1024px) {
       margin-top: 2rem;
+      margin-bottom: 3rem;
     }
 
     .features-grid {
       display: flex;
-      flex-wrap: wrap;
-      gap: 1.25rem;
-      justify-content: space-between;
+      flex-direction: row;
+      gap: 0;
+      justify-content: stretch;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      border: 1px solid rgba(123, 104, 238, 0.15);
+      border-radius: 14px;
+      background: white;
+      overflow: hidden;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
     }
 
     .feature-card {
-      background: white;
-      border-radius: 14px;
-      padding: 1.1rem 1.2rem;
-      border: 1px solid rgba(123, 104, 238, 0.15);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+      background: transparent;
+      padding: 1rem 1.2rem;
+      border: 0;
       text-align: left;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      flex: 0 0 calc(33.333% - 1rem);
-      min-width: 220px;
+      flex: 1 1 33%;
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+
+      & + .feature-card {
+        border-left: 1px solid #e2e8f0;
+
+        @media (max-width: 768px) {
+          border-left: 0;
+          border-top: 1px solid #e2e8f0;
+        }
+      }
 
       &:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+        background-color: rgba(123, 104, 238, 0.04);
       }
     }
 
@@ -440,25 +398,29 @@
       flex-shrink: 0;
     }
 
+    .feature-title,
+    .feature-description,
+    .feature-extra {
+      font-weight: 400;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
     .feature-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 0.2rem;
-      color: #1a202c;
+      font-size: 1rem;
+      line-height: 1.4;
     }
 
     .feature-description {
-      font-size: 0.9rem;
-      color: #4a5568;
-      margin: 0;
-      line-height: 1.5;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-top: 0.05rem;
     }
 
     .feature-extra {
+      font-size: 0.95rem;
+      line-height: 1.6;
       margin-top: 0.35rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #7b68ee;
     }
   }
 }

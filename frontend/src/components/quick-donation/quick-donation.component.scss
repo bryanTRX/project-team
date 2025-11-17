@@ -3,10 +3,10 @@
   background: transparent;
   position: relative;
   min-height: 85vh;
-  margin: 3rem 0 0;
+  margin: 1rem 0 0;
 
   @media (max-width: 768px) {
-    margin-top: 2rem;
+    margin-top: 1.25rem;
   }
 
   .container {
@@ -233,6 +233,7 @@
       background-color: #faf9f6;
       color: #2d3748;
       transition: all 0.3s ease;
+      appearance: textfield; // hide native number controls in Firefox
 
       &:focus {
         outline: none;
@@ -243,6 +244,13 @@
 
       &::placeholder {
         color: #718096;
+      }
+
+      // Hide the up/down steppers on number input
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
     }
   }

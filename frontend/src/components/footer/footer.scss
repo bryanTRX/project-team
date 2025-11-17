@@ -43,6 +43,7 @@
     object-fit: contain;
     display: block;
     transition: transform 0.3s ease;
+    border-radius: 0; // Keep footer logo squared
 
     &:hover {
       transform: scale(1.05);
