@@ -17,11 +17,9 @@
         </div>
         <div class="nav-links" [class.open]="menuOpen">
           <a
-            href="#"
-            class="placeholder-link"
-            aria-disabled="true"
-            tabindex="-1"
-            (click)="preventNavigation($event)"
+            routerLink="/"
+            class="nav-link"
+            (click)="closeMenu()"
           >
             {{ languageService.getTranslation('home') }}
           </a>
@@ -43,7 +41,7 @@
           >
             {{ languageService.getTranslation('about_project_athena') }}
           </a>
-          <a href="#" class="donation-link" (click)="openDonationPage($event)">
+          <a routerLink="/payment" class="donation-link" (click)="closeMenu()">
             {{ languageService.getTranslation('donate') }}
           </a>
         </div>

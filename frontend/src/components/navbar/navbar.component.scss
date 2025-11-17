@@ -13,24 +13,28 @@
   padding: 0.875rem 0;
 
   .container {
-    max-width: 1200px;
+    max-width: 1400px;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 1.25rem;
+    padding: 0 3.5rem;
 
     @media (min-width: 768px) {
-      padding: 0 2rem;
+      padding: 0 4rem;
     }
   }
 
   .nav-content {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    justify-content: space-between;
+    width: 100%;
     gap: 2.5rem;
-    flex-wrap: wrap;
+    min-width: 0;
 
     @media (max-width: 1024px) {
+      display: flex;
       gap: 2rem;
+      flex-wrap: wrap;
     }
   }
 
@@ -96,12 +100,17 @@
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 2.5rem;
-    flex: 1;
+    gap: clamp(2rem, 6vw, 4rem);
     justify-content: center;
+    min-width: 0;
+    width: 100%;
+    justify-self: center;
 
     @media (max-width: 1024px) {
       gap: 2rem;
+      margin: 0;
+      width: auto;
+      justify-self: stretch;
     }
 
     a {
@@ -162,7 +171,8 @@
     align-items: center;
     gap: 1.25rem;
     flex-shrink: 0;
-    margin-right: 100px;
+    margin-right: 0;
+    justify-self: end;
 
     @media (max-width: 1024px) {
       gap: 1rem;
