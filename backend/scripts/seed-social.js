@@ -20,6 +20,7 @@ async function main() {
       password: { type: String, required: true },
   name: { type: String, required: true },
   totalDonated: { type: Number, required: true },
+  lives_touched: { type: Number, required: true },
   goal: { type: Number, required: true },
     },
     { timestamps: true }
@@ -35,6 +36,7 @@ async function main() {
       password: process.env.FB_PASSWORD || 'facebook',
   name: process.env.FB_NAME || 'Sophia Williams',
   totalDonated: Number(process.env.FB_TOTAL_DONATED || 1200),
+  lives_touched: Number(process.env.FB_FAMILIES_HELPED || 8),
   goal: Number(process.env.FB_GOAL || 2000),
     },
     {
@@ -44,6 +46,7 @@ async function main() {
       password: process.env.GOOGLE_PASSWORD || 'google',
   name: process.env.GOOGLE_NAME || 'Liam Brown',
   totalDonated: Number(process.env.GOOGLE_TOTAL_DONATED || 900),
+  lives_touched: Number(process.env.GOOGLE_FAMILIES_HELPED || 5),
   goal: Number(process.env.GOOGLE_GOAL || 1500),
     },
   ];
@@ -59,6 +62,7 @@ async function main() {
         password: acc.password,
         name: acc.name,
         totalDonated: acc.totalDonated,
+        lives_touched: acc.lives_touched,
         goal: acc.goal,
       });
       console.log(`Created ${acc.provider} account:`, created.email);

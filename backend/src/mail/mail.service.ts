@@ -47,6 +47,7 @@ export class MailService implements OnModuleInit {
     userName: string,
     amount: number,
     totalDonated?: number,
+    lives_touched?: number,
     lang?: string,
   ) {
     const locale = lang || 'en';
@@ -114,6 +115,19 @@ export class MailService implements OnModuleInit {
     const logoPath = path.resolve(__dirname, '..', '..', '..', 'frontend', 'src', 'assets', 'images', 'logos', 'favicon.jpg');
 
   const formattedTotal = typeof totalDonated === 'number' ? `$${totalDonated.toLocaleString()}` : '—';
+  const formattedLives = typeof lives_touched === 'number' ? `${lives_touched}` : '—';
+    // Compute progress toward next badge using internal tier thresholds so
+    // we don't depend on a per-user `donationsRequiredForTier` field.
+    const tiers = [1000, 5000];
+    let progressPercent: number | null = null;
+    if (typeof totalDonated === 'number') {
+      const nextTier = tiers.find((t) => totalDonated < t) || null;
+      if (nextTier) {
+        progressPercent = Math.min(100, Math.round((totalDonated / nextTier) * 100));
+      } else {
+        progressPercent = null; // already at or above highest tier
+      }
+    }
 
     const html = `
       <div style="font-family: Arial, Helvetica, sans-serif; color: #2a2540;">
@@ -133,6 +147,10 @@ export class MailService implements OnModuleInit {
                 <div style="font-size:12px; color:#6b4fa3;">${t('totalDonatedLabel')}</div>
                 <div style="font-weight:700; font-size:20px; margin-top:8px; color:#4b2c83;">${formattedTotal}</div>
               </div>
+              <div style="flex:1; padding:14px; border:1px solid #f0eaff; border-radius:8px; text-align:center; background:#fbf7ff;">
+                <div style="font-size:12px; color:#6b4fa3;">${t('peopleHelpedLabel')}</div>
+                <div style="font-weight:700; font-size:20px; margin-top:8px; color:#4b2c83;">${formattedLives}</div>
+              </div>
             </div>
 
             <div style="margin-top:18px; padding:14px; background:linear-gradient(180deg, #faf5ff, #fff); border-radius:8px;">
@@ -149,7 +167,14 @@ export class MailService implements OnModuleInit {
             </div>
 
             <div style="margin-top:16px;">
-              <p style="margin:0; font-size:13px; color:#6b4fa3;">${t('visit_dashboard') || 'Visit your dashboard to see detailed badge progress.'}</p>
+              <p style="margin:0 0 6px 0; font-weight:700; color:#4b2c83;">${t('progressTowardBadge')}</p>
+              ${progressPercent !== null ? `
+                <div style="width:100%; background:#eee; border-radius:8px; height:12px; overflow:hidden;">
+                  <div style="width:${progressPercent}%; height:12px; background:linear-gradient(90deg,#d6bbff,#b695ff);"></div>
+                </div>
+                <div style="font-size:12px; color:#6b4fa3; margin-top:6px;">${progressPercent}${t('progressPercentLabel')}</div>
+              ` : `<div style="font-size:13px; color:#6b4fa3;">${t('visit_dashboard') || 'Visit your dashboard to see detailed badge progress.'}</div>`}
+
             </div>
 
             <p style="margin-top:20px; color:#2a2540;">${t('signature').replace('\n', '<br/>')}</p>

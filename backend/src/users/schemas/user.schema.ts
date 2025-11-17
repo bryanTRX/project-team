@@ -17,9 +17,14 @@ export class User {
 
   @Prop()
 
-
   @Prop({ default: 0 })
   totalDonated?: number;
+
+  @Prop({ default: 0 })
+  lives_touched?: number;
+
+  
+
   @Prop({ default: 0 })
   goal?: number;
 
