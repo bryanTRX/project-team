@@ -178,7 +178,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.isProcessing = true;
     try {
       if (this.isAuthenticated) {
-        // Record donation and capture the receipt preview link in one step.
         const result = await this.authService.recordDonation(this.donationAmount);
         this.emailPreviewUrl = result?.emailPreviewUrl ?? null;
         this.showSuccess = true;
@@ -203,7 +202,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
       alert(this.languageService.getTranslation('alert_select_amount'));
       return false;
     }
-    // Only validate card fields when the selected payment method is card
     if (this.selectedPaymentMethod === 'card') {
       if (!this.cardNumber || this.cardNumber.replace(/\s/g, '').length !== 16) {
         alert(

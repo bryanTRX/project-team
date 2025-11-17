@@ -6,20 +6,20 @@
     <p class="section-subtitle">{{ languageService.getTranslation('stories_subtitle') }}</p>
     <div class="stories-grid">
       <div *ngFor="let story of stories" class="story-card">
-          <div class="card-header">
-            <div class="story-avatar" [style.background-color]="story.color">
-              <img
-                [src]="story.image"
-                [alt]="
+        <div class="card-header">
+          <div class="story-avatar" [style.background-color]="story.color">
+            <img
+              [src]="story.image"
+              [alt]="
                 (languageService.getTranslation('story_avatar') || 'Story avatar') +
                 ': ' +
                 story.name
               "
-                class="avatar-image"
-              />
-              <div class="avatar-overlay"></div>
-            </div>
+              class="avatar-image"
+            />
+            <div class="avatar-overlay"></div>
           </div>
+        </div>
         <div class="card-content">
           <div class="story-header">
             <div class="story-info">

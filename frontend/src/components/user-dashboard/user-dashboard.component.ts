@@ -36,7 +36,6 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   user: UserProfile | null = null;
   currentLanguage: string = 'en';
   showTierPopup = false;
-  // local state synced from TierBadgesComponent via tiersUpdated event
   currentTier: TierBadge | null = null;
   nextTier: TierBadge | null = null;
   progressToNextTier: number = 0;
@@ -86,7 +85,6 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       this.currentLanguage = lang;
     });
 
-    // subscribe to authService user changes so dashboard updates immediately
     this.currentUserSubscription = this.authService.currentUser$.subscribe((u) => {
       this.user = u;
     });
@@ -119,7 +117,6 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Handler for TierBadgesComponent updates — keeps parent data stable
   onTiersUpdated(payload: any) {
     this.currentTier = payload.currentTier;
     this.nextTier = payload.nextTier;

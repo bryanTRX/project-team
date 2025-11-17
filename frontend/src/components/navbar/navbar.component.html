@@ -16,11 +16,7 @@
           </div>
         </div>
         <div class="nav-links" [class.open]="menuOpen">
-          <a
-            routerLink="/"
-            class="nav-link"
-            (click)="closeMenu()"
-          >
+          <a routerLink="/" class="nav-link" (click)="closeMenu()">
             {{ languageService.getTranslation('home') }}
           </a>
           <a

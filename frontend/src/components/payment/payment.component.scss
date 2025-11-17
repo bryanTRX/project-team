@@ -47,13 +47,21 @@
   height: 36px;
   border-width: 3px;
 }
-.submit-payment-btn .processing { display: inline-flex; align-items: center; gap: 8px; }
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.submit-payment-btn .processing {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.processing-text { font-weight: 600; }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.processing-text {
+  font-weight: 600;
+}
 
 .payment-card {
   background: var(--surface);
@@ -508,7 +516,6 @@ input[type='number']::-webkit-inner-spin-button {
   }
 }
 
-// Contact section sits at the top; remove divider line/extra spacing.
 .contact-info-section {
   margin-top: 0;
   padding-top: 0;

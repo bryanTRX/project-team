@@ -7,7 +7,6 @@
       {{ languageService.getTranslation('every_number_represents_life') }}
     </p>
 
-    <!-- IMPACT CARDS -->
     <div class="impact-cards">
       <div *ngFor="let card of impactCards" class="impact-card" (click)="onCardClick(card)">
         <div class="card-icon" [style.color]="card.color">

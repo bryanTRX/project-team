@@ -14,7 +14,9 @@ export class DonationsController {
 
   @Post()
   async record(@Body() dto: RecordDonationDto) {
-    const identifier = dto.username ? { username: dto.username } : { email: dto.email };
+    const identifier = dto.username
+      ? { username: dto.username }
+      : { email: dto.email };
     const result = await this.donationsService.recordDonation(
       identifier,
       dto.amount,

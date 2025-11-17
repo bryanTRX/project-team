@@ -44,7 +44,8 @@ export class StoriesComponent implements OnInit, OnDestroy {
       timeline: 'Supported since 2022',
       quote:
         "When I walked through those doors with my three children, I was broken. Today, we're healing together. The shelter didn't just give us a roof—it gave us back our lives. My children can sleep peacefully now, and I can finally see hope in their eyes again.",
-      image: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=300&q=80',
+      image:
+        'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=300&q=80',
       color: '#C9B5E8',
       emotion: 'Hope Restored',
     },
@@ -62,7 +63,8 @@ export class StoriesComponent implements OnInit, OnDestroy {
       timeline: 'Supported since 2023',
       quote:
         "From hiding in fear to standing in strength—that's my story. The counseling services gave me the courage to start over. My children and I are safe now, and for the first time in years, I'm excited about tomorrow. Thank you for believing in us when we couldn't believe in ourselves.",
-      image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
+      image:
+        'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
       color: '#F28C88',
       emotion: 'Strength Found',
     },
@@ -81,6 +83,4 @@ export class StoriesComponent implements OnInit, OnDestroy {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   }
-
-  // Carousel helpers removed (no longer using carousel)
 }

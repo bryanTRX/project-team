@@ -137,7 +137,6 @@ export class TierBadgesComponent implements OnInit, OnChanges {
       }
     });
 
-    // Emit an update so parent components can consume the calculated data
     this.tiersUpdated.emit({
       currentTier: this.currentTier,
       nextTier: this.nextTier,

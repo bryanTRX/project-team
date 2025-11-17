@@ -43,7 +43,10 @@
           >
             <div class="stat-content">
               <p>{{ languageService.getTranslation('donor_tier') }}</p>
-              <span class="stat-value">{{ (currentTier && currentTier.name) || languageService.getTranslation('dedicated_supporter') }}</span>
+              <span class="stat-value">{{
+                (currentTier && currentTier.name) ||
+                  languageService.getTranslation('dedicated_supporter')
+              }}</span>
             </div>
             <div class="stat-icon badge" *ngIf="currentTier">
               <img
@@ -66,7 +69,6 @@
             </button>
           </div>
 
-          <!-- Tier Popup Modal - Outside tier-card to avoid layout issues -->
           <div class="tier-popup-overlay" *ngIf="showTierPopup" (click)="closeTierPopup()">
             <div class="tier-popup-modal" (click)="$event.stopPropagation()">
               <div class="tier-popup-header">
@@ -194,7 +196,12 @@
                   />
                   <div>
                     <p>
-                      {{ ((currentTier && currentTier.name) || (languageService.getTranslation('tier') || 'Tier')) + ' ' + languageService.getTranslation('maximum_tier') }}
+                      {{
+                        ((currentTier && currentTier.name) ||
+                          languageService.getTranslation('tier') || 'Tier') +
+                          ' ' +
+                          languageService.getTranslation('maximum_tier')
+                      }}
                     </p>
                     <span class="progress-tier-subtitle member-since">
                       {{ languageService.getTranslation('member_since') }} {{ memberSinceDate }}

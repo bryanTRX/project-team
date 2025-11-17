@@ -72,7 +72,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSignupSubmit(): void {
-    // Visual-only placeholder; no signup logic yet.
     this.infoMessage = 'Signup is currently a visual preview — account creation coming soon.';
   }
 

@@ -19,7 +19,7 @@ export class AppComponent {
     router.events
       .pipe(
         filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-        takeUntilDestroyed()
+        takeUntilDestroyed(),
       )
       .subscribe(() => {
         // Force the viewport to the very top on every navigation.

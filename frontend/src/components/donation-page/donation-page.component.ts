@@ -405,10 +405,10 @@ export class DonationPageComponent implements OnInit {
     localStorage.setItem('agreeToUpdates', this.agreeToUpdates.toString());
     this.router.navigate(['/payment']).then(() => {
       setTimeout(() => {
-        const contactInfoSection = document.getElementById('contact-information');
-        if (contactInfoSection) {
+        const makeDifferenceSection = document.getElementById('make-difference-today');
+        if (makeDifferenceSection) {
           const navbarHeight = 80;
-          const elementPosition = contactInfoSection.getBoundingClientRect().top;
+          const elementPosition = makeDifferenceSection.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
           window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
         } else {

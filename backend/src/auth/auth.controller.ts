@@ -17,9 +17,9 @@ export class AuthController {
   async signup(@Body() dto: SignupDto) {
     const { email, name, password, username } = dto;
     const debug = process.env.DEBUG_AUTH === 'true';
-    
+
     if (debug) console.log('[auth] signup attempt:', { email, name, username });
-    
+
     if (!email || !password || !name) {
       throw new HttpException(
         'Missing required fields: email, name, and password are required',
@@ -36,7 +36,7 @@ export class AuthController {
 
     try {
       const generatedUsername = username || email.split('@')[0];
-      
+
       const user = await this.usersService.create({
         username: generatedUsername,
         email: email.toLowerCase().trim(),
@@ -45,7 +45,7 @@ export class AuthController {
       });
 
       if (debug) console.log('[auth] user created successfully:', user._id);
-      
+
       return user;
     } catch (error: any) {
       if (error.message?.includes('already exists')) {

@@ -5,7 +5,7 @@
         class="payment-card"
         [ngClass]="{ 'text-large': textSize === 'large', 'text-xlarge': textSize === 'xlarge' }"
       >
-        <div class="form-headline">
+        <div id="make-difference-today" class="form-headline">
           <h1>{{ languageService.getTranslation('make_difference_today_payment') }}</h1>
           <p>{{ languageService.getTranslation('generosity_provides_safety') }}</p>
         </div>
@@ -548,11 +548,12 @@
               {{ languageService.getTranslation('processing') || 'Processing…' }}
             </span>
           </button>
-          <!-- overlay while processing to prevent accidental clicks and provide a clear cue -->
           <div class="processing-overlay" *ngIf="isProcessing" aria-hidden="true">
             <div class="overlay-content">
               <span class="spinner large" aria-hidden="true"></span>
-              <div class="processing-text">{{ languageService.getTranslation('processing') || 'Processing…' }}</div>
+              <div class="processing-text">
+                {{ languageService.getTranslation('processing') || 'Processing…' }}
+              </div>
             </div>
           </div>
         </form>
@@ -574,7 +575,9 @@
         </p>
         <p *ngIf="emailPreviewUrl">
           <strong>{{ languageService.getTranslation('preview_email') || 'Preview email:' }}</strong>
-          <a [href]="emailPreviewUrl" target="_blank" rel="noopener">{{ languageService.getTranslation('open_preview') || 'Open preview' }}</a>
+          <a [href]="emailPreviewUrl" target="_blank" rel="noopener">{{
+            languageService.getTranslation('open_preview') || 'Open preview'
+          }}</a>
         </p>
         <div class="success-animation">
           <i class="fas fa-heart"></i>

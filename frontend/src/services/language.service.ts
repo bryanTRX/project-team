@@ -210,7 +210,7 @@ export class LanguageService {
       de: 'Schließen Sie sich der Bewegung an',
     },
     hero_subtitle_long: {
-      en: "Behind every number is someone finding safety. Your support restores hope, rebuilds lives, and lets children dream again. Join thousands making a real difference today.",
+      en: 'Behind every number is someone finding safety. Your support restores hope, rebuilds lives, and lets children dream again. Join thousands making a real difference today.',
       fr: "Derrière chaque chiffre, il y a un visage. Derrière chaque statistique, il y a une histoire. Votre soutien ne fournit pas seulement un abri—il restaure l'espoir, reconstruit des vies et donne aux enfants la chance de rêver à nouveau. Rejoignez des milliers de personnes qui font une vraie différence, un don à la fois.",
       es: 'Detrás de cada número hay un rostro. Detrás de cada estadística hay una historia. Tu apoyo no solo proporciona refugio—restaura la esperanza, reconstruye vidas y da a los niños la oportunidad de soñar de nuevo. Únete a miles que están marcando una diferencia real, una donación a la vez.',
       ar: 'وراء كل رقم هناك وجه. وراء كل إحصائية هناك قصة. دعمك لا يوفر المأوى فحسب—بل يستعيد الأمل ويعيد بناء الأرواح ويعطي الأطفال الفرصة للحلم مرة أخرى. انضم إلى الآلاف ممن يحدثون فرقاً حقيقياً، تبرعاً واحداً في كل مرة.',
@@ -2692,7 +2692,7 @@ export class LanguageService {
     },
     monthly_newsletter: {
       en: 'Monthly newsletter',
-      fr: 'Lettre d\'information mensuelle',
+      fr: "Lettre d'information mensuelle",
       es: 'Boletín mensual',
       ar: 'النشرة الإخبارية الشهرية',
       zh: '每月通讯',
@@ -2728,7 +2728,7 @@ export class LanguageService {
     },
     quarterly_impact_reports: {
       en: 'Quarterly impact reports',
-      fr: 'Rapports d\'impact trimestriels',
+      fr: "Rapports d'impact trimestriels",
       es: 'Informes de impacto trimestrales',
       ar: 'تقارير التأثير الربع سنوية',
       zh: '季度影响报告',
@@ -2776,7 +2776,7 @@ export class LanguageService {
     },
     one_on_one_impact_briefing: {
       en: 'One-on-one impact briefing',
-      fr: 'Présentation d\'impact en tête-à-tête',
+      fr: "Présentation d'impact en tête-à-tête",
       es: 'Resumen de impacto individual',
       ar: 'إحاطة التأثير الفردية',
       zh: '一对一影响简报',
@@ -2848,7 +2848,7 @@ export class LanguageService {
     },
     legacy_recognition: {
       en: 'Legacy recognition',
-      fr: 'Reconnaissance de l\'héritage',
+      fr: "Reconnaissance de l'héritage",
       es: 'Reconocimiento de legado',
       ar: 'التقدير التراثي',
       zh: '遗产认可',

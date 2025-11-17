@@ -35,9 +35,7 @@
     </div>
 
     <div class="donation-layout">
-      <!-- Left Column: Donation Form -->
       <div class="donation-form-column">
-        <!-- Logged In: Welcome Message -->
         <div *ngIf="isLoggedIn" class="welcome-card">
           <div class="welcome-content">
             <div class="welcome-avatar" *ngIf="userProfileImage">
@@ -60,7 +58,6 @@
             </div>
           </div>
 
-          <!-- Recurring Donation Info -->
           <div *ngIf="hasRecurringDonation" class="recurring-plan-card">
             <div class="recurring-header">
               <i class="fas fa-sync-alt"></i>
@@ -93,7 +90,6 @@
           </div>
         </div>
 
-        <!-- Not Logged In: Email Check Flow -->
         <div *ngIf="!isLoggedIn && !showLoginForm && !showSignupForm" class="email-check-card">
           <div class="email-check-content">
             <div class="email-check-image">
@@ -143,7 +139,6 @@
           </div>
         </div>
 
-        <!-- Login Form -->
         <div *ngIf="showLoginForm" class="auth-card">
           <div class="auth-header">
             <h3>{{ languageService.getTranslation('welcome_back') || 'Welcome back' }}!</h3>
@@ -210,7 +205,6 @@
           </div>
         </div>
 
-        <!-- Signup Form -->
         <div *ngIf="showSignupForm" class="auth-card">
           <div class="auth-header">
             <h3>
@@ -291,9 +285,7 @@
           </div>
         </div>
 
-        <!-- Donation Form (shown when logged in) -->
         <div *ngIf="isLoggedIn" class="donation-form">
-          <!-- Choose Donation Amount -->
           <div class="form-section-card">
             <h3 class="section-title">
               <i class="fas fa-heart"></i>
@@ -335,7 +327,6 @@
             </div>
           </div>
 
-          <!-- Payment Frequency -->
           <div class="form-section-card">
             <h3 class="section-title">
               <i class="fas fa-calendar-check"></i>
@@ -361,7 +352,6 @@
             </div>
           </div>
 
-          <!-- Payment Method -->
           <div class="form-section-card">
             <h3 class="section-title">
               <i class="fas fa-credit-card"></i>
@@ -382,7 +372,6 @@
             </div>
           </div>
 
-          <!-- Impact Updates Checkbox -->
           <div class="updates-section">
             <label class="updates-checkbox">
               <input type="checkbox" [(ngModel)]="agreeToUpdates" class="checkbox-input" />
@@ -402,7 +391,6 @@
             </label>
           </div>
 
-          <!-- Donate Button -->
           <button
             class="donate-button"
             (click)="proceedToPayment()"
@@ -414,9 +402,7 @@
         </div>
       </div>
 
-      <!-- Right Column: Impact & Story -->
       <div class="impact-sidebar">
-        <!-- Your Impact Card -->
         <div class="impact-card" *ngIf="getDonationAmount() > 0">
           <h4 class="impact-card-title">
             {{ languageService.getTranslation('your_impact') || 'Your Impact' }}
@@ -447,7 +433,6 @@
           </div>
         </div>
 
-        <!-- Story of Hope Card -->
         <div class="story-card">
           <div class="story-avatar-wrapper">
             <img
@@ -474,7 +459,6 @@
           >
         </div>
 
-        <!-- Secure Payment Card -->
         <div class="security-card">
           <div class="security-icon">
             <i class="fas fa-lock"></i>

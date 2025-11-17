@@ -14,7 +14,7 @@ bootstrapApplication(AppComponent, {
         // Always reset to top when navigating to a new page.
         scrollPositionRestoration: 'top',
         anchorScrolling: 'enabled',
-      })
+      }),
     ),
   ],
 }).catch((err) => console.error(err));

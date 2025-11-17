@@ -13,7 +13,7 @@ export interface UserProfile {
   goal: number;
   lives_touched: number;
   donationsRequiredForTier: number;
-  
+
   email: string;
   profileImage?: string;
   hasRecurringDonation?: boolean;
@@ -32,12 +32,13 @@ export class AuthService {
   ];
 
   // Reactive public user stream so UI can update immediately when user changes
-  private currentUserSubject = new BehaviorSubject<UserProfile | null>(
-    this._loadUserFromStorage(),
-  );
+  private currentUserSubject = new BehaviorSubject<UserProfile | null>(this._loadUserFromStorage());
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient, private languageService: LanguageService) {}
+  constructor(
+    private http: HttpClient,
+    private languageService: LanguageService,
+  ) {}
 
   private persistUser(profile: UserProfile): void {
     localStorage.setItem(this.storageKey, JSON.stringify(profile));

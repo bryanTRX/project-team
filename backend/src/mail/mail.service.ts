@@ -38,7 +38,9 @@ export class MailService implements OnModuleInit {
           pass: this.testAccount.pass,
         },
       });
-      this.logger.log(`Ethereal test account created: ${this.testAccount.user}`);
+      this.logger.log(
+        `Ethereal test account created: ${this.testAccount.user}`,
+      );
     }
   }
 
@@ -73,21 +75,33 @@ export class MailService implements OnModuleInit {
         fr: `Nous avons reçu votre don de $${amount}. Votre contribution soutient les services d'urgence et les services culturellement adaptés pour les femmes et les enfants touchés par la violence familiale.`,
         es: `Hemos recibido su donación de $${amount}. Su donación apoya refugios de emergencia y servicios culturalmente adaptados para mujeres y niños afectados por la violencia familiar.`,
       },
-      totalDonatedLabel: { en: 'Total donated', fr: 'Total donné', es: 'Total donado' },
-      peopleHelpedLabel: { en: 'People helped', fr: 'Personnes aidées', es: 'Personas ayudadas' },
+      totalDonatedLabel: {
+        en: 'Total donated',
+        fr: 'Total donné',
+        es: 'Total donado',
+      },
+      peopleHelpedLabel: {
+        en: 'People helped',
+        fr: 'Personnes aidées',
+        es: 'Personas ayudadas',
+      },
       distribution: {
         en: 'Your donation will be distributed shortly to accommodate immediate shelter, professional social work, and community outreach. We prioritize timely support for families in crisis.',
         fr: 'Votre don sera distribué sous peu afin de fournir un abri immédiat, un accompagnement social professionnel et des actions communautaires. Nous priorisons le soutien rapide aux familles en crise.',
         es: 'Su donación será distribuida en breve para proporcionar refugio inmediato, trabajo social profesional y alcance comunitario. Priorizamos el apoyo oportuno a las familias en crisis.',
       },
-      nextStepsTitle: { en: 'Next steps', fr: 'Étapes suivantes', es: 'Próximos pasos' },
+      nextStepsTitle: {
+        en: 'Next steps',
+        fr: 'Étapes suivantes',
+        es: 'Próximos pasos',
+      },
       dashboardUpdate: {
         en: 'Your dashboard will update shortly with your new total',
         fr: 'Votre tableau de bord sera mis à jour sous peu avec votre nouveau total',
         es: 'Su panel se actualizará en breve con su nuevo total',
       },
       programUpdates: {
-        en: "We’ll publish program updates and stories about how donations are used.",
+        en: 'We’ll publish program updates and stories about how donations are used.',
         fr: "Nous publierons des mises à jour du programme et des histoires sur l'utilisation des dons.",
         es: 'Publicaremos actualizaciones del programa e historias sobre cómo se usan las donaciones.',
       },
@@ -96,10 +110,26 @@ export class MailService implements OnModuleInit {
         fr: 'Votre reçu officiel (le cas échéant) sera disponible dans votre tableau de bord.',
         es: 'Su recibo oficial (si corresponde) estará disponible en su panel.',
       },
-      progressTowardBadge: { en: 'Progress toward next badge', fr: 'Progression vers le prochain badge', es: 'Progreso hacia la siguiente insignia' },
-      progressPercentLabel: { en: '% toward the next badge', fr: '% vers le prochain badge', es: '% hacia la siguiente insignia' },
-      visit_dashboard: { en: 'Visit your dashboard to see detailed badge progress.', fr: 'Visitez votre tableau de bord pour voir la progression détaillée des badges.', es: 'Visite su panel para ver el progreso detallado de las insignias.' },
-      signature: { en: 'With gratitude,\nShield of Athena Team', fr: 'Avec gratitude,\nL’équipe Shield of Athena', es: 'Con gratitud,\nEquipo Shield of Athena' },
+      progressTowardBadge: {
+        en: 'Progress toward next badge',
+        fr: 'Progression vers le prochain badge',
+        es: 'Progreso hacia la siguiente insignia',
+      },
+      progressPercentLabel: {
+        en: '% toward the next badge',
+        fr: '% vers le prochain badge',
+        es: '% hacia la siguiente insignia',
+      },
+      visit_dashboard: {
+        en: 'Visit your dashboard to see detailed badge progress.',
+        fr: 'Visitez votre tableau de bord pour voir la progression détaillée des badges.',
+        es: 'Visite su panel para ver el progreso detallado de las insignias.',
+      },
+      signature: {
+        en: 'With gratitude,\nShield of Athena Team',
+        fr: 'Avec gratitude,\nL’équipe Shield of Athena',
+        es: 'Con gratitud,\nEquipo Shield of Athena',
+      },
     };
 
     const t = (key: string) => {
@@ -112,10 +142,25 @@ export class MailService implements OnModuleInit {
     const text = `${t('greeting')}\n\n${t('received')}\n\n— Shield of Athena Team`;
 
     // Resolve asset paths (relative to repo). Use the favicon logo in assets/logos
-    const logoPath = path.resolve(__dirname, '..', '..', '..', 'frontend', 'src', 'assets', 'images', 'logos', 'favicon.jpg');
+    const logoPath = path.resolve(
+      __dirname,
+      '..',
+      '..',
+      '..',
+      'frontend',
+      'src',
+      'assets',
+      'images',
+      'logos',
+      'favicon.jpg',
+    );
 
-  const formattedTotal = typeof totalDonated === 'number' ? `$${totalDonated.toLocaleString()}` : '—';
-  const formattedLives = typeof lives_touched === 'number' ? `${lives_touched}` : '—';
+    const formattedTotal =
+      typeof totalDonated === 'number'
+        ? `$${totalDonated.toLocaleString()}`
+        : '—';
+    const formattedLives =
+      typeof lives_touched === 'number' ? `${lives_touched}` : '—';
     // Compute progress toward next badge using internal tier thresholds so
     // we don't depend on a per-user `donationsRequiredForTier` field.
     const tiers = [1000, 5000];
@@ -123,7 +168,10 @@ export class MailService implements OnModuleInit {
     if (typeof totalDonated === 'number') {
       const nextTier = tiers.find((t) => totalDonated < t) || null;
       if (nextTier) {
-        progressPercent = Math.min(100, Math.round((totalDonated / nextTier) * 100));
+        progressPercent = Math.min(
+          100,
+          Math.round((totalDonated / nextTier) * 100),
+        );
       } else {
         progressPercent = null; // already at or above highest tier
       }
@@ -168,12 +216,16 @@ export class MailService implements OnModuleInit {
 
             <div style="margin-top:16px;">
               <p style="margin:0 0 6px 0; font-weight:700; color:#4b2c83;">${t('progressTowardBadge')}</p>
-              ${progressPercent !== null ? `
+              ${
+                progressPercent !== null
+                  ? `
                 <div style="width:100%; background:#eee; border-radius:8px; height:12px; overflow:hidden;">
                   <div style="width:${progressPercent}%; height:12px; background:linear-gradient(90deg,#d6bbff,#b695ff);"></div>
                 </div>
                 <div style="font-size:12px; color:#6b4fa3; margin-top:6px;">${progressPercent}${t('progressPercentLabel')}</div>
-              ` : `<div style="font-size:13px; color:#6b4fa3;">${t('visit_dashboard') || 'Visit your dashboard to see detailed badge progress.'}</div>`}
+              `
+                  : `<div style="font-size:13px; color:#6b4fa3;">${t('visit_dashboard') || 'Visit your dashboard to see detailed badge progress.'}</div>`
+              }
 
             </div>
 

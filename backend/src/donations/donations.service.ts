@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException, Logger, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  Logger,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { MailService } from '../mail/mail.service';
@@ -20,10 +25,14 @@ export class DonationsService {
   ) {
     const numericAmount = Number(amount);
     if (!Number.isFinite(numericAmount) || numericAmount <= 0) {
-      throw new BadRequestException('Donation amount must be greater than zero');
+      throw new BadRequestException(
+        'Donation amount must be greater than zero',
+      );
     }
 
-    const query = identifier.username ? { username: identifier.username } : { email: identifier.email };
+    const query = identifier.username
+      ? { username: identifier.username }
+      : { email: identifier.email };
     if (!query.username && !query.email) {
       throw new BadRequestException('Missing donation identifier');
     }
@@ -69,7 +78,9 @@ export class DonationsService {
       if (emailResult && emailResult.previewUrl) {
         this.logger.log(`Donation email preview: ${emailResult.previewUrl}`);
       } else {
-        this.logger.log('Donation email sent but no preview URL available (non-ethereal SMTP or preview not returned)');
+        this.logger.log(
+          'Donation email sent but no preview URL available (non-ethereal SMTP or preview not returned)',
+        );
       }
     } catch (err) {
       // don't fail the request if email sending fails in demo
@@ -83,7 +94,8 @@ export class DonationsService {
     if (!doc) {
       return null;
     }
-    const obj = typeof doc.toObject === 'function' ? doc.toObject() : { ...doc };
+    const obj =
+      typeof doc.toObject === 'function' ? doc.toObject() : { ...doc };
     if (obj?.password) {
       delete obj.password;
     }

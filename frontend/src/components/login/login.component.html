@@ -5,9 +5,7 @@
     <div class="login-header">
       <h1>
         {{
-          mode === 'login'
-            ? languageService.getTranslation('welcome_back')
-            : 'Create your account'
+          mode === 'login' ? languageService.getTranslation('welcome_back') : 'Create your account'
         }}
       </h1>
       <p>
@@ -19,12 +17,7 @@
       </p>
     </div>
 
-    <form
-      *ngIf="mode === 'login'"
-      #loginForm="ngForm"
-      (ngSubmit)="onSubmit()"
-      class="login-form"
-    >
+    <form *ngIf="mode === 'login'" #loginForm="ngForm" (ngSubmit)="onSubmit()" class="login-form">
       <div class="form-group">
         <label for="username">{{ languageService.getTranslation('username') }}</label>
         <input
@@ -118,7 +111,9 @@
       <button type="submit" class="submit-btn" [disabled]="signupForm.invalid">
         Create account
       </button>
-      <button type="button" class="link-btn" (click)="setMode('login')">Already have an account? Log in</button>
+      <button type="button" class="link-btn" (click)="setMode('login')">
+        Already have an account? Log in
+      </button>
     </form>
 
     <div class="divider"><span>or</span></div>

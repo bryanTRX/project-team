@@ -20,7 +20,9 @@ export class UsersController {
 
   @Post(':id/donations')
   async recordDonation(@Param('id') id: string, @Body() body: DonationPayload) {
-    this.logger.log(`recordDonation called for id=${id} body=${JSON.stringify(body)}`);
+    this.logger.log(
+      `recordDonation called for id=${id} body=${JSON.stringify(body)}`,
+    );
     const amount = Number(body?.amount);
     if (!id) {
       throw new HttpException('User id is required', HttpStatus.BAD_REQUEST);

@@ -70,7 +70,9 @@
       font-size: 0.95rem;
       cursor: pointer;
       box-shadow: 0 6px 18px rgba(123, 104, 238, 0.25);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 
       &:hover {
         transform: translateY(-2px);
@@ -329,5 +331,4 @@
       font-size: 0.9rem;
     }
   }
-
 }

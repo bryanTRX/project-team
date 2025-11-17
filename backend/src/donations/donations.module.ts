@@ -6,7 +6,9 @@ import { MailService } from '../mail/mail.service';
 import { User, UserSchema } from '../users/schemas/user.schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])],
+  imports: [
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+  ],
   controllers: [DonationsController],
   providers: [DonationsService, MailService],
   exports: [DonationsService],
