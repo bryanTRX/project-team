@@ -572,12 +572,23 @@
             </div>
           </div>
 
-          <button type="submit" class="submit-payment-btn">
+          <button type="submit" class="submit-payment-btn" [disabled]="isProcessing">
             <i class="fas fa-heart"></i>
-            <span>{{
-              languageService.getTranslation('complete_donation') || 'Complete Donation'
-            }}</span>
+            <span *ngIf="!isProcessing">
+              {{ languageService.getTranslation('complete_donation') || 'Complete Donation' }}
+            </span>
+            <span *ngIf="isProcessing" class="processing">
+              <span class="spinner" aria-hidden="true"></span>
+              {{ languageService.getTranslation('processing') || 'Processing…' }}
+            </span>
           </button>
+          <!-- overlay while processing to prevent accidental clicks and provide a clear cue -->
+          <div class="processing-overlay" *ngIf="isProcessing" aria-hidden="true">
+            <div class="overlay-content">
+              <span class="spinner large" aria-hidden="true"></span>
+              <div class="processing-text">{{ languageService.getTranslation('processing') || 'Processing…' }}</div>
+            </div>
+          </div>
         </form>
       </div>
     </ng-container>
@@ -594,6 +605,10 @@
             languageService.getTranslation('confirmation_email_shortly') ||
               'A confirmation email will be sent to you shortly.'
           }}
+        </p>
+        <p *ngIf="emailPreviewUrl">
+          <strong>{{ languageService.getTranslation('preview_email') || 'Preview email:' }}</strong>
+          <a [href]="emailPreviewUrl" target="_blank" rel="noopener">{{ languageService.getTranslation('open_preview') || 'Open preview' }}</a>
         </p>
         <div class="success-animation">
           <i class="fas fa-heart"></i>

@@ -1,4 +1,8 @@
-<app-tier-badges [totalDonated]="user?.totalDonated || 0" style="display: none"></app-tier-badges>
+<app-tier-badges
+  [totalDonated]="user?.totalDonated || 0"
+  (tiersUpdated)="onTiersUpdated($event)"
+  style="display: none"
+></app-tier-badges>
 
 <section class="dashboard-page" *ngIf="user">
   <div class="dashboard-container">
@@ -24,13 +28,7 @@
             <span class="stat-icon heart"><i class="fas fa-heart"></i></span>
           </div>
 
-          <div class="stat-card">
-            <div class="stat-content">
-              <p>{{ languageService.getTranslation('lives_touched') }}</p>
-              <span class="stat-value">{{ formatNumber(user.familiesHelped) }}</span>
-            </div>
-            <span class="stat-icon group"><i class="fas fa-user-friends"></i></span>
-          </div>
+          <!-- 'lives_touched' stat removed (familiesHelped is deprecated) -->
 
           <div
             class="stat-card tier-card"
@@ -39,11 +37,7 @@
           >
             <div class="stat-content">
               <p>{{ languageService.getTranslation('donor_tier') }}</p>
-              <span class="stat-value">{{
-                (currentTier && currentTier.name) ||
-                  (user && user.donorTier) ||
-                  languageService.getTranslation('dedicated_supporter')
-              }}</span>
+              <span class="stat-value">{{ (currentTier && currentTier.name) || languageService.getTranslation('dedicated_supporter') }}</span>
             </div>
             <div class="stat-icon badge" *ngIf="currentTier">
               <img
@@ -194,11 +188,7 @@
                   />
                   <div>
                     <p>
-                      {{
-                        ((currentTier && currentTier.name) || (user && user.donorTier) || 'Tier') +
-                          ' ' +
-                          languageService.getTranslation('maximum_tier')
-                      }}
+                      {{ ((currentTier && currentTier.name) || (languageService.getTranslation('tier') || 'Tier')) + ' ' + languageService.getTranslation('maximum_tier') }}
                     </p>
                     <span class="progress-tier-subtitle member-since">
                       {{ languageService.getTranslation('member_since') }} {{ memberSinceDate }}

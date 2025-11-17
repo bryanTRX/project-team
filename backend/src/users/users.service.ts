@@ -24,11 +24,8 @@ export class UsersService {
     email: string;
     password: string;
     name?: string;
-    donorTier?: string;
     totalDonated?: number;
-    familiesHelped?: number;
     goal?: number;
-    donationsRequiredForTier?: number;
   }) {
     const existingUser = await this.userModel.findOne({
       $or: [{ email: userData.email }, { username: userData.username }],
@@ -43,11 +40,8 @@ export class UsersService {
       email: userData.email,
       password: userData.password,
       name: userData.name || userData.username,
-      donorTier: userData.donorTier || 'demeter',
       totalDonated: userData.totalDonated || 0,
-      familiesHelped: userData.familiesHelped || 0,
       goal: userData.goal || 0,
-      donationsRequiredForTier: userData.donationsRequiredForTier || 0,
     });
 
     const saved = await newUser.save();
@@ -56,33 +50,12 @@ export class UsersService {
   }
 
   async incrementTotalDonated(id: string, amount: number) {
-    // First, get the current user to calculate the new familiesHelped value
-    const user = await this.userModel.findById(id).lean().exec();
-    if (!user) {
-      return null;
-    }
-
-    const currentFamiliesHelped = user.familiesHelped || 0;
-
-    // Calculate lives touched increment: use modulo of amount + random value
-    // Modulo gives us a value between 0 and (amount-1), then we add some randomness
-    const moduloValue = Math.floor(amount) % 100; // Modulo by 100 to get 0-99 range
-    const randomIncrement = Math.floor(Math.random() * 10) + 1; // Random between 1-10
-    const livesIncrement = moduloValue + randomIncrement;
-
-    const newFamiliesHelped =
-      Math.floor(currentFamiliesHelped) + livesIncrement;
-
-    console.log(
-      `Donation: $${amount}, Modulo: ${moduloValue}, Random: ${randomIncrement}, Lives increment: ${livesIncrement}, New total: ${newFamiliesHelped}`,
-    );
-
+    // Increment only totalDonated now that familiesHelped was removed.
     const updated = await this.userModel
       .findByIdAndUpdate(
         id,
         {
           $inc: { totalDonated: amount },
-          $set: { familiesHelped: newFamiliesHelped },
         },
         { new: true },
       )

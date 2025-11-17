@@ -18,12 +18,9 @@ async function main() {
       username: { type: String, required: true, unique: true },
       email: { type: String, required: true, unique: true },
       password: { type: String, required: true },
-      name: { type: String },
-      donorTier: { type: String },
-      totalDonated: { type: Number, default: 0 },
-      familiesHelped: { type: Number, default: 0 },
-      goal: { type: Number, default: 0 },
-      donationsRequiredForTier: { type: Number, default: 0 },
+  name: { type: String },
+  totalDonated: { type: Number, default: 0 },
+  goal: { type: Number, default: 0 },
     },
     { timestamps: true }
   );
@@ -34,12 +31,9 @@ async function main() {
     username: process.env.SEED_USERNAME || 'admin',
     email: process.env.SEED_EMAIL || 'admin@shieldofathena.org',
     password: process.env.SEED_PASSWORD || 'admin',
-    name: process.env.SEED_NAME || 'Zeus Donor',
-    donorTier: process.env.SEED_DONOR_TIER || 'Zeus',
-    totalDonated: Number(process.env.SEED_TOTAL_DONATED || 3750),
-    familiesHelped: Number(process.env.SEED_FAMILIES_HELPED || 12),
-    goal: Number(process.env.SEED_GOAL || 5000),
-    donationsRequiredForTier: Number(process.env.SEED_DONATIONS_REQUIRED_FOR_TIER || 5000),
+  name: process.env.SEED_NAME || 'Alexandre Desmarais',
+  totalDonated: Number(process.env.SEED_TOTAL_DONATED || 3750),
+  goal: Number(process.env.SEED_GOAL || 5000),
   };
 
   const { email, username } = defaults;

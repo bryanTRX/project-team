@@ -18,12 +18,9 @@ async function main() {
       username: { type: String, required: true, unique: true },
       email: { type: String, required: true, unique: true },
       password: { type: String, required: true },
-      name: { type: String, required: true },
-      donorTier: { type: String, required: true },
-      totalDonated: { type: Number, required: true },
-      familiesHelped: { type: Number, required: true },
-      goal: { type: Number, required: true },
-      donationsRequiredForTier: { type: Number, required: true },
+  name: { type: String, required: true },
+  totalDonated: { type: Number, required: true },
+  goal: { type: Number, required: true },
     },
     { timestamps: true }
   );
@@ -36,24 +33,18 @@ async function main() {
       username: process.env.FB_USERNAME || 'facebook',
       email: process.env.FB_EMAIL || 'facebook@shieldofathena.org',
       password: process.env.FB_PASSWORD || 'facebook',
-      name: process.env.FB_NAME || 'Facebook Donor',
-      donorTier: process.env.FB_DONOR_TIER || 'Olympian',
-      totalDonated: Number(process.env.FB_TOTAL_DONATED || 1200),
-      familiesHelped: Number(process.env.FB_FAMILIES_HELPED || 8),
-      goal: Number(process.env.FB_GOAL || 2000),
-      donationsRequiredForTier: Number(process.env.FB_DONATIONS_REQUIRED_FOR_TIER || 2000),
+  name: process.env.FB_NAME || 'Sophia Williams',
+  totalDonated: Number(process.env.FB_TOTAL_DONATED || 1200),
+  goal: Number(process.env.FB_GOAL || 2000),
     },
     {
       provider: 'google',
       username: process.env.GOOGLE_USERNAME || 'google',
       email: process.env.GOOGLE_EMAIL || 'google@shieldofathena.org',
       password: process.env.GOOGLE_PASSWORD || 'google',
-      name: process.env.GOOGLE_NAME || 'Google Donor',
-      donorTier: process.env.GOOGLE_DONOR_TIER || 'Olympian',
-      totalDonated: Number(process.env.GOOGLE_TOTAL_DONATED || 900),
-      familiesHelped: Number(process.env.GOOGLE_FAMILIES_HELPED || 5),
-      goal: Number(process.env.GOOGLE_GOAL || 1500),
-      donationsRequiredForTier: Number(process.env.GOOGLE_DONATIONS_REQUIRED_FOR_TIER || 1500),
+  name: process.env.GOOGLE_NAME || 'Liam Brown',
+  totalDonated: Number(process.env.GOOGLE_TOTAL_DONATED || 900),
+  goal: Number(process.env.GOOGLE_GOAL || 1500),
     },
   ];
 
@@ -67,11 +58,8 @@ async function main() {
         email: acc.email,
         password: acc.password,
         name: acc.name,
-        donorTier: acc.donorTier,
         totalDonated: acc.totalDonated,
-        familiesHelped: acc.familiesHelped,
         goal: acc.goal,
-        donationsRequiredForTier: acc.donationsRequiredForTier,
       });
       console.log(`Created ${acc.provider} account:`, created.email);
     }

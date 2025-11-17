@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
 
@@ -86,6 +86,13 @@ export class TierBadgesComponent implements OnInit, OnChanges {
   nextTier: TierBadge | null = null;
   progressToNextTier: number = 0;
 
+  @Output() tiersUpdated = new EventEmitter<{
+    currentTier: TierBadge | null;
+    nextTier: TierBadge | null;
+    progressToNextTier: number;
+    tiers: TierBadge[];
+  }>();
+
   ngOnInit(): void {
     this.calculateTierProgress();
   }
@@ -128,6 +135,14 @@ export class TierBadgesComponent implements OnInit, OnChanges {
         tier.isUnlocked = false;
         tier.progress = 0;
       }
+    });
+
+    // Emit an update so parent components can consume the calculated data
+    this.tiersUpdated.emit({
+      currentTier: this.currentTier,
+      nextTier: this.nextTier,
+      progressToNextTier: this.progressToNextTier,
+      tiers: this.tiers,
     });
   }
 

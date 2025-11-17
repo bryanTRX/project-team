@@ -13,6 +13,48 @@
   }
 }
 
+/* Processing overlay and spinner styles */
+.processing-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.processing-overlay .overlay-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+.spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  border-top-color: rgba(0, 0, 0, 0.6);
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+.spinner.large {
+  width: 36px;
+  height: 36px;
+  border-width: 3px;
+}
+.submit-payment-btn .processing { display: inline-flex; align-items: center; gap: 8px; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.processing-text { font-weight: 600; }
+
 .payment-card {
   background: var(--surface);
   border-radius: 16px;

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { AuthService, UserProfile } from '../../services/auth.service';
@@ -32,14 +32,18 @@ interface ForumDiscussion {
   templateUrl: './user-dashboard.component.html',
   styleUrl: './user-dashboard.component.scss',
 })
-export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild(TierBadgesComponent) tierBadgesComponent!: TierBadgesComponent;
-
+export class UserDashboardComponent implements OnInit, OnDestroy {
   user: UserProfile | null = null;
   currentLanguage: string = 'en';
   showTierPopup = false;
+  // local state synced from TierBadgesComponent via tiersUpdated event
+  currentTier: TierBadge | null = null;
+  nextTier: TierBadge | null = null;
+  progressToNextTier: number = 0;
+  tiers: TierBadge[] = [];
   private languageSubscription?: Subscription;
   private routerSubscription?: Subscription;
+  private currentUserSubscription?: Subscription;
 
   news: ImpactNewsItem[] = [
     {
@@ -82,6 +86,11 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
       this.currentLanguage = lang;
     });
 
+    // subscribe to authService user changes so dashboard updates immediately
+    this.currentUserSubscription = this.authService.currentUser$.subscribe((u) => {
+      this.user = u;
+    });
+
     this.routerSubscription = this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
@@ -105,14 +114,17 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
     }
+    if (this.currentUserSubscription) {
+      this.currentUserSubscription.unsubscribe();
+    }
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      if (this.tierBadgesComponent) {
-        this.tierBadgesComponent.calculateTierProgress();
-      }
-    }, 0);
+  // Handler for TierBadgesComponent updates — keeps parent data stable
+  onTiersUpdated(payload: any) {
+    this.currentTier = payload.currentTier;
+    this.nextTier = payload.nextTier;
+    this.progressToNextTier = payload.progressToNextTier;
+    this.tiers = payload.tiers || [];
   }
 
   getFrequencyTranslation(frequency: string): string {
@@ -150,20 +162,13 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
       .replace('{{remaining}}', formattedRemaining);
   }
 
-  get currentTier(): TierBadge | null {
-    return this.tierBadgesComponent?.currentTier || null;
-  }
-
-  get nextTier(): TierBadge | null {
-    return this.tierBadgesComponent?.nextTier || null;
-  }
-
   get progressPercentage(): number {
-    return Math.min(100, Math.round(this.tierBadgesComponent?.progressToNextTier || 0));
+    return Math.min(100, Math.round(this.progressToNextTier || 0));
   }
 
   getAmountToNextTier(): number {
-    return this.tierBadgesComponent?.getAmountToNextTier() || 0;
+    if (!this.nextTier || !this.user) return 0;
+    return Math.max(0, this.nextTier.minAmount - (this.user.totalDonated || 0));
   }
 
   get personalGoalTarget(): number {
@@ -206,10 +211,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   get allTiers(): TierBadge[] {
-    if (!this.tierBadgesComponent) {
-      return [];
-    }
-    return this.tierBadgesComponent.tiers || [];
+    return this.tiers || [];
   }
 
   isCurrentTier(tier: TierBadge): boolean {
