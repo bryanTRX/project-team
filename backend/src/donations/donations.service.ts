@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, Logger } from '@nestjs/common';
+import { Injectable, NotFoundException, Logger, BadRequestException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { MailService } from '../mail/mail.service';
@@ -13,24 +13,57 @@ export class DonationsService {
 
   private readonly logger = new Logger(DonationsService.name);
 
-  async recordDonation(identifier: { username?: string; email?: string }, amount: number, lang?: string) {
+  async recordDonation(
+    identifier: { username?: string; email?: string },
+    amount: number,
+    lang?: string,
+  ) {
+    const numericAmount = Number(amount);
+    if (!Number.isFinite(numericAmount) || numericAmount <= 0) {
+      throw new BadRequestException('Donation amount must be greater than zero');
+    }
+
     const query = identifier.username ? { username: identifier.username } : { email: identifier.email };
-    const user = await this.userModel.findOne(query).exec();
+    if (!query.username && !query.email) {
+      throw new BadRequestException('Missing donation identifier');
+    }
+
+    const user = await this.userModel.findOne(query).lean().exec();
     if (!user) throw new NotFoundException('User not found');
 
-  user.totalDonated = (user.totalDonated || 0) + amount;
-  user.lives_touched = (user.lives_touched || 0) + Math.floor(amount / 100);
-  await user.save();
+    const currentLives = Math.floor(Number(user.lives_touched) || 0);
+    const moduloValue = Math.floor(numericAmount) % 100;
+    const randomIncrement = Math.floor(Math.random() * 10) + 1;
+    const livesIncrement = moduloValue + randomIncrement;
+    const newLives = currentLives + livesIncrement;
+
+    this.logger.log(
+      `Recording donation via /donations for ${user._id}: amount=${numericAmount}, livesIncrement=${livesIncrement}`,
+    );
+
+    const updatedUser = await this.userModel
+      .findByIdAndUpdate(
+        user._id,
+        {
+          $inc: { totalDonated: numericAmount },
+          $set: { lives_touched: newLives },
+        },
+        { new: true },
+      )
+      .lean()
+      .exec();
+
+    const sanitizedUser = this.sanitizeUser(updatedUser ?? user);
 
     // send email and capture preview URL (demo)
     let emailResult: any = null;
     try {
       emailResult = await this.mailService.sendDonationReceipt(
-        user.email,
-        user.name || user.username,
-        amount,
-        user.totalDonated,
-        user.lives_touched,
+        sanitizedUser.email,
+        sanitizedUser.name || sanitizedUser.username,
+        numericAmount,
+        sanitizedUser.totalDonated,
+        sanitizedUser.lives_touched,
         lang,
       );
       if (emailResult && emailResult.previewUrl) {
@@ -43,6 +76,17 @@ export class DonationsService {
       this.logger.error('Failed to send donation email', err as any);
     }
 
-    return { user, emailResult };
+    return { user: sanitizedUser, emailResult };
+  }
+
+  private sanitizeUser(doc: any) {
+    if (!doc) {
+      return null;
+    }
+    const obj = typeof doc.toObject === 'function' ? doc.toObject() : { ...doc };
+    if (obj?.password) {
+      delete obj.password;
+    }
+    return obj;
   }
 }
