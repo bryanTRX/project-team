@@ -4,7 +4,6 @@ import { QuickDonationComponent } from '../components/quick-donation/quick-donat
 import { ImpactDashboardComponent } from '../components/impact-dashboard/impact-dashboard.component';
 import { StoriesComponent } from '../components/stories/stories.component';
 import { DonorFeedbackComponent } from '../components/donor-feedback/donor-feedback.component';
-import { CommunityComponent } from '../components/community/community.component';
 import { Footer } from '../components/footer/footer';
 import { LiveTrackerComponent } from '../components/live-tracker/live-tracker';
 
@@ -18,11 +17,10 @@ import { LiveTrackerComponent } from '../components/live-tracker/live-tracker';
     StoriesComponent,
     DonorFeedbackComponent,
     LiveTrackerComponent,
-    CommunityComponent,
     Footer,
   ],
   template: `
-    <main id="home">
+    <main id="home" class="home-layout">
       <app-hero></app-hero>
       <app-impact-dashboard></app-impact-dashboard>
       <section class="live-tracker-section">
@@ -33,7 +31,6 @@ import { LiveTrackerComponent } from '../components/live-tracker/live-tracker';
         <app-stories></app-stories>
       </section>
       <app-donor-feedback></app-donor-feedback>
-      <app-community></app-community>
     </main>
     <app-footer></app-footer>
   `,
@@ -42,6 +39,14 @@ import { LiveTrackerComponent } from '../components/live-tracker/live-tracker';
       main {
         width: 100%;
         min-height: calc(100vh - 200px);
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .live-tracker-section {
+        margin-top: -0.5rem;
+        padding: 0;
       }
     `,
   ],

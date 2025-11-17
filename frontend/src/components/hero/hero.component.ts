@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
 })
@@ -14,7 +15,10 @@ export class HeroComponent implements OnInit, OnDestroy {
   currentLanguage: string = 'en';
   private languageSubscription?: Subscription;
 
-  constructor(public languageService: LanguageService) {}
+  constructor(
+    public languageService: LanguageService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getCurrentLanguage();
@@ -30,10 +34,7 @@ export class HeroComponent implements OnInit, OnDestroy {
   }
 
   scrollToDonation(): void {
-    const element = document.getElementById('quick-donation');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    this.router.navigate(['/payment']);
   }
 
   scrollToStories(): void {

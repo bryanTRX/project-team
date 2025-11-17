@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
 import { Subscription } from 'rxjs';
@@ -13,6 +13,13 @@ interface DonorFeedback {
   color: string;
 }
 
+interface CommunityFeature {
+  icon: string;
+  title: string;
+  description: string;
+  extra?: string;
+}
+
 @Component({
   selector: 'app-donor-feedback',
   standalone: true,
@@ -20,9 +27,14 @@ interface DonorFeedback {
   templateUrl: './donor-feedback.component.html',
   styleUrl: './donor-feedback.component.scss',
 })
-export class DonorFeedbackComponent implements OnInit, OnDestroy {
+export class DonorFeedbackComponent implements OnInit, AfterViewInit, OnDestroy {
   currentLanguage: string = 'en';
   private languageSubscription?: Subscription;
+  @ViewChild('feedbackTrack') feedbackTrack?: ElementRef<HTMLDivElement>;
+  communityFeatures: CommunityFeature[] = [];
+  showPrevArrow = false;
+  showNextArrow = false;
+  private trackScrollListener?: () => void;
 
   donorFeedbacks: DonorFeedback[] = [
     {
@@ -91,8 +103,10 @@ export class DonorFeedbackComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getCurrentLanguage();
+    this.buildCommunityFeatures();
     this.languageSubscription = this.languageService.currentLanguage$.subscribe((lang) => {
       this.currentLanguage = lang;
+      this.buildCommunityFeatures();
     });
   }
 
@@ -100,16 +114,25 @@ export class DonorFeedbackComponent implements OnInit, OnDestroy {
     if (this.languageSubscription) {
       this.languageSubscription.unsubscribe();
     }
+    this.detachScrollListener();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.attachScrollListener();
+      this.updateCarouselArrows();
+    });
+  }
+
+  @HostListener('window:resize')
+  onWindowResize() {
+    this.updateCarouselArrows();
   }
 
   getSectionTitle(): string {
-    return this.languageService.getTranslation('donor_feedback_title') || 'Hear from Our Donors';
-  }
-
-  getSectionSubtitle(): string {
     return (
-      this.languageService.getTranslation('donor_feedback_subtitle') ||
-      'See how your generosity creates real change'
+      this.languageService.getTranslation('join_community_compassion') ||
+      'Join a Community Built on Compassion'
     );
   }
 
@@ -119,5 +142,81 @@ export class DonorFeedbackComponent implements OnInit, OnDestroy {
 
   formatNumber(value: number): string {
     return value.toLocaleString();
+  }
+
+  getDonorStatLabel(): string {
+    return this.languageService.getTranslation('compassionate_donors') || 'Compassionate Donors';
+  }
+
+  private buildCommunityFeatures() {
+    this.communityFeatures = [
+      {
+        icon: 'trophy',
+        title: this.languageService.getTranslation('milestone') || 'Milestone',
+        description:
+          this.languageService.getTranslation('see_donations_making_difference') ||
+          'See how your donations are making a difference',
+      },
+      {
+        icon: 'share-alt',
+        title: this.languageService.getTranslation('our_impact') || 'Our Impact',
+        description:
+          this.languageService.getTranslation('support_creates_ripples') ||
+          'Your support creates ripples of change.',
+      },
+      {
+        icon: 'users',
+        title: this.languageService.getTranslation('community_forum') || 'Community Forum',
+        description:
+          this.languageService.getTranslation('connect_with_supporters') ||
+          'Connect with fellow supporters and share impact stories',
+        extra: `15,000+ ${this.getDonorStatLabel()}`,
+      },
+    ];
+  }
+
+  scrollCarousel(direction: 'prev' | 'next') {
+    const track = this.feedbackTrack?.nativeElement;
+    if (!track) return;
+
+    const firstCard = track.querySelector<HTMLElement>('.feedback-card');
+    const cardWidth = firstCard ? firstCard.offsetWidth : track.clientWidth;
+    const gap = 16; // matches CSS gap of 1rem
+    const scrollAmount = cardWidth + gap;
+    const delta = direction === 'next' ? scrollAmount : -scrollAmount;
+
+    track.scrollBy({ left: delta, behavior: 'smooth' });
+    setTimeout(() => this.updateCarouselArrows(), 400);
+  }
+
+  private attachScrollListener() {
+    const track = this.feedbackTrack?.nativeElement;
+    if (!track || this.trackScrollListener) return;
+
+    this.trackScrollListener = () => this.updateCarouselArrows();
+    track.addEventListener('scroll', this.trackScrollListener, { passive: true });
+  }
+
+  private detachScrollListener() {
+    const track = this.feedbackTrack?.nativeElement;
+    if (track && this.trackScrollListener) {
+      track.removeEventListener('scroll', this.trackScrollListener);
+      this.trackScrollListener = undefined;
+    }
+  }
+
+  private updateCarouselArrows() {
+    const track = this.feedbackTrack?.nativeElement;
+    if (!track) {
+      this.showPrevArrow = false;
+      this.showNextArrow = false;
+      return;
+    }
+
+    const maxScrollLeft = Math.max(track.scrollWidth - track.clientWidth, 0);
+    const tolerance = 12;
+    const scrollLeft = Math.round(track.scrollLeft);
+    this.showPrevArrow = scrollLeft > tolerance;
+    this.showNextArrow = maxScrollLeft - scrollLeft > tolerance;
   }
 }

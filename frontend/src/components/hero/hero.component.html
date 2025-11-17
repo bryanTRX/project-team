@@ -8,7 +8,7 @@
         <h1 class="hero-title">{{ languageService.getTranslation('every_donation_lifeline') }}</h1>
         <p class="hero-subtitle">{{ languageService.getTranslation('hero_subtitle_long') }}</p>
         <div class="hero-buttons">
-          <button class="btn btn-primary donation-btn" (click)="scrollToDonation()">
+          <button class="btn btn-primary donation-btn" routerLink="/payment">
             <i class="fas fa-heart"></i>
             <span>{{ languageService.getTranslation('make_difference_today') }}</span>
           </button>
