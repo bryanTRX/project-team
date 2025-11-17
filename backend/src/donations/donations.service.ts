@@ -19,6 +19,7 @@ export class DonationsService {
     if (!user) throw new NotFoundException('User not found');
 
   user.totalDonated = (user.totalDonated || 0) + amount;
+  user.familiesHelped = (user.familiesHelped || 0) + Math.floor(amount / 100);
   await user.save();
 
     // send email and capture preview URL (demo)
@@ -29,6 +30,7 @@ export class DonationsService {
         user.name || user.username,
         amount,
         user.totalDonated,
+        user.familiesHelped,
         lang,
       );
       if (emailResult && emailResult.previewUrl) {

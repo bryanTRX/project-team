@@ -20,6 +20,7 @@ async function main() {
       password: { type: String, required: true },
   name: { type: String },
   totalDonated: { type: Number, default: 0 },
+  familiesHelped: { type: Number, default: 0 },
   goal: { type: Number, default: 0 },
     },
     { timestamps: true }
@@ -33,6 +34,7 @@ async function main() {
     password: process.env.SEED_PASSWORD || 'admin',
   name: process.env.SEED_NAME || 'Alexandre Desmarais',
   totalDonated: Number(process.env.SEED_TOTAL_DONATED || 3750),
+  familiesHelped: Number(process.env.SEED_FAMILIES_HELPED || 12),
   goal: Number(process.env.SEED_GOAL || 5000),
   };
 

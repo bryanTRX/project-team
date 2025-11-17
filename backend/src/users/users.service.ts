@@ -25,6 +25,7 @@ export class UsersService {
     password: string;
     name?: string;
     totalDonated?: number;
+    familiesHelped?: number;
     goal?: number;
   }) {
     const existingUser = await this.userModel.findOne({
@@ -41,6 +42,7 @@ export class UsersService {
       password: userData.password,
       name: userData.name || userData.username,
       totalDonated: userData.totalDonated || 0,
+      familiesHelped: userData.familiesHelped || 0,
       goal: userData.goal || 0,
     });
 
@@ -50,12 +52,33 @@ export class UsersService {
   }
 
   async incrementTotalDonated(id: string, amount: number) {
-    // Increment only totalDonated now that familiesHelped was removed.
+    // First, get the current user to calculate the new familiesHelped value
+    const user = await this.userModel.findById(id).lean().exec();
+    if (!user) {
+      return null;
+    }
+
+    const currentFamiliesHelped = user.familiesHelped || 0;
+
+    // Calculate lives touched increment: use modulo of amount + random value
+    // Modulo gives us a value between 0 and (amount-1), then we add some randomness
+    const moduloValue = Math.floor(amount) % 100; // Modulo by 100 to get 0-99 range
+    const randomIncrement = Math.floor(Math.random() * 10) + 1; // Random between 1-10
+    const livesIncrement = moduloValue + randomIncrement;
+
+    const newFamiliesHelped =
+      Math.floor(currentFamiliesHelped) + livesIncrement;
+
+    console.log(
+      `Donation: $${amount}, Modulo: ${moduloValue}, Random: ${randomIncrement}, Lives increment: ${livesIncrement}, New total: ${newFamiliesHelped}`,
+    );
+
     const updated = await this.userModel
       .findByIdAndUpdate(
         id,
         {
           $inc: { totalDonated: amount },
+          $set: { familiesHelped: newFamiliesHelped },
         },
         { new: true },
       )

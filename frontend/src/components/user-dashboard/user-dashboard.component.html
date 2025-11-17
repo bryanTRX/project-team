@@ -28,7 +28,13 @@
             <span class="stat-icon heart"><i class="fas fa-heart"></i></span>
           </div>
 
-          <!-- 'lives_touched' stat removed (familiesHelped is deprecated) -->
+          <div class="stat-card">
+            <div class="stat-content">
+              <p>{{ languageService.getTranslation('lives_touched') }}</p>
+              <span class="stat-value">{{ formatNumber(user.familiesHelped) }}</span>
+            </div>
+            <span class="stat-icon group"><i class="fas fa-user-friends"></i></span>
+          </div>
 
           <div
             class="stat-card tier-card"
