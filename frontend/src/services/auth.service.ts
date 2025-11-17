@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
+import { LanguageService } from './language.service';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 export interface UserProfile {
   _id?: string;
   id?: string;
   username: string;
   name: string;
-  donorTier: string;
   totalDonated: number;
-  familiesHelped: number;
   goal: number;
-  donationsRequiredForTier: number;
+  
   email: string;
   profileImage?: string;
   hasRecurringDonation?: boolean;
@@ -29,10 +29,45 @@ export class AuthService {
     'google@shieldofathena.org',
   ];
 
-  constructor(private http: HttpClient) {}
+  // Reactive public user stream so UI can update immediately when user changes
+  private currentUserSubject = new BehaviorSubject<UserProfile | null>(
+    this._loadUserFromStorage(),
+  );
+  public currentUser$ = this.currentUserSubject.asObservable();
+
+  constructor(private http: HttpClient, private languageService: LanguageService) {}
 
   private persistUser(profile: UserProfile): void {
     localStorage.setItem(this.storageKey, JSON.stringify(profile));
+    // emit the new profile for any subscribers
+    this.currentUserSubject.next(profile);
+  }
+
+  private _loadUserFromStorage(): UserProfile | null {
+    const stored = localStorage.getItem(this.storageKey);
+    return stored ? (JSON.parse(stored) as UserProfile) : null;
+  }
+
+  async sendDonationReceipt(amount: number): Promise<any> {
+    const user = this.getCurrentUser();
+    if (!user) {
+      throw new Error('User must be logged in to request donation receipt.');
+    }
+    const identifier: any = {};
+    if (user.username) {
+      identifier.username = user.username;
+    } else if (user.email) {
+      identifier.email = user.email;
+    }
+    try {
+  const url = `${this.apiBase}/donations`;
+  const body = { ...identifier, amount, lang: this.languageService.getCurrentLanguage() };
+      const resp = await firstValueFrom(this.http.post<any>(url, body));
+      return resp;
+    } catch (err) {
+      console.error('Failed to send donation receipt request', err);
+      throw err;
+    }
   }
 
   private getStoredUserId(user: UserProfile | null): string | null {
@@ -89,11 +124,11 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem(this.storageKey);
+    this.currentUserSubject.next(null);
   }
 
   getCurrentUser(): UserProfile | null {
-    const stored = localStorage.getItem(this.storageKey);
-    return stored ? (JSON.parse(stored) as UserProfile) : null;
+    return this.currentUserSubject.getValue();
   }
 
   isAuthenticated(): boolean {
@@ -117,8 +152,6 @@ export class AuthService {
       if (updated) {
         console.log('Donation recorded - Updated user:', {
           totalDonated: updated.totalDonated,
-          familiesHelped: updated.familiesHelped,
-          previousFamiliesHelped: user.familiesHelped,
         });
         this.persistUser(updated);
         return updated;

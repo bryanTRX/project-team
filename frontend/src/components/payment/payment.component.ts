@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -92,6 +92,8 @@ export class PaymentComponent implements OnInit, OnDestroy {
   newPassword = '';
   emailSectionInvalid = false;
   showSuccess = false;
+  emailPreviewUrl: string | null = null;
+  isProcessing = false;
   textSize: 'normal' | 'large' | 'xlarge' = 'normal';
   private textSizeSubscription?: Subscription;
 
@@ -100,6 +102,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
     public languageService: LanguageService,
     private authService: AuthService,
     private accessibilityService: AccessibilityService,
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -171,9 +174,26 @@ export class PaymentComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.isProcessing = true;
     try {
       if (this.isAuthenticated) {
+        // Record donation first and show success immediately so UI feels responsive.
         await this.authService.recordDonation(this.donationAmount);
+        this.showSuccess = true;
+
+        // Send donation receipt in background (don't block the UI). When it
+        // completes we'll populate emailPreviewUrl so the user can open it.
+        this.authService
+          .sendDonationReceipt(this.donationAmount)
+          .then((resp) => {
+            this.emailPreviewUrl = resp?.emailPreviewUrl ?? resp?.emailResult?.previewUrl ?? null;
+            try {
+              this.cd.detectChanges();
+            } catch (_) {}
+          })
+          .catch((e) => {
+            console.warn('Donation receipt preview not available', e);
+          });
       }
 
       console.log('Processing payment:', {
@@ -181,11 +201,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
         recurring: this.recurringOption,
         email: this.email,
       });
-
-      this.showSuccess = true;
     } catch (error) {
       console.error('Unable to complete donation', error);
       alert('Unable to complete your donation right now. Please try again in a moment.');
+    } finally {
+      this.isProcessing = false;
     }
   }
 
@@ -195,37 +215,40 @@ export class PaymentComponent implements OnInit, OnDestroy {
       alert(this.languageService.getTranslation('alert_select_amount'));
       return false;
     }
-    if (!this.cardNumber || this.cardNumber.replace(/\s/g, '').length !== 16) {
-      alert(
-        (this.languageService.getTranslation('card_number') || 'Card Number') +
-          ' - ' +
-          (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
-      );
-      return false;
-    }
-    if (!this.cardHolder) {
-      alert(
-        (this.languageService.getTranslation('card_holder_name') || 'Card Holder Name') +
-          ' - ' +
-          (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
-      );
-      return false;
-    }
-    if (!this.expiryDate || !/^\d{2}\/\d{2}$/.test(this.expiryDate)) {
-      alert(
-        (this.languageService.getTranslation('expiry_date') || 'Expiry Date') +
-          ' - ' +
-          (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
-      );
-      return false;
-    }
-    if (!this.cvv || this.cvv.length < 3) {
-      alert(
-        (this.languageService.getTranslation('cvv') || 'CVV') +
-          ' - ' +
-          (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
-      );
-      return false;
+    // Only validate card fields when the selected payment method is card
+    if (this.selectedPaymentMethod === 'card') {
+      if (!this.cardNumber || this.cardNumber.replace(/\s/g, '').length !== 16) {
+        alert(
+          (this.languageService.getTranslation('card_number') || 'Card Number') +
+            ' - ' +
+            (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
+        );
+        return false;
+      }
+      if (!this.cardHolder) {
+        alert(
+          (this.languageService.getTranslation('card_holder_name') || 'Card Holder Name') +
+            ' - ' +
+            (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
+        );
+        return false;
+      }
+      if (!this.expiryDate || !/^\d{2}\/\d{2}$/.test(this.expiryDate)) {
+        alert(
+          (this.languageService.getTranslation('expiry_date') || 'Expiry Date') +
+            ' - ' +
+            (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
+        );
+        return false;
+      }
+      if (!this.cvv || this.cvv.length < 3) {
+        alert(
+          (this.languageService.getTranslation('cvv') || 'CVV') +
+            ' - ' +
+            (this.languageService.getTranslation('invalid_field') || 'Invalid field'),
+        );
+        return false;
+      }
     }
     if (!this.email || !this.email.includes('@')) {
       alert(

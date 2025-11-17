@@ -5,6 +5,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Logger,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 
@@ -14,10 +15,12 @@ interface DonationPayload {
 
 @Controller('users')
 export class UsersController {
+  private readonly logger = new Logger(UsersController.name);
   constructor(private readonly usersService: UsersService) {}
 
   @Post(':id/donations')
   async recordDonation(@Param('id') id: string, @Body() body: DonationPayload) {
+    this.logger.log(`recordDonation called for id=${id} body=${JSON.stringify(body)}`);
     const amount = Number(body?.amount);
     if (!id) {
       throw new HttpException('User id is required', HttpStatus.BAD_REQUEST);

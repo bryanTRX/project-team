@@ -16,19 +16,13 @@ export class User {
   name?: string;
 
   @Prop()
-  donorTier?: string;
+
 
   @Prop({ default: 0 })
   totalDonated?: number;
-
-  @Prop({ default: 0 })
-  familiesHelped?: number;
-
   @Prop({ default: 0 })
   goal?: number;
 
-  @Prop({ default: 0 })
-  donationsRequiredForTier?: number;
 }
 
 export type UserDocument = User & Document;
