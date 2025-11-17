@@ -1,11 +1,12 @@
 .impact-dashboard-section {
-  padding: 2.5rem 1.25rem;
-  background: linear-gradient(to bottom, #ffffff, #faf9f6);
+  margin: 0.5rem auto 0;
+  padding: 2rem 1rem 2.5rem;
+  background: #faf9f6;
   position: relative;
   overflow: hidden;
 
   @media (min-width: 768px) {
-    padding: 3rem 1.25rem;
+    padding: 2.5rem 1.25rem 3rem;
   }
 
   .container {
@@ -14,32 +15,22 @@
   }
 }
 
-.section-title {
-  font-size: 1.75rem;
-  text-align: center;
-  margin-bottom: 0.5rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #7b68ee, #9b8bff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 .section-subtitle {
   text-align: center;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #4a5568;
-  margin-bottom: 2rem;
-  max-width: 650px;
+  margin-bottom: 1.5rem;
+  max-width: 620px;
   margin-left: auto;
   margin-right: auto;
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 .impact-cards {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.25rem;
-  margin-top: 2rem;
+  gap: 1rem;
+  margin-top: 1.25rem;
 
   @media (min-width: 640px) {
     grid-template-columns: repeat(2, 1fr);
@@ -52,8 +43,8 @@
 
 .impact-card {
   background: white;
-  border-radius: 16px;
-  padding: 1.5rem;
+  border-radius: 14px;
+  padding: 1.25rem;
   border: 1px solid #e2e8f0;
   text-align: center;
   cursor: pointer;
@@ -61,12 +52,12 @@
 }
 
 .card-icon {
-  font-size: 2.3rem;
-  margin-bottom: 0.75rem;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .card-number {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 800;
   background: linear-gradient(135deg, #7b68ee, #9b8bff);
   -webkit-background-clip: text;
@@ -74,25 +65,18 @@
 }
 
 .card-title {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
-  margin-top: 0.4rem;
-  margin-bottom: 0.4rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .card-description {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #4a5568;
 }
 
-.impact-message {
-  margin-top: 2.5rem;
-  background: linear-gradient(135deg, rgba(123, 104, 238, 0.08), rgba(255, 122, 133, 0.08));
-  border-radius: 18px;
-  padding: 1.5rem;
-  text-align: center;
-}
-
+/* -------- MODAL BACKDROP -------- */
 .impact-modal-backdrop {
   position: fixed;
   inset: 0;

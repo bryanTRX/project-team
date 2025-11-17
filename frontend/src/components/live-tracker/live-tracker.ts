@@ -63,6 +63,10 @@ export class LiveTrackerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   startCounters() {
+    const shouldUseLocale = (value: number) => {
+      return this.currentLanguage === 'en' ? value.toLocaleString('en-US') : value.toString();
+    };
+
     const elements: HTMLElement[] = [];
 
     if (this.bigCounter && this.bigCounter.nativeElement) {
@@ -83,7 +87,8 @@ export class LiveTrackerComponent implements OnInit, AfterViewInit, OnDestroy {
 
       const easeOutQuad = (t: number) => t * (2 - t);
 
-      const formatNumber = (n: number) => n.toLocaleString();
+      const formatNumber = (n: number) =>
+        this.currentLanguage === 'en' ? n.toLocaleString('en-US') : n.toString();
 
       const animate = (now: number) => {
         const elapsed = now - start;
@@ -101,11 +106,7 @@ export class LiveTrackerComponent implements OnInit, AfterViewInit, OnDestroy {
         if (progress < 1) {
           requestAnimationFrame(animate);
         } else {
-          if (isBig) {
-            el.textContent = '$' + formatNumber(target);
-          } else {
-            el.textContent = formatNumber(target);
-          }
+          el.textContent = isBig ? '$' + formatNumber(target) : formatNumber(target);
           this.startLiveUpdates(el, target, isBig);
         }
       };
@@ -115,6 +116,9 @@ export class LiveTrackerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   startLiveUpdates(el: HTMLElement, current: number, isBig = false) {
+    const formatter = (n: number) =>
+      this.currentLanguage === 'en' ? n.toLocaleString('en-US') : n.toString();
+
     const randomIncreaseLoop = () => {
       const increment = isBig
         ? Math.floor(Math.random() * 100) + 5
@@ -122,11 +126,7 @@ export class LiveTrackerComponent implements OnInit, AfterViewInit, OnDestroy {
 
       current += increment;
 
-      if (isBig) {
-        el.textContent = '$' + current.toLocaleString();
-      } else {
-        el.textContent = current.toLocaleString();
-      }
+      el.textContent = isBig ? '$' + formatter(current) : formatter(current);
 
       const delay = Math.random() * 4500 + 1500;
       setTimeout(randomIncreaseLoop, delay);
@@ -140,7 +140,7 @@ export class LiveTrackerComponent implements OnInit, AfterViewInit, OnDestroy {
       liveImpactTracker: this.languageService.getTranslation('live_impact_tracker'),
       mealsProvided: this.languageService.getTranslation('meals_provided'),
       medicalKits: this.languageService.getTranslation('medical_kits'),
-      transportRides: this.languageService.getTranslation('transport_rides'),
+      carePackages: this.languageService.getTranslation('care_packages_delivered'),
       livesTouched: this.languageService.getTranslation('lives_touched'),
     };
   }

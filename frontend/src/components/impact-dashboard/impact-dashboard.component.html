@@ -1,6 +1,8 @@
 <section id="impact" class="impact-dashboard-section">
   <div class="container">
-    <h2 class="section-title">{{ languageService.getTranslation('our_impact_2024') }}</h2>
+    <h2 class="section-title section-title--primary">
+      {{ languageService.getTranslation('our_impact_2024') }}
+    </h2>
     <p class="section-subtitle">
       {{ languageService.getTranslation('every_number_represents_life') }}
     </p>
@@ -15,17 +17,6 @@
         <div class="card-number">{{ card.number }}</div>
         <h3 class="card-title">{{ card.title }}</h3>
         <p class="card-description">{{ card.description }}</p>
-      </div>
-    </div>
-
-    <div class="impact-message">
-      <div class="message-content">
-        <i class="fas fa-heart"></i>
-        <ng-container *ngIf="supportRipplesText as text">
-          <p>
-            <strong>{{ text.first }}.</strong> {{ text.rest }}
-          </p>
-        </ng-container>
       </div>
     </div>
   </div>
@@ -55,7 +46,7 @@
 
     <p class="modal-story">{{ selectedCard.story }}</p>
 
-    <button class="modal-cta" routerLink="/donate">
+    <button class="modal-cta" routerLink="/payment">
       {{ languageService.getTranslation('make_difference_today') }}
     </button>
   </div>

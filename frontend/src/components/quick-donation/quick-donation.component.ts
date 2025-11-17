@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
+import { DONATION_AMOUNTS } from '../../constants/donation-amounts';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -18,7 +19,7 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
   currentLanguage: string = 'en';
   private languageSubscription?: Subscription;
 
-  donationAmounts = [100, 250, 500, 1000];
+  readonly donationAmounts = DONATION_AMOUNTS;
 
   constructor(
     public languageService: LanguageService,
@@ -40,18 +41,17 @@ export class QuickDonationComponent implements OnInit, OnDestroy {
 
   getAmountDescription(amount: number): string {
     switch (amount) {
-      case 100:
+      case 25:
+        return (
+          this.languageService.getTranslation('meals_family_day') || 'Meals for a family for a day'
+        );
+      case 50:
         return this.languageService.getTranslation('therapy_session') || '1 therapy session';
-      case 250:
+      case 100:
         return (
           this.languageService.getTranslation('legal_aid_consultation') || 'Legal aid consultation'
         );
-      case 500:
-        return (
-          this.languageService.getTranslation('week_counseling_support') ||
-          '1 week of counseling support'
-        );
-      case 1000:
+      case 250:
         return (
           this.languageService.getTranslation('month_safe_shelter') || '1 month of safe shelter'
         );

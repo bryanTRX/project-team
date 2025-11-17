@@ -1,11 +1,11 @@
 .hero-section {
   position: relative;
-  min-height: 600px;
+  min-height: 460px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 4rem 1.25rem 5rem;
+  padding: 2.5rem 1.25rem 3rem;
   background:
     linear-gradient(
       135deg,
@@ -36,13 +36,13 @@
   }
 
   @media (min-width: 768px) {
-    min-height: 650px;
-    padding: 5rem 1.25rem 6rem;
+    min-height: 520px;
+    padding: 3.5rem 1.5rem 4.25rem;
   }
 
   @media (min-width: 1024px) {
-    min-height: 700px;
-    padding: 6rem 2rem 7rem;
+    min-height: 560px;
+    padding: 4rem 2rem 4.75rem;
   }
 }
 
@@ -424,9 +424,9 @@
 }
 
 .btn {
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  font-size: 1rem;
+  padding: 1rem 1.65rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -437,32 +437,32 @@
   gap: 0.75rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   flex: 1;
-  min-width: 200px;
+  min-width: 180px;
   min-height: 56px;
   position: relative;
   overflow: hidden;
 
   @media (min-width: 640px) {
-    padding: 1.125rem 2.25rem;
-    font-size: 1.05rem;
-    min-width: 220px;
+    padding: 1.15rem 1.85rem;
+    font-size: 1rem;
+    min-width: 190px;
     min-height: 60px;
     flex: 0 1 auto;
   }
 
   @media (min-width: 968px) {
-    padding: 1.25rem 2.5rem;
-    font-size: 1.1rem;
-    min-width: 240px;
+    padding: 1.2rem 2rem;
+    font-size: 1.05rem;
+    min-width: 200px;
     min-height: 64px;
   }
 
   i {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     transition: transform 0.3s ease;
 
     @media (min-width: 640px) {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
   }
 

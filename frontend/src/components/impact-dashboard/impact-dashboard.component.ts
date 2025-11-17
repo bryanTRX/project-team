@@ -38,15 +38,6 @@ export class ImpactDashboardComponent implements OnInit, OnDestroy {
     if (this.languageSubscription) this.languageSubscription.unsubscribe();
   }
 
-  get supportRipplesText(): { first: string; rest: string } {
-    const translation = this.languageService.getTranslation('support_creates_ripples');
-    const parts = translation.split('.');
-    return {
-      first: parts[0] || '',
-      rest: parts.slice(1).join('.'),
-    };
-  }
-
   onCardClick(card: ImpactCard) {
     this.selectedCard = card;
   }
@@ -58,32 +49,32 @@ export class ImpactDashboardComponent implements OnInit, OnDestroy {
   get impactCards(): ImpactCard[] {
     return [
       {
-        icon: 'users',
-        number: '2,450',
+        icon: 'bed',
+        number: '7,800',
         title: this.languageService.getTranslation('women_children_supported'),
         description: this.languageService.getTranslation('lives_changed_programs'),
         story: this.languageService.getTranslation('story_women_children_supported'),
         color: '#F28C88',
       },
       {
-        icon: 'language',
-        number: '10',
+        icon: 'comments',
+        number: '1,450',
         title: this.languageService.getTranslation('languages_spoken'),
         description: this.languageService.getTranslation('multilingual_support'),
         story: this.languageService.getTranslation('story_languages_spoken'),
         color: '#6B4FA3',
       },
       {
-        icon: 'clock',
-        number: '24/7',
+        icon: 'gavel',
+        number: '960',
         title: this.languageService.getTranslation('crisis_support_available'),
         description: this.languageService.getTranslation('round_clock_assistance'),
         story: this.languageService.getTranslation('story_crisis_support'),
         color: '#C9B5E8',
       },
       {
-        icon: 'heart',
-        number: '95%',
+        icon: 'box-open',
+        number: '3,200',
         title: this.languageService.getTranslation('successfully_rebuilt_lives'),
         description: this.languageService.getTranslation('survivors_found_hope'),
         story: this.languageService.getTranslation('story_rebuilt_lives'),

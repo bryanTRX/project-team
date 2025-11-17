@@ -1,27 +1,18 @@
 .quick-donation-section {
-  padding: 3.5rem 1.25rem;
-  background: linear-gradient(to bottom, #faf9f6 0%, #ffffff 100%);
+  padding: 4rem 1.25rem 3.5rem;
+  background: transparent;
   position: relative;
+  min-height: 85vh;
+  margin: 3rem 0 0;
+
+  @media (max-width: 768px) {
+    margin-top: 2rem;
+  }
 
   .container {
     max-width: 900px;
     margin: 0 auto;
-  }
-
-  .section-title {
-    font-size: 1.875rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 0.75rem;
-    color: #2d3748;
-    background: linear-gradient(135deg, #7b68ee, #6b5bce);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-
-    @media (min-width: 768px) {
-      font-size: 2.25rem;
-    }
+    width: 100%;
   }
 
   .section-subtitle {
@@ -38,7 +29,7 @@
   .donation-card {
     background: white;
     border-radius: 20px;
-    padding: 2rem;
+    padding: 1.6rem;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     border: 1px solid #e2e8f0;
     transition: all 0.3s ease;
@@ -48,7 +39,7 @@
     }
 
     @media (min-width: 768px) {
-      padding: 2.5rem;
+      padding: 2rem;
     }
   }
 
@@ -75,15 +66,16 @@
         margin-left: -8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         object-fit: cover;
-        transition: transform 0.3s ease;
+        transition: box-shadow 0.3s ease;
 
         &:first-child {
           margin-left: 0;
         }
 
         &:hover {
-          transform: scale(1.1);
-          z-index: 5;
+          transform: none;
+          z-index: 1;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
       }
 

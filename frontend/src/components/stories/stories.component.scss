@@ -1,14 +1,15 @@
 .stories-section {
-  padding: 3rem 1.25rem;
-  background: linear-gradient(to bottom, #ffffff 0%, #faf9f6 100%);
+  padding: 3.5rem 1rem 3.5rem;
+  background: transparent;
   position: relative;
+  margin: 0;
 
   @media (min-width: 768px) {
-    padding: 3.5rem 1.25rem;
+    padding: 4rem 1.25rem 3.5rem;
   }
 
   @media (min-width: 1024px) {
-    padding: 4rem 2rem;
+    padding: 4.5rem 1.5rem 3.5rem;
   }
 
   .container {
@@ -16,69 +17,47 @@
     margin: 0 auto;
   }
 
-  .section-title {
-    font-size: 1.75rem;
-    font-weight: 800;
-    text-align: center;
-    margin-bottom: 0.875rem;
-    color: #2d3748;
-    background: linear-gradient(135deg, #7b68ee, #6b5bce);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: -0.5px;
-
-    @media (min-width: 768px) {
-      font-size: 2.125rem;
-      margin-bottom: 1rem;
-    }
-
-    @media (min-width: 1024px) {
-      font-size: 2.375rem;
-    }
-  }
-
   .section-subtitle {
     text-align: center;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: #4a5568;
-    margin-bottom: 2.5rem;
-    max-width: 750px;
+    margin-bottom: 2rem;
+    max-width: 680px;
     margin-left: auto;
     margin-right: auto;
     line-height: 1.75;
     font-weight: 500;
 
     @media (min-width: 768px) {
-      font-size: 1rem;
-      margin-bottom: 3rem;
+      font-size: 0.95rem;
+      margin-bottom: 2.35rem;
     }
   }
 
   .stories-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.75rem;
-    margin-top: 2rem;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
 
     @media (min-width: 640px) {
-      gap: 1.75rem;
+      gap: 1.5rem;
     }
 
     @media (min-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
+      gap: 1.75rem;
     }
 
     @media (min-width: 1024px) {
       grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+      gap: 1.75rem;
     }
   }
 
   .story-card {
     background: white;
-    border-radius: 24px;
+    border-radius: 20px;
     padding: 0;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -124,14 +103,14 @@
 
   .card-header {
     position: relative;
-    padding: 1.5rem 1.5rem 1rem;
+    padding: 1.25rem 1.25rem 0.9rem;
     background: linear-gradient(135deg, rgba(123, 104, 238, 0.03), rgba(155, 139, 255, 0.02));
     display: flex;
     align-items: center;
     justify-content: center;
 
     @media (min-width: 768px) {
-      padding: 1.75rem 1.75rem 1.25rem;
+      padding: 1.45rem 1.45rem 1.15rem;
     }
   }
 
@@ -143,8 +122,8 @@
   }
 
   .story-avatar {
-    width: 75px;
-    height: 75px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -157,8 +136,8 @@
     flex-shrink: 0;
 
     @media (min-width: 768px) {
-      width: 85px;
-      height: 85px;
+      width: 82px;
+      height: 82px;
       border-width: 4px;
     }
 
@@ -183,8 +162,8 @@
 
   .emotion-badge {
     position: absolute;
-    bottom: 1rem;
-    right: 1rem;
+    bottom: 0.85rem;
+    right: 0.85rem;
     background: linear-gradient(135deg, #ff7a85, #e85a6a);
     color: white;
     padding: 0.5rem 1rem;
@@ -211,23 +190,23 @@
   }
 
   .card-content {
-    padding: 0 1.5rem;
+    padding: 0 1.25rem;
     flex: 1;
     display: flex;
     flex-direction: column;
 
     @media (min-width: 768px) {
-      padding: 0 1.75rem;
+      padding: 0 1.5rem;
     }
   }
 
   .story-info {
     flex: 1;
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
 
     @media (min-width: 768px) {
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.1rem;
     }
   }
 
@@ -265,7 +244,7 @@
 
   .quote-container {
     position: relative;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .quote-icon {
@@ -284,41 +263,41 @@
   .story-quote {
     font-style: normal;
     color: #4a5568;
-    line-height: 1.65;
+    line-height: 1.6;
     margin: 0;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     position: relative;
     padding: 0;
     font-weight: 500;
     text-align: left;
 
     @media (min-width: 768px) {
-      font-size: 1rem;
-      line-height: 1.75;
+      font-size: 0.95rem;
+      line-height: 1.7;
     }
   }
 
   .card-footer {
-    padding: 0 2rem 2rem;
+    padding: 0 1.5rem 1.5rem;
     margin-top: auto;
   }
 
   .message-btn {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.65rem;
     background: linear-gradient(135deg, #ff7a85, #e85a6a);
     color: white;
     border: none;
     border-radius: 50px;
-    padding: 0.75rem 1.5rem;
+    padding: 0.65rem 1.25rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     width: 100%;
     justify-content: center;
     box-shadow: 0 4px 12px rgba(255, 122, 133, 0.3);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     position: relative;
     overflow: hidden;
 
@@ -347,113 +326,13 @@
     }
 
     i {
-      font-size: 0.95rem;
+      font-size: 0.85rem;
     }
 
     @media (min-width: 768px) {
-      padding: 0.875rem 1.75rem;
-      font-size: 0.95rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9rem;
     }
   }
 
-  .stories-cta {
-    margin-top: 4rem;
-    padding: 3rem 2rem;
-    background: linear-gradient(135deg, rgba(123, 104, 238, 0.05), rgba(155, 139, 255, 0.03));
-    border-radius: 24px;
-    text-align: center;
-    border: 2px solid rgba(123, 104, 238, 0.15);
-    position: relative;
-    overflow: hidden;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(135deg, #7b68ee, #ff7a85);
-    }
-
-    @media (min-width: 768px) {
-      padding: 3.5rem 2.5rem;
-      margin-top: 5rem;
-    }
-
-    .cta-text {
-      font-size: 1.1rem;
-      color: #2d3748;
-      margin-bottom: 1.75rem;
-      line-height: 1.75;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-
-      @media (min-width: 768px) {
-        font-size: 1.2rem;
-        margin-bottom: 2rem;
-      }
-
-      strong {
-        color: #7b68ee;
-        font-weight: 700;
-        background: linear-gradient(135deg, #7b68ee, #6b5bce);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-    }
-
-    .cta-btn {
-      background: linear-gradient(135deg, #ff7a85, #e85a6a);
-      color: white;
-      border: none;
-      border-radius: 50px;
-      padding: 1rem 2.5rem;
-      font-weight: 600;
-      font-size: 1.05rem;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      box-shadow: 0 4px 16px rgba(255, 122, 133, 0.35);
-      position: relative;
-      overflow: hidden;
-
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: left 0.5s ease;
-      }
-
-      &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 24px rgba(255, 122, 133, 0.45);
-
-        &::before {
-          left: 100%;
-        }
-      }
-
-      &:active {
-        transform: translateY(-1px);
-      }
-
-      i {
-        font-size: 1.1rem;
-      }
-
-      @media (min-width: 768px) {
-        padding: 1.125rem 3rem;
-        font-size: 1.1rem;
-      }
-    }
-  }
 }

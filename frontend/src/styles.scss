@@ -95,6 +95,21 @@ h4 {
   font-weight: 600;
 }
 
+.section-title--primary {
+  font-size: clamp(1.85rem, 4vw, 2.5rem);
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1rem;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #7b68ee, #6b5bce);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  width: 100%;
+}
+
 body.text-normal,
 html.text-normal {
   font-size: 15px;
