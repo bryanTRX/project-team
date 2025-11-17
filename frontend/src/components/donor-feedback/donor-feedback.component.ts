@@ -7,7 +7,6 @@ interface DonorFeedback {
   name: string;
   amount: number;
   feedback: string;
-  impact: string;
   date: string;
   avatar: string;
   color: string;
@@ -17,7 +16,6 @@ interface CommunityFeature {
   icon: string;
   title: string;
   description: string;
-  extra?: string;
 }
 
 @Component({
@@ -42,7 +40,6 @@ export class DonorFeedbackComponent implements OnInit, AfterViewInit, OnDestroy 
       amount: 100,
       feedback:
         'Knowing that my monthly donation helps provide shelter and support to families in need gives me such peace of mind. I can see the real impact through the updates.',
-      impact: 'Helped 3 families find safe housing this month',
       date: '2 weeks ago',
       avatar: 'https://i.pravatar.cc/150?img=5',
       color: '#6B5BCE', // primary-dark
@@ -52,7 +49,6 @@ export class DonorFeedbackComponent implements OnInit, AfterViewInit, OnDestroy 
       amount: 50,
       feedback:
         "I've been donating for over a year now, and it's incredible to see how my contributions have helped children get back to school and mothers find employment.",
-      impact: "Supported 2 children's education and 1 job placement",
       date: '1 month ago',
       avatar: 'https://i.pravatar.cc/150?img=12',
       color: '#7B68EE', // primary
@@ -62,7 +58,6 @@ export class DonorFeedbackComponent implements OnInit, AfterViewInit, OnDestroy 
       amount: 25,
       feedback:
         'Even a small monthly donation makes a difference! I love receiving updates about how my contribution is being used to help real people in my community.',
-      impact: 'Provided emergency assistance to 1 family',
       date: '3 weeks ago',
       avatar: 'https://i.pravatar.cc/150?img=47',
       color: '#E85A6A', // secondary-dark
@@ -72,7 +67,6 @@ export class DonorFeedbackComponent implements OnInit, AfterViewInit, OnDestroy 
       amount: 100,
       feedback:
         'The transparency and regular updates make me confident that my donations are making a real difference. Keep up the amazing work!',
-      impact: 'Funded counseling services for 4 individuals',
       date: '1 week ago',
       avatar: 'https://i.pravatar.cc/150?img=33',
       color: '#6B5BCE', // primary-dark
@@ -82,7 +76,6 @@ export class DonorFeedbackComponent implements OnInit, AfterViewInit, OnDestroy 
       amount: 50,
       feedback:
         "I started donating after learning about the organization's work. It's been wonderful to see the positive changes happening in people's lives.",
-      impact: 'Assisted 2 families with legal support',
       date: '2 months ago',
       avatar: 'https://i.pravatar.cc/150?img=20',
       color: '#9B8BFF', // primary-light
@@ -92,7 +85,6 @@ export class DonorFeedbackComponent implements OnInit, AfterViewInit, OnDestroy 
       amount: 100,
       feedback:
         "My donation is one of the best investments I've made. Knowing I'm helping people rebuild their lives is incredibly rewarding.",
-      impact: 'Enabled 3 months of shelter support',
       date: '3 weeks ago',
       avatar: 'https://i.pravatar.cc/150?img=15',
       color: '#7B68EE', // primary
@@ -136,10 +128,6 @@ export class DonorFeedbackComponent implements OnInit, AfterViewInit, OnDestroy 
     );
   }
 
-  getImpactLabel(): string {
-    return this.languageService.getTranslation('impact') || 'Impact';
-  }
-
   formatNumber(value: number): string {
     return value.toLocaleString();
   }
@@ -152,25 +140,21 @@ export class DonorFeedbackComponent implements OnInit, AfterViewInit, OnDestroy 
     this.communityFeatures = [
       {
         icon: 'trophy',
-        title: this.languageService.getTranslation('milestone') || 'Milestone',
+        title: 'Milestone',
         description:
-          this.languageService.getTranslation('see_donations_making_difference') ||
-          'See how your donations are making a difference',
+          'Track your giving streaks, unlock badges, and see milestones at a glance with shout-outs and progress highlights.',
       },
       {
         icon: 'share-alt',
-        title: this.languageService.getTranslation('our_impact') || 'Our Impact',
+        title: 'Our Impact',
         description:
-          this.languageService.getTranslation('support_creates_ripples') ||
-          'Your support creates ripples of change.',
+          'Get a monthly impact look showing exactly where your gifts made change, with personalized stories and quick stats.',
       },
       {
         icon: 'users',
-        title: this.languageService.getTranslation('community_forum') || 'Community Forum',
+        title: 'Community Forum',
         description:
-          this.languageService.getTranslation('connect_with_supporters') ||
-          'Connect with fellow supporters and share impact stories',
-        extra: `15,000+ ${this.getDonorStatLabel()}`,
+          'Join member-only chats and AMAs, swap tips with peers, and be first to grab volunteer spots and local meetups.',
       },
     ];
   }

@@ -31,6 +31,7 @@
 
 html {
   scroll-behavior: smooth;
+  overscroll-behavior: none; // Prevent rubber-banding bounce on edges
 }
 
 body {
@@ -49,6 +50,8 @@ body {
   font-size: 15px;
   margin: 0;
   padding: 0;
+  overscroll-behavior: none;
+  overflow-x: hidden; // Avoid horizontal bounce/white gaps on overscroll
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
