@@ -210,7 +210,7 @@ export class LanguageService {
       de: 'Schließen Sie sich der Bewegung an',
     },
     hero_subtitle_long: {
-      en: "Families here are rebuilding their futures. Your gift opens safe doors, steadies their footing, and lets children feel like kids again. Join thousands turning compassion into real change today.",
+      en: 'Families here are rebuilding their futures. Your gift opens safe doors, steadies their footing, and lets children feel like kids again. Join thousands turning compassion into real change today.',
       fr: "Ici, des familles reconstruisent leur avenir. Votre don ouvre des portes sûres, stabilise leurs pas et permet aux enfants de redevenir des enfants. Rejoignez les milliers de personnes qui transforment la compassion en véritable changement aujourd'hui.",
       es: 'Aquí, las familias están reconstruyendo su futuro. Tu donación abre puertas seguras, les da estabilidad y permite que los niños vuelvan a sentirse niños. Únete a los miles que convierten la compasión en un cambio real hoy.',
       ar: 'هنا تعيد العائلات بناء مستقبلها. تبرعك يفتح أبواباً آمنة، يثبت خطاهم، ويتيح للأطفال أن يشعروا بأنهم أطفال من جديد. انضم إلى الآلاف الذين يحولون التعاطف إلى تغيير حقيقي اليوم.',
