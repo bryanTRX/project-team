@@ -50,28 +50,6 @@ export class AuthService {
     return stored ? (JSON.parse(stored) as UserProfile) : null;
   }
 
-  async sendDonationReceipt(amount: number): Promise<any> {
-    const user = this.getCurrentUser();
-    if (!user) {
-      throw new Error('User must be logged in to request donation receipt.');
-    }
-    const identifier: any = {};
-    if (user.username) {
-      identifier.username = user.username;
-    } else if (user.email) {
-      identifier.email = user.email;
-    }
-    try {
-  const url = `${this.apiBase}/donations`;
-  const body = { ...identifier, amount, lang: this.languageService.getCurrentLanguage() };
-      const resp = await firstValueFrom(this.http.post<any>(url, body));
-      return resp;
-    } catch (err) {
-      console.error('Failed to send donation receipt request', err);
-      throw err;
-    }
-  }
-
   private getStoredUserId(user: UserProfile | null): string | null {
     if (!user) {
       return null;
@@ -137,30 +115,47 @@ export class AuthService {
     return !!this.getCurrentUser();
   }
 
-  async recordDonation(amount: number): Promise<UserProfile | null> {
+  async recordDonation(amount: number): Promise<{
+    user: UserProfile | null;
+    emailPreviewUrl: string | null;
+    emailResult?: any;
+  }> {
     const user = this.getCurrentUser();
-    const userId = this.getStoredUserId(user);
-    if (!user || !userId) {
+    if (!user) {
       throw new Error('User must be logged in to record a donation.');
     }
     if (!Number.isFinite(amount) || amount <= 0) {
       throw new Error('Donation amount must be greater than zero.');
     }
 
+    const identifier: any = {};
+    if (user.username) {
+      identifier.username = user.username;
+    } else if (user.email) {
+      identifier.email = user.email;
+    }
+
     try {
-      const url = `${this.apiBase}/users/${userId}/donations`;
-      const body = { amount };
-      const updated = await firstValueFrom(this.http.post<UserProfile>(url, body));
-      if (updated) {
-        console.log('Donation recorded - Updated user:', {
-          totalDonated: updated.totalDonated,
-          lives_touched: (updated as any).lives_touched,
-          previousLivesTouched: (user as any).lives_touched,
-        });
-        this.persistUser(updated);
-        return updated;
+      const url = `${this.apiBase}/donations`;
+      const body = {
+        ...identifier,
+        amount,
+        lang: this.languageService.getCurrentLanguage(),
+      };
+      const resp = await firstValueFrom(
+        this.http.post<{ user: UserProfile; emailPreviewUrl: string | null; emailResult?: any }>(
+          url,
+          body,
+        ),
+      );
+      if (resp?.user) {
+        this.persistUser(resp.user);
       }
-      return null;
+      return {
+        user: resp?.user ?? null,
+        emailPreviewUrl: resp?.emailPreviewUrl ?? resp?.emailResult?.previewUrl ?? null,
+        emailResult: resp?.emailResult,
+      };
     } catch (err) {
       console.error('Failed to record donation', err);
       throw err;

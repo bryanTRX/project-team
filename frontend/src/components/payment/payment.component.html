@@ -349,7 +349,7 @@
                 type="button"
                 *ngFor="let option of donationOptions"
                 (click)="selectDonationAmount(option)"
-                [class.active]="donationAmount === option"
+                [class.active]="selectedAmount === option"
               >
                 {{ option | currency: 'USD' : 'symbol' : '1.0-0' }}
               </button>

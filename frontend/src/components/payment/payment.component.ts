@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -19,6 +19,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   donationOptions: number[] = [100, 250, 500, 1000];
   donationAmount: number = this.donationOptions[0];
   customAmount: string = '';
+  selectedAmount: number | null = this.donationOptions[0];
   recurringOption: string = 'one-time';
   currentLanguage: string = 'en';
   private languageSubscription?: Subscription;
@@ -102,7 +103,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
     public languageService: LanguageService,
     private authService: AuthService,
     private accessibilityService: AccessibilityService,
-    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -116,13 +116,13 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
     if (savedAmount) {
       this.donationAmount = parseFloat(savedAmount);
-      if (!this.donationOptions.includes(this.donationAmount)) {
-        this.customAmount = savedAmount;
-      } else {
-        this.customAmount = '';
-      }
+      const matchesPreset = this.donationOptions.includes(this.donationAmount);
+      this.selectedAmount = matchesPreset ? this.donationAmount : null;
+      this.customAmount = matchesPreset ? '' : savedAmount;
     } else {
-      this.customAmount = this.donationAmount.toString();
+      this.customAmount = '';
+      this.selectedAmount = this.donationAmount;
+      this.persistDonationAmount();
     }
     if (savedRecurring) {
       this.recurringOption = savedRecurring;
@@ -177,23 +177,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.isProcessing = true;
     try {
       if (this.isAuthenticated) {
-        // Record donation first and show success immediately so UI feels responsive.
-        await this.authService.recordDonation(this.donationAmount);
+        // Record donation and capture the receipt preview link in one step.
+        const result = await this.authService.recordDonation(this.donationAmount);
+        this.emailPreviewUrl = result?.emailPreviewUrl ?? null;
         this.showSuccess = true;
-
-        // Send donation receipt in background (don't block the UI). When it
-        // completes we'll populate emailPreviewUrl so the user can open it.
-        this.authService
-          .sendDonationReceipt(this.donationAmount)
-          .then((resp) => {
-            this.emailPreviewUrl = resp?.emailPreviewUrl ?? resp?.emailResult?.previewUrl ?? null;
-            try {
-              this.cd.detectChanges();
-            } catch (_) {}
-          })
-          .catch((e) => {
-            console.warn('Donation receipt preview not available', e);
-          });
       }
 
       console.log('Processing payment:', {
@@ -368,6 +355,8 @@ export class PaymentComponent implements OnInit, OnDestroy {
     const parsedAmount = parseFloat(this.customAmount);
     if (!isNaN(parsedAmount) && parsedAmount > 0) {
       this.donationAmount = parsedAmount;
+      this.selectedAmount = null;
+      this.persistDonationAmount();
     } else {
       this.donationAmount = 0;
     }
@@ -395,7 +384,9 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   selectDonationAmount(amount: number): void {
     this.donationAmount = amount;
-    this.customAmount = amount.toString();
+    this.selectedAmount = amount;
+    this.customAmount = '';
+    this.persistDonationAmount();
   }
 
   selectFrequency(value: string): void {
@@ -405,6 +396,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   selectPaymentMethod(method: string): void {
     this.selectedPaymentMethod = method;
+  }
+
+  private persistDonationAmount(): void {
+    localStorage.setItem('donationAmount', this.donationAmount.toString());
   }
 
   redirectToDashboard(): void {
