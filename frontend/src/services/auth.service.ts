@@ -11,7 +11,7 @@ export interface UserProfile {
   name: string;
   totalDonated: number;
   goal: number;
-  familiesHelped: number;
+  lives_touched: number;
   donationsRequiredForTier: number;
   
   email: string;
@@ -154,8 +154,8 @@ export class AuthService {
       if (updated) {
         console.log('Donation recorded - Updated user:', {
           totalDonated: updated.totalDonated,
-          familiesHelped: (updated as any).familiesHelped,
-          previousFamiliesHelped: (user as any).familiesHelped,
+          lives_touched: (updated as any).lives_touched,
+          previousLivesTouched: (user as any).lives_touched,
         });
         this.persistUser(updated);
         return updated;

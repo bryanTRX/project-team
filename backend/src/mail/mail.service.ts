@@ -47,7 +47,7 @@ export class MailService implements OnModuleInit {
     userName: string,
     amount: number,
     totalDonated?: number,
-    familiesHelped?: number,
+    lives_touched?: number,
     lang?: string,
   ) {
     const locale = lang || 'en';
@@ -115,10 +115,10 @@ export class MailService implements OnModuleInit {
     const logoPath = path.resolve(__dirname, '..', '..', '..', 'frontend', 'src', 'assets', 'images', 'logos', 'favicon.jpg');
 
   const formattedTotal = typeof totalDonated === 'number' ? `$${totalDonated.toLocaleString()}` : '—';
-  const formattedFamilies = typeof familiesHelped === 'number' ? `${familiesHelped}` : '—';
+  const formattedLives = typeof lives_touched === 'number' ? `${lives_touched}` : '—';
     // Compute progress toward next badge using internal tier thresholds so
     // we don't depend on a per-user `donationsRequiredForTier` field.
-    const tiers = [100, 250, 500, 1000, 2500, 5000, 10000];
+    const tiers = [1000, 5000];
     let progressPercent: number | null = null;
     if (typeof totalDonated === 'number') {
       const nextTier = tiers.find((t) => totalDonated < t) || null;
@@ -149,7 +149,7 @@ export class MailService implements OnModuleInit {
               </div>
               <div style="flex:1; padding:14px; border:1px solid #f0eaff; border-radius:8px; text-align:center; background:#fbf7ff;">
                 <div style="font-size:12px; color:#6b4fa3;">${t('peopleHelpedLabel')}</div>
-                <div style="font-weight:700; font-size:20px; margin-top:8px; color:#4b2c83;">${formattedFamilies}</div>
+                <div style="font-weight:700; font-size:20px; margin-top:8px; color:#4b2c83;">${formattedLives}</div>
               </div>
             </div>
 

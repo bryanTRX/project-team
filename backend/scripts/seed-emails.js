@@ -18,7 +18,7 @@ async function main() {
     password: { type: String, required: true },
     name: String,
     totalDonated: Number,
-    familiesHelped: Number,
+    lives_touched: Number,
     goal: Number,
     
   });
@@ -26,9 +26,9 @@ async function main() {
   const User = mongoose.models.User || mongoose.model('User', userSchema);
 
   const demo = [
-  { username: 'alexandre.d', email: 'alexandre.desmarais@example.com', password: 'demo1', name: 'Alexandre Desmarais', totalDonated: 95, familiesHelped: 2, goal: 1000 },
-  { username: 'maria.g', email: 'maria.gonzalez@example.com', password: 'demo2', name: 'Maria Gonzalez', totalDonated: 420, familiesHelped: 4, goal: 2500 },
-  { username: 'chen.w', email: 'chen.wei@example.com', password: 'demo3', name: 'Chen Wei', totalDonated: 1320, familiesHelped: 6, goal: 5000 },
+  { username: 'alexandre.d', email: 'alexandre.desmarais@example.com', password: 'demo1', name: 'Alexandre Desmarais', totalDonated: 95, lives_touched: 2, goal: 1000 },
+  { username: 'maria.g', email: 'maria.gonzalez@example.com', password: 'demo2', name: 'Maria Gonzalez', totalDonated: 420, lives_touched: 4, goal: 2500 },
+  { username: 'chen.w', email: 'chen.wei@example.com', password: 'demo3', name: 'Chen Wei', totalDonated: 1320, lives_touched: 6, goal: 5000 },
   ];
 
   for (const u of demo) {
